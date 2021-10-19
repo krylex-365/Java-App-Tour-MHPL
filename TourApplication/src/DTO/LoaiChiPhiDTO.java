@@ -5,10 +5,33 @@
  */
 package DTO;
 
-import java.util.ArrayList;
-
-
 public class LoaiChiPhiDTO {
-    private ArrayList<LoaiChiPhi> ds_lcp;
+    private String MaLoaiChiPhi;
+    private String TenLoai;
 
+    public LoaiChiPhiDTO() {
+    }
+
+    public LoaiChiPhiDTO(String MaLoaiChiPhi, String TenLoai) {
+        this.MaLoaiChiPhi = MaLoaiChiPhi;
+        this.TenLoai = TenLoai;
+    }
+
+    public String getMaLoaiChiPhi() {
+        return MaLoaiChiPhi;
+    }
+
+    public void setMaLoaiChiPhi(String MaLoaiChiPhi) {
+        this.MaLoaiChiPhi = MaLoaiChiPhi;
+    }
+
+    public String getTenLoai() {
+        return TenLoai;
+    }
+
+    public void setTenLoai(String TenLoai) {
+        this.TenLoai = TenLoai;
+    }
+    
+    
 }

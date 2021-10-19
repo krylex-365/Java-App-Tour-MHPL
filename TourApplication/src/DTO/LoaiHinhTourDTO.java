@@ -5,10 +5,32 @@
  */
 package DTO;
 
-import java.util.ArrayList;
-
-
 public class LoaiHinhTourDTO {
-  private ArrayList<LoaiHinhTour> ds_loaitour;
-  
+    private String MaLoai;
+    private String TenLoai;
+
+    public LoaiHinhTourDTO() {
+    }
+
+    public LoaiHinhTourDTO(String MaLoai, String TenLoai) {
+        this.MaLoai = MaLoai;
+        this.TenLoai = TenLoai;
+    }
+
+    public String getMaLoai() {
+        return MaLoai;
+    }
+
+    public void setMaLoai(String MaLoai) {
+        this.MaLoai = MaLoai;
+    }
+
+    public String getTenLoai() {
+        return TenLoai;
+    }
+
+    public void setTenLoai(String TenLoai) {
+        this.TenLoai = TenLoai;
+    }
+    
 }

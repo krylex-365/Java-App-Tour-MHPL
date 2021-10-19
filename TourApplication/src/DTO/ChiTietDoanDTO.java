@@ -5,9 +5,33 @@
  */
 package DTO;
 
-import java.util.ArrayList;
-
 public class ChiTietDoanDTO {
 
-    private ArrayList<ChiTietDoan> ds_ctd;
+    private String MaDoan;
+    private String MaKhachHang;
+
+    public ChiTietDoanDTO() {
+    }
+
+    public ChiTietDoanDTO(String MaDoan, String MaKhachHang) {
+        this.MaDoan = MaDoan;
+        this.MaKhachHang = MaKhachHang;
+    }
+
+    public String getMaDoan() {
+        return MaDoan;
+    }
+
+    public void setMaDoan(String MaDoan) {
+        this.MaDoan = MaDoan;
+    }
+
+    public String getMaKhachHang() {
+        return MaKhachHang;
+    }
+
+    public void setMaKhachHang(String MaKhachHang) {
+        this.MaKhachHang = MaKhachHang;
+    }
+
 }

@@ -5,15 +5,16 @@
  */
 package DTO;
 
-public class NhiemVuNhanVien {
+public class NhiemVuNhanVienDTO {
+
     private String MaNhanVien;
     private String MaDoan;
     private String TenNhiemVu;
 
-    public NhiemVuNhanVien() {
+    public NhiemVuNhanVienDTO() {
     }
 
-    public NhiemVuNhanVien(String MaNhanVien, String MaDoan, String TenNhiemVu) {
+    public NhiemVuNhanVienDTO(String MaNhanVien, String MaDoan, String TenNhiemVu) {
         this.MaNhanVien = MaNhanVien;
         this.MaDoan = MaDoan;
         this.TenNhiemVu = TenNhiemVu;
@@ -42,5 +43,5 @@ public class NhiemVuNhanVien {
     public void setTenNhiemVu(String TenNhiemVu) {
         this.TenNhiemVu = TenNhiemVu;
     }
-    
+
 }

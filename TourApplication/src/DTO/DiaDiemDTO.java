@@ -5,9 +5,33 @@
  */
 package DTO;
 
-import java.util.ArrayList;
-
 public class DiaDiemDTO {
 
-    private ArrayList<DiaDiem> dsdd;
+    private String MaDiaDiem;
+    private String TenDiaDiem;
+
+    public DiaDiemDTO() {
+    }
+
+    public DiaDiemDTO(String MaDiaDiem, String TenDiaDiem) {
+        this.MaDiaDiem = MaDiaDiem;
+        this.TenDiaDiem = TenDiaDiem;
+    }
+
+    public String getMaDiaDiem() {
+        return MaDiaDiem;
+    }
+
+    public void setMaDiaDiem(String MaDiaDiem) {
+        this.MaDiaDiem = MaDiaDiem;
+    }
+
+    public String getTenDiaDiem() {
+        return TenDiaDiem;
+    }
+
+    public void setTenDiaDiem(String TenDiaDiem) {
+        this.TenDiaDiem = TenDiaDiem;
+    }
+
 }
