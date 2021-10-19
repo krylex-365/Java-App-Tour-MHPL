@@ -5,10 +5,10 @@
  */
 package DTO;
 
-/**
- *
- * @author User
- */
-public class NewClass {
-    
+import java.util.ArrayList;
+
+
+public class GiaTourDTO {
+    private ArrayList<GiaTour> ds_giatour;
+
 }
