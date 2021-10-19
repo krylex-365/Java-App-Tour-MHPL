@@ -15,11 +15,11 @@ import java.util.ArrayList;
  *
  * @author minhk
  */
-public class DiDiemThamQuanDAO {
+public class DiaDiemThamQuanDAO {
     Connect conn;
     
 
-    public DiDiemThamQuanDAO() {
+    public DiaDiemThamQuanDAO() {
         
     }
     
@@ -27,7 +27,7 @@ public class DiDiemThamQuanDAO {
         ArrayList<DiaDiemThamQuanDTO> dsDiaDiemThamQuan = new ArrayList<DiaDiemThamQuanDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from DiaDiemThanQuan";
+        String query = "select * from DiaDiemThamQuan";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

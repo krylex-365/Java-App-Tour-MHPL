@@ -13,12 +13,12 @@ public class DoanDuLichDTO {
     private String maDoan;
     private String maTour;
     private String tenDoan;
-    private float giaTour;
+    private String giaTour;
     private String ngayKhoiHanh;
     private String ngayKetThuc;
     private String chiTietNoiDung;
 
-    public DoanDuLichDTO(String maDoan, String maTour, String tenDoan, float giaTour, String ngayKhoiHanh, String ngayKetThuc, String chiTietNoiDung) {
+    public DoanDuLichDTO(String maDoan, String maTour, String tenDoan, String giaTour, String ngayKhoiHanh, String ngayKetThuc, String chiTietNoiDung) {
         this.maDoan = maDoan;
         this.maTour = maTour;
         this.tenDoan = tenDoan;
@@ -29,7 +29,6 @@ public class DoanDuLichDTO {
     }
 
     public DoanDuLichDTO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getMaDoan() {
@@ -56,11 +55,11 @@ public class DoanDuLichDTO {
         this.tenDoan = tenDoan;
     }
 
-    public float getGiaTour() {
+    public String getGiaTour() {
         return giaTour;
     }
 
-    public void setGiaTour(float giaTour) {
+    public void setGiaTour(String giaTour) {
         this.giaTour = giaTour;
     }
 
@@ -87,5 +86,12 @@ public class DoanDuLichDTO {
     public void setChiTietNoiDung(String chiTietNoiDung) {
         this.chiTietNoiDung = chiTietNoiDung;
     }
+
+    @Override
+    public String toString() {
+        return "DoanDuLichDTO{" + "maDoan=" + maDoan + ", maTour=" + maTour + ", tenDoan=" + tenDoan + ", giaTour=" + giaTour + ", ngayKhoiHanh=" + ngayKhoiHanh + ", ngayKetThuc=" + ngayKetThuc + ", chiTietNoiDung=" + chiTietNoiDung + '}';
+    }
+    
+    
     
 }

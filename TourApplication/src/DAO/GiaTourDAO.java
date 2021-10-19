@@ -34,7 +34,7 @@ public class GiaTourDAO {
                 GiaTourDTO gt = new GiaTourDTO();
                 gt.setMaGia(conn.rs.getString(1));
                 gt.setMaTour(conn.rs.getString(2));
-                gt.setThanhTien(conn.rs.getFloat(3));
+                gt.setThanhTien(conn.rs.getString(3));
                 gt.setThoiGianBatDau(conn.rs.getString(4));
                 gt.setThoiGianKetThuc(conn.rs.getString(5));
                 dsGiaTour.add(gt);

@@ -20,7 +20,6 @@ public class KhachHangDTO {
     private String quocTich;
 
     public KhachHangDTO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getMaKhachHang() {
@@ -97,4 +96,11 @@ public class KhachHangDTO {
         this.mail = mail;
         this.quocTich = quocTich;
     }
+
+    @Override
+    public String toString() {
+        return "KhachHangDTO{" + "maKhachHang=" + maKhachHang + ", tenKhachHang=" + tenKhachHang + ", cmnd=" + cmnd + ", diaChi=" + diaChi + ", gioiTinh=" + gioiTinh + ", sdt=" + sdt + ", mail=" + mail + ", quocTich=" + quocTich + '}';
+    }
+    
+    
 }   

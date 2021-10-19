@@ -14,7 +14,6 @@ public class LoaiHinhTourDTO {
     private String tenLoai;
 
     public LoaiHinhTourDTO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getMaLoai() {
@@ -37,4 +36,11 @@ public class LoaiHinhTourDTO {
         this.maLoai = maLoai;
         this.tenLoai = tenLoai;
     }
+
+    @Override
+    public String toString() {
+        return "LoaiHinhTourDTO{" + "maLoai=" + maLoai + ", tenLoai=" + tenLoai + '}';
+    }
+    
+    
 }

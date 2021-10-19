@@ -34,7 +34,7 @@ public class ChiPhiDAO {
                 cp.setMaChiPhi(conn.rs.getString(1));
                 cp.setMaDoan(conn.rs.getString(2));
                 cp.setLoaiChiPhi(conn.rs.getString(3));
-                cp.setSoTien(conn.rs.getFloat(4));
+                cp.setSoTien(conn.rs.getString(4));
                 cp.setGhiChu(conn.rs.getString(5));
                 dsChiPhi.add(cp);
             }

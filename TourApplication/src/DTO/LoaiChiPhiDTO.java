@@ -14,7 +14,6 @@ public class LoaiChiPhiDTO {
     private String tenLoai;
 
     public LoaiChiPhiDTO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getMaLoaiChiPhi() {
@@ -37,4 +36,11 @@ public class LoaiChiPhiDTO {
         this.maLoaiChiPhi = maLoaiChiPhi;
         this.tenLoai = tenLoai;
     }
+
+    @Override
+    public String toString() {
+        return "LoaiChiPhiDTO{" + "maLoaiChiPhi=" + maLoaiChiPhi + ", tenLoai=" + tenLoai + '}';
+    }
+    
+    
 }

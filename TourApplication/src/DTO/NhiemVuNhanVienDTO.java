@@ -47,4 +47,11 @@ public class NhiemVuNhanVienDTO {
         this.maDoan = maDoan;
         this.tenNhiemVu = tenNhiemVu;
     }
+
+    @Override
+    public String toString() {
+        return "NhiemVuNhanVienDTO{" + "maNhanVien=" + maNhanVien + ", maDoan=" + maDoan + ", tenNhiemVu=" + tenNhiemVu + '}';
+    }
+    
+    
 }

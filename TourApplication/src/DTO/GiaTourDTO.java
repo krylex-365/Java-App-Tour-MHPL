@@ -12,12 +12,11 @@ package DTO;
 public class GiaTourDTO {
     private String maGia;
     private String maTour;
-    private float thanhTien;
+    private String thanhTien;
     private String thoiGianBatDau;
     private String thoiGianKetThuc;
 
     public GiaTourDTO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getMaGia() {
@@ -36,11 +35,11 @@ public class GiaTourDTO {
         this.maTour = maTour;
     }
 
-    public float getThanhTien() {
+    public String getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(float thanhTien) {
+    public void setThanhTien(String thanhTien) {
         this.thanhTien = thanhTien;
     }
 
@@ -60,11 +59,18 @@ public class GiaTourDTO {
         this.thoiGianKetThuc = thoiGianKetThuc;
     }
 
-    public GiaTourDTO(String giaTour, String maTour, float thanhTien, String thoiGianBatDau, String thoiGianKetThuc) {
+    public GiaTourDTO(String giaTour, String maTour, String thanhTien, String thoiGianBatDau, String thoiGianKetThuc) {
         this.maGia = giaTour;
         this.maTour = maTour;
         this.thanhTien = thanhTien;
         this.thoiGianBatDau = thoiGianBatDau;
         this.thoiGianKetThuc = thoiGianKetThuc;
     }
+
+    @Override
+    public String toString() {
+        return "GiaTourDTO{" + "maGia=" + maGia + ", maTour=" + maTour + ", thanhTien=" + thanhTien + ", thoiGianBatDau=" + thoiGianBatDau + ", thoiGianKetThuc=" + thoiGianKetThuc + '}';
+    }
+    
+    
 }

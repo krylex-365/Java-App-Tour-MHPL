@@ -25,6 +25,11 @@ public class ChiTietDoanDTO {
         return maDoan;
     }
 
+    @Override
+    public String toString() {
+        return "ChiTietDoanDTO{" + "maDoan=" + maDoan + ", maKhachHang=" + maKhachHang + '}';
+    }
+
     public void setMaDoan(String maDoan) {
         this.maDoan = maDoan;
     }

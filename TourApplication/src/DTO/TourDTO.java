@@ -23,7 +23,6 @@ public class TourDTO {
     }
 
     public TourDTO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getMaTour() {
@@ -57,4 +56,11 @@ public class TourDTO {
     public void setDacDiem(String dacDiem) {
         this.dacDiem = dacDiem;
     }
+
+    @Override
+    public String toString() {
+        return "TourDTO{" + "maTour=" + maTour + ", maLoai=" + maLoai + ", tenTour=" + tenTour + ", dacDiem=" + dacDiem + '}';
+    }
+    
+    
 }

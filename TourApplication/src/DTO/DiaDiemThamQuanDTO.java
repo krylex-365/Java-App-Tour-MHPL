@@ -46,4 +46,10 @@ public class DiaDiemThamQuanDTO {
         this.maDiaDiem = maDiaDiem;
         this.thuTu = thuTu;
     }
+
+    @Override
+    public String toString() {
+        return "DiaDiemThamQuanDTO{" + "maTour=" + maTour + ", maDiaDiem=" + maDiaDiem + ", thuTu=" + thuTu + '}';
+    }
+    
 }

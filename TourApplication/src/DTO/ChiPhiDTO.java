@@ -13,7 +13,7 @@ public class ChiPhiDTO {
     private String maChiPhi;
     private String maDoan;
     private String loaiChiPhi;
-    private float soTien;
+    private String soTien;
     private String ghiChu;
 
     public ChiPhiDTO() {
@@ -44,11 +44,11 @@ public class ChiPhiDTO {
         this.loaiChiPhi = loaiChiPhi;
     }
 
-    public float getSoTien() {
+    public String getSoTien() {
         return soTien;
     }
 
-    public void setSoTien(float soTien) {
+    public void setSoTien(String soTien) {
         this.soTien = soTien;
     }
 
@@ -60,12 +60,17 @@ public class ChiPhiDTO {
         this.ghiChu = ghiChu;
     }
 
-    public ChiPhiDTO(String maChiPhi, String maDoan, String loaiChiPhi, float soTien, String ghiChu) {
+    public ChiPhiDTO(String maChiPhi, String maDoan, String loaiChiPhi, String soTien, String ghiChu) {
         this.maChiPhi = maChiPhi;
         this.maDoan = maDoan;
         this.loaiChiPhi = loaiChiPhi;
         this.soTien = soTien;
         this.ghiChu = ghiChu;
+    }
+
+    @Override
+    public String toString() {
+        return "ChiPhiDTO{" + "maChiPhi=" + maChiPhi + ", maDoan=" + maDoan + ", loaiChiPhi=" + loaiChiPhi + ", soTien=" + soTien + ", ghiChu=" + ghiChu + '}';
     }
     
     

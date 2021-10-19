@@ -32,10 +32,10 @@ public class DoanDuLichDAO {
             conn.executeQuery(query);
             while (conn.rs.next()) {
                 DoanDuLichDTO ddl = new DoanDuLichDTO();
-                ddl.setMaDoan(conn.rs.getString(1));
+                //ddl.setMaDoan(conn.rs.getString(1));
                 ddl.setMaTour(conn.rs.getString(2));
                 ddl.setTenDoan(conn.rs.getString(3));
-                ddl.setGiaTour(conn.rs.getFloat(4));
+                ddl.setGiaTour(conn.rs.getString(4));
                 ddl.setNgayKhoiHanh(conn.rs.getString(5));
                 ddl.setNgayKetThuc(conn.rs.getString(6));
                 ddl.setChiTietNoiDung(conn.rs.getString(7));
