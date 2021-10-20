@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 public class GiaTourDAO {
     Connect conn;
-    
 
     public GiaTourDAO() {
         
@@ -51,4 +50,25 @@ public class GiaTourDAO {
         return dsGiaTour;
     }
     
+    public boolean insertGiaTour(String MaGia, String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc){
+        conn.getConnection();
+        String query = "INSERT INTO GiaTour (MaGia,MaTour,ThanhTien,TgBatDau,TgKetThuc)"
+                + " VALUE ('" + MaGia + "','" + MaTour + "','" + ThanhTien + "','" + TgBatDau + "','" + TgKetThuc + "')";
+        if (conn.executeUpdate(query)){
+            conn.close ();
+            return true;
+        }
+        conn.close();
+        return false;
+    }
+    
+    public boolean updateGiaTour(){
+        // ...
+        return false;
+    }
+    
+    public boolean deleteGiaTour(){
+        // ...
+        return false;
+    }
 }

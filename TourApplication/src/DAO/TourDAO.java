@@ -17,14 +17,12 @@ import java.util.ArrayList;
  */
 public class TourDAO {
     Connect conn;
-    
+    ArrayList<TourDTO> dsTour = new ArrayList<TourDTO>();
 
     public TourDAO() {
-        
     }
     
     public ArrayList<TourDTO> getList(){
-        ArrayList<TourDTO> dsTour = new ArrayList<TourDTO>();
         conn = new Connect();
         conn.getConnection();
         String query = "select * from Tour";
@@ -49,5 +47,34 @@ public class TourDAO {
         }
         return dsTour;
     }
+
+    public ArrayList<TourDTO> getDsTour() {
+        return dsTour;
+    }
+
+    public void setDsTour(ArrayList<TourDTO> dsTour) {
+        this.dsTour = dsTour;
+    }
     
+    public boolean insertTour(String MaTour, String MaLoai, String TenTour, String DacDiem){
+        conn.getConnection();
+        String query = "INSERT INTO Tour (MaTour,MaLoai,TenTour,DacDiem)"
+                + " VALUE ('" + MaTour + "','" + MaLoai + "','" + TenTour + "','" + DacDiem + "')";
+        if (conn.executeUpdate(query)){
+            conn.close ();
+            return true;
+        }
+        conn.close();
+        return false;
+    }
+    
+    public boolean updateTour(){
+        // ...
+        return false;
+    }
+    
+    public boolean deleteTour(){
+        // ...
+        return false;
+    }
 }
