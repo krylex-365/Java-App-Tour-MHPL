@@ -89,4 +89,8 @@ public class DoanDuLichDTO {
         this.ChiTietNoiDung = ChiTietNoiDung;
     }
 
+    @Override
+    public String toString() {
+        return "DoanDuLichDTO{" + "MaDoan=" + MaDoan + ", MaTour=" + MaTour + ", TenDoan=" + TenDoan + ", GiaTour=" + GiaTour + ", NgayKhoiHanh=" + NgayKhoiHanh + ", NgayKetThuc=" + NgayKetThuc + ", ChiTietNoiDung=" + ChiTietNoiDung + '}';
+    }
 }

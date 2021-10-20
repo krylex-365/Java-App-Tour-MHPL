@@ -33,4 +33,8 @@ public class LoaiHinhTourDTO {
         this.TenLoai = TenLoai;
     }
     
+    @Override
+    public String toString() {
+        return "LoaiHinhTourDTO{" + "MaLoai=" + MaLoai + ", TenLoai=" + TenLoai + '}';
+    }
 }

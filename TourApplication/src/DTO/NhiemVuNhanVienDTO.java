@@ -44,4 +44,8 @@ public class NhiemVuNhanVienDTO {
         this.TenNhiemVu = TenNhiemVu;
     }
 
+    @Override
+    public String toString() {
+        return "NhiemVuNhanVienDTO{" + "MaNhanVien=" + MaNhanVien + ", MaDoan=" + MaDoan + ", TenNhiemVu=" + TenNhiemVu + '}';
+    }
 }

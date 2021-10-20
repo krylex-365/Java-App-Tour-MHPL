@@ -33,5 +33,8 @@ public class LoaiChiPhiDTO {
         this.TenLoai = TenLoai;
     }
     
-    
+    @Override
+    public String toString() {
+        return "LoaiChiPhiDTO{" + "MaLoaiChiPhi=" + MaLoaiChiPhi + ", TenLoai=" + TenLoai + '}';
+    }
 }

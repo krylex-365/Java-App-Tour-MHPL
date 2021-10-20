@@ -56,4 +56,8 @@ public class NhanVienDTO {
         this.DiaChi = DiaChi;
     }
 
+    @Override
+    public String toString() {
+        return "NhanVienDTO{" + "MaNhanVien=" + MaNhanVien + ", TenNhanVien=" + TenNhanVien + ", SDT=" + SDT + ", DiaChi=" + DiaChi + '}';
+    } 
 }

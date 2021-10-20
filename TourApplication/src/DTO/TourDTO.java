@@ -54,4 +54,8 @@ public class TourDTO {
         this.DacDiem = DacDiem;
     }
 
+    @Override
+    public String toString() {
+        return "TourDTO{" + "MaTour=" + MaTour + ", MaLoai=" + MaLoai + ", tenTour=" + TenTour + ", dacDiem=" + DacDiem + '}';
+    }
 }

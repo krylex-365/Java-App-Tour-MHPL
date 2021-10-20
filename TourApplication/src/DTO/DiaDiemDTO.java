@@ -34,4 +34,8 @@ public class DiaDiemDTO {
         this.TenDiaDiem = TenDiaDiem;
     }
 
+    @Override
+    public String toString() {
+        return "DiaDiemDTO{" + "MaDiaDiem=" + MaDiaDiem + ", TenDiaDiem=" + TenDiaDiem + '}';
+    }
 }

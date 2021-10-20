@@ -64,4 +64,8 @@ public class GiaTourDTO {
         this.TgKetThuc = TgKetThuc;
     }
     
+    @Override
+    public String toString() {
+        return "GiaTourDTO{" + "MaGia=" + MaGia + ", MaTour=" + MaTour + ", ThanhTien=" + ThanhTien + ", ThoiGianBatDau=" + TgBatDau + ", ThoiGianKetThuc=" + TgKetThuc + '}';
+    }
 }

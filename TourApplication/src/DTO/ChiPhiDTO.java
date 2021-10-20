@@ -64,5 +64,8 @@ public class ChiPhiDTO {
         this.GhiChu = GhiChu;
     }
    
-   
+   @Override
+    public String toString() {
+        return "ChiPhiDTO{" + "MaChiPhi=" + MaChiPhi + ", MaDoan=" + MaDoan + ", MaLoaiChiPhi=" + MaLoaiChiPhi + ", SoTien=" + SoTien + ", GhiChu=" + GhiChu + '}';
+    }
 }

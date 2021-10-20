@@ -34,4 +34,8 @@ public class ChiTietDoanDTO {
         this.MaKhachHang = MaKhachHang;
     }
 
+    @Override
+    public String toString() {
+        return "ChiTietDoanDTO{" + "MaDoan=" + MaDoan + ", MaKhachHang=" + MaKhachHang + '}';
+    }
 }

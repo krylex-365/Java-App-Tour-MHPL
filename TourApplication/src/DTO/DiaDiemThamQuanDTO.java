@@ -44,5 +44,8 @@ public class DiaDiemThamQuanDTO {
         this.ThuTu = ThuTu;
     }
     
-    
+    @Override
+    public String toString() {
+        return "DiaDiemThamQuanDTO{" + "MaTour=" + MaTour + ", MaDiaDiem=" + MaDiaDiem + ", ThuTu=" + ThuTu + '}';
+    }
 }

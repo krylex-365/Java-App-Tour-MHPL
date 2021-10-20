@@ -96,4 +96,8 @@ public class KhachHangDTO {
         this.QuocTich = QuocTich;
     }
 
+    @Override
+    public String toString() {
+        return "KhachHangDTO{" + "MaKhachHang=" + MaKhachHang + ", TenKhachHang=" + TenKhachHang + ", CMND=" + CMND + ", DiaChi=" + DiaChi + ", GioiTinh=" + GioiTinh + ", SDT=" + SDT + ", Mail=" + Mail + ", QuocTich=" + QuocTich + '}';
+    }
 }
