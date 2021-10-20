@@ -32,7 +32,7 @@ public class NhanVienDAO {
                 NhanVienDTO nv = new NhanVienDTO();
                 nv.setMaNhanVien(conn.rs.getString(1));
                 nv.setTenNhanVien(conn.rs.getString(2));
-                nv.setSdt(conn.rs.getString(3));
+                nv.setSDT(conn.rs.getString(3));
                 nv.setDiaChi(conn.rs.getString(4));
                 dsNhanVien.add(nv);
             }

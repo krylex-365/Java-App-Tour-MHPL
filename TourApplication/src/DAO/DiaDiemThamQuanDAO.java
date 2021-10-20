@@ -34,7 +34,7 @@ public class DiaDiemThamQuanDAO {
                 DiaDiemThamQuanDTO ddtq = new DiaDiemThamQuanDTO();
                 ddtq.setMaTour(conn.rs.getString(1));
                 ddtq.setMaDiaDiem(conn.rs.getString(2));
-                ddtq.setThuTu(conn.rs.getString(3));
+                ddtq.setThuTu(conn.rs.getInt(3));
                 dsDiaDiemThamQuan.add(ddtq);
             }
         } catch (SQLException e) {

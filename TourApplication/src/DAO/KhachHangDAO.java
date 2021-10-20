@@ -34,10 +34,10 @@ public class KhachHangDAO {
                 KhachHangDTO kh = new KhachHangDTO();
                 kh.setMaKhachHang(conn.rs.getString(1));
                 kh.setTenKhachHang(conn.rs.getString(2));
-                kh.setCmnd(conn.rs.getString(3));
+                kh.setCMND(conn.rs.getString(3));
                 kh.setDiaChi(conn.rs.getString(4));
                 kh.setGioiTinh(conn.rs.getString(5));
-                kh.setSdt(conn.rs.getString(6));
+                kh.setSDT(conn.rs.getString(6));
                 kh.setMail(conn.rs.getString(7));
                 kh.setQuocTich(conn.rs.getString(8));
                 dsKhachHang.add(kh);
