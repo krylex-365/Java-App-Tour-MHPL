@@ -15,7 +15,7 @@ import java.sql.Statement;
  * @author minhk
  */
 public class Connect {
-    private static String dbURL = "jdbc:sqlserver://DESKTOP-QNMG31Q:1433;databaseName=TOURDULICH;user=SA;password=123456789;";
+    private static String dbURL = "jdbc:sqlserver://DESKTOP-V1C287J\\SQLEXPRESS01:1433;databaseName=TOURDULICH;user=sa;password=sa;";
     private Connection conn;
     Statement st;
     ResultSet rs;
