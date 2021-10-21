@@ -5,8 +5,6 @@
  */
 package DAO;
 
-import DTO.ChiPhiDTO;
-import DTO.NhanVienDTO;
 import DTO.TourDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -49,5 +47,17 @@ public class TourDAO {
         }
         return dsTour;
     }
-    
+
+    public boolean update(TourDTO tourDTO) {
+        String sql =    "update Tour\n" +
+                        "set TenTour = "+ tourDTO.getTenTour() + ",\n" +
+                        "    DacDiem = " + tourDTO.getDacDiem() + ",\n" +
+                        "    MaLoai = " + tourDTO.getMaLoai() + "\n" +
+                        "where MaTour = " + tourDTO.getMaTour();
+
+        conn = new Connect();
+        conn.getConn();
+        if(conn.executeUpdate(sql)) return true;
+        return false;
+    }
 }

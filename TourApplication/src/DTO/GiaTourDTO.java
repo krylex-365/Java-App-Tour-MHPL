@@ -15,8 +15,17 @@ public class GiaTourDTO {
     private String thanhTien;
     private String thoiGianBatDau;
     private String thoiGianKetThuc;
+    private int hienHanh;
 
     public GiaTourDTO() {
+    }
+
+    public int getHienHanh() {
+        return hienHanh;
+    }
+
+    public void setHienHanh(int hienHanh) {
+        this.hienHanh = hienHanh;
     }
 
     public String getMaGia() {
@@ -59,12 +68,13 @@ public class GiaTourDTO {
         this.thoiGianKetThuc = thoiGianKetThuc;
     }
 
-    public GiaTourDTO(String giaTour, String maTour, String thanhTien, String thoiGianBatDau, String thoiGianKetThuc) {
-        this.maGia = giaTour;
+    public GiaTourDTO(String maGia, String maTour, String thanhTien, String thoiGianBatDau, String thoiGianKetThuc, int hienHanh) {
+        this.maGia = maGia;
         this.maTour = maTour;
         this.thanhTien = thanhTien;
         this.thoiGianBatDau = thoiGianBatDau;
         this.thoiGianKetThuc = thoiGianKetThuc;
+        this.hienHanh = hienHanh;
     }
 
     @Override

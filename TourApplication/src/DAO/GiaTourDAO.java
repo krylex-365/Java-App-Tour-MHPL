@@ -50,5 +50,20 @@ public class GiaTourDAO {
         }
         return dsGiaTour;
     }
-    
+
+    public boolean updateGiaTour(String maGia, String maTour) {
+        //sua hien hanh thanh 1
+        //cac bang co ma tour khac sua thanh 0
+        String sql =    "UPDATE GiaTour     \n" +
+                        "SET HienHanh = 0   \n" +
+                        "WHERE MaTour = " + maTour + " and HienHanh = 1 ;\n" +
+                        "UPDATE GiaTour     \n" +
+                        "SET HienHanh = 1   \n" +
+                        "WHERE MaGia = " + maGia + " and MaTour = " + maTour;
+
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)) return true;
+        return false;
+    }
 }

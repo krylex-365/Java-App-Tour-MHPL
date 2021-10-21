@@ -23,6 +23,7 @@ create table GiaTour(
 	ThanhTien nvarchar(50),
 	TgBatDau date,
 	TgKetThuc date,
+	HienHanh int,
     Status int default 1
 );
 
@@ -30,6 +31,7 @@ create table DiaDiemThamQuan(
 	MaTour nvarchar(50) not null,
 	MaDiaDiem nvarchar(50) not null,
 	ThuTu int not null,
+    Status int default 1,
 	primary key (MaTour, MaDiaDiem, ThuTu)
 );
 
@@ -53,6 +55,7 @@ create table DoanDuLich(
 create table ChiTietDoan(
 	MaDoan nvarchar(50) not null,
 	MaKhachHang nvarchar(50) not null,
+    Status int default 1,
 	primary key (MaDoan, MaKhachHang)
 );
 
@@ -86,13 +89,9 @@ create table LoaiChiPhi(
 create table NhiemVuNhanVien(
 	MaNhanVien nvarchar(50) not null,
 	MaDoan nvarchar(50) not null,
-	TenNhiemVu nvarchar(50)
+	TenNhiemVu nvarchar(50),
+    Status int default 1
 );
-
--- Nhiệm vụ nhân viên (trung gian)
---mã nhân viên (khóa chính) (string)
---mã đoàn (khóa ngoại) (string)---------khoa chinh ngoai
---tên nhiệm vụ (string)
 
 create table NhanVien(
 	MaNhanVien nvarchar(50) primary key,
@@ -134,3 +133,4 @@ foreign key (MaTour) references Tour(MaTour);
 
 alter table Tour add constraint Fk_Tour_LoaiHinhTour
 foreign key (MaLoai) references LoaiHinhTour(MaLoai);
+
