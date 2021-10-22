@@ -37,6 +37,7 @@ public class GiaTourDAO {
                 gt.setThanhTien(conn.rs.getString(3));
                 gt.setThoiGianBatDau(conn.rs.getString(4));
                 gt.setThoiGianKetThuc(conn.rs.getString(5));
+                gt.setHienHanh(conn.rs.getInt(6));
                 dsGiaTour.add(gt);
             }
         } catch (SQLException e) {
