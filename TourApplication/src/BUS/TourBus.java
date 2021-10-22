@@ -7,7 +7,7 @@ package BUS;
 
 import DTO.TourDTO;
 import DAO.TourDAO;
-import DTO.GiaTourDTO;
+
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -23,24 +23,34 @@ public class TourBus {
         return tourDAO.getList();
     }
 
-    public boolean themTour(TourDTO tourDTO) {
-        for (int i = 0; i < tourDAO.getList().size(); i++) {
-            TourDTO tour = tourDAO.getList().get(i);
-            if (tour.getMaTour().compareTo(tourDTO.getMaTour()) == 0) {
-                JOptionPane.showMessageDialog(null, "Mã tour đã tồn tại -_-");
+    public boolean themTour(String MaTour, String MaLoai, String TenTour, String DacDiem) {
+        for (TourDTO tour : tourDAO.getList()) {
+            if (tour.getMaTour().equals(MaTour)) {
+                JOptionPane.showMessageDialog(null, "Mã tour" + tour.getMaTour() + " đã tồn tại!");
                 return false;
             }
-            tourDAO.insertTour(tourDTO.getMaTour(), tourDTO.getMaTour(), tourDTO.getTenTour(), tourDTO.getDacDiem());
-            docDanhSachTour().add(tour);
-
-            GiaTourDTO gtDTO = new GiaTourDTO();
-            GiaTourBus giatourBUS = new GiaTourBus();
-            if (tourDTO.getMaTour().equals(gtDTO.getMaTour())) {
-                giatourBUS.themGiaTour(gtDTO);
-            }
-
         }
-        return true;
+        TourDTO newtour = new TourDTO();
+        if (tourDAO.insertTour(MaTour, MaLoai, TenTour, DacDiem)) {
+
+            newtour.setMaLoai(MaLoai);
+            newtour.setMaTour(MaTour);
+            newtour.setTenTour(TenTour);
+            newtour.setDacDiem(DacDiem);
+            docDanhSachTour().add(newtour);
+            System.out.println("Thêm thành công");
+            tourDAO.updateTour();
+
+            GiaTourBus giatourBUS = new GiaTourBus();
+
+            if (giatourBUS.themGiaTour(MaTour, DacDiem, TenTour, TenTour)) {
+                return true;
+            }
+            return true;
+        } else {
+            System.out.println("Thêm thất bại");
+            return false;
+        }
 
     }
 }

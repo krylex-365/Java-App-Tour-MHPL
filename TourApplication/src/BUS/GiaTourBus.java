@@ -8,10 +8,12 @@ package BUS;
 import DAO.GiaTourDAO;
 import DTO.GiaTourDTO;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class GiaTourBus {
 
     private GiaTourDAO gtDAO;
+    private String MaGia;
 
     public GiaTourBus() {
         gtDAO = new GiaTourDAO();
@@ -21,19 +23,26 @@ public class GiaTourBus {
     public ArrayList<GiaTourDTO> docDanhSachGiaTour() {
         return gtDAO.getList();
     }
-    private String magia;
 
-    public boolean themGiaTour(GiaTourDTO giatourDTO) {
-        gtDAO.insertGiaTour(giatourDTO.getMaGia(), giatourDTO.getMaTour(), giatourDTO.getThanhTien(), giatourDTO.getTgBatDau(), giatourDTO.getTgKetThuc());
-        for (int i = 0; i < gtDAO.getList().size(); i++) {
-            magia = giatourDTO.getMaGia();
-            if (magia.equals(docDanhSachGiaTour().get(i).getMaGia())) {
-                docDanhSachGiaTour().add(giatourDTO);
-                return true;
-            }
-            return false;
+    public boolean themGiaTour(String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc) {
+        String Magia = MaGia;
+
+        GiaTourDTO newgia = new GiaTourDTO();
+        newgia.setMaGia(Magia);
+        newgia.setMaTour(MaTour);
+        newgia.setTgBatDau(TgBatDau);
+        newgia.setTgKetThuc(TgKetThuc);
+        newgia.setThanhTien(ThanhTien);
+
+        if (gtDAO.insertGiaTour(Magia, MaTour, ThanhTien, TgBatDau, TgKetThuc)) {
+            docDanhSachGiaTour().add(newgia);
+            System.out.println("Thêm thành công");
+            return true;
+        } else {
+            System.out.println("Thêm thất bại");
 
         }
-        return true;
+
+        return false;
     }
 }
