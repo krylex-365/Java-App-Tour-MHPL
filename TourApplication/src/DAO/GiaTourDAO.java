@@ -35,8 +35,8 @@ public class GiaTourDAO {
                 gt.setMaGia(conn.rs.getString(1));
                 gt.setMaTour(conn.rs.getString(2));
                 gt.setThanhTien(conn.rs.getString(3));
-                gt.setThoiGianBatDau(conn.rs.getString(4));
-                gt.setThoiGianKetThuc(conn.rs.getString(5));
+                gt.setTgBatDau(conn.rs.getString(4));
+                gt.setTgKetThuc(conn.rs.getString(5));
                 gt.setHienHanh(conn.rs.getInt(6));
                 dsGiaTour.add(gt);
             }
@@ -52,6 +52,18 @@ public class GiaTourDAO {
         return dsGiaTour;
     }
 
+    public boolean insertGiaTour(String MaGia, String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc, String HienHanh){
+        conn.getConnection();
+        String query = "INSERT INTO GiaTour (MaGia,MaTour,ThanhTien,TgBatDau,TgKetThuc,HienHanh)"
+                + " VALUE ('" + MaGia + "','" + MaTour + "','" + ThanhTien + "','" + TgBatDau + "','" + TgKetThuc + "','" + HienHanh + "')";
+        if (conn.executeUpdate(query)){
+            conn.close ();
+            return true;
+        }
+        conn.close();
+        return false;
+    }
+    
     public boolean updateGiaTour(String maGia, String maTour) {
         //sua hien hanh thanh 1
         //cac bang co ma tour khac sua thanh 0
