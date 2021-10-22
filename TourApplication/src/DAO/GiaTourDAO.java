@@ -16,14 +16,14 @@ import java.util.ArrayList;
  * @author minhk
  */
 public class GiaTourDAO {
+
     Connect conn;
-    
 
     public GiaTourDAO() {
-        
+
     }
-    
-    public ArrayList<GiaTourDTO> getList(){
+
+    public ArrayList<GiaTourDTO> getList() {
         ArrayList<GiaTourDTO> dsGiaTour = new ArrayList<GiaTourDTO>();
         conn = new Connect();
         conn.getConnection();
@@ -44,39 +44,45 @@ public class GiaTourDAO {
             System.out.println(e);
             System.out.println("GiaTourDAO.getList.executeQuery error.");
         }
-        try{
-        conn.getConn().close();
-        }catch (SQLException e){
+        try {
+            conn.getConn().close();
+        } catch (SQLException e) {
             System.out.println("GiaTourDAO.getList.close error.");
         }
         return dsGiaTour;
     }
 
-    public boolean insertGiaTour(String MaGia, String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc, String HienHanh){
+    public boolean insertGiaTour(GiaTourDTO giaTourDTO) {
+        conn = new Connect();
         conn.getConnection();
         String query = "INSERT INTO GiaTour (MaGia,MaTour,ThanhTien,TgBatDau,TgKetThuc,HienHanh)"
-                + " VALUE ('" + MaGia + "','" + MaTour + "','" + ThanhTien + "','" + TgBatDau + "','" + TgKetThuc + "','" + HienHanh + "')";
-        if (conn.executeUpdate(query)){
-            conn.close ();
+                + " VALUE ('" + giaTourDTO.getMaGia() + "','" + giaTourDTO.getMaTour()
+                + "','" + giaTourDTO.getThanhTien() + "','" + giaTourDTO.getTgBatDau()
+                + "','" + giaTourDTO.getTgKetThuc() + "','" + giaTourDTO.getHienHanh() + "')";
+        if (conn.executeUpdate(query)) {
+            conn.close();
             return true;
         }
         conn.close();
         return false;
     }
-    
-    public boolean updateGiaTour(String maGia, String maTour) {
+
+    public boolean updateHienHanh(String maGia, String maTour) {
         //sua hien hanh thanh 1
         //cac bang co ma tour khac sua thanh 0
-        String sql =    "UPDATE GiaTour     \n" +
-                        "SET HienHanh = 0   \n" +
-                        "WHERE MaTour = " + maTour + " and HienHanh = 1 ;\n" +
-                        "UPDATE GiaTour     \n" +
-                        "SET HienHanh = 1   \n" +
-                        "WHERE MaGia = " + maGia + " and MaTour = " + maTour;
-
         conn = new Connect();
         conn.getConnection();
-        if(conn.executeUpdate(sql)) return true;
+        String sql1 = "UPDATE GiaTour SET"
+                + " HienHanh=0"
+                + " WHERE MaTour='" + maTour + "' AND HienHanh=1";
+        String sql2 = "UPDATE GiaTour SET"
+                + " HienHanh=1"
+                + " WHERE MaGia='" + maGia + "' AND MaTour='" + maTour +"'";
+        if (conn.executeUpdate(sql1) && conn.executeUpdate(sql2)) {
+            conn.close();
+            return true;
+        }
+        conn.close();
         return false;
     }
 }

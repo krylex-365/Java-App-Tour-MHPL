@@ -14,14 +14,14 @@ import java.util.ArrayList;
  * @author minhk
  */
 public class TourDAO {
+
     Connect conn;
-    
 
     public TourDAO() {
-        
+
     }
-    
-    public ArrayList<TourDTO> getList(){
+
+    public ArrayList<TourDTO> getList() {
         ArrayList<TourDTO> dsTour = new ArrayList<TourDTO>();
         conn = new Connect();
         conn.getConnection();
@@ -40,24 +40,41 @@ public class TourDAO {
             System.out.println(e);
             System.out.println("ChiPhiDao.getList.executeQuery error.");
         }
-        try{
-        conn.getConn().close();
-        }catch (SQLException e){
+        try {
+            conn.getConn().close();
+        } catch (SQLException e) {
             System.out.println("ChiPhiDao.getList.close error.");
         }
         return dsTour;
     }
 
-    public boolean update(TourDTO tourDTO) {
-        String sql =    "update Tour\n" +
-                        "set TenTour = "+ tourDTO.getTenTour() + ",\n" +
-                        "    DacDiem = " + tourDTO.getDacDiem() + ",\n" +
-                        "    MaLoai = " + tourDTO.getMaLoai() + "\n" +
-                        "where MaTour = " + tourDTO.getMaTour();
-
+    public boolean insertTour(TourDTO tourDTO) {
         conn = new Connect();
-        conn.getConn();
-        if(conn.executeUpdate(sql)) return true;
+        conn.getConnection();
+        String query = "INSERT INTO Tour (MaTour,MaLoai,TenTour,DacDiem)"
+                + " VALUE ('" + tourDTO.getMaTour() + "','" + tourDTO.getMaLoai()
+                + "','" + tourDTO.getTenTour() + "','" + tourDTO.getDacDiem() + "')";
+        if (conn.executeUpdate(query)) {
+            conn.close();
+            return true;
+        }
+        conn.close();
+        return false;
+    }
+
+    public boolean updateTour(TourDTO tourDTO) {
+        conn = new Connect();
+        conn.getConnection();
+        String sql = "UPDATE Tour SET"
+                + " TenTour='" + tourDTO.getTenTour() + "',"
+                + " DacDiem='" + tourDTO.getDacDiem() + "',"
+                + " MaLoai='" + tourDTO.getMaLoai() + "'"
+                + " WHERE MaTour='" + tourDTO.getMaTour() + "'";
+        if (conn.executeUpdate(sql)) {
+            conn.close();
+            return true;
+        }
+        conn.close();
         return false;
     }
 }
