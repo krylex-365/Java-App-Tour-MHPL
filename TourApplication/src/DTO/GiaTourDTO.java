@@ -5,67 +5,82 @@
  */
 package DTO;
 
-
+/**
+ *
+ * @author minhk
+ */
 public class GiaTourDTO {
-    private String MaGia;
-    private String MaTour;
-    private String ThanhTien;
-    private String TgBatDau;
-    private String TgKetThuc;
+    private String maGia;
+    private String maTour;
+    private String thanhTien;
+    private String thoiGianBatDau;
+    private String thoiGianKetThuc;
+    private int hienHanh;
 
     public GiaTourDTO() {
     }
 
-    public GiaTourDTO(String MaGia, String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc) {
-        this.MaGia = MaGia;
-        this.MaTour = MaTour;
-        this.ThanhTien = ThanhTien;
-        this.TgBatDau = TgBatDau;
-        this.TgKetThuc = TgKetThuc;
+    public int getHienHanh() {
+        return hienHanh;
+    }
+
+    public void setHienHanh(int hienHanh) {
+        this.hienHanh = hienHanh;
     }
 
     public String getMaGia() {
-        return MaGia;
+        return maGia;
     }
 
-    public void setMaGia(String MaGia) {
-        this.MaGia = MaGia;
+    public void setMaGia(String giaTour) {
+        this.maGia = giaTour;
     }
 
     public String getMaTour() {
-        return MaTour;
+        return maTour;
     }
 
-    public void setMaTour(String MaTour) {
-        this.MaTour = MaTour;
+    public void setMaTour(String maTour) {
+        this.maTour = maTour;
     }
 
     public String getThanhTien() {
-        return ThanhTien;
+        return thanhTien;
     }
 
-    public void setThanhTien(String ThanhTien) {
-        this.ThanhTien = ThanhTien;
+    public void setThanhTien(String thanhTien) {
+        this.thanhTien = thanhTien;
     }
 
-    public String getTgBatDau() {
-        return TgBatDau;
+    public String getThoiGianBatDau() {
+        return thoiGianBatDau;
     }
 
-    public void setTgBatDau(String TgBatDau) {
-        this.TgBatDau = TgBatDau;
+    public void setThoiGianBatDau(String thoiGianBatDau) {
+        this.thoiGianBatDau = thoiGianBatDau;
     }
 
-    public String getTgKetThuc() {
-        return TgKetThuc;
+    public String getThoiGianKetThuc() {
+        return thoiGianKetThuc;
     }
 
-    public void setTgKetThuc(String TgKetThuc) {
-        this.TgKetThuc = TgKetThuc;
+    public void setThoiGianKetThuc(String thoiGianKetThuc) {
+        this.thoiGianKetThuc = thoiGianKetThuc;
     }
-    
+
+    public GiaTourDTO(String maGia, String maTour, String thanhTien, String thoiGianBatDau, String thoiGianKetThuc, int hienHanh) {
+        this.maGia = maGia;
+        this.maTour = maTour;
+        this.thanhTien = thanhTien;
+        this.thoiGianBatDau = thoiGianBatDau;
+        this.thoiGianKetThuc = thoiGianKetThuc;
+        this.hienHanh = hienHanh;
+    }
+
     @Override
     public String toString() {
-        return "GiaTourDTO{" + "MaGia=" + MaGia + ", MaTour=" + MaTour + ", ThanhTien=" + ThanhTien + ", ThoiGianBatDau=" + TgBatDau + ", ThoiGianKetThuc=" + TgKetThuc + '}';
+        return "GiaTourDTO{" + "maGia=" + maGia + ", maTour=" + maTour + ", thanhTien=" + thanhTien + ", thoiGianBatDau=" + thoiGianBatDau + ", thoiGianKetThuc=" + thoiGianKetThuc + '}';
     }
+    
+    
 }

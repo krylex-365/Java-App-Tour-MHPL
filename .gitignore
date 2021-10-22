@@ -1,2 +1,7 @@
 /TourApplication/nbproject/private/
 /TourApplication/build/
+/out
+/.idea
+/jdbc
+/Java-App-Tour-MHPL.iml
+/TourApplication/src/DAO/Connect.java

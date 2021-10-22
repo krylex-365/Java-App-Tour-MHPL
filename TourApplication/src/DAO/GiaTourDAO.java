@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class GiaTourDAO {
     Connect conn;
+    
 
     public GiaTourDAO() {
         
@@ -34,8 +35,9 @@ public class GiaTourDAO {
                 gt.setMaGia(conn.rs.getString(1));
                 gt.setMaTour(conn.rs.getString(2));
                 gt.setThanhTien(conn.rs.getString(3));
-                gt.setTgBatDau(conn.rs.getString(4));
-                gt.setTgKetThuc(conn.rs.getString(5));
+                gt.setThoiGianBatDau(conn.rs.getString(4));
+                gt.setThoiGianKetThuc(conn.rs.getString(5));
+                gt.setHienHanh(conn.rs.getInt(6));
                 dsGiaTour.add(gt);
             }
         } catch (SQLException e) {
@@ -49,26 +51,20 @@ public class GiaTourDAO {
         }
         return dsGiaTour;
     }
-    
-    public boolean insertGiaTour(String MaGia, String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc){
+
+    public boolean updateGiaTour(String maGia, String maTour) {
+        //sua hien hanh thanh 1
+        //cac bang co ma tour khac sua thanh 0
+        String sql =    "UPDATE GiaTour     \n" +
+                        "SET HienHanh = 0   \n" +
+                        "WHERE MaTour = " + maTour + " and HienHanh = 1 ;\n" +
+                        "UPDATE GiaTour     \n" +
+                        "SET HienHanh = 1   \n" +
+                        "WHERE MaGia = " + maGia + " and MaTour = " + maTour;
+
+        conn = new Connect();
         conn.getConnection();
-        String query = "INSERT INTO GiaTour (MaGia,MaTour,ThanhTien,TgBatDau,TgKetThuc)"
-                + " VALUE ('" + MaGia + "','" + MaTour + "','" + ThanhTien + "','" + TgBatDau + "','" + TgKetThuc + "')";
-        if (conn.executeUpdate(query)){
-            conn.close ();
-            return true;
-        }
-        conn.close();
-        return false;
-    }
-    
-    public boolean updateGiaTour(){
-        // ...
-        return false;
-    }
-    
-    public boolean deleteGiaTour(){
-        // ...
+        if(conn.executeUpdate(sql)) return true;
         return false;
     }
 }

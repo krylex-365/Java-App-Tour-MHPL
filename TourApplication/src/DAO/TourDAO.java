@@ -5,8 +5,6 @@
  */
 package DAO;
 
-import DTO.ChiPhiDTO;
-import DTO.NhanVienDTO;
 import DTO.TourDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,12 +15,14 @@ import java.util.ArrayList;
  */
 public class TourDAO {
     Connect conn;
-    ArrayList<TourDTO> dsTour = new ArrayList<TourDTO>();
+    
 
     public TourDAO() {
+        
     }
     
     public ArrayList<TourDTO> getList(){
+        ArrayList<TourDTO> dsTour = new ArrayList<TourDTO>();
         conn = new Connect();
         conn.getConnection();
         String query = "select * from Tour";
@@ -48,33 +48,16 @@ public class TourDAO {
         return dsTour;
     }
 
-    public ArrayList<TourDTO> getDsTour() {
-        return dsTour;
-    }
+    public boolean update(TourDTO tourDTO) {
+        String sql =    "update Tour\n" +
+                        "set TenTour = "+ tourDTO.getTenTour() + ",\n" +
+                        "    DacDiem = " + tourDTO.getDacDiem() + ",\n" +
+                        "    MaLoai = " + tourDTO.getMaLoai() + "\n" +
+                        "where MaTour = " + tourDTO.getMaTour();
 
-    public void setDsTour(ArrayList<TourDTO> dsTour) {
-        this.dsTour = dsTour;
-    }
-    
-    public boolean insertTour(String MaTour, String MaLoai, String TenTour, String DacDiem){
-        conn.getConnection();
-        String query = "INSERT INTO Tour (MaTour,MaLoai,TenTour,DacDiem)"
-                + " VALUE ('" + MaTour + "','" + MaLoai + "','" + TenTour + "','" + DacDiem + "')";
-        if (conn.executeUpdate(query)){
-            conn.close ();
-            return true;
-        }
-        conn.close();
-        return false;
-    }
-    
-    public boolean updateTour(){
-        // ...
-        return false;
-    }
-    
-    public boolean deleteTour(){
-        // ...
+        conn = new Connect();
+        conn.getConn();
+        if(conn.executeUpdate(sql)) return true;
         return false;
     }
 }
