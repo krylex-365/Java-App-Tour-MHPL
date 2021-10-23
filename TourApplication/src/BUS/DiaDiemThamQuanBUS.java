@@ -42,7 +42,18 @@ public class DiaDiemThamQuanBUS {
     }
     
     public boolean delete(String maTour,String maDiaDiem,int thuTu){
-        if(diaDiemThamQuanDAO.delete(maTour, maDiaDiem, thuTu))return true;
+        if(diaDiemThamQuanDAO.delete(maTour, maDiaDiem, thuTu)){
+            System.out.println("hello");
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean deleteAll(String maTour){
+        if(diaDiemThamQuanDAO.deleteAll(maTour)){
+            System.out.println("hello");
+            return true;
+        }
         return false;
     }
     

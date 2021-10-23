@@ -15,6 +15,7 @@ import DTO.LoaiChiPhiDTO;
 import DTO.LoaiHinhTourDTO;
 import DTO.NhanVienDTO;
 import DTO.TourDTO;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,6 +29,21 @@ public class RunTest {
 //            System.out.println(a.toString());
 //        }
             DiaDiemThamQuanBUS bus = new DiaDiemThamQuanBUS();
-            bus.delete("0001", "0001", 5);
+            //bus.deleteAll("0001");
+            ArrayList<DiaDiemThamQuanDTO> a = new ArrayList<>();
+            DiaDiemThamQuanDTO temp = new DiaDiemThamQuanDTO("0001","0001",1);
+            a.add(temp);
+            DiaDiemThamQuanDTO temp1 = new DiaDiemThamQuanDTO("0001","0001",2);
+            a.add(temp1);
+            DiaDiemThamQuanDTO temp2 = new DiaDiemThamQuanDTO("0001","0001",3);
+            a.add(temp2);
+            DiaDiemThamQuanDTO temp3 = new DiaDiemThamQuanDTO("0001","0001",4);
+            a.add(temp3);
+            
+            bus.update(a);
+            
+            
+            
+            
     }
 }
