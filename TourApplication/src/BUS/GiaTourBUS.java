@@ -7,14 +7,12 @@ import java.util.ArrayList;
 
 public class GiaTourBUS {
 
-    private static ArrayList<GiaTourDTO> giaTourDTOs;
+    private ArrayList<GiaTourDTO> giaTourDTOs;
     private GiaTourDAO giaTourDAO;
 
     public GiaTourBUS() {
         this.giaTourDAO = new GiaTourDAO();
-        if (giaTourDTOs == null) {
-            this.giaTourDTOs = giaTourDAO.getList();
-        }
+        this.giaTourDTOs = giaTourDAO.getList();
     }
     
     public boolean themGiaTour(String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc) {

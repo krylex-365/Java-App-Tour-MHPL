@@ -1190,6 +1190,7 @@ public class DashBoard extends javax.swing.JFrame
 //            jPanel12.setVisible (false);
 //            jPanel13.setVisible (false);
 //        }
+        tourForm.initTableTour();
         jPanel4.setVisible(true);
     }//GEN-LAST:event_tourLabelMouseClicked
 
