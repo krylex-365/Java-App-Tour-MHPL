@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import BUS.DiaDiemThamQuanBUS;
 import DTO.ChiTietDoanDTO;
 import DTO.DiaDiemThamQuanDTO;
 import DTO.DoanDuLichDTO;
@@ -22,9 +23,11 @@ import DTO.TourDTO;
 public class RunTest {
     
     public static void main(String[] args) {
-        TourDAO dsNhanVien = new TourDAO();
-        for(TourDTO a : dsNhanVien.getList()){
-            System.out.println(a.toString());
-        }
+//        TourDAO dsNhanVien = new TourDAO();
+//        for(TourDTO a : dsNhanVien.getList()){
+//            System.out.println(a.toString());
+//        }
+            DiaDiemThamQuanBUS bus = new DiaDiemThamQuanBUS();
+            bus.add("0001", "0001", 5);
     }
 }

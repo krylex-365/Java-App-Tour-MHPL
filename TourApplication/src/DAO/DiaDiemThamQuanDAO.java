@@ -49,4 +49,31 @@ public class DiaDiemThamQuanDAO {
         return dsDiaDiemThamQuan;
     }
     
+    public boolean add(String maTour,String maDiaDiem,int thuTu){
+        conn = new Connect();
+        conn.getConnection();
+        String query = "select * from DiaDiemThamQuan";
+        if(conn.executeUpdate("insert into DiaDiemThamQuan"
+                + " (MaTour,MaDiaDiem,ThuTu)"
+                + " values ('"+maTour+"','"+maDiaDiem+"',"+thuTu+")"))return true;
+        return false;
+    }
+    
+    public boolean delete(String maTour,String maDiaDiem,int thuTu){
+        conn = new Connect();
+        conn.getConnection();
+        String query = "delete from DiaDiemThamQuan where MaTour='"+maTour+"'"+"and DiaDiem='"+maDiaDiem+"'"+"and ThuTu="+thuTu+"";
+        if(conn.executeUpdate(query))return true;
+        return false;
+    }
+    
+    public boolean deleteAll(String maTour){
+        conn = new Connect();
+        conn.getConnection();
+        String query = "delete from DiaDiemThamQuan where MaTour='"+maTour+"'";
+        if(conn.executeUpdate(query))return true;
+        return false;
+    }
+    
+    
 }
