@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package BUS;
 import DAO.DiaDiemThamQuanDAO;
 import DTO.DiaDiemThamQuanDTO;
@@ -14,11 +10,13 @@ import java.util.Comparator;
  */
 public class DiaDiemThamQuanBUS {
     private DiaDiemThamQuanDAO diaDiemThamQuanDAO;
-    private ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs;
+    private static ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs;
 
     public DiaDiemThamQuanBUS() {
-        diaDiemThamQuanDAO = new DiaDiemThamQuanDAO();
-        diaDiemThamQuanDTOs = diaDiemThamQuanDAO.getList();        
+        this.diaDiemThamQuanDAO = new DiaDiemThamQuanDAO();
+        if(diaDiemThamQuanDTOs == null){
+            diaDiemThamQuanDTOs = diaDiemThamQuanDAO.getList();
+        }
     }
 
     public DiaDiemThamQuanBUS(DiaDiemThamQuanDAO diaDiemThamQuanDAO, ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs) {
@@ -84,6 +82,24 @@ public class DiaDiemThamQuanBUS {
             for(DiaDiemThamQuanDTO a : newDiaDiemThamQuanDTOs){
                 diaDiemThamQuanDTOs.add(a);
             }
+            return true;
+        }
+        return false;
+    }
+
+    public static ArrayList<DiaDiemThamQuanDTO> getDiaDiemThamQuanDTOs() {
+        return diaDiemThamQuanDTOs;
+    }
+
+    public boolean xoaDiaDiemThamQuanByMaTour(String maTour) {
+        if (diaDiemThamQuanDAO.xoaDiaDiemThamQuanByMaTour(maTour)){
+            ArrayList<DiaDiemThamQuanDTO> ddtq = new ArrayList<>();
+            for (DiaDiemThamQuanDTO diaDiemThamQuanDTO: diaDiemThamQuanDTOs){
+                if(diaDiemThamQuanDTO.getMaTour().equals(maTour)){
+                    ddtq.add(diaDiemThamQuanDTO);
+                }
+            }
+            diaDiemThamQuanDTOs.removeAll(ddtq);
             return true;
         }
         return false;

@@ -1,4 +1,8 @@
-﻿create database TOURDULICH;
+﻿use master;
+go
+drop database TOURDULICH;
+go
+create database TOURDULICH;
 go
 use TOURDULICH;
 go
@@ -13,7 +17,7 @@ create table Tour(
 	MaTour nvarchar(50) primary key,
 	MaLoai nvarchar(50) not null,
 	TenTour nvarchar(50),
-	DacDiem nvarchar,
+	DacDiem nvarchar(100),
     Status int default 1
 );
 
@@ -48,7 +52,7 @@ create table DoanDuLich(
 	GiaTour nvarchar(50),
 	NgayKhoiHanh date,
 	NgayKetThuc date,
-	ChiTietNoiDung nvarchar,
+	ChiTietNoiDung nvarchar(100),
     Status int default 1
 );
 
@@ -76,7 +80,7 @@ create table ChiPhi(
 	MaDoan nvarchar(50) not null,
 	MaLoaiChiPhi nvarchar(50),
 	SoTien nvarchar(50),
-	GhiChu nvarchar,
+	GhiChu nvarchar(100),
     Status int default 1
 );
 
@@ -102,7 +106,6 @@ create table NhanVien(
 );
 
 go
-
 
 
 alter table NhiemVuNhanVien add constraint Fk_NhiemVuNhanVien_NhanVien
@@ -133,4 +136,24 @@ foreign key (MaTour) references Tour(MaTour);
 
 alter table Tour add constraint Fk_Tour_LoaiHinhTour
 foreign key (MaLoai) references LoaiHinhTour(MaLoai);
+
+insert into LoaiHinhTour
+values ('LT001', 'A', 1);
+
+insert into Tour
+values ('T001', 'LT001', 'TA', 'da', 1),
+('T002', 'LT001', 'TB', 'da', 1),
+('T003', 'LT001', 'TC', 'da', 1);
+
+insert into DiaDiem
+values ('DD001', 'q', 1);
+
+insert into DiaDiemThamQuan
+values ('T001', 'DD001', 1, 1);
+
+insert into GiaTour
+values ('G001', 'T001', '200', '2021-10-10', '2021-10-10', 1, 1);
+
+insert into DoanDuLich
+values ('D001', 'T002', 'A', '43', '2021-10-10', '2021-10-10', 'da',1)
 

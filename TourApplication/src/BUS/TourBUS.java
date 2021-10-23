@@ -1,7 +1,9 @@
 package BUS;
 
+import DAO.DoanDuLichDAO;
 import DAO.GiaTourDAO;
 import DAO.TourDAO;
+import DTO.DoanDuLichDTO;
 import DTO.TourDTO;
 
 import java.util.ArrayList;
@@ -57,6 +59,19 @@ public class TourBUS {
         return false;
     }
 
+    public boolean xoaTour(String maTour){
+        DoanDuLichDTO doanDuLichDTO = new DoanDuLichBUS().getDoanDuLichByMaTour(maTour);
+        if(doanDuLichDTO == null) {
+            if(tourDAO.xoaTour(maTour)){
+                tourDTOs.remove(indexTour(maTour));
+                new DiaDiemThamQuanBUS().xoaDiaDiemThamQuanByMaTour(maTour);
+                new GiaTourBUS().xoaGiaTourByMaTour(maTour);
+                return true;
+            }
+        }
+        return false;
+    }
+
     private int indexTour(String maTour) {
         for (int i = 0; i < tourDTOs.size(); i++) {
             if (maTour.equals(tourDTOs.get(i).getMaTour())) {
@@ -64,6 +79,15 @@ public class TourBUS {
             }
         }
         return -1;
+    }
+
+    private TourDTO getTour(String maTour) {
+        for (int i = 0; i < tourDTOs.size(); i++) {
+            if (maTour.equals(tourDTOs.get(i).getMaTour())) {
+                return tourDTOs.get(i);
+            }
+        }
+        return null;
     }
 
     public ArrayList<TourDTO> getTourDTOS() {

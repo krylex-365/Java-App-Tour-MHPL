@@ -48,7 +48,7 @@ public class DiaDiemThamQuanDAO {
         }
         return dsDiaDiemThamQuan;
     }
-    
+
     public boolean add(String maTour,String maDiaDiem,int thuTu){
         conn = new Connect();
         conn.getConnection();
@@ -57,6 +57,19 @@ public class DiaDiemThamQuanDAO {
                 + " values ('"+maTour+"','"+maDiaDiem+"',"+thuTu+")";
         if(conn.executeUpdate(query)){
             System.out.println("DiaDiemThamQuanDAO add success.");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean xoaDiaDiemThamQuanByMaTour(String maTour) {
+        String sql =    "update DiaDiemThamQuan\n" +
+                        "set Status = 0\n" +
+                        "where MaTour = '" + maTour + "' and Status = 1";
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)){
+            conn.close();
             return true;
         }
         return false;
@@ -83,5 +96,5 @@ public class DiaDiemThamQuanDAO {
         }
         return false;
     }
-    
+
 }

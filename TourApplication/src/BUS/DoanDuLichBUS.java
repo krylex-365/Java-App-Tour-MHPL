@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package BUS;
 
 import DAO.DoanDuLichDAO;
@@ -15,17 +11,19 @@ import java.util.ArrayList;
  */
 public class DoanDuLichBUS {
 
+    private static ArrayList<DoanDuLichDTO> doanDuLichDTOs;
     private DoanDuLichDAO doanDuLichDAO;
-    private ArrayList<DoanDuLichDTO> doanDuLichDTOs;
+
+    public DoanDuLichBUS() {
+        doanDuLichDAO = new DoanDuLichDAO();
+        if(doanDuLichDTOs == null){
+            doanDuLichDTOs = doanDuLichDAO.getList();
+        }
+    }
 
     public DoanDuLichBUS(DoanDuLichDAO doanDuLichDAO, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
         this.doanDuLichDAO = doanDuLichDAO;
         this.doanDuLichDTOs = doanDuLichDTOs;
-    }
-
-    public DoanDuLichBUS() {
-        doanDuLichDAO = new DoanDuLichDAO();
-        doanDuLichDTOs = new ArrayList<>();
     }
 
     public ArrayList<DoanDuLichDTO> getDoanDuLichDTOs() {
@@ -60,5 +58,12 @@ public class DoanDuLichBUS {
             }
         }
         return count;
+    }
+
+    public DoanDuLichDTO getDoanDuLichByMaTour(String maTour) {
+        for (DoanDuLichDTO doanDuLichDTO: doanDuLichDTOs){
+            if(doanDuLichDTO.getMaTour().equals(maTour)) return doanDuLichDTO;
+        }
+        return null;
     }
 }

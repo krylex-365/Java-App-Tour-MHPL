@@ -85,4 +85,16 @@ public class GiaTourDAO {
         conn.close();
         return false;
     }
+
+    public boolean xoaGiaTour(String maTour) {
+        String sql =    "UPDATE GiaTour\n" +
+                "SET HienHanh = 0,\n" +
+                "Status = 0\n" +
+                "WHERE MaTour = '" + maTour + "' and Status = 1\n";
+
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)) return true;
+        return false;
+    }
 }

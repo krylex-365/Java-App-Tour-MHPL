@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import BUS.TourBUS;
 import DTO.ChiTietDoanDTO;
 import DTO.DiaDiemThamQuanDTO;
 import DTO.DoanDuLichDTO;
@@ -26,5 +27,8 @@ public class RunTest {
         for(TourDTO a : dsNhanVien.getList()){
             System.out.println(a.toString());
         }
+
+        TourBUS tourBUS = new TourBUS();
+        tourBUS.xoaTour("T001");
     }
 }

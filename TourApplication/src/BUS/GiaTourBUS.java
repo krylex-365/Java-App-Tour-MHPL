@@ -73,4 +73,15 @@ public class GiaTourBUS {
         this.giaTourDAO = giaTourDAO;
     }
 
+    public boolean xoaGiaTourByMaTour(String maTour) {
+        if(giaTourDAO.xoaGiaTour(maTour)) {
+            for (GiaTourDTO giaTourDTO : giaTourDTOs) {
+                if (giaTourDTO.getMaTour().equals(maTour)) {
+                    giaTourDTOs.remove(giaTourDTO);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

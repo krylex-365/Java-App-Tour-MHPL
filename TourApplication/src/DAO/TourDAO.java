@@ -77,4 +77,17 @@ public class TourDAO {
         conn.close();
         return false;
     }
+
+    public boolean xoaTour(String maTour) {
+        String sql =    "update Tour\n" +
+                        "set Status = 0 \n" +
+                        "where MaTour = '" + maTour + "'";
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)){
+            conn.close();
+            return true;
+        }
+        return false;
+    }
 }

@@ -27,7 +27,7 @@ public class DoanDuLichDAO {
         ArrayList<DoanDuLichDTO> dsChiPhi = new ArrayList<DoanDuLichDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from DoanDuLich";
+        String query = "select * from DoanDuLich where Status = 1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
