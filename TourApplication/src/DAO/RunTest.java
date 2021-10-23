@@ -28,6 +28,6 @@ public class RunTest {
 //            System.out.println(a.toString());
 //        }
             DiaDiemThamQuanBUS bus = new DiaDiemThamQuanBUS();
-            bus.add("0001", "0001", 5);
+            bus.delete("0001", "0001", 5);
     }
 }

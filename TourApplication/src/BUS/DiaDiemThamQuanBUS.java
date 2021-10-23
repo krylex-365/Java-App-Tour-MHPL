@@ -41,18 +41,23 @@ public class DiaDiemThamQuanBUS {
         return false;
     }
     
+    public boolean delete(String maTour,String maDiaDiem,int thuTu){
+        if(diaDiemThamQuanDAO.delete(maTour, maDiaDiem, thuTu))return true;
+        return false;
+    }
+    
     public boolean update(ArrayList<DiaDiemThamQuanDTO> newDiaDiemThamQuanDTOs){
         String maTour = newDiaDiemThamQuanDTOs.get(0).getMaTour();
         newDiaDiemThamQuanDTOs.sort(new Comparator<DiaDiemThamQuanDTO>(){
             @Override
             public int compare(DiaDiemThamQuanDTO o1, DiaDiemThamQuanDTO o2) {
-                return o1.getThuTu().compare(o2.getThuTu());
+                return Integer.compare(o1.getThuTu(), o2.getThuTu());
             }
         });
         if(diaDiemThamQuanDAO.deleteAll(maTour)){
             int i = 1;
             for(DiaDiemThamQuanDTO a : newDiaDiemThamQuanDTOs){
-                diaDiemThamQuanDAO.add(a.getMaTour(),a.getMaDiaDiem(), Integer.toString(i));
+                diaDiemThamQuanDAO.add(a.getMaTour(),a.getMaDiaDiem(), i);
                 i++;
             }
             for(int k = 0; k < diaDiemThamQuanDTOs.size();k++){
