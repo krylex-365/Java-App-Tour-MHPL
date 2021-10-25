@@ -61,4 +61,11 @@ public class DoanDuLichBUS {
         }
         return count;
     }
+    
+    public DoanDuLichDTO getDoanDuLichByMaTour(String maTour) {
+        for (DoanDuLichDTO doanDuLichDTO: doanDuLichDTOs){
+            if(doanDuLichDTO.getMaTour().equals(maTour)) return doanDuLichDTO;
+        }
+        return null;
+    }
 }

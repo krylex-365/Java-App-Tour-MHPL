@@ -88,4 +88,18 @@ public class DiaDiemThamQuanBUS {
         }
         return false;
     }
+    
+    public boolean xoaDiaDiemThamQuanByMaTour(String maTour) {
+        if (diaDiemThamQuanDAO.deleteDDTQuanByMaTour(maTour)){
+            ArrayList<DiaDiemThamQuanDTO> ddtq = new ArrayList<>();
+            for (DiaDiemThamQuanDTO diaDiemThamQuanDTO: diaDiemThamQuanDTOs){
+                if(diaDiemThamQuanDTO.getMaTour().equals(maTour)){
+                    ddtq.add(diaDiemThamQuanDTO);
+                }
+            }
+            diaDiemThamQuanDTOs.removeAll(ddtq);
+            return true;
+        }
+        return false;
+    }
 }

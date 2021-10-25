@@ -2,6 +2,7 @@ package BUS;
 
 import DAO.GiaTourDAO;
 import DAO.TourDAO;
+import DTO.DoanDuLichDTO;
 import DTO.TourDTO;
 
 import java.util.ArrayList;
@@ -12,10 +13,18 @@ public class TourBUS {
     private ArrayList<TourDTO> tourDTOs;
     private TourDAO tourDAO;
     private GiaTourBUS giaTourBUS;
+    private Utils utl = new Utils();
 
     public TourBUS() {
         tourDAO = new TourDAO();
         this.tourDTOs = tourDAO.getList();
+    }
+    
+    public String CapPhat(String init) {
+        System.out.println("- cap 1");
+        init = utl.initMaTour(init);
+        System.out.println("- cap 2");
+        return init;
     }
     
     public boolean themTour(String MaTour, String MaLoai, String TenTour, String DacDiem, 
@@ -54,6 +63,19 @@ public class TourBUS {
             }
         }
         System.out.println("Sửa thất bại suaTourBUS");
+        return false;
+    }
+    
+    public boolean xoaTour(String maTour){
+        DoanDuLichDTO doanDuLichDTO = new DoanDuLichBUS().getDoanDuLichByMaTour(maTour);
+        if(doanDuLichDTO == null) {
+            if(tourDAO.xoaTour(maTour)){
+                tourDTOs.remove(indexTour(maTour));
+                new DiaDiemThamQuanBUS().xoaDiaDiemThamQuanByMaTour(maTour);
+                new GiaTourBUS().xoaGiaTourByMaTour(maTour);
+                return true;
+            }
+        }
         return false;
     }
 

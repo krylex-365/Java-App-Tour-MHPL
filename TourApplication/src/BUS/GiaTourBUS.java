@@ -54,6 +54,18 @@ public class GiaTourBUS {
         }
         return true;
     }
+    
+    public boolean xoaGiaTourByMaTour(String maTour) {
+        if(giaTourDAO.deleteGiaTourByTour(maTour)) {
+            for (GiaTourDTO giaTourDTO : giaTourDTOs) {
+                if (giaTourDTO.getMaTour().equals(maTour)) {
+                    giaTourDTOs.remove(giaTourDTO);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public ArrayList<GiaTourDTO> getGiaTourDTOs() {
         return giaTourDTOs;

@@ -84,4 +84,16 @@ public class DiaDiemThamQuanDAO {
         return false;
     }
     
+    public boolean deleteDDTQuanByMaTour(String maTour) {
+        String sql =    "update DiaDiemThamQuan " +
+                        "set Status=0 " +
+                        "where MaTour='" + maTour + "' and Status=1";
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)){
+            conn.close();
+            return true;
+        }
+        return false;
+    }
 }

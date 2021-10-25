@@ -209,19 +209,21 @@ public class TourForm extends javax.swing.JPanel {
                 jBtnChonGiaTourActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnChonGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, -1, -1));
+        jPanel4.add(jBtnChonGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, -1, -1));
 
         jLabel24.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel24.setText("<html> <body>Đặc Điểm<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
         jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, 30));
 
+        jTextGiaTour.setEditable(false);
+        jTextGiaTour.setBackground(new java.awt.Color(214, 217, 223));
         jTextGiaTour.setForeground(new java.awt.Color(51, 51, 51));
         jTextGiaTour.setRequestFocusEnabled(false);
-        jPanel4.add(jTextGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 140, 30));
+        jPanel4.add(jTextGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 30, 160, 30));
 
         jDateNgayKT.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayKT.setDateFormatString("yyyy-MM-dd");
-        jPanel4.add(jDateNgayKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, 180, 30));
+        jPanel4.add(jDateNgayKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, 200, 30));
 
         jLabel22.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel22.setText("<html> <body>Tên Tour<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
@@ -233,6 +235,9 @@ public class TourForm extends javax.swing.JPanel {
             }
         });
         jPanel4.add(jTextTenTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 170, 30));
+
+        jTextLoaiHinh.setEditable(false);
+        jTextLoaiHinh.setBackground(new java.awt.Color(214, 217, 223));
         jPanel4.add(jTextLoaiHinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 170, 30));
 
         jBtnChonLoaiHinh.setBackground(new java.awt.Color(136, 193, 184));
@@ -249,7 +254,7 @@ public class TourForm extends javax.swing.JPanel {
 
         jDateNgayBD.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayBD.setDateFormatString("yyyy-MM-dd");
-        jPanel4.add(jDateNgayBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 180, 30));
+        jPanel4.add(jDateNgayBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 200, 30));
 
         jBtnCapPhatMaTour.setBackground(new java.awt.Color(81, 113, 131));
         jBtnCapPhatMaTour.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_add_32.png"))); // NOI18N
@@ -410,14 +415,14 @@ public class TourForm extends javax.swing.JPanel {
                 .addGap(62, 62, 62))
             .addGroup(jPanelQLTourLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelQLTourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnThemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelQLTourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jBtnXoaTour, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                        .addComponent(jBtnSuaTour, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(42, 42, 42)
+                        .addComponent(jBtnXoaTour, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBtnSuaTour, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtnThemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(jPanelQLTourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jBtnXemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnHuyTour, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -431,12 +436,13 @@ public class TourForm extends javax.swing.JPanel {
                         .addGap(88, 88, 88)
                         .addGroup(jPanelQLTourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelQLTourLayout.createSequentialGroup()
-                                .addComponent(jBtnXemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanelQLTourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jBtnXemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jBtnThemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jBtnHuyTour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelQLTourLayout.createSequentialGroup()
-                                .addComponent(jBtnThemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(58, 58, 58)
                                 .addComponent(jBtnSuaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(16, 16, 16)
                                 .addComponent(jBtnXoaTour, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -691,11 +697,11 @@ public class TourForm extends javax.swing.JPanel {
                         .addGroup(jPanelChiTietTourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextMaTour1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelChiTietTourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextTenTour1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(27, 27, 27)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
@@ -706,7 +712,7 @@ public class TourForm extends javax.swing.JPanel {
                             .addComponent(jButtonTimKiem1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnRefresh1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelChiTietTourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnThayDoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -847,6 +853,13 @@ public class TourForm extends javax.swing.JPanel {
         jBtnXoaTour.setEnabled(false);
         jBtnHuyTour.setEnabled(false);
         jBtnXemTour.setEnabled(false);
+        jTextMaTour.setText("");
+        jTextTenTour.setText("");
+        jTextLoaiHinh.setText("");
+        jTextDacDiem.setText("");
+        jTextGiaTour.setText("");
+        jDateNgayBD.setCalendar(null);
+        jDateNgayKT.setCalendar(null);
     }//GEN-LAST:event_jBtnThemTourActionPerformed
 
     private void jBtnLuuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnLuuActionPerformed
@@ -891,15 +904,21 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnCapPhatMaTourActionPerformed
         // TODO add your handling code here:
         reloadData();
-        int newMaTour = tourBUS.getTourDTOS().size() + 1;
-        String MaGia = String.valueOf(newMaTour);
-        jTextMaTour.setText(MaGia);
+        String init = null;
+        init = tourBUS.CapPhat(init);
+        jTextMaTour.setText(init);
         jBtnCapPhatMaTour.setEnabled(false);
         jBtnThemTour.setEnabled(true);
         jBtnSuaTour.setEnabled(false);
         jBtnXoaTour.setEnabled(false);
-        jBtnHuyTour.setEnabled(false);
+        jBtnHuyTour.setEnabled(true);
         jBtnXemTour.setEnabled(false);
+        jTextTenTour.setText("");
+        jTextLoaiHinh.setText("");
+        jTextDacDiem.setText("");
+        jTextGiaTour.setText("");
+        jDateNgayBD.setCalendar(null);
+        jDateNgayKT.setCalendar(null);
     }//GEN-LAST:event_jBtnCapPhatMaTourActionPerformed
 
     private void jBtnChonGiaTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnChonGiaTourActionPerformed
@@ -925,6 +944,13 @@ public class TourForm extends javax.swing.JPanel {
         jBtnXoaTour.setEnabled(false);
         jBtnHuyTour.setEnabled(false);
         jBtnXemTour.setEnabled(false);
+        jTextMaTour.setText("");
+        jTextTenTour.setText("");
+        jTextLoaiHinh.setText("");
+        jTextDacDiem.setText("");
+        jTextGiaTour.setText("");
+        jDateNgayBD.setCalendar(null);
+        jDateNgayKT.setCalendar(null);
     }//GEN-LAST:event_jBtnXoaTourActionPerformed
 
     private void jBtnSuaTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaTourActionPerformed
@@ -936,6 +962,13 @@ public class TourForm extends javax.swing.JPanel {
         jBtnXoaTour.setEnabled(false);
         jBtnHuyTour.setEnabled(false);
         jBtnXemTour.setEnabled(false);
+        jTextMaTour.setText("");
+        jTextTenTour.setText("");
+        jTextLoaiHinh.setText("");
+        jTextDacDiem.setText("");
+        jTextGiaTour.setText("");
+        jDateNgayBD.setCalendar(null);
+        jDateNgayKT.setCalendar(null);
     }//GEN-LAST:event_jBtnSuaTourActionPerformed
 
     private void jTableTourMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableTourMouseClicked
@@ -1052,6 +1085,13 @@ public class TourForm extends javax.swing.JPanel {
         jBtnXoaTour.setEnabled(false);
         jBtnHuyTour.setEnabled(false);
         jBtnXemTour.setEnabled(false);
+        jTextMaTour.setText("");
+        jTextTenTour.setText("");
+        jTextLoaiHinh.setText("");
+        jTextDacDiem.setText("");
+        jTextGiaTour.setText("");
+        jDateNgayBD.setCalendar(null);
+        jDateNgayKT.setCalendar(null);
     }//GEN-LAST:event_jBtnHuyTourActionPerformed
 
     private void jTextDacDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDacDiemActionPerformed

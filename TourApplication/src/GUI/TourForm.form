@@ -82,16 +82,16 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="jPanel4" min="-2" pref="675" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="jPanel4" min="-2" pref="706" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBtnThemTour" min="-2" pref="85" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jBtnXoaTour" alignment="1" pref="85" max="32767" attributes="0"/>
-                              <Component id="jBtnSuaTour" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jBtnXoaTour" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jBtnSuaTour" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jBtnThemTour" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jBtnXemTour" min="-2" pref="85" max="-2" attributes="0"/>
                           <Component id="jBtnHuyTour" min="-2" pref="85" max="-2" attributes="0"/>
@@ -108,13 +108,15 @@
                               <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jBtnXemTour" min="-2" pref="40" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jBtnXemTour" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                          <Component id="jBtnThemTour" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jBtnHuyTour" min="-2" pref="40" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
-                                      <Component id="jBtnThemTour" min="-2" pref="40" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                                       <Component id="jBtnSuaTour" min="-2" pref="40" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                       <Component id="jBtnXoaTour" min="-2" pref="40" max="-2" attributes="0"/>
@@ -190,7 +192,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="630" y="30" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="650" y="30" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -209,6 +211,10 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextGiaTour">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="df" green="d9" red="d6" type="rgb"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="33" red="33" type="rgb"/>
                     </Property>
@@ -216,7 +222,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="480" y="30" width="140" height="30"/>
+                      <AbsoluteConstraints x="480" y="30" width="160" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -229,7 +235,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="480" y="110" width="180" height="30"/>
+                      <AbsoluteConstraints x="480" y="110" width="200" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -257,6 +263,12 @@
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextLoaiHinh">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="df" green="d9" red="d6" type="rgb"/>
+                    </Property>
+                  </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="100" y="110" width="170" height="30"/>
@@ -297,7 +309,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="480" y="70" width="180" height="30"/>
+                      <AbsoluteConstraints x="480" y="70" width="200" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -612,12 +624,12 @@
                                   <Component id="jLabel6" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jTextMaTour1" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel27" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jTextTenTour1" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="jPanel5" min="-2" pref="170" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jScrollPane3" pref="267" max="32767" attributes="0"/>
@@ -630,7 +642,7 @@
                                   <Component id="jBtnRefresh1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" pref="420" max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" pref="425" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
