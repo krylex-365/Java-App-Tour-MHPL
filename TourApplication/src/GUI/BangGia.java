@@ -6,6 +6,8 @@
 package GUI;
 
 //import BUS.CongViecBUS;
+import BUS.GiaTourBUS;
+import DTO.GiaTourDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -17,7 +19,9 @@ import javax.swing.table.TableRowSorter;
 //import BUS.PhongBanBUS;
 //import DTO.NhanVienDTO;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -27,39 +31,67 @@ import javax.swing.JTextField;
  *
  * @author Hyung
  */
-public class BangGia extends javax.swing.JFrame
-{
+public class BangGia extends javax.swing.JFrame {
 
     /**
      * Creates new form DSNV
      */
-//    NhanVienBUS nvBUS = new NhanVienBUS();
-//    PhongBanBUS pbBUS = new PhongBanBUS();
-//    CongViecBUS cviecBUS = new CongViecBUS();
-//    NhanVienCongViecBUS nvcviecBUS = new NhanVienCongViecBUS();
     int rowTbl;
     public TourForm tourForm;
-//    public LuongForm luongForm;
-//    public thuongphatForm thuongphatForm;
+    public GiaTourBUS giaTourBUS;
     private boolean thuongphatAc = false;
+    Vector tbCol = new Vector();
+    DefaultTableModel tbModel;
+    String maTour, maGiaHH;
 
-    public boolean isThuongphatAc()
-    {
-        return thuongphatAc;
-    }
-
-    public void setThuongphatAc(boolean thuongphatAc)
-    {
-        this.thuongphatAc = thuongphatAc;
-    }
-
-    public BangGia()
-    {
+    public BangGia() {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+    }
+    
+    public BangGia(String maTour, String maGiaHH) {
+        initComponents();
+        setVisible(true);
+        setLocationRelativeTo(null);
+        this.maTour = maTour;
+        this.maGiaHH = maGiaHH;
+        System.out.println("maTourCon: " + this.maTour);
+        System.out.println("maGiaCon: " + this.maGiaHH);
+        initTable();
+        jTextMaTour.setText(this.maTour);
+        jTextMaGiaHienHanh.setText(this.maGiaHH);
+        jBtnCapPhatMaGia.setEnabled(true);
         jBtnThem.setEnabled(false);
         jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jBtnApDung.setEnabled(false);
+        jBtnThoat.setEnabled(true);
+    }
+
+    public void reloadData() {
+        giaTourBUS = new GiaTourBUS();
+    }
+
+    public void initTable() {
+        reloadData();
+        tbModel.setRowCount(0);
+        tableModel(tbModel);
+        jTableGiaTour.setModel(tbModel);
+    }
+
+    public void tableModel(DefaultTableModel model) {
+        for (GiaTourDTO giaTour : giaTourBUS.getGiaTourDTOs()) {
+            if (giaTour.getMaTour().equals(this.maTour)) {
+                Vector row = new Vector();
+                row.add(giaTour.getMaGia());
+                row.add(giaTour.getThanhTien());
+                row.add(giaTour.getTgBatDau());
+                row.add(giaTour.getTgKetThuc());
+                model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -69,19 +101,16 @@ public class BangGia extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLbManv = new javax.swing.JLabel();
-        jTextMaTour = new javax.swing.JTextField();
-        jLbHonv = new javax.swing.JLabel();
+        jLbMaGia = new javax.swing.JLabel();
         jTextMaGia = new javax.swing.JTextField();
-        jLbTennv = new javax.swing.JLabel();
+        jLbGiaTour = new javax.swing.JLabel();
         jTextGiaTour = new javax.swing.JTextField();
-        jLbPban = new javax.swing.JLabel();
-        jLbCviec = new javax.swing.JLabel();
+        jLbNgayBD = new javax.swing.JLabel();
+        jLbNgayKT = new javax.swing.JLabel();
         jBtnSua = new javax.swing.JButton();
         jBtnThem = new javax.swing.JButton();
         jDateKetThuc = new com.toedter.calendar.JDateChooser();
@@ -90,10 +119,16 @@ public class BangGia extends javax.swing.JFrame
         jBtnHuy = new javax.swing.JButton();
         jBtnApDung = new javax.swing.JButton();
         jBtnThoat = new javax.swing.JButton();
+        jLbMaTour = new javax.swing.JLabel();
+        jTextMaTour = new javax.swing.JTextField();
+        jLbMaGiaNow = new javax.swing.JLabel();
+        jTextMaGiaHienHanh = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jBtnCapPhatMaGia = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableDsnv = new javax.swing.JTable();
+        jTableGiaTour = new javax.swing.JTable();
         jTextTimKiemGia = new javax.swing.JTextField();
-        jBtnTimKiemNV = new javax.swing.JButton();
+        jBtnTimKiemGia = new javax.swing.JButton();
         jBtnRefresh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(236, 245, 252));
@@ -110,193 +145,160 @@ public class BangGia extends javax.swing.JFrame
         jPanel4.setPreferredSize(new java.awt.Dimension(1000, 550));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLbManv.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbManv.setText("<html> <body> Mã Tour <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
-        jPanel4.add(jLbManv, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 32, -1, 30));
-
-        jTextMaTour.setEditable(false);
-        jTextMaTour.setForeground(new java.awt.Color(51, 51, 51));
-        jTextMaTour.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jTextMaTourActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextMaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 32, 204, 30));
-
-        jLbHonv.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbHonv.setText("<html><body>Mã Giá <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
-        jPanel4.add(jLbHonv, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 73, 110, 30));
+        jLbMaGia.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbMaGia.setText("<html><body>Mã Giá <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jPanel4.add(jLbMaGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 110, 30));
 
         jTextMaGia.setEditable(false);
+        jTextMaGia.setBackground(new java.awt.Color(214, 217, 223));
         jTextMaGia.setForeground(new java.awt.Color(51, 51, 51));
-        jTextMaGia.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextMaGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextMaGiaActionPerformed(evt);
             }
         });
-        jPanel4.add(jTextMaGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 73, 204, 30));
+        jPanel4.add(jTextMaGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 160, 30));
 
-        jLbTennv.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbTennv.setText("<html> <body>Giá Tour <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
-        jPanel4.add(jLbTennv, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 114, -1, 30));
+        jLbGiaTour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbGiaTour.setText("<html> <body>Giá Tour <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jPanel4.add(jLbGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 30));
 
         jTextGiaTour.setEditable(false);
         jTextGiaTour.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel4.add(jTextGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 114, 204, 30));
+        jPanel4.add(jTextGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 200, 30));
 
-        jLbPban.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbPban.setText("<html> <body>Ngày bắt đầu<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
-        jPanel4.add(jLbPban, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, 30));
+        jLbNgayBD.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbNgayBD.setText("<html> <body>Ngày bắt đầu<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jPanel4.add(jLbNgayBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, 30));
 
-        jLbCviec.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbCviec.setText("<html><body>Ngày kết thúc<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
-        jLbCviec.setVerifyInputWhenFocusTarget(false);
-        jPanel4.add(jLbCviec, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 30));
+        jLbNgayKT.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbNgayKT.setText("<html><body>Ngày kết thúc<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jLbNgayKT.setVerifyInputWhenFocusTarget(false);
+        jPanel4.add(jLbNgayKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 30));
 
         jBtnSua.setBackground(new java.awt.Color(136, 193, 184));
         jBtnSua.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnSua.setText("Sửa");
         jBtnSua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnSua.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jBtnSuaMouseClicked(evt);
-            }
-        });
-        jBtnSua.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSuaActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 100, 40));
+        jPanel4.add(jBtnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 100, 40));
 
         jBtnThem.setBackground(new java.awt.Color(136, 193, 184));
         jBtnThem.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnThem.setText("Thêm");
         jBtnThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnThem.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jBtnThemMouseClicked(evt);
-            }
-        });
-        jBtnThem.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnThemActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 100, 40));
+        jPanel4.add(jBtnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 100, 40));
 
         jDateKetThuc.setBackground(new java.awt.Color(214, 217, 223));
         jDateKetThuc.setDateFormatString("yyyy-MM-dd");
-        jPanel4.add(jDateKetThuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 200, 30));
+        jPanel4.add(jDateKetThuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 200, 30));
 
         jDateBatDau.setBackground(new java.awt.Color(214, 217, 223));
         jDateBatDau.setDateFormatString("yyyy-MM-dd");
-        jPanel4.add(jDateBatDau, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 200, 30));
+        jPanel4.add(jDateBatDau, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 200, 30));
 
         jBtnXoa.setBackground(new java.awt.Color(136, 193, 184));
         jBtnXoa.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnXoa.setText("Xóa");
         jBtnXoa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnXoa.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jBtnXoaMouseClicked(evt);
-            }
-        });
-        jBtnXoa.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnXoaActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 100, 40));
+        jPanel4.add(jBtnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 100, 40));
 
         jBtnHuy.setBackground(new java.awt.Color(136, 193, 184));
         jBtnHuy.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnHuy.setText("Hủy");
         jBtnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnHuy.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jBtnHuyMouseClicked(evt);
-            }
-        });
-        jBtnHuy.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnHuyActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 100, 40));
+        jPanel4.add(jBtnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 100, 40));
 
         jBtnApDung.setBackground(new java.awt.Color(136, 193, 184));
         jBtnApDung.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnApDung.setText("Áp Dụng");
         jBtnApDung.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnApDung.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jBtnApDungMouseClicked(evt);
-            }
-        });
-        jBtnApDung.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnApDung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnApDungActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnApDung, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 100, 40));
+        jPanel4.add(jBtnApDung, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 100, 40));
 
         jBtnThoat.setBackground(new java.awt.Color(136, 193, 184));
         jBtnThoat.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnThoat.setText("Thoát");
         jBtnThoat.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnThoat.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jBtnThoatMouseClicked(evt);
-            }
-        });
-        jBtnThoat.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnThoatActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 100, 40));
+        jPanel4.add(jBtnThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 100, 40));
 
-        jTableDsnv.setAutoCreateRowSorter(true);
-        jTableDsnv.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTableDsnv.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+        jLbMaTour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbMaTour.setText("<html> <body> Mã Tour <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jPanel4.add(jLbMaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
+
+        jTextMaTour.setEditable(false);
+        jTextMaTour.setBackground(new java.awt.Color(214, 217, 223));
+        jTextMaTour.setForeground(new java.awt.Color(51, 51, 51));
+        jTextMaTour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextMaTourActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jTextMaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 200, 30));
+
+        jLbMaGiaNow.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbMaGiaNow.setText("<html><body>Mã Giá Hiện Hành<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jPanel4.add(jLbMaGiaNow, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 110, 50));
+
+        jTextMaGiaHienHanh.setEditable(false);
+        jTextMaGiaHienHanh.setBackground(new java.awt.Color(214, 217, 223));
+        jTextMaGiaHienHanh.setForeground(new java.awt.Color(51, 51, 51));
+        jTextMaGiaHienHanh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextMaGiaHienHanhActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jTextMaGiaHienHanh, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, 30));
+        jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 320, 10));
+
+        jBtnCapPhatMaGia.setBackground(new java.awt.Color(81, 113, 131));
+        jBtnCapPhatMaGia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_add_32.png"))); // NOI18N
+        jBtnCapPhatMaGia.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnCapPhatMaGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCapPhatMaGiaActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jBtnCapPhatMaGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 30, 30));
+
+        jTableGiaTour.setAutoCreateRowSorter(true);
+        jTableGiaTour.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jTableGiaTour.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
                 {},
                 {},
                 {},
                 {}
             },
-            new String []
-            {
+            new String [] {
 
             }
         ));
@@ -305,33 +307,29 @@ public class BangGia extends javax.swing.JFrame
         tbCol.add("Ngày bắt đầu");
         tbCol.add("Ngày kết thúc");
         tbModel= new DefaultTableModel(tbCol,5);
-        jTableDsnv.setModel (tbModel);
-        jTableDsnv.setShowGrid(true);
-        jTableDsnv.setFocusable(false);
-        jTableDsnv.setIntercellSpacing(new Dimension(0,0));
-        jTableDsnv.setRowHeight(25);
-        jTableDsnv.getTableHeader().setOpaque(false);
-        jTableDsnv.setFillsViewportHeight(true);
-        jTableDsnv.getTableHeader().setBackground(new Color(232,57,99));
-        jTableDsnv.getTableHeader().setForeground(new Color(141, 22, 22));
-        jTableDsnv.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
-        jTableDsnv.setSelectionBackground(new Color(52,152,219));
+        jTableGiaTour.setModel (tbModel);
+        jTableGiaTour.setShowGrid(true);
+        jTableGiaTour.setFocusable(false);
+        jTableGiaTour.setIntercellSpacing(new Dimension(0,0));
+        jTableGiaTour.setRowHeight(25);
+        jTableGiaTour.getTableHeader().setOpaque(false);
+        jTableGiaTour.setFillsViewportHeight(true);
+        jTableGiaTour.getTableHeader().setBackground(new Color(232,57,99));
+        jTableGiaTour.getTableHeader().setForeground(new Color(141, 22, 22));
+        jTableGiaTour.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
+        jTableGiaTour.setSelectionBackground(new Color(52,152,219));
         //listSP();
-        jTableDsnv.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jTableDsnvMouseClicked(evt);
+        jTableGiaTour.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableGiaTourMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableDsnv);
+        jScrollPane1.setViewportView(jTableGiaTour);
 
-        jBtnTimKiemNV.setText("Tìm kiếm");
-        jBtnTimKiemNV.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jBtnTimKiemNVActionPerformed(evt);
+        jBtnTimKiemGia.setText("Tìm kiếm");
+        jBtnTimKiemGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnTimKiemGiaActionPerformed(evt);
             }
         });
 
@@ -340,10 +338,8 @@ public class BangGia extends javax.swing.JFrame
         jBtnRefresh.setMaximumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setMinimumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnRefreshActionPerformed(evt);
             }
         });
@@ -355,34 +351,36 @@ public class BangGia extends javax.swing.JFrame
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                        .addGap(8, 8, 8))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(jTextTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtnTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(269, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(0, 1, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtnTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(52, 52, 52))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -401,17 +399,20 @@ public class BangGia extends javax.swing.JFrame
 
     private void jBtnSuaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaActionPerformed
-        jTextMaTour.setText("");
         jTextMaGia.setText("");
         jTextGiaTour.setText("");
+        jDateBatDau.setCalendar(null);
+        jDateKetThuc.setCalendar(null);
+        jBtnCapPhatMaGia.setEnabled(true);
+        jBtnThem.setEnabled(false);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jBtnApDung.setEnabled(false);
+        jBtnThoat.setEnabled(true);
 //        jTextPban.setText("");
 //        jTextCviec.setText("");
     }//GEN-LAST:event_jBtnSuaActionPerformed
-
-    private void jBtnSuaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jBtnSuaMouseClicked
-    {//GEN-HEADEREND:event_jBtnSuaMouseClicked
-
-    }//GEN-LAST:event_jBtnSuaMouseClicked
 
     private void jTextMaGiaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextMaGiaActionPerformed
     {//GEN-HEADEREND:event_jTextMaGiaActionPerformed
@@ -422,23 +423,26 @@ public class BangGia extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTextMaTourActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextMaTourActionPerformed
-
-    private void jBtnThemMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jBtnThemMouseClicked
-    {//GEN-HEADEREND:event_jBtnThemMouseClicked
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_jBtnThemMouseClicked
-    public String ktra()
-    {
+    public String ktra() {
         String temp = "";
-        if (jTextMaTour.getText().equals(""))
-        {
-            temp += "- Vui lòng chọn nhân viên!";
+        if (jTextMaTour.getText().equals("")) {
+            temp += "- Vui lòng chọn giá tour!";
         }
         return temp;
     }
     private void jBtnThemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemActionPerformed
     {//GEN-HEADEREND:event_jBtnThemActionPerformed
+        jTextMaGia.setText("");
+        jTextGiaTour.setText("");
+        jDateBatDau.setCalendar(null);
+        jDateKetThuc.setCalendar(null);
+        jBtnCapPhatMaGia.setEnabled(true);
+        jBtnThem.setEnabled(false);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jBtnApDung.setEnabled(false);
+        jBtnThoat.setEnabled(true);
 //        if (!jBtnXacNhan.isEnabled())
 //        {
 //            System.out.println("Disabled");
@@ -473,20 +477,40 @@ public class BangGia extends javax.swing.JFrame
 //        }
     }//GEN-LAST:event_jBtnThemActionPerformed
 
-    private void jTableDsnvMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableDsnvMouseClicked
-    {//GEN-HEADEREND:event_jTableDsnvMouseClicked
+    private void jTableGiaTourMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableGiaTourMouseClicked
+    {//GEN-HEADEREND:event_jTableGiaTourMouseClicked
         // TODO add your handling code here:
-        int rowTbl = jTableDsnv.getSelectedRow();
-        jTextMaTour.setText((String) jTableDsnv.getValueAt(rowTbl, 0));
-        jTextMaGia.setText((String) jTableDsnv.getValueAt(rowTbl, 1));
-        jTextGiaTour.setText((String) jTableDsnv.getValueAt(rowTbl, 2));
-//        jTextPban.setText((String) jTableDsnv.getValueAt(rowTbl, 3));
-//        jTextCviec.setText((String) jTableDsnv.getValueAt(rowTbl, 4));
-        jBtnThem.setEnabled(true);
-        jBtnSua.setEnabled(true);
-    }//GEN-LAST:event_jTableDsnvMouseClicked
+        if (evt.getSource() == jTableGiaTour) {
+            rowTbl = jTableGiaTour.getSelectedRow();
+            if (rowTbl != -1) {
+                jTextMaGia.setText((String) jTableGiaTour.getValueAt(rowTbl, 0));
+                jTextGiaTour.setText((String) jTableGiaTour.getValueAt(rowTbl, 1));
+                try {
+                    Date dateBD = new SimpleDateFormat("yyyy-MM-dd").parse(jTableGiaTour.getModel().getValueAt(rowTbl, 2).toString());
+                    jDateBatDau.setDate(dateBD);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(BangGia.this, e);
+                    System.out.println("- Load sai ngày bắt đầu!");
+                }
+                try {
+                    Date dateBD = new SimpleDateFormat("yyyy-MM-dd").parse(jTableGiaTour.getModel().getValueAt(rowTbl, 3).toString());
+                    jDateKetThuc.setDate(dateBD);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(BangGia.this, e);
+                    System.out.println("- Load sai ngày kết thúc!");
+                }
+                jBtnCapPhatMaGia.setEnabled(false);
+                jBtnThem.setEnabled(false);
+                jBtnSua.setEnabled(true);
+                jBtnXoa.setEnabled(true);
+                jBtnHuy.setEnabled(true);
+                jBtnApDung.setEnabled(true);
+                jBtnThoat.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_jTableGiaTourMouseClicked
 
-    private void jBtnTimKiemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemNVActionPerformed
+    private void jBtnTimKiemGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemGiaActionPerformed
 //        // TODO add your handling code here:
 //        String manv = jTextTimKiemNV.getText();
 //        if (manv.equals(""))
@@ -504,7 +528,7 @@ public class BangGia extends javax.swing.JFrame
 //        }
 //        searchlistSP(temp);
 //        System.out.println("click tim kiem");
-    }//GEN-LAST:event_jBtnTimKiemNVActionPerformed
+    }//GEN-LAST:event_jBtnTimKiemGiaActionPerformed
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
         // TODO add your handling code here:
@@ -515,88 +539,80 @@ public class BangGia extends javax.swing.JFrame
 //        jBtnQuayLai.setEnabled(false);
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
-    private void jBtnXoaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jBtnXoaMouseClicked
-    {//GEN-HEADEREND:event_jBtnXoaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnXoaMouseClicked
-
     private void jBtnXoaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaActionPerformed
         // TODO add your handling code here:
+        jTextMaGia.setText("");
+        jTextGiaTour.setText("");
+        jDateBatDau.setCalendar(null);
+        jDateKetThuc.setCalendar(null);
+        jBtnCapPhatMaGia.setEnabled(true);
+        jBtnThem.setEnabled(false);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jBtnApDung.setEnabled(false);
+        jBtnThoat.setEnabled(true);
     }//GEN-LAST:event_jBtnXoaActionPerformed
-
-    private void jBtnHuyMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jBtnHuyMouseClicked
-    {//GEN-HEADEREND:event_jBtnHuyMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnHuyMouseClicked
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnHuyActionPerformed
     {//GEN-HEADEREND:event_jBtnHuyActionPerformed
         // TODO add your handling code here:
+        jTextMaGia.setText("");
+        jTextGiaTour.setText("");
+        jDateBatDau.setCalendar(null);
+        jDateKetThuc.setCalendar(null);
+        jBtnCapPhatMaGia.setEnabled(true);
+        jBtnThem.setEnabled(false);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jBtnApDung.setEnabled(false);
+        jBtnThoat.setEnabled(true);
     }//GEN-LAST:event_jBtnHuyActionPerformed
-
-    private void jBtnApDungMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jBtnApDungMouseClicked
-    {//GEN-HEADEREND:event_jBtnApDungMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnApDungMouseClicked
 
     private void jBtnApDungActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnApDungActionPerformed
     {//GEN-HEADEREND:event_jBtnApDungActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnApDungActionPerformed
 
-    private void jBtnThoatMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jBtnThoatMouseClicked
-    {//GEN-HEADEREND:event_jBtnThoatMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnThoatMouseClicked
-
     private void jBtnThoatActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThoatActionPerformed
     {//GEN-HEADEREND:event_jBtnThoatActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jBtnThoatActionPerformed
 
-//    public void outModel(DefaultTableModel model, ArrayList<NhanVienDTO> nv) // Xuất ra Table từ ArrayList
-//    {
-//        Vector data;
-//        model.setRowCount(0);
-//        for (NhanVienDTO nvDto : nv)
-//        {
-//            data = new Vector();
-//            data.add(nvDto.getManhanvien());
-//            data.add(nvDto.getHonhanvien());
-//            data.add(nvDto.getTennhanvien());
-//            for (int i = 0; i < pbBUS.getDspb().getDspb().size(); ++i)
-//            {
-//                if (nvDto.getMaphongban().equals(pbBUS.getDspb().getDspb().get(i).getMaphongban()))
-//                {
-//                    data.add(pbBUS.getDspb().getDspb().get(i).getTenphongban());
-//                }
-//            }
-//            for (int i = 0; i < nvcviecBUS.getDsnvcviec().getDsnvcviec().size(); ++i)
-//            {
-//                if (nvDto.getManhanvien().equals(nvcviecBUS.getDsnvcviec().getDsnvcviec().get(i).getManhanvien()))
-//                {
-//                    for (int j = 0; j < cviecBUS.getDscviec().getDscviec().size(); ++j)
-//                    {
-//                        if (nvcviecBUS.getDsnvcviec().getDsnvcviec().get(i).getMacongviec().equals(cviecBUS.getDscviec().getDscviec().get(j).getMacongviec()))
-//                        {
-//                            data.add(cviecBUS.getDscviec().getDscviec().get(j).getTencongviec());
-//                        }
-//                    }
-//                }
-//            }
-//            model.addRow(data);
-//        }
-//        //jTableDsnv.setModel(model);
-//    }
-//    public void listSP() // Chép ArrayList lên table
-//    {
-////        if(nvBUS.getDsnv ().getDsnv ()== null)nvBUS.listNV();
-//        ArrayList<NhanVienDTO> nv = nvBUS.getDsnv().getDsnv();
-//        tbModel.setRowCount(0);
-//        outModel(tbModel, nv);
-//    }
-//
+    private void jTextMaGiaHienHanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextMaGiaHienHanhActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextMaGiaHienHanhActionPerformed
+
+    private void jBtnCapPhatMaGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaGiaActionPerformed
+        // TODO add your handling code here:
+//        reloadData();
+//        String init = null;
+//        init = tourBUS.CapPhat(init);
+//        jTextMaTour.setText(init);
+        jBtnCapPhatMaGia.setEnabled(false);
+        jBtnThem.setEnabled(true);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(true);
+        jBtnApDung.setEnabled(false);
+        jBtnThoat.setEnabled(true);
+//        jTextTenTour.setText("");
+//        jTextLoaiHinh.setText("");
+//        jTextDacDiem.setText("");
+//        jTextGiaTour.setText("");
+//        jDateNgayBD.setCalendar(null);
+//        jDateNgayKT.setCalendar(null);
+//        jTextGiaTour.setEditable(true);
+//        jTextGiaTour.setBackground(new Color(255, 255, 255));
+//        jBtnChonLoaiHinh.setEnabled(true);
+//        jBtnChonGiaTour.setEnabled(false);
+//        jDateNgayBD.setEnabled(true);
+//        jDateNgayKT.setEnabled(true);
+    }//GEN-LAST:event_jBtnCapPhatMaGiaActionPerformed
+
 //    public void searchlistSP(ArrayList<NhanVienDTO> nv)
 //    {
 //        tbModel.setRowCount(0);
@@ -615,34 +631,26 @@ public class BangGia extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(BangGia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(BangGia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(BangGia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BangGia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -651,96 +659,54 @@ public class BangGia extends javax.swing.JFrame
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 new BangGia().setVisible(true);
             }
         });
     }
 
-    public JButton getjBtnQuayLai()
-    {
+    public JButton getjBtnQuayLai() {
         return jBtnSua;
     }
 
-    public void setjBtnQuayLai(JButton jBtnQuayLai)
-    {
+    public void setjBtnQuayLai(JButton jBtnQuayLai) {
         this.jBtnSua = jBtnQuayLai;
     }
 
-    public JButton getjBtnRefresh()
-    {
-        return jBtnRefresh;
-    }
-
-    public void setjBtnRefresh(JButton jBtnRefresh)
-    {
-        this.jBtnRefresh = jBtnRefresh;
-    }
-
-    public JButton getjBtnTimKiemNV()
-    {
-        return jBtnTimKiemNV;
-    }
-
-    public void setjBtnTimKiemNV(JButton jBtnTimKiemNV)
-    {
-        this.jBtnTimKiemNV = jBtnTimKiemNV;
-    }
-
-    public JButton getjBtnXacNhan()
-    {
+    public JButton getjBtnXacNhan() {
         return jBtnThem;
     }
 
-    public void setjBtnXacNhan(JButton jBtnXacNhan)
-    {
+    public void setjBtnXacNhan(JButton jBtnXacNhan) {
         this.jBtnThem = jBtnXacNhan;
     }
 
-    public JTable getjTableDsnv()
-    {
-        return jTableDsnv;
-    }
-
-    public void setjTableDsnv(JTable jTableDsnv)
-    {
-        this.jTableDsnv = jTableDsnv;
-    }
-
-//    public JTextField getjTextTjTextTimKiemGia {
-//        return jTextTimKiemNV;
-//    }
-//
-//    public void setjTextTimKiemNV(JTextField jTejTextTimKiemGia   {
-//        this.jTextTimKiemNV = jTextTimKiemNV;
-//    }
-
-    Vector tbCol = new Vector();
-    DefaultTableModel tbModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnApDung;
+    private javax.swing.JButton jBtnCapPhatMaGia;
     private javax.swing.JButton jBtnHuy;
     private javax.swing.JButton jBtnRefresh;
     private javax.swing.JButton jBtnSua;
     private javax.swing.JButton jBtnThem;
     private javax.swing.JButton jBtnThoat;
-    private javax.swing.JButton jBtnTimKiemNV;
+    private javax.swing.JButton jBtnTimKiemGia;
     private javax.swing.JButton jBtnXoa;
     private com.toedter.calendar.JDateChooser jDateBatDau;
     private com.toedter.calendar.JDateChooser jDateKetThuc;
-    private javax.swing.JLabel jLbCviec;
-    private javax.swing.JLabel jLbHonv;
-    private javax.swing.JLabel jLbManv;
-    private javax.swing.JLabel jLbPban;
-    private javax.swing.JLabel jLbTennv;
+    private javax.swing.JLabel jLbGiaTour;
+    private javax.swing.JLabel jLbMaGia;
+    private javax.swing.JLabel jLbMaGiaNow;
+    private javax.swing.JLabel jLbMaTour;
+    private javax.swing.JLabel jLbNgayBD;
+    private javax.swing.JLabel jLbNgayKT;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableDsnv;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTableGiaTour;
     private javax.swing.JTextField jTextGiaTour;
     private javax.swing.JTextField jTextMaGia;
+    private javax.swing.JTextField jTextMaGiaHienHanh;
     private javax.swing.JTextField jTextMaTour;
     private javax.swing.JTextField jTextTimKiemGia;
     private keeptoo.KGradientPanel kGradientPanel1;

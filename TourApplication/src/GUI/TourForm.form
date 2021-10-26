@@ -211,14 +211,15 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextGiaTour">
                   <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="df" green="d9" red="d6" type="rgb"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="33" red="33" type="rgb"/>
                     </Property>
-                    <Property name="requestFocusEnabled" type="boolean" value="false"/>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Hand Cursor"/>
+                    </Property>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -516,7 +517,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableTourMouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tbColTour.add(&quot;M&#x103; Tour&quot;);&#xa;tbColTour.add(&quot;T&#xea;n Tour&quot;);&#xa;tbColTour.add(&quot;Lo&#x1ea1;i H&#xec;nh&quot;);&#xa;tbColTour.add(&quot;Gi&#xe1; Tour&quot;);&#xa;tbColTour.add(&quot;Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u&quot;);&#xa;tbColTour.add(&quot;Ng&#xe0;y K&#x1ebf;t Th&#xfa;c&quot;);&#xa;modelTour= new DefaultTableModel(tbColTour,5);&#xa;jTableTour.setModel (modelTour);&#xa;jTableTour.setShowGrid(true);&#xa;        jTableTour.setFocusable(false);&#xa;        jTableTour.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableTour.setRowHeight(25);  &#xa;        jTableTour.getTableHeader().setOpaque(false);&#xa;        jTableTour.setFillsViewportHeight(true);&#xa;        jTableTour.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableTour.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableTour.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableTour.setSelectionBackground(new Color(52,152,219));"/>
+                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tbColTour.add(&quot;M&#x103; Tour&quot;);&#xa;tbColTour.add(&quot;T&#xea;n Tour&quot;);&#xa;tbColTour.add(&quot;Lo&#x1ea1;i H&#xec;nh&quot;);&#xa;tbColTour.add(&quot;Gi&#xe1; Tour&quot;);&#xa;tbColTour.add(&quot;Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u&quot;);&#xa;tbColTour.add(&quot;Ng&#xe0;y K&#x1ebf;t Th&#xfa;c&quot;);&#xa;tbModelTour= new DefaultTableModel(tbColTour,5);&#xa;jTableTour.setModel (tbModelTour);&#xa;jTableTour.setShowGrid(true);&#xa;        jTableTour.setFocusable(false);&#xa;        jTableTour.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableTour.setRowHeight(25);  &#xa;        jTableTour.getTableHeader().setOpaque(false);&#xa;        jTableTour.setFillsViewportHeight(true);&#xa;        jTableTour.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableTour.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableTour.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableTour.setSelectionBackground(new Color(52,152,219));"/>
                     <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="tourForm_jTableTour"/>
                   </AuxValues>
                 </Component>

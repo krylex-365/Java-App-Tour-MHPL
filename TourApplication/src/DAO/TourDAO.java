@@ -51,13 +51,15 @@ public class TourDAO {
     public boolean insertTour(TourDTO tourDTO) {
         conn = new Connect();
         conn.getConnection();
-        String query = "INSERT INTO Tour (MaTour,MaLoai,TenTour,DacDiem)"
-                + " VALUE ('" + tourDTO.getMaTour() + "','" + tourDTO.getMaLoai()
-                + "','" + tourDTO.getTenTour() + "','" + tourDTO.getDacDiem() + "')";
+        String query = "INSERT INTO Tour"
+                + " VALUES ('" + tourDTO.getMaTour() + "','" + tourDTO.getMaLoai()
+                + "','" + tourDTO.getTenTour() + "','" + tourDTO.getDacDiem() + "', 1);";
         if (conn.executeUpdate(query)) {
+            System.out.println("insert Tour success");
             conn.close();
             return true;
         }
+        System.out.println("insert Tour fail");
         conn.close();
         return false;
     }

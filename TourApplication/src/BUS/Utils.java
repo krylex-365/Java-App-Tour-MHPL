@@ -12,11 +12,12 @@ public class Utils {
     public MaDuLieuCuoiDAO maDLCuoi = new MaDuLieuCuoiDAO();
 
     public Utils() {
-        maDLCuoi.getLastData();
+        maDLCuoi = new MaDuLieuCuoiDAO();
     }
 
     ////////////////Tạo mã Tour
     public String initMaTour(String init) {
+        maDLCuoi = new MaDuLieuCuoiDAO();
         System.out.println("- In initMatour");
         String temp = maDLCuoi.getMaTourLast();
         System.out.println(temp);

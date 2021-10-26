@@ -198,7 +198,6 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtnQuayLaiMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnQuayLaiActionPerformed"/>
               </Events>
               <Constraints>
@@ -224,7 +223,6 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jBtnXacNhanMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnXacNhanActionPerformed"/>
               </Events>
               <Constraints>
@@ -250,7 +248,7 @@
                     <LineBorder roundedCorners="true"/>
                   </Border>
                 </Property>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="tbCol.add(&quot;M&#x103; Lo&#x1ea1;i H&#xec;nh&quot;);&#xa;tbCol.add(&quot;T&#xea;n Lo&#x1ea1;i H&#xec;nh&quot;);&#xa;&#xa;tbModel= new DefaultTableModel(tbCol,5);&#xa;jTableLoaiHinh.setModel (tbModel);&#xa;jTableLoaiHinh.setShowGrid(true);&#xa;        jTableLoaiHinh.setFocusable(false);&#xa;        jTableLoaiHinh.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableLoaiHinh.setRowHeight(25);  &#xa;        jTableLoaiHinh.getTableHeader().setOpaque(false);&#xa;        jTableLoaiHinh.setFillsViewportHeight(true);&#xa;        jTableLoaiHinh.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableLoaiHinh.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableLoaiHinh.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableLoaiHinh.setSelectionBackground(new Color(52,152,219));&#xa;listSP();">
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="tbCol.add(&quot;M&#x103; Lo&#x1ea1;i H&#xec;nh&quot;);&#xa;tbCol.add(&quot;T&#xea;n Lo&#x1ea1;i H&#xec;nh&quot;);&#xa;&#xa;tbModel= new DefaultTableModel(tbCol,5);&#xa;jTableLoaiHinh.setModel (tbModel);&#xa;jTableLoaiHinh.setShowGrid(true);&#xa;        jTableLoaiHinh.setFocusable(false);&#xa;        jTableLoaiHinh.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableLoaiHinh.setRowHeight(25);  &#xa;        jTableLoaiHinh.getTableHeader().setOpaque(false);&#xa;        jTableLoaiHinh.setFillsViewportHeight(true);&#xa;        jTableLoaiHinh.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableLoaiHinh.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableLoaiHinh.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableLoaiHinh.setSelectionBackground(new Color(52,152,219));">
                   <Table columnCount="0" rowCount="4"/>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

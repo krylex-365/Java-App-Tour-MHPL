@@ -55,14 +55,16 @@ public class GiaTourDAO {
     public boolean insertGiaTour(GiaTourDTO giaTourDTO) {
         conn = new Connect();
         conn.getConnection();
-        String query = "INSERT INTO GiaTour (MaGia,MaTour,ThanhTien,TgBatDau,TgKetThuc,HienHanh)"
-                + " VALUE ('" + giaTourDTO.getMaGia() + "','" + giaTourDTO.getMaTour()
+        String query = "INSERT INTO GiaTour"
+                + " VALUES ('" + giaTourDTO.getMaGia() + "','" + giaTourDTO.getMaTour()
                 + "','" + giaTourDTO.getThanhTien() + "','" + giaTourDTO.getTgBatDau()
-                + "','" + giaTourDTO.getTgKetThuc() + "','" + giaTourDTO.getHienHanh() + "')";
+                + "','" + giaTourDTO.getTgKetThuc() + "','" + giaTourDTO.getHienHanh() + "', 1);";
         if (conn.executeUpdate(query)) {
+            System.out.println("insert GiaTour success");
             conn.close();
             return true;
         }
+        System.out.println("insert GiaTour fail");
         conn.close();
         return false;
     }

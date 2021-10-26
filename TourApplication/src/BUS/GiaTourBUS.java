@@ -1,6 +1,7 @@
 package BUS;
 
 import DAO.GiaTourDAO;
+import DAO.MaDuLieuCuoiDAO;
 import DTO.GiaTourDTO;
 
 import java.util.ArrayList;
@@ -9,19 +10,30 @@ public class GiaTourBUS {
 
     private ArrayList<GiaTourDTO> giaTourDTOs;
     private GiaTourDAO giaTourDAO;
+    private Utils utl = new Utils();
+    private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
 
     public GiaTourBUS() {
         this.giaTourDAO = new GiaTourDAO();
         this.giaTourDTOs = giaTourDAO.getList();
     }
     
+    public String CapPhat(String init) {
+        System.out.println("- cap 1");
+        init = utl.initMaGia(init);
+        System.out.println("- cap 2");
+        return init;
+    }
+    
     public boolean themGiaTour(String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc) {
-        int newMaGia = giaTourDTOs.size() + 1 ;
-        String MaGia = String.valueOf(newMaGia);
+//        int newMaGia = giaTourDTOs.size() + 1 ;
+        String MaGia = null;
+        MaGia = CapPhat(MaGia);
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, 1);
         if (giaTourDAO.insertGiaTour(giaTourDTO)) {
             giaTourDTOs.add(giaTourDTO);
             System.out.println("Thêm thành công");
+            maLast.updateMaGia(MaGia);
             return true;
         }
         System.out.println("Thêm thất bại");

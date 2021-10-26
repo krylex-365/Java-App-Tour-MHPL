@@ -6,6 +6,8 @@
 package GUI;
 
 //import BUS.CongViecBUS;
+import BUS.LoaiHinhTourBUS;
+import DTO.LoaiHinhTourDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -27,39 +29,46 @@ import javax.swing.JTextField;
  *
  * @author Hyung
  */
-public class BangLoaiHinh extends javax.swing.JFrame
-{
+public class BangLoaiHinh extends javax.swing.JFrame {
 
     /**
      * Creates new form DSNV
      */
-//    NhanVienBUS nvBUS = new NhanVienBUS();
-//    PhongBanBUS pbBUS = new PhongBanBUS();
-//    CongViecBUS cviecBUS = new CongViecBUS();
-//    NhanVienCongViecBUS nvcviecBUS = new NhanVienCongViecBUS();
     int rowTbl;
     public TourForm tourForm;
-//    public LuongForm luongForm;
-//    public thuongphatForm thuongphatForm;
-    private boolean thuongphatAc = false;
+    public LoaiHinhTourBUS loaiHinhTourBUS;
+    Vector tbCol = new Vector();
+    DefaultTableModel tbModel;
 
-    public boolean isThuongphatAc()
-    {
-        return thuongphatAc;
-    }
-
-    public void setThuongphatAc(boolean thuongphatAc)
-    {
-        this.thuongphatAc = thuongphatAc;
-    }
-
-    public BangLoaiHinh()
-    {
+    public BangLoaiHinh() {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
         jBtnXacNhan.setEnabled(false);
-        jBtnQuayLai.setEnabled(false);
+        jBtnQuayLai.setEnabled(true);
+        initTable();
+    }
+
+    public void reloadData() {
+        loaiHinhTourBUS = new LoaiHinhTourBUS();
+    }
+
+    public void initTable() {
+        reloadData();
+        tbModel.setRowCount(0);
+        tableModel(tbModel);
+        jTableLoaiHinh.setModel(tbModel);
+        jBtnXacNhan.setEnabled(false);
+        jBtnQuayLai.setEnabled(true);
+    }
+
+    public void tableModel(DefaultTableModel model) {
+        for (LoaiHinhTourDTO loaiHinh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
+            Vector row = new Vector();
+            row.add(loaiHinh.getMaLoai());
+            row.add(loaiHinh.getTenLoai());
+            model.addRow(row);
+        }
     }
 
     /**
@@ -69,8 +78,7 @@ public class BangLoaiHinh extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -106,10 +114,8 @@ public class BangLoaiHinh extends javax.swing.JFrame
 
         jTextMaLH.setEditable(false);
         jTextMaLH.setForeground(new java.awt.Color(51, 51, 51));
-        jTextMaLH.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextMaLH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextMaLHActionPerformed(evt);
             }
         });
@@ -121,10 +127,8 @@ public class BangLoaiHinh extends javax.swing.JFrame
 
         jTextTenLH.setEditable(false);
         jTextTenLH.setForeground(new java.awt.Color(51, 51, 51));
-        jTextTenLH.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jTextTenLH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextTenLHActionPerformed(evt);
             }
         });
@@ -135,17 +139,8 @@ public class BangLoaiHinh extends javax.swing.JFrame
         jBtnQuayLai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_back1_16.png"))); // NOI18N
         jBtnQuayLai.setText("Thoát");
         jBtnQuayLai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnQuayLai.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jBtnQuayLaiMouseClicked(evt);
-            }
-        });
-        jBtnQuayLai.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnQuayLai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnQuayLaiActionPerformed(evt);
             }
         });
@@ -156,17 +151,8 @@ public class BangLoaiHinh extends javax.swing.JFrame
         jBtnXacNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_ok_16.png"))); // NOI18N
         jBtnXacNhan.setText("Xác nhận");
         jBtnXacNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnXacNhan.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                jBtnXacNhanMouseClicked(evt);
-            }
-        });
-        jBtnXacNhan.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnXacNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnXacNhanActionPerformed(evt);
             }
         });
@@ -175,15 +161,13 @@ public class BangLoaiHinh extends javax.swing.JFrame
         jTableLoaiHinh.setAutoCreateRowSorter(true);
         jTableLoaiHinh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jTableLoaiHinh.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
                 {},
                 {},
                 {},
                 {}
             },
-            new String []
-            {
+            new String [] {
 
             }
         ));
@@ -202,21 +186,16 @@ public class BangLoaiHinh extends javax.swing.JFrame
         jTableLoaiHinh.getTableHeader().setForeground(new Color(141, 22, 22));
         jTableLoaiHinh.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
         jTableLoaiHinh.setSelectionBackground(new Color(52,152,219));
-        listSP();
-        jTableLoaiHinh.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jTableLoaiHinh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableLoaiHinhMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTableLoaiHinh);
 
         jBtnTimKiemNV.setText("Tìm kiếm");
-        jBtnTimKiemNV.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnTimKiemNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnTimKiemNVActionPerformed(evt);
             }
         });
@@ -226,10 +205,8 @@ public class BangLoaiHinh extends javax.swing.JFrame
         jBtnRefresh.setMaximumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setMinimumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnRefreshActionPerformed(evt);
             }
         });
@@ -291,15 +268,11 @@ public class BangLoaiHinh extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jBtnQuayLaiActionPerformed
         jTextMaLH.setText("");
         jTextTenLH.setText("");
+        dispose();
 //        jTextTennv.setText("");
 //        jTextPban.setText("");
 //        jTextCviec.setText("");
     }//GEN-LAST:event_jBtnQuayLaiActionPerformed
-
-    private void jBtnQuayLaiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jBtnQuayLaiMouseClicked
-    {//GEN-HEADEREND:event_jBtnQuayLaiMouseClicked
-
-    }//GEN-LAST:event_jBtnQuayLaiMouseClicked
 
     private void jTextTenLHActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextTenLHActionPerformed
     {//GEN-HEADEREND:event_jTextTenLHActionPerformed
@@ -310,68 +283,43 @@ public class BangLoaiHinh extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTextMaLHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextMaLHActionPerformed
-
-    private void jBtnXacNhanMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jBtnXacNhanMouseClicked
-    {//GEN-HEADEREND:event_jBtnXacNhanMouseClicked
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_jBtnXacNhanMouseClicked
-    public String ktra()
-    {
+    public String ktra() {
         String temp = "";
-        if (jTextMaLH.getText().equals(""))
-        {
-            temp += "- Vui lòng chọn nhân viên!";
+        if (jTextMaLH.getText().equals("")) {
+            temp += "- Vui lòng chọn loại hình!";
         }
         return temp;
     }
     private void jBtnXacNhanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXacNhanActionPerformed
     {//GEN-HEADEREND:event_jBtnXacNhanActionPerformed
-//        if (!jBtnXacNhan.isEnabled())
-//        {
-//            System.out.println("Disabled");
-//        } else
-//        {
-//            if (ktra().equals(""))
-//            {
-//                String manv = jTextManv.getText();
-//                if (bccForm != null)
-//                {
-//                    bccForm.getjTextManv().setText(manv);
-//                }
-//                if (luongForm != null)
-//                {
-//                    luongForm.getjTextManv().setText(manv);
-//                }
-//                if (thuongphatForm != null && thuongphatAc)
-//                {
-//                    thuongphatForm.getjTextManv().setText(manv);
-//                    thuongphatForm.getjBtnThemTp().setEnabled(true);
-//                    thuongphatForm.getjBtnSuaTp().setEnabled(false);
-//                    thuongphatForm.getjBtnXoaTp().setEnabled(false);
-//                    thuongphatForm.getjBtnHuy().setEnabled(true);
-//                    thuongphatAc = false;
-//                }
-//                setVisible(false);
-//                JOptionPane.showMessageDialog(null, "Chọn thành công!");
-//            } else
-//            {
-//                JOptionPane.showMessageDialog(null, ktra());
-//            }
-//        }
+        if (!jBtnXacNhan.isEnabled()) {
+            System.out.println("Disabled");
+        } else {
+            if (ktra().equals("")) {
+                String maLoai = jTextMaLH.getText(), tenLoai = jTextTenLH.getText();
+                if (tourForm != null) {
+                    tourForm.getjTextLoaiHinh().setText(tenLoai);
+                    tourForm.setMaLoai(maLoai);
+                }
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, ktra());
+            }
+        }
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
     private void jTableLoaiHinhMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableLoaiHinhMouseClicked
     {//GEN-HEADEREND:event_jTableLoaiHinhMouseClicked
         // TODO add your handling code here:
-        int rowTbl = jTableLoaiHinh.getSelectedRow();
-        jTextMaLH.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 0));
-        jTextTenLH.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 1));
-//        jTextTennv.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 2));
-//        jTextPban.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 3));
-//        jTextCviec.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 4));
-        jBtnXacNhan.setEnabled(true);
-        jBtnQuayLai.setEnabled(true);
+        if (evt.getSource() == jTableLoaiHinh) {
+            rowTbl = jTableLoaiHinh.getSelectedRow();
+            if (rowTbl != -1) {
+                jTextMaLH.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 0));
+                jTextTenLH.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 1));
+                jBtnXacNhan.setEnabled(true);
+                jBtnQuayLai.setEnabled(true);
+            }
+        }
     }//GEN-LAST:event_jTableLoaiHinhMouseClicked
 
     private void jBtnTimKiemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemNVActionPerformed
@@ -397,102 +345,48 @@ public class BangLoaiHinh extends javax.swing.JFrame
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
         // TODO add your handling code here:
         jTextTimKiemLH.setText("");
-        listSP();
+        initTable();
         jBtnXacNhan.setEnabled(false);
         jBtnRefresh.setEnabled(true);
         jBtnQuayLai.setEnabled(false);
     }//GEN-LAST:event_jBtnRefreshActionPerformed
-
-//    public void outModel(DefaultTableModel model, ArrayList<NhanVienDTO> nv) // Xuất ra Table từ ArrayList
-//    {
-//        Vector data;
-//        model.setRowCount(0);
-//        for (NhanVienDTO nvDto : nv)
-//        {
-//            data = new Vector();
-//            data.add(nvDto.getManhanvien());
-//            data.add(nvDto.getHonhanvien());
-//            data.add(nvDto.getTennhanvien());
-//            for (int i = 0; i < pbBUS.getDspb().getDspb().size(); ++i)
-//            {
-//                if (nvDto.getMaphongban().equals(pbBUS.getDspb().getDspb().get(i).getMaphongban()))
-//                {
-//                    data.add(pbBUS.getDspb().getDspb().get(i).getTenphongban());
-//                }
-//            }
-//            for (int i = 0; i < nvcviecBUS.getDsnvcviec().getDsnvcviec().size(); ++i)
-//            {
-//                if (nvDto.getManhanvien().equals(nvcviecBUS.getDsnvcviec().getDsnvcviec().get(i).getManhanvien()))
-//                {
-//                    for (int j = 0; j < cviecBUS.getDscviec().getDscviec().size(); ++j)
-//                    {
-//                        if (nvcviecBUS.getDsnvcviec().getDsnvcviec().get(i).getMacongviec().equals(cviecBUS.getDscviec().getDscviec().get(j).getMacongviec()))
-//                        {
-//                            data.add(cviecBUS.getDscviec().getDscviec().get(j).getTencongviec());
-//                        }
-//                    }
-//                }
-//            }
-//            model.addRow(data);
-//        }
-//        //jTableDsnv.setModel(model);
-//    }
-
-    public void listSP() // Chép ArrayList lên table
-    {
-////        if(nvBUS.getDsnv ().getDsnv ()== null)nvBUS.listNV();
-//        ArrayList<NhanVienDTO> nv = nvBUS.getDsnv().getDsnv();
-//        tbModel.setRowCount(0);
-//        outModel(tbModel, nv);
-    }
 
 //    public void searchlistSP(ArrayList<NhanVienDTO> nv)
 //    {
 //        tbModel.setRowCount(0);
 //        outModel(tbModel, nv);
 //    }
-
 //    public String getTextFieldContent()
 //    {
 //        return bccForm.getjTextManv().getText();
 //    }
-
 //    public String getTextFieldContentLuong()
 //    {
 //        return luongForm.getjTextManv().getText();
 //    }
-
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(BangLoaiHinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(BangLoaiHinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(BangLoaiHinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BangLoaiHinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -501,76 +395,61 @@ public class BangLoaiHinh extends javax.swing.JFrame
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 new BangLoaiHinh().setVisible(true);
             }
         });
     }
-     public JButton getjBtnQuayLai()
-    {
+
+    public JButton getjBtnQuayLai() {
         return jBtnQuayLai;
     }
 
-    public void setjBtnQuayLai(JButton jBtnQuayLai)
-    {
+    public void setjBtnQuayLai(JButton jBtnQuayLai) {
         this.jBtnQuayLai = jBtnQuayLai;
     }
 
-    public JButton getjBtnRefresh()
-    {
+    public JButton getjBtnRefresh() {
         return jBtnRefresh;
     }
 
-    public void setjBtnRefresh(JButton jBtnRefresh)
-    {
+    public void setjBtnRefresh(JButton jBtnRefresh) {
         this.jBtnRefresh = jBtnRefresh;
     }
 
-    public JButton getjBtnTimKiemNV()
-    {
+    public JButton getjBtnTimKiemNV() {
         return jBtnTimKiemNV;
     }
 
-    public void setjBtnTimKiemNV(JButton jBtnTimKiemNV)
-    {
+    public void setjBtnTimKiemNV(JButton jBtnTimKiemNV) {
         this.jBtnTimKiemNV = jBtnTimKiemNV;
     }
 
-    public JButton getjBtnXacNhan()
-    {
+    public JButton getjBtnXacNhan() {
         return jBtnXacNhan;
     }
 
-    public void setjBtnXacNhan(JButton jBtnXacNhan)
-    {
+    public void setjBtnXacNhan(JButton jBtnXacNhan) {
         this.jBtnXacNhan = jBtnXacNhan;
     }
 
-    public JTable getjTableDsnv()
-    {
+    public JTable getjTableDsnv() {
         return jTableLoaiHinh;
     }
 
-    public void setjTableDsnv(JTable jTableDsnv)
-    {
+    public void setjTableDsnv(JTable jTableDsnv) {
         this.jTableLoaiHinh = jTableDsnv;
     }
 
-    public JTextField getjTextTimKiemNV()
-    {
+    public JTextField getjTextTimKiemNV() {
         return jTextTimKiemLH;
     }
 
-    public void setjTextTimKiemNV(JTextField jTextTimKiemNV)
-    {
+    public void setjTextTimKiemNV(JTextField jTextTimKiemNV) {
         this.jTextTimKiemLH = jTextTimKiemNV;
     }
-    
-    Vector tbCol = new Vector();
-    DefaultTableModel tbModel;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnQuayLai;
     private javax.swing.JButton jBtnRefresh;

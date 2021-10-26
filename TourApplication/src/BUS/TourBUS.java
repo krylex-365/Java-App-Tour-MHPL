@@ -1,6 +1,7 @@
 package BUS;
 
 import DAO.GiaTourDAO;
+import DAO.MaDuLieuCuoiDAO;
 import DAO.TourDAO;
 import DTO.DoanDuLichDTO;
 import DTO.TourDTO;
@@ -14,6 +15,7 @@ public class TourBUS {
     private TourDAO tourDAO;
     private GiaTourBUS giaTourBUS;
     private Utils utl = new Utils();
+    private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
 
     public TourBUS() {
         tourDAO = new TourDAO();
@@ -31,7 +33,7 @@ public class TourBUS {
             String ThanhTien, String TgBatDau, String TgKetThuc) {
         for (TourDTO tour : tourDTOs) {
             if (tour.getMaTour().equals(MaTour)) {
-                JOptionPane.showMessageDialog(null, "Mã tour" + tour.getMaTour() + " đã tồn tại!");
+                JOptionPane.showMessageDialog(null, "Mã tour" + MaTour + " đã tồn tại!");
                 return false;
             }
         }
@@ -39,6 +41,7 @@ public class TourBUS {
         if (tourDAO.insertTour(newTour)) {
             tourDTOs.add(newTour);
             System.out.println("Thêm thành công themTourBUS");
+            maLast.updateMaTour(MaTour);
             giaTourBUS = new GiaTourBUS();
             if (giaTourBUS.themGiaTour(MaTour, ThanhTien, TgBatDau, TgKetThuc)) {
                 return true;

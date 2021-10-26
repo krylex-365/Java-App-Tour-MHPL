@@ -23,7 +23,7 @@ public class MaDuLieuCuoiDAO {
     Connect conn;
 
     public MaDuLieuCuoiDAO() {
-        
+        getLastData();
     }
     
     public void getLastData() {
