@@ -52,6 +52,7 @@ public class TourForm extends javax.swing.JPanel {
     TourBUS tourBUS = new TourBUS();
     GiaTourBUS giaTourBUS = new GiaTourBUS();
     LoaiHinhTourBUS loaiHinhTourBUS = new LoaiHinhTourBUS();
+    ChiTietTour chiTietTour = new ChiTietTour();
     public BufferedImage i = null;
     public String imgName = null;
     int rowTour;
@@ -163,8 +164,8 @@ public class TourForm extends javax.swing.JPanel {
         jTextTenTour1 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
-        jTextGiaTour1 = new javax.swing.JTextField();
-        jTextLoaiHinh1 = new javax.swing.JTextField();
+        jTextTenDiaDiem1 = new javax.swing.JTextField();
+        jTextMaDiaDiem1 = new javax.swing.JTextField();
         jBtnChonLoaiHinh1 = new javax.swing.JButton();
         jLbManv1 = new javax.swing.JLabel();
         jBtnXoa1 = new javax.swing.JButton();
@@ -523,10 +524,10 @@ public class TourForm extends javax.swing.JPanel {
         jLabel29.setText("<html> <body>Mã Địa Điểm<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
         jPanel5.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
 
-        jTextGiaTour1.setForeground(new java.awt.Color(51, 51, 51));
-        jTextGiaTour1.setRequestFocusEnabled(false);
-        jPanel5.add(jTextGiaTour1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 170, 30));
-        jPanel5.add(jTextLoaiHinh1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 170, 30));
+        jTextTenDiaDiem1.setForeground(new java.awt.Color(51, 51, 51));
+        jTextTenDiaDiem1.setRequestFocusEnabled(false);
+        jPanel5.add(jTextTenDiaDiem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 170, 30));
+        jPanel5.add(jTextMaDiaDiem1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 170, 30));
 
         jBtnChonLoaiHinh1.setBackground(new java.awt.Color(136, 193, 184));
         jBtnChonLoaiHinh1.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
@@ -897,7 +898,10 @@ public class TourForm extends javax.swing.JPanel {
 
     private void jButtonTimKiem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTimKiem1ActionPerformed
     {//GEN-HEADEREND:event_jButtonTimKiem1ActionPerformed
-        // TODO add your handling code here:
+        tbModelDoan.setRowCount(0);
+        String maDoan = jTextTimKiemNV1.getText();
+        System.out.println(maDoan);
+        chiTietTour.tbModelSearchDoanDuLich(tbModelDoan,maDoan);
     }//GEN-LAST:event_jButtonTimKiem1ActionPerformed
 
     private void jBtnRefresh1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefresh1ActionPerformed
@@ -1097,6 +1101,7 @@ public class TourForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         BangDiaDiem bangDiaDiem = new BangDiaDiem();
         bangDiaDiem.tourForm = this;
+        
     }//GEN-LAST:event_jBtnChonLoaiHinh1ActionPerformed
 
     private void jBtnXoa1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoa1ActionPerformed
@@ -1118,9 +1123,9 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jTableDiadiemMouseClicked
         // TODO add your handling code here:
         int rowTbl = jTableDiadiem.getSelectedRow();
-        jTextMaTour.setText((String) jTableDiadiem.getValueAt(rowTbl, 0));
+        jTextMaDiaDiem1.setText((String) jTableDiadiem.getValueAt(rowTbl, 0));System.out.println((String) jTableDiadiem.getValueAt(rowTbl, 0));
 //        jTextMaGia.setText((String) jTableDsnv.getValueAt(rowTbl, 1));
-        jTextGiaTour.setText((String) jTableDiadiem.getValueAt(rowTbl, 2));
+        jTextTenDiaDiem1.setText(Integer.toString((int) jTableDiadiem.getValueAt(rowTbl, 2)));System.out.println(Integer.toString((int) jTableDiadiem.getValueAt(rowTbl, 2)));
         //        jTextPban.setText((String) jTableDsnv.getValueAt(rowTbl, 3));
         //        jTextCviec.setText((String) jTableDsnv.getValueAt(rowTbl, 4));
         jBtnThemTour.setEnabled(true);
@@ -1135,6 +1140,16 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnXemTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXemTourActionPerformed
     {//GEN-HEADEREND:event_jBtnXemTourActionPerformed
         jTabbedPane1.setSelectedIndex(1);
+        rowTour = jTableTour.getSelectedRow();
+        maTour = (String) jTableTour.getModel().getValueAt(rowTour, 0);
+        tenTour = (String) jTableTour.getModel().getValueAt(rowTour, 1);
+        jTextMaTour1.setText(maTour);System.out.println(maTour);
+        jTextTenTour1.setText(tenTour); System.out.println(tenTour);
+        tbModelDoan.setRowCount(0);
+        tbModelDiadiem.setRowCount(0);
+        chiTietTour.tbModelDiaDiemThamQuan(tbModelDiadiem,maTour);
+        chiTietTour.tbModelDoanDuLich(tbModelDoan,maTour);
+        //jTableTour.setModel (tbModelTour);
     }//GEN-LAST:event_jBtnXemTourActionPerformed
 
     private void jBtnHuyTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnHuyTourActionPerformed
@@ -1380,12 +1395,12 @@ public class TourForm extends javax.swing.JPanel {
     private javax.swing.JTable jTableTour;
     private javax.swing.JTextField jTextDacDiem;
     private javax.swing.JTextField jTextGiaTour;
-    private javax.swing.JTextField jTextGiaTour1;
     private javax.swing.JTextField jTextLoaiHinh;
-    private javax.swing.JTextField jTextLoaiHinh1;
+    private javax.swing.JTextField jTextMaDiaDiem1;
     private javax.swing.JTextField jTextMaLoaiHinh;
     private javax.swing.JTextField jTextMaTour;
     private javax.swing.JTextField jTextMaTour1;
+    private javax.swing.JTextField jTextTenDiaDiem1;
     private javax.swing.JTextField jTextTenLoaiHinh;
     private javax.swing.JTextField jTextTenTour;
     private javax.swing.JTextField jTextTenTour1;

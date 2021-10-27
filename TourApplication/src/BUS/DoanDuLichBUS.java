@@ -25,7 +25,7 @@ public class DoanDuLichBUS {
 
     public DoanDuLichBUS() {
         doanDuLichDAO = new DoanDuLichDAO();
-        doanDuLichDTOs = new ArrayList<>();
+        doanDuLichDTOs = doanDuLichDAO.getList();
     }
 
     public ArrayList<DoanDuLichDTO> getDoanDuLichDTOs() {
@@ -37,6 +37,7 @@ public class DoanDuLichBUS {
         for (DoanDuLichDTO a : doanDuLichDTOs) {
             if (a.getMaTour().equals(maTour)) {
                 result.add(a);
+                System.out.println(a);
             }
         }
         return result;
@@ -45,7 +46,7 @@ public class DoanDuLichBUS {
     public ArrayList<DoanDuLichDTO> searchDoanDuLichByMaDoan(String maDoan) {
         ArrayList<DoanDuLichDTO> result = new ArrayList<DoanDuLichDTO>();
         for (DoanDuLichDTO a : doanDuLichDTOs) {
-            if (a.getMaTour().equals(maDoan)) {
+            if (a.getMaDoan().equals(maDoan)) {
                 result.add(a);
             }
         }
