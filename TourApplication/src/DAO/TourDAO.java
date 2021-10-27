@@ -25,7 +25,7 @@ public class TourDAO {
         ArrayList<TourDTO> dsTour = new ArrayList<TourDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from Tour";
+        String query = "select * from Tour where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
@@ -71,7 +71,7 @@ public class TourDAO {
                 + " TenTour='" + tourDTO.getTenTour() + "',"
                 + " DacDiem='" + tourDTO.getDacDiem() + "',"
                 + " MaLoai='" + tourDTO.getMaLoai() + "'"
-                + " WHERE MaTour='" + tourDTO.getMaTour() + "'";
+                + " WHERE MaTour='" + tourDTO.getMaTour() + "';";
         if (conn.executeUpdate(sql)) {
             conn.close();
             return true;

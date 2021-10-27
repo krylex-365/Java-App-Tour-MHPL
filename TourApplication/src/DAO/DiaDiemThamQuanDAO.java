@@ -27,7 +27,7 @@ public class DiaDiemThamQuanDAO {
         ArrayList<DiaDiemThamQuanDTO> dsDiaDiemThamQuan = new ArrayList<DiaDiemThamQuanDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from DiaDiemThamQuan";
+        String query = "select * from DiaDiemThamQuan where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

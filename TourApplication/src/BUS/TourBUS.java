@@ -43,7 +43,7 @@ public class TourBUS {
             System.out.println("Thêm thành công themTourBUS");
             maLast.updateMaTour(MaTour);
             giaTourBUS = new GiaTourBUS();
-            if (giaTourBUS.themGiaTour(MaTour, ThanhTien, TgBatDau, TgKetThuc)) {
+            if (giaTourBUS.themGiaTourByTour(MaTour, ThanhTien, TgBatDau, TgKetThuc)) {
                 return true;
             }
         }
@@ -51,7 +51,7 @@ public class TourBUS {
         return false;
     }
 
-    public boolean suaTour(String maTour, String tenTour, String dacDiem, String maLoai, String maGia) {
+    public boolean suaTour(String maTour, String tenTour, String dacDiem, String maLoai, String maGia, String maGiaEdit) {
         int indexTour = indexTour(maTour);
         if (indexTour == -1) {
             return false;
@@ -60,7 +60,10 @@ public class TourBUS {
         if (tourDAO.updateTour(tourDTO)) {
             tourDTOs.set(indexTour, tourDTO);
             giaTourBUS = new GiaTourBUS();
-            if (giaTourBUS.suaHienHanh(maGia, maTour)) {
+            if (maGia.equals(maGiaEdit)){
+                return true;
+            }
+            if (giaTourBUS.suaHienHanh(maGiaEdit, maTour)) {
                 System.out.println("Sửa thành công suaTourBUS");
                 return true;
             }

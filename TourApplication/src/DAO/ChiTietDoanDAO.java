@@ -27,7 +27,7 @@ public class ChiTietDoanDAO {
         ArrayList<ChiTietDoanDTO> dsChiTietDoan = new ArrayList<ChiTietDoanDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from ChiTietDoan";
+        String query = "select * from ChiTietDoan where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

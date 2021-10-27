@@ -27,7 +27,7 @@ public class KhachHangDAO {
         ArrayList<KhachHangDTO> dsKhachHang = new ArrayList<KhachHangDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from KhachHang";
+        String query = "select * from KhachHang where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

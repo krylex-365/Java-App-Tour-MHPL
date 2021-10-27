@@ -27,7 +27,7 @@ public class LoaiHinhTourDAO {
         ArrayList<LoaiHinhTourDTO> dsChiPhi = new ArrayList<LoaiHinhTourDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from LoaiHinhTour";
+        String query = "select * from LoaiHinhTour where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

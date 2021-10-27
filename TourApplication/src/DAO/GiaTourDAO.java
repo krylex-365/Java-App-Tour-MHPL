@@ -27,7 +27,7 @@ public class GiaTourDAO {
         ArrayList<GiaTourDTO> dsGiaTour = new ArrayList<GiaTourDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from GiaTour";
+        String query = "select * from GiaTour where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
@@ -52,7 +52,7 @@ public class GiaTourDAO {
         return dsGiaTour;
     }
 
-    public boolean insertGiaTour(GiaTourDTO giaTourDTO) {
+    public boolean insertGiaTourByTour(GiaTourDTO giaTourDTO) {
         conn = new Connect();
         conn.getConnection();
         String query = "INSERT INTO GiaTour"
@@ -69,17 +69,17 @@ public class GiaTourDAO {
         return false;
     }
 
-    public boolean updateHienHanh(String maGia, String maTour) {
+    public boolean updateHienHanhByTour(String maGia, String maTour) {
         //sua hien hanh thanh 1
         //cac bang co ma tour khac sua thanh 0
         conn = new Connect();
         conn.getConnection();
         String sql1 = "UPDATE GiaTour SET"
                 + " HienHanh=0"
-                + " WHERE MaTour='" + maTour + "' AND HienHanh=1";
+                + " WHERE MaTour='" + maTour + "' AND HienHanh=1;";
         String sql2 = "UPDATE GiaTour SET"
                 + " HienHanh=1"
-                + " WHERE MaGia='" + maGia + "' AND MaTour='" + maTour +"'";
+                + " WHERE MaGia='" + maGia + "' AND MaTour='" + maTour +"';";
         if (conn.executeUpdate(sql1) && conn.executeUpdate(sql2)) {
             conn.close();
             return true;

@@ -27,7 +27,7 @@ public class LoaiChiPhiDAO {
         ArrayList<LoaiChiPhiDTO> dsLoaiChiPhi = new ArrayList<LoaiChiPhiDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from LoaiChiPhi";
+        String query = "select * from LoaiChiPhi where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

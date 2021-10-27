@@ -63,22 +63,19 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel4" min="-2" pref="360" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" pref="614" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="jTextTimKiemGia" min="-2" pref="209" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtnTimKiemGia" min="-2" pref="80" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtnRefresh" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="269" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="614" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -97,8 +94,8 @@
                               <Component id="jBtnTimKiemGia" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jBtnRefresh" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="432" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="437" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -187,7 +184,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -200,7 +197,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;Ng&#xe0;y k&#x1ebf;t th&#xfa;c&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;Ng&#xe0;y K&#x1ebf;t Th&#xfa;c&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
                 <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
               </Properties>
               <Constraints>
@@ -323,7 +320,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="jBtnApDung">
+            <Component class="javax.swing.JButton" name="jBtnXacNhan">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="b8" green="c1" red="88" type="rgb"/>
@@ -331,13 +328,13 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Verdana" size="13" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#xc1;p D&#x1ee5;ng"/>
+                <Property name="text" type="java.lang.String" value="X&#xe1;c Nh&#x1ead;n"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Hand Cursor"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnApDungActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnXacNhanActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -372,7 +369,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt; M&#xe3; Tour &lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt; M&#xe3; Tour&lt;/body&gt; &lt;/html&gt;"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -404,7 +401,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;M&#xe3; Gi&#xe1; Hi&#x1ec7;n H&#xe0;nh&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;M&#xe3; Gi&#xe1; Hi&#x1ec7;n H&#xe0;nh&lt;/body&gt; &lt;/html&gt;"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

@@ -27,7 +27,7 @@ public class DiaDiemDAO {
         ArrayList<DiaDiemDTO> dsDiaDiem = new ArrayList<DiaDiemDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from DiaDiem";
+        String query = "select * from DiaDiem where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

@@ -27,12 +27,12 @@ public class DoanDuLichDAO {
         ArrayList<DoanDuLichDTO> dsChiPhi = new ArrayList<DoanDuLichDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from DoanDuLich";
+        String query = "select * from DoanDuLich where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
                 DoanDuLichDTO ddl = new DoanDuLichDTO();
-                //ddl.setMaDoan(conn.rs.getString(1));
+                ddl.setMaDoan(conn.rs.getString(1));
                 ddl.setMaTour(conn.rs.getString(2));
                 ddl.setTenDoan(conn.rs.getString(3));
                 ddl.setGiaTour(conn.rs.getString(4));

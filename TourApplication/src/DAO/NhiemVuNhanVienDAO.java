@@ -27,7 +27,7 @@ public class NhiemVuNhanVienDAO {
         ArrayList<NhiemVuNhanVienDTO> dsNhiemVuNhanVien = new ArrayList<NhiemVuNhanVienDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from NhiemVuNhanVien";
+        String query = "select * from NhiemVuNhanVien where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

@@ -25,7 +25,7 @@ public class NhanVienDAO {
         ArrayList<NhanVienDTO> dsNhanVien = new ArrayList<NhanVienDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from nhanvien where not MaNhanVien='admin'";
+        String query = "select * from nhanvien where not MaNhanVien='admin' and Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

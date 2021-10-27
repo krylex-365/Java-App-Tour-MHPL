@@ -26,7 +26,7 @@ public class ChiPhiDAO {
         ArrayList<ChiPhiDTO> dsChiPhi = new ArrayList<ChiPhiDTO>();
         conn = new Connect();
         conn.getConnection();
-        String query = "select * from ChiPhi";
+        String query = "select * from ChiPhi where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {

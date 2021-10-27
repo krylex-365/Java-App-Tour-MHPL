@@ -63,40 +63,36 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jScrollPane1" min="-2" pref="923" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace pref="597" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="596" max="-2" attributes="0"/>
                               <Component id="jTextTimKiemTour" min="-2" pref="183" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtnTimKiemTour" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jBtnRefreshTour" min="-2" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="jPanel4" min="-2" pref="706" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jBtnXoaTour" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jBtnSuaTour" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jPanel4" min="-2" pref="706" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jBtnXoaTour" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jBtnSuaTour" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jBtnThemTour" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jBtnXemTour" min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="jBtnHuyTour" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="jBtnThemTour" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jBtnXemTour" min="-2" pref="85" max="-2" attributes="0"/>
-                          <Component id="jBtnHuyTour" min="-2" pref="85" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="45" max="32767" attributes="0"/>
+                      <EmptySpace pref="38" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -128,14 +124,17 @@
                               <Component id="jPanel4" min="-2" pref="243" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="separate" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextTimKiemTour" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="jBtnTimKiemTour" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jBtnRefreshTour" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jTextTimKiemTour" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jBtnTimKiemTour" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="jScrollPane1" pref="285" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" pref="284" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -571,120 +570,76 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                      <Component id="jTextMaTour1" pref="258" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                                      <Component id="jTextTenTour1" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="690" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jPanel5" alignment="0" pref="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jBtnThayDoi" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jBtnLuu" min="-2" pref="160" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jScrollPane3" alignment="0" pref="347" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane3" pref="347" max="32767" attributes="0"/>
+                                  <Component id="jPanel5" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jScrollPane4" min="-2" pref="586" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
+                                      <Component id="jLbThuTu" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jTextTimKiemNV1" min="-2" pref="216" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButtonTimKiem1" min="-2" pref="80" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jBtnRefresh1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane4" min="-2" pref="586" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jTextMaTour1" min="-2" pref="190" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jTextTenTour1" min="-2" pref="190" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel6" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jTextMaTour1" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel27" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="jTextTenTour1" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                              <Component id="jPanel5" min="-2" pref="170" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" pref="267" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel6" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jTextMaTour1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jLabel27" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jTextTenTour1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jPanel5" min="-2" pref="260" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="jScrollPane3" min="-2" pref="256" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jTextTimKiemNV1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jButtonTimKiem1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jBtnRefresh1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="jLbThuTu" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" pref="425" max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jBtnThayDoi" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="jBtnLuu" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <EmptySpace pref="27" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jBtnLuu">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="b8" green="c1" red="88" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Verdana" size="13" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="L&#x1b0;u"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnLuuActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jBtnThayDoi">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="b8" green="c1" red="88" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Verdana" size="13" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Thay &#x111;&#x1ed5;i th&#x1ee9; t&#x1ef1;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnThayDoiActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JTextField" name="jTextTimKiemNV1">
             </Component>
             <Component class="javax.swing.JButton" name="jButtonTimKiem1">
@@ -785,8 +740,12 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextGiaTour1">
+                <Component class="javax.swing.JTextField" name="jTextTenDiaDiem">
                   <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="df" green="d9" red="d6" type="rgb"/>
+                    </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="33" green="33" red="33" type="rgb"/>
                     </Property>
@@ -794,18 +753,24 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="130" y="70" width="170" height="30"/>
+                      <AbsoluteConstraints x="130" y="70" width="160" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextLoaiHinh1">
+                <Component class="javax.swing.JTextField" name="jTextMaDiaDiem">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="df" green="d9" red="d6" type="rgb"/>
+                    </Property>
+                  </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="130" y="30" width="170" height="30"/>
+                      <AbsoluteConstraints x="130" y="30" width="160" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtnChonLoaiHinh1">
+                <Component class="javax.swing.JButton" name="jBtnChonDiaDiem">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b8" green="c1" red="88" type="rgb"/>
@@ -822,20 +787,20 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnChonLoaiHinh1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnChonDiaDiemActionPerformed"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="310" y="30" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="300" y="30" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLbManv1">
+                <Component class="javax.swing.JLabel" name="jLbDiaDiem">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;T&#xea;n &#x110;&#x1ecb;a &#x110;i&#x1ec3;m&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;T&#xea;n &#x110;&#x1ecb;a &#x110;i&#x1ec3;m&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt;*&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -843,26 +808,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtnXoa1">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="b8" green="c1" red="88" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Verdana" size="13" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnXoa1ActionPerformed"/>
-                  </Events>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="250" y="110" width="80" height="40"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JButton" name="jBtnThem2">
+                <Component class="javax.swing.JButton" name="jBtnThemDD">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b8" green="c1" red="88" type="rgb"/>
@@ -873,15 +819,15 @@
                     <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnThem2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnThemDDActionPerformed"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="30" y="110" width="80" height="40"/>
+                      <AbsoluteConstraints x="30" y="150" width="80" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtnSua2">
+                <Component class="javax.swing.JButton" name="jBtnSuaDD">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b8" green="c1" red="88" type="rgb"/>
@@ -892,11 +838,96 @@
                     <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnSua2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnSuaDDActionPerformed"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="140" y="110" width="80" height="40"/>
+                      <AbsoluteConstraints x="130" y="150" width="80" height="40"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JTextField" name="jTextThuTu">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="33" green="33" red="33" type="rgb"/>
+                    </Property>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Hand Cursor"/>
+                    </Property>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="130" y="110" width="160" height="30"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtnLuuDD">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="b8" green="c1" red="88" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Verdana" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="L&#x1b0;u Th&#x1ee9; T&#x1ef1;"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnLuuDDActionPerformed"/>
+                  </Events>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="30" y="200" width="180" height="40"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtnHuyDD">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="b8" green="c1" red="88" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Verdana" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="H&#x1ee7;y"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnHuyDDActionPerformed"/>
+                  </Events>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="230" y="200" width="80" height="40"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JButton" name="jBtnXoaDD">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="b8" green="c1" red="88" type="rgb"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Verdana" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnXoaDDActionPerformed"/>
+                  </Events>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="230" y="150" width="80" height="40"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLbThuTu1">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Dialog" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;Th&#x1ee9; T&#x1ef1;&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt;*&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="30" y="110" width="-1" height="30"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -964,6 +995,14 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JLabel" name="jLbThuTu">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;Danh S&#xe1;ch &#x110;o&#xe0;n C&#x1ee7;a Tour&lt;/body&gt; &lt;/html&gt;"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanelTLTour">

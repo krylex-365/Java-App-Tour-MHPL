@@ -66,7 +66,7 @@ public class BangGia extends javax.swing.JFrame {
         jBtnSua.setEnabled(false);
         jBtnXoa.setEnabled(false);
         jBtnHuy.setEnabled(false);
-        jBtnApDung.setEnabled(false);
+        jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
     }
 
@@ -117,7 +117,7 @@ public class BangGia extends javax.swing.JFrame {
         jDateBatDau = new com.toedter.calendar.JDateChooser();
         jBtnXoa = new javax.swing.JButton();
         jBtnHuy = new javax.swing.JButton();
-        jBtnApDung = new javax.swing.JButton();
+        jBtnXacNhan = new javax.swing.JButton();
         jBtnThoat = new javax.swing.JButton();
         jLbMaTour = new javax.swing.JLabel();
         jTextMaTour = new javax.swing.JTextField();
@@ -168,11 +168,11 @@ public class BangGia extends javax.swing.JFrame {
         jPanel4.add(jTextGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 200, 30));
 
         jLbNgayBD.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbNgayBD.setText("<html> <body>Ngày bắt đầu<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jLbNgayBD.setText("<html><body>Ngày Bắt Đầu<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
         jPanel4.add(jLbNgayBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, 30));
 
         jLbNgayKT.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbNgayKT.setText("<html><body>Ngày kết thúc<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jLbNgayKT.setText("<html><body>Ngày Kết Thúc<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
         jLbNgayKT.setVerifyInputWhenFocusTarget(false);
         jPanel4.add(jLbNgayKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 30));
 
@@ -228,16 +228,16 @@ public class BangGia extends javax.swing.JFrame {
         });
         jPanel4.add(jBtnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, 100, 40));
 
-        jBtnApDung.setBackground(new java.awt.Color(136, 193, 184));
-        jBtnApDung.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
-        jBtnApDung.setText("Áp Dụng");
-        jBtnApDung.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnApDung.addActionListener(new java.awt.event.ActionListener() {
+        jBtnXacNhan.setBackground(new java.awt.Color(136, 193, 184));
+        jBtnXacNhan.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jBtnXacNhan.setText("Xác Nhận");
+        jBtnXacNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnXacNhan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnApDungActionPerformed(evt);
+                jBtnXacNhanActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnApDung, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 100, 40));
+        jPanel4.add(jBtnXacNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 100, 40));
 
         jBtnThoat.setBackground(new java.awt.Color(136, 193, 184));
         jBtnThoat.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
@@ -251,7 +251,7 @@ public class BangGia extends javax.swing.JFrame {
         jPanel4.add(jBtnThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 100, 40));
 
         jLbMaTour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbMaTour.setText("<html> <body> Mã Tour <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jLbMaTour.setText("<html> <body> Mã Tour</body> </html>");
         jPanel4.add(jLbMaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
 
         jTextMaTour.setEditable(false);
@@ -265,7 +265,7 @@ public class BangGia extends javax.swing.JFrame {
         jPanel4.add(jTextMaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 200, 30));
 
         jLbMaGiaNow.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbMaGiaNow.setText("<html><body>Mã Giá Hiện Hành<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jLbMaGiaNow.setText("<html><body>Mã Giá Hiện Hành</body> </html>");
         jPanel4.add(jLbMaGiaNow, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 110, 50));
 
         jTextMaGiaHienHanh.setEditable(false);
@@ -351,19 +351,17 @@ public class BangGia extends javax.swing.JFrame {
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jTextTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(269, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,8 +376,8 @@ public class BangGia extends javax.swing.JFrame {
                             .addComponent(jTextTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19))))
         );
 
@@ -408,7 +406,7 @@ public class BangGia extends javax.swing.JFrame {
         jBtnSua.setEnabled(false);
         jBtnXoa.setEnabled(false);
         jBtnHuy.setEnabled(false);
-        jBtnApDung.setEnabled(false);
+        jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
 //        jTextPban.setText("");
 //        jTextCviec.setText("");
@@ -432,6 +430,15 @@ public class BangGia extends javax.swing.JFrame {
     }
     private void jBtnThemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemActionPerformed
     {//GEN-HEADEREND:event_jBtnThemActionPerformed
+        String maGia = (String) jTextMaGia.getText(),
+                maTour = (String) jTextMaTour.getText(),
+                giaTour = (String) jTextGiaTour.getText(),
+                ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
+                ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
+        if (giaTourBUS.themGiaTour(maGia, maTour, giaTour, ngayBD, ngayKT)) {
+            initTable();
+            JOptionPane.showMessageDialog(this, "Thêm Giá Tour thành công!");
+        }
         jTextMaGia.setText("");
         jTextGiaTour.setText("");
         jDateBatDau.setCalendar(null);
@@ -441,7 +448,7 @@ public class BangGia extends javax.swing.JFrame {
         jBtnSua.setEnabled(false);
         jBtnXoa.setEnabled(false);
         jBtnHuy.setEnabled(false);
-        jBtnApDung.setEnabled(false);
+        jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
 //        if (!jBtnXacNhan.isEnabled())
 //        {
@@ -504,7 +511,7 @@ public class BangGia extends javax.swing.JFrame {
                 jBtnSua.setEnabled(true);
                 jBtnXoa.setEnabled(true);
                 jBtnHuy.setEnabled(true);
-                jBtnApDung.setEnabled(true);
+                jBtnXacNhan.setEnabled(true);
                 jBtnThoat.setEnabled(true);
             }
         }
@@ -551,7 +558,7 @@ public class BangGia extends javax.swing.JFrame {
         jBtnSua.setEnabled(false);
         jBtnXoa.setEnabled(false);
         jBtnHuy.setEnabled(false);
-        jBtnApDung.setEnabled(false);
+        jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
     }//GEN-LAST:event_jBtnXoaActionPerformed
 
@@ -567,14 +574,16 @@ public class BangGia extends javax.swing.JFrame {
         jBtnSua.setEnabled(false);
         jBtnXoa.setEnabled(false);
         jBtnHuy.setEnabled(false);
-        jBtnApDung.setEnabled(false);
+        jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
-    private void jBtnApDungActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnApDungActionPerformed
-    {//GEN-HEADEREND:event_jBtnApDungActionPerformed
+    private void jBtnXacNhanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXacNhanActionPerformed
+    {//GEN-HEADEREND:event_jBtnXacNhanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnApDungActionPerformed
+        tourForm.setMaGia(jTextMaGia.getText());
+        dispose();
+    }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
     private void jBtnThoatActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThoatActionPerformed
     {//GEN-HEADEREND:event_jBtnThoatActionPerformed
@@ -589,15 +598,15 @@ public class BangGia extends javax.swing.JFrame {
     private void jBtnCapPhatMaGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaGiaActionPerformed
         // TODO add your handling code here:
 //        reloadData();
-//        String init = null;
-//        init = tourBUS.CapPhat(init);
-//        jTextMaTour.setText(init);
+        String init = null;
+        init = giaTourBUS.CapPhat(init);
+        jTextMaGia.setText(init);
         jBtnCapPhatMaGia.setEnabled(false);
         jBtnThem.setEnabled(true);
         jBtnSua.setEnabled(false);
         jBtnXoa.setEnabled(false);
         jBtnHuy.setEnabled(true);
-        jBtnApDung.setEnabled(false);
+        jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
 //        jTextTenTour.setText("");
 //        jTextLoaiHinh.setText("");
@@ -683,7 +692,6 @@ public class BangGia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnApDung;
     private javax.swing.JButton jBtnCapPhatMaGia;
     private javax.swing.JButton jBtnHuy;
     private javax.swing.JButton jBtnRefresh;
@@ -691,6 +699,7 @@ public class BangGia extends javax.swing.JFrame {
     private javax.swing.JButton jBtnThem;
     private javax.swing.JButton jBtnThoat;
     private javax.swing.JButton jBtnTimKiemGia;
+    private javax.swing.JButton jBtnXacNhan;
     private javax.swing.JButton jBtnXoa;
     private com.toedter.calendar.JDateChooser jDateBatDau;
     private com.toedter.calendar.JDateChooser jDateKetThuc;
