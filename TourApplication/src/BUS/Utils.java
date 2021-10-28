@@ -52,6 +52,23 @@ public class Utils {
         init += add;
         return init;
     }
+    ////////////////Tạo mã loại hình
+    public String initMaLoai(String init) {
+        String temp = maDLCuoi.getMaLoaiLast();
+        System.out.println(temp);
+        String add = temp.substring(2, temp.length());
+        int maLoai = Integer.parseInt(add);
+        maLoai++;
+        int totalzero = 6;
+        add = String.valueOf(maLoai);
+        int cpzero = totalzero - add.length();
+        init = "LH";
+        for (int i = 0; i < cpzero; i++) {
+            init += '0';
+        }
+        init += add;
+        return init;
+    }
 
     ////////////////Lấy ngày hiện tại
     public String initDateNow() {

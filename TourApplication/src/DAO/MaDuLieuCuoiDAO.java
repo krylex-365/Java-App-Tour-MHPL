@@ -6,11 +6,13 @@
 package DAO;
 
 import java.sql.SQLException;
+
 /**
  *
  * @author User
  */
 public class MaDuLieuCuoiDAO {
+
     public String MaLoaiLast;
     public String MaTourLast;
     public String MaGiaLast;
@@ -25,7 +27,7 @@ public class MaDuLieuCuoiDAO {
     public MaDuLieuCuoiDAO() {
         getLastData();
     }
-    
+
     public void getLastData() {
         conn = new Connect();
         conn.getConnection();
@@ -53,13 +55,13 @@ public class MaDuLieuCuoiDAO {
             System.out.println("DuLieuLast.close error.");
         }
     }
-    
-    public boolean updateMaTour(String newLatestMaTour){
+
+    public boolean updateMaTour(String newLatestMaTour) {
         conn = new Connect();
         conn.getConnection();
         String query = "UPDATE MaDuLieuCuoi SET"
-                    + " MaTour='"+newLatestMaTour+"'"
-                    + " WHERE MaTour='"+getMaTourLast()+"'";
+                + " MaTour='" + newLatestMaTour + "'"
+                + " WHERE MaTour='" + getMaTourLast() + "'";
         if (conn.executeUpdate(query)) {
             System.out.println("Update last MaTour success.");
             setMaTourLast(newLatestMaTour);
@@ -70,13 +72,13 @@ public class MaDuLieuCuoiDAO {
         conn.close();
         return false;
     }
-    
-    public boolean updateMaGia(String newLatestMaGia){
+
+    public boolean updateMaGia(String newLatestMaGia) {
         conn = new Connect();
         conn.getConnection();
         String query = "UPDATE MaDuLieuCuoi SET"
-                    + " MaGia='"+newLatestMaGia+"'"
-                    + " WHERE MaGia='"+getMaGiaLast()+"'";
+                + " MaGia='" + newLatestMaGia + "'"
+                + " WHERE MaGia='" + getMaGiaLast() + "'";
         if (conn.executeUpdate(query)) {
             System.out.println("Update last MaGia success.");
             setMaGiaLast(newLatestMaGia);
@@ -84,6 +86,23 @@ public class MaDuLieuCuoiDAO {
             return true;
         }
         System.out.println("Update last MaGia fail.");
+        conn.close();
+        return false;
+    }
+
+    public boolean updateMaLoai(String newLatestMaLoai) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "UPDATE MaDuLieuCuoi SET"
+                + " MaLoai='" + newLatestMaLoai + "'"
+                + " WHERE MaLoai='" + getMaLoaiLast() + "'";
+        if (conn.executeUpdate(query)) {
+            System.out.println("Update last MaLoai success.");
+            setMaLoaiLast(newLatestMaLoai);
+            conn.close();
+            return true;
+        }
+        System.out.println("Update last MaLoai fail.");
         conn.close();
         return false;
     }
@@ -159,6 +178,5 @@ public class MaDuLieuCuoiDAO {
     public void setMaNhanVienLast(String MaNhanVienLast) {
         this.MaNhanVienLast = MaNhanVienLast;
     }
-    
-    
+
 }
