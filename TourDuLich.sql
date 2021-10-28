@@ -181,3 +181,6 @@ values ('DL000001', 'TR000001', 'Doan 1', '2500', '2021-10-13', '2021-10-27', 'V
 insert into MaDuLieuCuoi
 values ('LH000002','TR000003','GT000003','DD000007','DL000001','KH000000','CP000000','LP000000','NV000000')
 
+update DiaDiem set
+    TenDiaDiem = 'sdcscfdfvd'
+where MaDiaDiem = 'DD000008'

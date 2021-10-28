@@ -53,6 +53,26 @@ public class Utils {
         return init;
     }
 
+    ////////////////Tạo địa điểm
+    public String initMaDiaDiem(String init) {
+        maDLCuoi = new MaDuLieuCuoiDAO();
+        System.out.println("- In initDiaDiem");
+        String temp = maDLCuoi.getMaDiaDiemLast();
+        System.out.println(temp);
+        String add = temp.substring(2, temp.length());
+        int maDiaDiem = Integer.parseInt(add);
+        maDiaDiem++;
+        int totalzero = 6;
+        add = String.valueOf(maDiaDiem);
+        int cpzero = totalzero - add.length();
+        init = "DD";
+        for (int i = 0; i < cpzero; i++) {
+            init += '0';
+        }
+        init += add;
+        return init;
+    }
+
     ////////////////Lấy ngày hiện tại
     public String initDateNow() {
         final Date currentTime = new Date();
@@ -203,5 +223,9 @@ class main {
         Utils ut = new Utils();
         System.out.println(ut.totalDays("2020-06-02"));
 
+        DiaDiemBUS diaDiemBUS = new DiaDiemBUS();
+//        String maDD = diaDiemBUS.CapPhat(new MaDuLieuCuoiDAO().getMaDiaDiemLast());
+//        diaDiemBUS.themDiaDiem(maDD, "dsfsdgfds");
+        diaDiemBUS.xoaDiaDiem("DD000002");
     }
 }

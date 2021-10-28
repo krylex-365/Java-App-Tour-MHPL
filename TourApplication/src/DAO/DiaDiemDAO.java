@@ -47,5 +47,39 @@ public class DiaDiemDAO {
         }
         return dsDiaDiem;
     }
-    
+
+    public boolean themDiaDiem(DiaDiemDTO diaDiemDTO) {
+        String sql = "insert into DiaDiem\n" +
+                "values ('"+diaDiemDTO.getMaDiaDiem()+"', '"+diaDiemDTO.getTenDiaDiem()+"', 1)";
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean suaMaDiaDiem(String maDiaDiem, String tenDiaDiem) {
+        String sql = "update DiaDiem set\n" +
+                    "TenDiaDiem = '" + maDiaDiem + "'\n" +
+                    "where MaDiaDiem = '" + tenDiaDiem + "'";
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean xoaDiaDiem(String maDiaDiem) {
+        String sql = "update DiaDiem set\n" +
+                "Status = 0\n" +
+                "where MaDiaDiem = '" + maDiaDiem + "'";
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)){
+            return true;
+        }
+        return false;
+    }
 }

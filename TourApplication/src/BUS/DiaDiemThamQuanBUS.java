@@ -102,4 +102,11 @@ public class DiaDiemThamQuanBUS {
         }
         return false;
     }
+
+    public DiaDiemThamQuanDTO searchDiaDiemThamQuanByMaDiaDiem(String maDiaDiem) {
+        for (DiaDiemThamQuanDTO diaDiemThamQuanDTO: diaDiemThamQuanDTOs){
+            if(diaDiemThamQuanDTO.getMaDiaDiem().equals(maDiaDiem)) return diaDiemThamQuanDTO;
+        }
+        return null;
+    }
 }

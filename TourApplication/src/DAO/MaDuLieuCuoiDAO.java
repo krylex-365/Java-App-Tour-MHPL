@@ -88,6 +88,23 @@ public class MaDuLieuCuoiDAO {
         return false;
     }
 
+    public boolean updateMaDiaDiem(String newLatestDiaDiem) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "UPDATE MaDuLieuCuoi SET"
+                + " MaDiaDiem='"+newLatestDiaDiem+"'"
+                + " WHERE MaDiaDiem='"+getMaDiaDiemLast()+"'";
+        if (conn.executeUpdate(query)) {
+            System.out.println("Update last MaGia success.");
+            setMaDiaDiemLast(newLatestDiaDiem);
+            conn.close();
+            return true;
+        }
+        System.out.println("Update last MaGia fail.");
+        conn.close();
+        return false;
+    }
+
     public String getMaLoaiLast() {
         return MaLoaiLast;
     }
@@ -159,6 +176,6 @@ public class MaDuLieuCuoiDAO {
     public void setMaNhanVienLast(String MaNhanVienLast) {
         this.MaNhanVienLast = MaNhanVienLast;
     }
-    
-    
+
+
 }
