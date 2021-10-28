@@ -16,6 +16,7 @@ import BUS.TourBUS;
 import DTO.GiaTourDTO;
 import DTO.LoaiHinhTourDTO;
 import DTO.TourDTO;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -56,7 +57,7 @@ public class TourForm extends javax.swing.JPanel {
     public BufferedImage i = null;
     public String imgName = null;
     int rowTour;
-    private String maTour, tenTour, maLoai, maGia, maGiaHienHanh;
+    private String maTour, tenTour, maLoai, maGia, maGiaHienHanh, maLoaiHienHanh;
     Vector tbColTour = new Vector();//Vector chứa các dòng dữ liệu của bảng.
     Vector tbColDiadiem = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tbColDoan = new Vector();
@@ -77,6 +78,12 @@ public class TourForm extends javax.swing.JPanel {
         jBtnChonGiaTour.setEnabled(false);
         jDateNgayBD.setEnabled(false);
         jDateNgayKT.setEnabled(false);
+        jBtnThemDD.setEnabled(false);
+        jBtnSuaDD.setEnabled(false);
+        jBtnHuyDD.setEnabled(false);
+        jBtnLuuDD.setEnabled(false);
+        jBtnXoaDD.setEnabled(false);
+        jBtnChonDiaDiem.setEnabled(false);
     }
 
     public void reloadData() {
@@ -364,7 +371,12 @@ public class TourForm extends javax.swing.JPanel {
         tbColTour.add("Giá Tour");
         tbColTour.add("Ngày Bắt Đầu");
         tbColTour.add("Ngày Kết Thúc");
-        tbModelTour= new DefaultTableModel(tbColTour,5);
+        tbModelTour= new DefaultTableModel(tbColTour,5){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return false;
+            }
+        };
         jTableTour.setModel (tbModelTour);
         jTableTour.setShowGrid(true);
         jTableTour.setFocusable(false);
@@ -613,7 +625,12 @@ public class TourForm extends javax.swing.JPanel {
         tbColDiadiem.add("Mă Địa Điểm");
         tbColDiadiem.add("Tên Địa Điểm");
         tbColDiadiem.add("Thứ Tự");
-        tbModelDiadiem= new DefaultTableModel(tbColDiadiem,20);
+        tbModelDiadiem= new DefaultTableModel(tbColDiadiem,5){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return false;
+            }
+        };
         jTableDiadiem.setModel (tbModelDiadiem);
         jTableDiadiem.setShowGrid(true);
         jTableDiadiem.setFocusable(false);
@@ -652,7 +669,12 @@ public class TourForm extends javax.swing.JPanel {
         tbColDoan.add("Ngày Bắt Đầu");
         tbColDoan.add("Ngày Kết Thúc");
         tbColDoan.add("Số Người");
-        tbModelDoan= new DefaultTableModel(tbColDoan,20);
+        tbModelDoan= new DefaultTableModel(tbColDoan,5){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return false;
+            }
+        };
         jTableDoan.setModel (tbModelDoan);
         jTableDoan.setShowGrid(true);
         jTableDoan.setFocusable(false);
@@ -700,7 +722,7 @@ public class TourForm extends javax.swing.JPanel {
                         .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextTenTour1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelChiTietTourLayout.setVerticalGroup(
             jPanelChiTietTourLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -911,7 +933,7 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnHuyDDActionPerformed
         // TODO add your handling code here:
         jBtnChonDiaDiem.setEnabled(true);
-        jBtnThemDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
         jBtnSuaDD.setEnabled(false);
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
@@ -939,6 +961,8 @@ public class TourForm extends javax.swing.JPanel {
         //        tbnv.loadDataNV();
         //        tbModelTour.setRowCount(0);
         //        tbnv.bangnhanvien(tbModelTour);
+        jTextTimKiemTour.setText("");
+        initTableTour();
     }//GEN-LAST:event_jBtnRefreshTourActionPerformed
 
     private void jBtnTimKiemTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnTimKiemTourActionPerformed
@@ -1024,13 +1048,11 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnSuaTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaTourActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaTourActionPerformed
         // TODO add your handling code here:
-        String maTour = (String) jTableTour.getModel().getValueAt(rowTour, 0),
-                tenTour = (String) jTextTenTour.getText(),
-                giaTour = (String) jTextGiaTour.getText();
+        String tenTour = (String) jTextTenTour.getText();
         System.out.println("Sua tour: " + maTour);
 //                ngayBD = (String) ((JTextField)jDateNgayBD.getDateEditor().getUiComponent()).getText (),
 //                ngayKT = (String) ((JTextField)jDateNgayKT.getDateEditor().getUiComponent()).getText ();
-        if (tourBUS.suaTour(maTour, tenTour, (String) jTextDacDiem.getText(), getMaLoai(), getMaGiaHienHanh(), getMaGia())) {
+        if (tourBUS.suaTour(getMaTour(), tenTour, (String) jTextDacDiem.getText(), getMaLoaiHienHanh(), getMaLoai(), getMaGiaHienHanh(), getMaGia())) {
             initTableTour();
             JOptionPane.showMessageDialog(this, "Sửa Tour thành công!");
         } else {
@@ -1086,17 +1108,20 @@ public class TourForm extends javax.swing.JPanel {
                     for (TourDTO tour : tourBUS.getTourDTOS()) {
                         if (maTour.equals(tour.getMaTour())) {
                             jTextDacDiem.setText(tour.getDacDiem());
+                            setMaLoaiHienHanh(tour.getMaLoai());
+                            setMaLoai(tour.getMaLoai());
                         }
                     }
                     setMaTour(maTour);
                     System.out.println("maTour: " + getMaTour());
+                    System.out.println("maLoaiHH: " + getMaLoaiHienHanh());
                     for (GiaTourDTO giaTour : giaTourBUS.getGiaTourDTOs()) {
                         if (giaTour.getMaTour().equals(getMaTour()) && giaTour.getHienHanh() == 1) {
                             setMaGiaHienHanh(giaTour.getMaGia());
                             setMaGia(giaTour.getMaGia());
                         }
                     }
-                    System.out.println("maGia: " + getMaGiaHienHanh());
+                    System.out.println("maGiaHH: " + getMaGiaHienHanh());
                     jBtnCapPhatMaTour.setEnabled(false);
                     jBtnThemTour.setEnabled(false);
                     jBtnSuaTour.setEnabled(true);
@@ -1149,7 +1174,7 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnXoaDDActionPerformed
         // TODO add your handling code here:
         jBtnChonDiaDiem.setEnabled(true);
-        jBtnThemDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
         jBtnSuaDD.setEnabled(false);
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
@@ -1160,7 +1185,7 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnThemDDActionPerformed
         // TODO add your handling code here:
         jBtnChonDiaDiem.setEnabled(true);
-        jBtnThemDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
         jBtnSuaDD.setEnabled(false);
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
@@ -1171,7 +1196,7 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnSuaDDActionPerformed
         // TODO add your handling code here:
         jBtnChonDiaDiem.setEnabled(true);
-        jBtnThemDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
         jBtnSuaDD.setEnabled(false);
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
@@ -1223,7 +1248,7 @@ public class TourForm extends javax.swing.JPanel {
         chiTietTour.tbModelDoanDuLich(tbModelDoan,maTour);
         if (true){ // NẾU TOUR CHƯA CÓ ĐOÀN
             jBtnChonDiaDiem.setEnabled(true);
-            jBtnThemDD.setEnabled(true);
+            jBtnThemDD.setEnabled(false);
             jBtnSuaDD.setEnabled(false);
             jBtnXoaDD.setEnabled(false);
             jBtnHuyDD.setEnabled(false);
@@ -1429,6 +1454,37 @@ public class TourForm extends javax.swing.JPanel {
         this.maGiaHienHanh = maGiaHienHanh;
     }
 
+    public String getMaLoaiHienHanh() {
+        return maLoaiHienHanh;
+    }
+
+    public void setMaLoaiHienHanh(String maLoaiHienHanh) {
+        this.maLoaiHienHanh = maLoaiHienHanh;
+    }
+
+    public String getTenTour() {
+        return tenTour;
+    }
+
+    public void setTenTour(String tenTour) {
+        this.tenTour = tenTour;
+    }
+
+    public JDateChooser getjDateNgayBD() {
+        return jDateNgayBD;
+    }
+
+    public void setjDateNgayBD(JDateChooser jDateNgayBD) {
+        this.jDateNgayBD = jDateNgayBD;
+    }
+
+    public JDateChooser getjDateNgayKT() {
+        return jDateNgayKT;
+    }
+
+    public void setjDateNgayKT(JDateChooser jDateNgayKT) {
+        this.jDateNgayKT = jDateNgayKT;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCapPhatMaLH;

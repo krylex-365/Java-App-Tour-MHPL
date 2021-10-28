@@ -25,23 +25,47 @@ public class GiaTourBUS {
         return init;
     }
     
+    private int indexTour(String maGia) {
+        for (int i = 0; i < giaTourDTOs.size(); i++) {
+            if (maGia.equals(giaTourDTOs.get(i).getMaGia())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
     public boolean themGiaTour(String MaGia, String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc){
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, 0);
         if (giaTourDAO.insertGiaTourByTour(giaTourDTO)) {
             giaTourDTOs.add(giaTourDTO);
-            System.out.println("Thêm thành công");
+            System.out.println("Thêm thành công GiaTourBUS");
             maLast.updateMaGia(MaGia);
             return true;
         }
-        System.out.println("Thêm thất bại");
+        System.out.println("Thêm thất bại GiaTourBUS");
         return false;
     }
     
-    public boolean suaGiaTour(){
+    public boolean suaGiaTour(String MaTour, String MaGia, String ThanhTien, String TgBatDau, String TgKetThuc, int HienHanh){
+        int i = indexTour(MaGia);
+        GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, HienHanh);
+        if (giaTourDAO.updateGiaTour(giaTourDTO)) {
+            giaTourDTOs.set(i, giaTourDTO);
+            System.out.println("Sửa thành công GiaTourBUS");
+            return true;
+        }
+        System.out.println("Sửa thất bại GiaTourBUS");
         return false;
     }
     
-    public boolean xoaGiaTour(){
+    public boolean xoaGiaTour(String MaTour, String MaGia, String ThanhTien, String TgBatDau, String TgKetThuc, int HienHanh){
+        GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, HienHanh);
+        if (giaTourDAO.deleteGiaTour(MaTour, MaGia)) {
+            giaTourDTOs.remove(giaTourDTO);
+            System.out.println("Sửa thành công GiaTourBUS");
+            return true;
+        }
+        System.out.println("Sửa thất bại GiaTourBUS");
         return false;
     }
     

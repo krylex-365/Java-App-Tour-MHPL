@@ -64,14 +64,22 @@ public class TourDAO {
         return false;
     }
 
-    public boolean updateTour(TourDTO tourDTO) {
+    public boolean updateTour(TourDTO tourDTO, boolean checkLH) {
         conn = new Connect();
         conn.getConnection();
-        String sql = "UPDATE Tour SET"
+        String sql;
+        if (checkLH) {
+            sql = "UPDATE Tour SET"
                 + " TenTour='" + tourDTO.getTenTour() + "',"
                 + " DacDiem='" + tourDTO.getDacDiem() + "',"
                 + " MaLoai='" + tourDTO.getMaLoai() + "'"
                 + " WHERE MaTour='" + tourDTO.getMaTour() + "';";
+        } else {
+            sql = "UPDATE Tour SET"
+                + " TenTour='" + tourDTO.getTenTour() + "',"
+                + " DacDiem='" + tourDTO.getDacDiem() + "'"
+                + " WHERE MaTour='" + tourDTO.getMaTour() + "';";
+        }
         if (conn.executeUpdate(sql)) {
             conn.close();
             return true;

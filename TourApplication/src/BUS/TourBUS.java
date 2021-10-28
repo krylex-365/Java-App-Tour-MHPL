@@ -51,19 +51,28 @@ public class TourBUS {
         return false;
     }
 
-    public boolean suaTour(String maTour, String tenTour, String dacDiem, String maLoai, String maGia, String maGiaEdit) {
+    public boolean suaTour(String maTour, String tenTour, String dacDiem, String maLoaiHH, 
+            String maLoai, String maGiaHH, String maGia) {
         int indexTour = indexTour(maTour);
         if (indexTour == -1) {
             return false;
         }
-        TourDTO tourDTO = new TourDTO(maTour, maLoai, tenTour, dacDiem);
-        if (tourDAO.updateTour(tourDTO)) {
+        TourDTO tourDTO = tourDTO = new TourDTO(maTour, maLoai, tenTour, dacDiem);
+        boolean checkLH;
+        if (maLoaiHH.equals(maLoai)){
+            // NẾU KHÔNG SỬA LOẠI HÌNH
+            checkLH = false;
+        } else {
+            // NẾU SỬA LOẠI HÌNH
+            checkLH = true;
+        }
+        if (tourDAO.updateTour(tourDTO, checkLH)) {
             tourDTOs.set(indexTour, tourDTO);
             giaTourBUS = new GiaTourBUS();
-            if (maGia.equals(maGiaEdit)){
+            if (maGiaHH.equals(maGia)){
                 return true;
             }
-            if (giaTourBUS.suaHienHanh(maGiaEdit, maTour)) {
+            if (giaTourBUS.suaHienHanh(maGia, maTour)) {
                 System.out.println("Sửa thành công suaTourBUS");
                 return true;
             }

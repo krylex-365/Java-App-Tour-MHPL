@@ -168,7 +168,6 @@
             </Component>
             <Component class="javax.swing.JTextField" name="jTextGiaTour">
               <Properties>
-                <Property name="editable" type="boolean" value="false"/>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
@@ -473,7 +472,7 @@
                     <LineBorder roundedCorners="true"/>
                   </Border>
                 </Property>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="tbCol.add(&quot;M&#x103; Gi&#xe1;&quot;);&#xa;tbCol.add(&quot;Gi&#xe1; Tour&quot;);&#xa;tbCol.add(&quot;Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u&quot;);&#xa;tbCol.add(&quot;Ng&#xe0;y k&#x1ebf;t th&#xfa;c&quot;);&#xa;tbModel= new DefaultTableModel(tbCol,5);&#xa;jTableGiaTour.setModel (tbModel);&#xa;jTableGiaTour.setShowGrid(true);&#xa;        jTableGiaTour.setFocusable(false);&#xa;        jTableGiaTour.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableGiaTour.setRowHeight(25);  &#xa;        jTableGiaTour.getTableHeader().setOpaque(false);&#xa;        jTableGiaTour.setFillsViewportHeight(true);&#xa;        jTableGiaTour.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableGiaTour.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableGiaTour.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableGiaTour.setSelectionBackground(new Color(52,152,219));&#xa;//listSP();">
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="tbCol.add(&quot;M&#x103; Gi&#xe1;&quot;);&#xa;tbCol.add(&quot;Gi&#xe1; Tour&quot;);&#xa;tbCol.add(&quot;Ng&#xe0;y B&#x1eaf;t &#x110;&#x1ea7;u&quot;);&#xa;tbCol.add(&quot;Ng&#xe0;y K&#x1ebf;t Th&#xfa;c&quot;);&#xa;tbCol.add(&quot;Hi&#x1ec7;n H&#xe0;nh&quot;);&#xa;tbModel= new DefaultTableModel(tbCol,5){&#xa;    @Override&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableGiaTour.setModel (tbModel);&#xa;jTableGiaTour.setShowGrid(true);&#xa;        jTableGiaTour.setFocusable(false);&#xa;        jTableGiaTour.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableGiaTour.setRowHeight(25);  &#xa;        jTableGiaTour.getTableHeader().setOpaque(false);&#xa;        jTableGiaTour.setFillsViewportHeight(true);&#xa;        jTableGiaTour.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableGiaTour.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableGiaTour.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableGiaTour.setSelectionBackground(new Color(52,152,219));&#xa;//listSP();">
                   <Table columnCount="0" rowCount="4"/>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

@@ -43,6 +43,7 @@ public class BangGia extends javax.swing.JFrame {
     Vector tbCol = new Vector();
     DefaultTableModel tbModel;
     String maTour, maGiaHH;
+    int hienHanh;
 
     public BangGia() {
         initComponents();
@@ -59,6 +60,7 @@ public class BangGia extends javax.swing.JFrame {
         System.out.println("maTourCon: " + this.maTour);
         System.out.println("maGiaCon: " + this.maGiaHH);
         initTable();
+        jTableGiaTour.setEditingColumn(5);
         jTextMaTour.setText(this.maTour);
         jTextMaGiaHienHanh.setText(this.maGiaHH);
         jBtnCapPhatMaGia.setEnabled(true);
@@ -89,6 +91,10 @@ public class BangGia extends javax.swing.JFrame {
                 row.add(giaTour.getThanhTien());
                 row.add(giaTour.getTgBatDau());
                 row.add(giaTour.getTgKetThuc());
+                if (giaTour.getHienHanh()==1)
+                    row.add("X");
+                else
+                    row.add("");
                 model.addRow(row);
             }
         }
@@ -163,7 +169,6 @@ public class BangGia extends javax.swing.JFrame {
         jLbGiaTour.setText("<html> <body>Giá Tour <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
         jPanel4.add(jLbGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 30));
 
-        jTextGiaTour.setEditable(false);
         jTextGiaTour.setForeground(new java.awt.Color(51, 51, 51));
         jPanel4.add(jTextGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 200, 30));
 
@@ -304,9 +309,15 @@ public class BangGia extends javax.swing.JFrame {
         ));
         tbCol.add("Mă Giá");
         tbCol.add("Giá Tour");
-        tbCol.add("Ngày bắt đầu");
-        tbCol.add("Ngày kết thúc");
-        tbModel= new DefaultTableModel(tbCol,5);
+        tbCol.add("Ngày Bắt Đầu");
+        tbCol.add("Ngày Kết Thúc");
+        tbCol.add("Hiện Hành");
+        tbModel= new DefaultTableModel(tbCol,5){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return false;
+            }
+        };
         jTableGiaTour.setModel (tbModel);
         jTableGiaTour.setShowGrid(true);
         jTableGiaTour.setFocusable(false);
@@ -397,6 +408,16 @@ public class BangGia extends javax.swing.JFrame {
 
     private void jBtnSuaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaActionPerformed
+        String maGia = (String) jTextMaGia.getText(), 
+                giaTour = (String) jTextGiaTour.getText(),
+                ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
+                ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
+        if (giaTourBUS.suaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh)){
+            initTable();
+            JOptionPane.showMessageDialog(this, "Sửa Giá Tour thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa Giá Tour thất bại!");
+        }
         jTextMaGia.setText("");
         jTextGiaTour.setText("");
         jDateBatDau.setCalendar(null);
@@ -438,6 +459,8 @@ public class BangGia extends javax.swing.JFrame {
         if (giaTourBUS.themGiaTour(maGia, maTour, giaTour, ngayBD, ngayKT)) {
             initTable();
             JOptionPane.showMessageDialog(this, "Thêm Giá Tour thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm Giá Tour thất bại!");
         }
         jTextMaGia.setText("");
         jTextGiaTour.setText("");
@@ -506,12 +529,21 @@ public class BangGia extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(BangGia.this, e);
                     System.out.println("- Load sai ngày kết thúc!");
                 }
+                if (jTableGiaTour.getValueAt(rowTbl, 4).equals("X")){
+                    System.out.println("Hiện hành");
+                    hienHanh = 1;
+                    jBtnXoa.setEnabled(false);
+                    jBtnXacNhan.setEnabled(false);
+                }
+                else {
+                    hienHanh = 0;
+                    jBtnXoa.setEnabled(true);
+                    jBtnXacNhan.setEnabled(true);
+                }
                 jBtnCapPhatMaGia.setEnabled(false);
                 jBtnThem.setEnabled(false);
                 jBtnSua.setEnabled(true);
-                jBtnXoa.setEnabled(true);
                 jBtnHuy.setEnabled(true);
-                jBtnXacNhan.setEnabled(true);
                 jBtnThoat.setEnabled(true);
             }
         }
@@ -549,6 +581,16 @@ public class BangGia extends javax.swing.JFrame {
     private void jBtnXoaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaActionPerformed
         // TODO add your handling code here:
+        String maGia = (String) jTextMaGia.getText(), 
+                giaTour = (String) jTextGiaTour.getText(),
+                ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
+                ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
+        if (giaTourBUS.xoaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh)){
+            initTable();
+            JOptionPane.showMessageDialog(this, "Xóa Giá Tour thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa Giá Tour thất bại!");
+        }
         jTextMaGia.setText("");
         jTextGiaTour.setText("");
         jDateBatDau.setCalendar(null);
@@ -582,6 +624,9 @@ public class BangGia extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_jBtnXacNhanActionPerformed
         // TODO add your handling code here:
         tourForm.setMaGia(jTextMaGia.getText());
+        tourForm.getjTextGiaTour().setText((String) jTextGiaTour.getText());
+        tourForm.getjDateNgayBD().setCalendar(jDateBatDau.getCalendar());
+        tourForm.getjDateNgayKT().setCalendar(jDateKetThuc.getCalendar());
         dispose();
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
@@ -597,7 +642,7 @@ public class BangGia extends javax.swing.JFrame {
 
     private void jBtnCapPhatMaGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaGiaActionPerformed
         // TODO add your handling code here:
-//        reloadData();
+        reloadData();
         String init = null;
         init = giaTourBUS.CapPhat(init);
         jTextMaGia.setText(init);
@@ -608,18 +653,6 @@ public class BangGia extends javax.swing.JFrame {
         jBtnHuy.setEnabled(true);
         jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
-//        jTextTenTour.setText("");
-//        jTextLoaiHinh.setText("");
-//        jTextDacDiem.setText("");
-//        jTextGiaTour.setText("");
-//        jDateNgayBD.setCalendar(null);
-//        jDateNgayKT.setCalendar(null);
-//        jTextGiaTour.setEditable(true);
-//        jTextGiaTour.setBackground(new Color(255, 255, 255));
-//        jBtnChonLoaiHinh.setEnabled(true);
-//        jBtnChonGiaTour.setEnabled(false);
-//        jDateNgayBD.setEnabled(true);
-//        jDateNgayKT.setEnabled(true);
     }//GEN-LAST:event_jBtnCapPhatMaGiaActionPerformed
 
 //    public void searchlistSP(ArrayList<NhanVienDTO> nv)
