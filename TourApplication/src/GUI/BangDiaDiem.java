@@ -6,6 +6,7 @@
 package GUI;
 
 //import BUS.CongViecBUS;
+import DTO.DiaDiemDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -47,6 +48,8 @@ public class BangDiaDiem extends javax.swing.JFrame
     {
         return thuongphatAc;
     }
+    
+    
 
     public void setThuongphatAc(boolean thuongphatAc)
     {
@@ -60,6 +63,11 @@ public class BangDiaDiem extends javax.swing.JFrame
         setLocationRelativeTo(null);
         jBtnXacNhan.setEnabled(false);
         jBtnQuayLai.setEnabled(false);
+    }
+    
+    public void loadData(){
+        tbModel.setRowCount(0);
+        tourForm.chiTietTour.tbModelDiaDiem(tbModel);
     }
 
     /**
@@ -327,44 +335,14 @@ public class BangDiaDiem extends javax.swing.JFrame
     }
     private void jBtnXacNhanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXacNhanActionPerformed
     {//GEN-HEADEREND:event_jBtnXacNhanActionPerformed
-//        if (!jBtnXacNhan.isEnabled())
-//        {
-//            System.out.println("Disabled");
-//        } else
-//        {
-//            if (ktra().equals(""))
-//            {
-//                String manv = jTextManv.getText();
-//                if (bccForm != null)
-//                {
-//                    bccForm.getjTextManv().setText(manv);
-//                }
-//                if (luongForm != null)
-//                {
-//                    luongForm.getjTextManv().setText(manv);
-//                }
-//                if (thuongphatForm != null && thuongphatAc)
-//                {
-//                    thuongphatForm.getjTextManv().setText(manv);
-//                    thuongphatForm.getjBtnThemTp().setEnabled(true);
-//                    thuongphatForm.getjBtnSuaTp().setEnabled(false);
-//                    thuongphatForm.getjBtnXoaTp().setEnabled(false);
-//                    thuongphatForm.getjBtnHuy().setEnabled(true);
-//                    thuongphatAc = false;
-//                }
-//                setVisible(false);
-//                JOptionPane.showMessageDialog(null, "Chọn thành công!");
-//            } else
-//            {
-//                JOptionPane.showMessageDialog(null, ktra());
-//            }
-//        }
+        tourForm.getjTextMaDiaDiem().setText(jTextMaLH.getText());
+        tourForm.getjTextTenDiaDiem().setText(jTextTenLH.getText());
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
     private void jTableLoaiHinhMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableLoaiHinhMouseClicked
     {//GEN-HEADEREND:event_jTableLoaiHinhMouseClicked
         // TODO add your handling code here:
-        int rowTbl = jTableLoaiHinh.getSelectedRow();
+        rowTbl = jTableLoaiHinh.getSelectedRow();
         jTextMaLH.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 0));
         jTextTenLH.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 1));
 //        jTextTennv.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 2));

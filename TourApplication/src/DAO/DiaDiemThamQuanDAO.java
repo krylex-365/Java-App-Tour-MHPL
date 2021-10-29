@@ -52,6 +52,7 @@ public class DiaDiemThamQuanDAO {
     public boolean add(String maTour,String maDiaDiem,int thuTu){
         conn = new Connect();
         conn.getConnection();
+        //System.out.println(maTour);
         String query = "insert into DiaDiemThamQuan"
                 + " (MaTour,MaDiaDiem,ThuTu)"
                 + " values ('"+maTour+"','"+maDiaDiem+"',"+thuTu+")";
@@ -65,7 +66,8 @@ public class DiaDiemThamQuanDAO {
     public boolean delete(String maTour,String maDiaDiem,int thuTu){
         conn = new Connect();
         conn.getConnection();
-        String query = "delete from DiaDiemThamQuan where MaTour='"+maTour+"'"+"and MaDiaDiem='"+maDiaDiem+"'"+"and ThuTu="+thuTu+"";
+        String query = "update DiaDiemThamQuan " +
+                        "set Status=0 " +"where MaTour='"+maTour+"'"+"and MaDiaDiem='"+maDiaDiem+"'"+"and ThuTu="+thuTu;
         if(conn.executeUpdate(query)){
             System.out.println("DiaDiemThamQuanDAO delete success.");
             return true;
@@ -95,5 +97,24 @@ public class DiaDiemThamQuanDAO {
             return true;
         }
         return false;
+    }
+    
+    public boolean updateDiaDiemThamQuan(String  maTour,String maDiaDiem,int thuTu,int newThuTu){
+        String sql =    "update DiaDiemThamQuan " +
+                        "set ThuTu=" +newThuTu+
+                        " where MaTour='"+maTour+"'"+"and MaDiaDiem='"+maDiaDiem+"'"+"and ThuTu="+thuTu;
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)){
+            System.out.println("DiaDiemThamQuanDAO update success.");
+            conn.close();
+            return true;
+        }
+        return false;
+    }
+    
+    public static void main(String args[]){
+        DiaDiemThamQuanDAO temp = new DiaDiemThamQuanDAO();
+        temp.updateDiaDiemThamQuan("TR000001","DD000002",1,3);
     }
 }

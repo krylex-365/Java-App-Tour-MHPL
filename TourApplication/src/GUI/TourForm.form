@@ -601,7 +601,7 @@
                               <Component id="jTextTenTour1" min="-2" pref="190" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

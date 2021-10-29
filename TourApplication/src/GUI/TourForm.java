@@ -13,6 +13,7 @@ package GUI;
 import BUS.GiaTourBUS;
 import BUS.LoaiHinhTourBUS;
 import BUS.TourBUS;
+import DTO.DiaDiemThamQuanDTO;
 import DTO.GiaTourDTO;
 import DTO.LoaiHinhTourDTO;
 import DTO.TourDTO;
@@ -24,6 +25,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 import java.util.regex.Pattern;
@@ -55,8 +57,10 @@ public class TourForm extends javax.swing.JPanel {
     LoaiHinhTourBUS loaiHinhTourBUS = new LoaiHinhTourBUS();
     public BufferedImage i = null;
     public String imgName = null;
-    int rowTour;
-    private String maTour, tenTour, maLoai, maGia, maGiaHienHanh;
+    int rowTour,rowDiaDiemThamQuan,flagThemDiaDiem;
+    private String maTour, tenTour, maLoai, maGia, maGiaHienHanh,maTourChiTiet,tenTourChiTiet;
+    private String maDiaDiem,tenDiaDiem,thuTu;
+    private ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanTempArr;
     Vector tbColTour = new Vector();//Vector chứa các dòng dữ liệu của bảng.
     Vector tbColDiadiem = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tbColDoan = new Vector();
@@ -1143,35 +1147,104 @@ public class TourForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         BangDiaDiem bangDiaDiem = new BangDiaDiem();
         bangDiaDiem.tourForm = this;
+        bangDiaDiem.loadData();
+        
     }//GEN-LAST:event_jBtnChonDiaDiemActionPerformed
 
     private void jBtnXoaDDActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaDDActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaDDActionPerformed
         // TODO add your handling code here:
+        Vector row = new Vector();
+        row.add(jTextMaDiaDiem.getText());
+        row.add(jTextTenDiaDiem.getText());
+        row.add(Integer.parseInt(jTextThuTu.getText()));
+        if(chiTietTour.deleteDiaDiemThamQuan(maTourChiTiet,jTextMaDiaDiem.getText(),Integer.parseInt(jTextThuTu.getText()))){
+            tbModelDiadiem.removeRow(rowDiaDiemThamQuan);
+        }else{
+            System.out.println("Loi them Dia Diem Tham Quan");
+        }
         jBtnChonDiaDiem.setEnabled(true);
         jBtnThemDD.setEnabled(true);
         jBtnSuaDD.setEnabled(false);
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
-        jBtnLuuDD.setEnabled(false);
+        jBtnLuuDD.setEnabled(true);
     }//GEN-LAST:event_jBtnXoaDDActionPerformed
 
     private void jBtnThemDDActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemDDActionPerformed
     {//GEN-HEADEREND:event_jBtnThemDDActionPerformed
         // TODO add your handling code here:
+        Vector row = new Vector();
+        row.add(jTextMaDiaDiem.getText());
+        row.add(jTextTenDiaDiem.getText());
+        row.add(Integer.parseInt(jTextThuTu.getText()));
+//        DiaDiemThamQuanDTO temp = new DiaDiemThamQuanDTO(jTextMaDiaDiem.getText(),maTourChiTiet,Integer.parseInt(jTextThuTu.getText()));
+//        //System.out.println(jTextThuTu.getText());
+//        int flag = 1;
+//        for(DiaDiemThamQuanDTO a : chiTietTour.DiaDiemThamQuanDTOs()){
+//            if(a.getMaDiaDiem().equals(jTextMaDiaDiem.getText())&&(a.getThuTu()==(Integer.parseInt(jTextThuTu.getText())))){
+//                    flag=0;
+//                    //System.out.println("Dup");
+//                    break;
+//                };
+//            }
+//        if(flag==1&&!jTextMaDiaDiem.getText().equals("")&&!jTextTenDiaDiem.getText().equals("")&&!jTextThuTu.getText().equals("")&&chiTietTour.checkDuplicateThuTu(maTourChiTiet,Integer.parseInt(jTextThuTu.getText()))){
+//            tbModelDiadiem.addRow(row);
+//            
+//        }else {
+//            System.out.println("Trùng hoặc rỗng");
+//        }
+        if(chiTietTour.addDiaDiemThamQuan(maTourChiTiet,jTextMaDiaDiem.getText(),Integer.parseInt(jTextThuTu.getText()))){
+            tbModelDiadiem.addRow(row);
+        }else{
+            System.out.println("Loi them Dia Diem Tham Quan");
+        }
         jBtnChonDiaDiem.setEnabled(true);
         jBtnThemDD.setEnabled(true);
         jBtnSuaDD.setEnabled(false);
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
-        jBtnLuuDD.setEnabled(false);
+        jBtnLuuDD.setEnabled(true);
     }//GEN-LAST:event_jBtnThemDDActionPerformed
 
     private void jBtnSuaDDActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaDDActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaDDActionPerformed
         // TODO add your handling code here:
+//        int flag = 1;
+//        if(diaDiemThamQuanTempArr.size()>0){
+//            System.out.println("hello");
+//            for(DiaDiemThamQuanDTO a : diaDiemThamQuanTempArr){
+//                System.out.println(a.elementAt(2)+" "+jTextThuTu.getText());
+//                if(a.elementAt(2).equals(jTextThuTu.getText())){
+//                    flag=0;
+//                    System.out.println();
+//                    //break;
+//                };
+//            }
+//        }
+//        if(flag==1&&chiTietTour.checkDuplicateThuTu(maTourChiTiet,Integer.parseInt(jTextThuTu.getText()))){
+//            if(diaDiemThamQuanTempArr.size()>0){
+//                for(Vector a : diaDiemThamQuanTempArr){
+//                    if(a.elementAt(0).equals(jTextMaDiaDiem.getText())&&a.elementAt(2).equals(tbModelDiadiem.getValueAt(rowDiaDiemThamQuan, 2))){
+//                        a.setElementAt(jTextThuTu.getText(), 2);
+//                        break;
+//                    }
+//                }
+//            }
+//            tbModelDiadiem.setValueAt(jTextThuTu.getText(), rowDiaDiemThamQuan, 2);
+//        
+        if(chiTietTour.updateDiaDiemThamQuan(maTourChiTiet,jTextMaDiaDiem.getText(),(int)tbModelDiadiem.getValueAt(rowDiaDiemThamQuan, 2),Integer.parseInt(jTextThuTu.getText()))){
+            tbModelDiadiem.setValueAt(jTextThuTu.getText(), rowDiaDiemThamQuan, 2);
+        }else{
+            System.out.println("Loi them Dia Diem Tham Quan");
+        }
+        
         jBtnChonDiaDiem.setEnabled(true);
-        jBtnThemDD.setEnabled(true);
+        if(flagThemDiaDiem==1){
+            jBtnThemDD.setEnabled(true);
+        }else
+            jBtnThemDD.setEnabled(false);
+            
         jBtnSuaDD.setEnabled(false);
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
@@ -1181,13 +1254,13 @@ public class TourForm extends javax.swing.JPanel {
     private void jTableDiadiemMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableDiadiemMouseClicked
     {//GEN-HEADEREND:event_jTableDiadiemMouseClicked
         // TODO add your handling code here:
-        int rowTbl = jTableDiadiem.getSelectedRow();
-        jTextMaDiaDiem.setText((String) jTableDiadiem.getValueAt(rowTbl, 0));
-        System.out.println((String) jTableDiadiem.getValueAt(rowTbl, 0));
-        jTextTenDiaDiem.setText((String) jTableDiadiem.getValueAt(rowTbl, 1));
-        jTextThuTu.setText(Integer.toString((int) jTableDiadiem.getValueAt(rowTbl, 2)));
-        System.out.println(Integer.toString((int) jTableDiadiem.getValueAt(rowTbl, 2)));
-        if (true){ // NẾU TOUR CHƯA CÓ ĐOÀN
+        rowDiaDiemThamQuan = jTableDiadiem.getSelectedRow();
+        jTextMaDiaDiem.setText((String) jTableDiadiem.getValueAt(rowDiaDiemThamQuan, 0));
+        //System.out.println((String) jTableDiadiem.getValueAt(rowDiaDiemThamQuan, 0));
+        jTextTenDiaDiem.setText((String) jTableDiadiem.getValueAt(rowDiaDiemThamQuan, 1));
+        jTextThuTu.setText(Integer.toString((int) jTableDiadiem.getValueAt(rowDiaDiemThamQuan, 2)));
+        //System.out.println(Integer.toString( Integer.parseInt((String)jTableDiadiem.getValueAt(rowDiaDiemThamQuan, 2))));
+        if (flagThemDiaDiem==1){ // NẾU TOUR CHƯA CÓ ĐOÀN
             jBtnChonDiaDiem.setEnabled(false);
             jBtnThemDD.setEnabled(false);
             jBtnSuaDD.setEnabled(true);
@@ -1213,22 +1286,26 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnXemTourActionPerformed
         jTabbedPane1.setSelectedIndex(1);
         rowTour = jTableTour.getSelectedRow();
-        maTour = (String) jTableTour.getModel().getValueAt(rowTour, 0);
-        tenTour = (String) jTableTour.getModel().getValueAt(rowTour, 1);
-        jTextMaTour1.setText(maTour);System.out.println(maTour);
+        maTourChiTiet = (String) jTableTour.getModel().getValueAt(rowTour, 0);
+        tenTourChiTiet = (String) jTableTour.getModel().getValueAt(rowTour, 1);
+        jTextMaTour1.setText(maTourChiTiet);//System.out.println(maTourChiTiet);
         jTextTenTour1.setText(tenTour); System.out.println(tenTour);
         tbModelDoan.setRowCount(0);
         tbModelDiadiem.setRowCount(0);
-        chiTietTour.tbModelDiaDiemThamQuan(tbModelDiadiem,maTour);
-        chiTietTour.tbModelDoanDuLich(tbModelDoan,maTour);
-        if (true){ // NẾU TOUR CHƯA CÓ ĐOÀN
+        chiTietTour.tbModelDiaDiemThamQuan(tbModelDiadiem,maTourChiTiet);
+        chiTietTour.tbModelDoanDuLich(tbModelDoan,maTourChiTiet);
+        System.out.println(chiTietTour.countDoanTrongTour(maTourChiTiet));
+        System.out.println(maTourChiTiet);
+        if (chiTietTour.countDoanTrongTour(maTourChiTiet)==0){ // NẾU TOUR CHƯA CÓ ĐOÀN
+            flagThemDiaDiem=1;
             jBtnChonDiaDiem.setEnabled(true);
             jBtnThemDD.setEnabled(true);
-            jBtnSuaDD.setEnabled(false);
-            jBtnXoaDD.setEnabled(false);
-            jBtnHuyDD.setEnabled(false);
-            jBtnLuuDD.setEnabled(false);
+            jBtnSuaDD.setEnabled(true);
+            jBtnXoaDD.setEnabled(true);
+            jBtnHuyDD.setEnabled(true);
+            jBtnLuuDD.setEnabled(true);
         } else { // NẾU CÓ ĐOÀN
+            flagThemDiaDiem=0;
             jBtnChonDiaDiem.setEnabled(false);
             jBtnThemDD.setEnabled(false);
             jBtnSuaDD.setEnabled(false);
@@ -1361,6 +1438,24 @@ public class TourForm extends javax.swing.JPanel {
         return jBtnTimKiemTour;
     }
 
+    public JTextField getjTextMaDiaDiem() {
+        return jTextMaDiaDiem;
+    }
+    
+
+    public void setjTextMaDiaDiem(JTextField jTextMaDiaDiem) {
+        this.jTextMaDiaDiem = jTextMaDiaDiem;
+    }
+    
+
+    public JTextField getjTextTenDiaDiem() {
+        return jTextTenDiaDiem;
+    }
+
+    public void setjTextTenDiaDiem(JTextField jTextTenDiaDiem) {
+        this.jTextTenDiaDiem = jTextTenDiaDiem;
+    }
+
     public void setjButtonTimKiem(JButton jButtonTimKiem) {
         this.jBtnTimKiemTour = jButtonTimKiem;
     }
@@ -1399,6 +1494,22 @@ public class TourForm extends javax.swing.JPanel {
 
     public String getMaTour() {
         return maTour;
+    }
+
+    public String getMaDiaDiem() {
+        return maDiaDiem;
+    }
+
+    public void setMaDiaDiem(String maDiaDiem) {
+        this.maDiaDiem = maDiaDiem;
+    }
+
+    public String getTenDiaDiem() {
+        return tenDiaDiem;
+    }
+
+    public void setTenDiaDiem(String TenDiaDiem) {
+        this.tenDiaDiem = TenDiaDiem;
     }
 
     public void setMaTour(String maTour) {

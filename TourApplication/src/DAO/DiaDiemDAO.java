@@ -27,11 +27,12 @@ public class DiaDiemDAO {
         ArrayList<DiaDiemDTO> dsDiaDiem = new ArrayList<DiaDiemDTO>();
         conn = new Connect();
         conn.getConnection();
+        DiaDiemDTO dd;
         String query = "select * from DiaDiem where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
-                DiaDiemDTO dd = new DiaDiemDTO();
+                dd = new DiaDiemDTO();
                 dd.setMaDiaDiem(conn.rs.getString(1));
                 dd.setTenDiaDiem(conn.rs.getString(2));
                 dsDiaDiem.add(dd);
