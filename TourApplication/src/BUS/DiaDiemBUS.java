@@ -65,7 +65,7 @@ public class DiaDiemBUS {
 
     public boolean themDiaDiem(String maDiaDiem, String tenDiaDiem){
         DiaDiemDTO diaDiemDTO = new DiaDiemDTO(maDiaDiem, tenDiaDiem);
-        if(diaDiemDAO.themDiaDiem(diaDiemDTO)){
+        if(diaDiemDAO.insertDiaDiem(diaDiemDTO)){
             diaDiemDTOs.add(diaDiemDTO);
             maLast.updateMaDiaDiem(maDiaDiem);
             System.out.println("Thêm thành công themDiaDiem");
@@ -78,7 +78,7 @@ public class DiaDiemBUS {
     public boolean suaDiaDiem(String maDiaDiem, String tenDiaDiem){
         DiaDiemDTO diaDiemDTO = searchDiaDiemByMaDiaDiem(maDiaDiem);
         if(diaDiemDTO != null){
-            if(diaDiemDAO.suaMaDiaDiem(maDiaDiem, tenDiaDiem)){
+            if(diaDiemDAO.updateMaDiaDiem(maDiaDiem, tenDiaDiem)){
                 diaDiemDTO.setTenDiaDiem(tenDiaDiem);
                 System.out.println("Sửa thành công suaDiaDiem");
                 return true;
@@ -93,7 +93,7 @@ public class DiaDiemBUS {
         DiaDiemThamQuanDTO diaDiemThamQuanDTO = new DiaDiemThamQuanBUS()
                 .searchDiaDiemThamQuanByMaDiaDiem(maDiaDiem);
         if(diaDiemDTO != null && diaDiemThamQuanDTO == null){
-            if(diaDiemDAO.xoaDiaDiem(maDiaDiem)){
+            if(diaDiemDAO.deleteDiaDiem(maDiaDiem)){
                 diaDiemDTOs.remove(diaDiemDTO);
                 System.out.println("Xóa thành công xoaDiaDiem");
                 return true;

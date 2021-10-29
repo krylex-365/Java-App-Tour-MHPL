@@ -87,6 +87,24 @@ public class MaDuLieuCuoiDAO {
         conn.close();
         return false;
     }
+    
+    public boolean updateMaLoai(String newLatestMaLoai) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "UPDATE MaDuLieuCuoi SET"
+                + " MaLoai='" + newLatestMaLoai + "'"
+                + " WHERE MaLoai='" + getMaLoaiLast() + "'";
+        if (conn.executeUpdate(query)) {
+            System.out.println("Update last MaLoai success.");
+            setMaLoaiLast(newLatestMaLoai);
+            conn.close();
+            return true;
+        }
+        System.out.println("Update last MaLoai fail.");
+        conn.close();
+        return false;
+    }
+
 
     public boolean updateMaDiaDiem(String newLatestDiaDiem) {
         conn = new Connect();

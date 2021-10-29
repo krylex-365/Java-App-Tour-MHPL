@@ -63,12 +63,12 @@ public class GiaTourDAO {
                 + " TgKetThuc='" + giaTourDTO.getTgKetThuc() + "'"
                 + " WHERE MaGia='" + giaTourDTO.getMaGia() + "' AND MaTour='" + giaTourDTO.getMaTour() +"';";
         if (conn.executeUpdate(sql)) {
-            System.out.println("update GiaTour success");
             conn.close();
+            System.out.println("update GiaTourDAO success");
             return true;
         }
-        System.out.println("update GiaTour fail");
         conn.close();
+        System.out.println("update GiaTourDAO fail");
         return false;
     }
     
@@ -80,12 +80,12 @@ public class GiaTourDAO {
                 " Status=0" +
                 " WHERE MaTour='" + maTour + "' AND MaGia='" + maGia + "';";
         if (conn.executeUpdate(sql)) {
-            System.out.println("del GiaTour success");
             conn.close();
+            System.out.println("delete GiaTourDAO success");
             return true;
         }
-        System.out.println("del GiaTour fail");
         conn.close();
+        System.out.println("delete GiaTourDAO fail");
         return false;
     }
 
@@ -97,12 +97,12 @@ public class GiaTourDAO {
                 + "','" + giaTourDTO.getThanhTien() + "','" + giaTourDTO.getTgBatDau()
                 + "','" + giaTourDTO.getTgKetThuc() + "','" + giaTourDTO.getHienHanh() + "', 1);";
         if (conn.executeUpdate(query)) {
-            System.out.println("insert GiaTourByTour success");
             conn.close();
+            System.out.println("insert GiaTourByTour success");
             return true;
         }
-        System.out.println("insert GiaTourByTour fail");
         conn.close();
+        System.out.println("insert GiaTourByTour fail");
         return false;
     }
 
@@ -118,12 +118,12 @@ public class GiaTourDAO {
                 + " HienHanh=1"
                 + " WHERE MaGia='" + maGia + "' AND MaTour='" + maTour +"';";
         if (conn.executeUpdate(sql1) && conn.executeUpdate(sql2)) {
-            System.out.println("update HH GiaTourByTour success");
             conn.close();
+            System.out.println("update HH GiaTourByTour success");
             return true;
         }
-        System.out.println("update HH GiaTourByTour fail");
         conn.close();
+        System.out.println("update HH GiaTourByTour fail");
         return false;
     }
     
@@ -135,12 +135,12 @@ public class GiaTourDAO {
                 "Status = 0 " +
                 "WHERE MaTour='" + maTour + "' and Status=1";
         if (conn.executeUpdate(sql)) {
-            System.out.println("del GiaTourByTour success");
             conn.close();
+            System.out.println("delete GiaTourByTour success");
             return true;
         }
-        System.out.println("del GiaTourByTour fail");
         conn.close();
+        System.out.println("delete GiaTourByTour fail");
         return false;
     }
 }

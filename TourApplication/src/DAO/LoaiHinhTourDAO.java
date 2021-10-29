@@ -48,16 +48,18 @@ public class LoaiHinhTourDAO {
         return dsLoaiHinh;
     }
 
-    public boolean addLoaiHinh(String maLoai, String tenLoai) {
+    public boolean insertLoaiHinh(String maLoai, String tenLoai) {
         conn = new Connect();
         conn.getConnection();
-        String query = "insert into LoaiHinhTour"
-                + " (MaLoai,TenLoai,1)"
-                + " values ('" + maLoai + "','" + tenLoai + "', 1);";
+        String query = "insert into LoaiHinhTour "
+                + "values ('" + maLoai + "','" + tenLoai + "', 1);";
         if (conn.executeUpdate(query)) {
-            System.out.println("LoaiHinhTourDAO add success.");
+            conn.close();
+            System.out.println("LoaiHinhTourDAO insert success.");
             return true;
         }
+        conn.close();
+        System.out.println("LoaiHinhTourDAO insert fail.");
         return false;
     }
 
@@ -69,8 +71,11 @@ public class LoaiHinhTourDAO {
                 + "where MaLoai='" + maLoai + "'";
         if (conn.executeUpdate(sql)) {
             conn.close();
+            System.out.println("LoaiHinhTourDAO delete success.");
             return true;
         }
+        conn.close();
+        System.out.println("LoaiHinhTourDAO delete fail.");
         return false;
     }
 
@@ -82,9 +87,11 @@ public class LoaiHinhTourDAO {
                 + " WHERE MaLoai='" + loaiHinhTourDTO.getMaLoai() + "'";
         if (conn.executeUpdate(sql)) {
             conn.close();
+            System.out.println("LoaiHinhTourDAO update success.");
             return true;
         }
         conn.close();
+        System.out.println("LoaiHinhTourDAO update fail.");
         return false;
     }
 }

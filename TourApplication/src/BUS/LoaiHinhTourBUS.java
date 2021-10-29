@@ -6,6 +6,7 @@
 package BUS;
 
 import DAO.LoaiHinhTourDAO;
+import DAO.MaDuLieuCuoiDAO;
 import DTO.LoaiHinhTourDTO;
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class LoaiHinhTourBUS {
     private ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs;
     private LoaiHinhTourDAO loaiHinhTourDAO;
     private Utils utl = new Utils();
+    private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
 
     public LoaiHinhTourBUS() {
         this.loaiHinhTourDAO = new LoaiHinhTourDAO();
@@ -49,9 +51,10 @@ public class LoaiHinhTourBUS {
     }
 
     public boolean themLoaiHinhTour(String maLoai, String tenLoai) {
-        if (loaiHinhTourDAO.addLoaiHinh(maLoai, tenLoai)) {
+        if (loaiHinhTourDAO.insertLoaiHinh(maLoai, tenLoai)) {
             LoaiHinhTourDTO newLoaiHinh = new LoaiHinhTourDTO(maLoai, tenLoai);
             loaiHinhTourDTOs.add(newLoaiHinh);
+            maLast.updateMaDiaDiem(maLoai);
             System.out.println("Thêm thành công themLoaiHinhTourBUS");
             return true;
         }
@@ -65,6 +68,7 @@ public class LoaiHinhTourBUS {
             System.out.println("Xóa thành công xoaLoaiHinhTourBUS");
             return true;
         }
+        System.out.println("Xóa thất bại xoaLoaiHinhTourBUS");
         return false;
     }
 

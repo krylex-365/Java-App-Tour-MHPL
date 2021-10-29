@@ -55,12 +55,12 @@ public class TourDAO {
                 + " VALUES ('" + tourDTO.getMaTour() + "','" + tourDTO.getMaLoai()
                 + "','" + tourDTO.getTenTour() + "','" + tourDTO.getDacDiem() + "', 1);";
         if (conn.executeUpdate(query)) {
-            System.out.println("insert Tour success");
             conn.close();
+            System.out.println("TourDAO insert success.");
             return true;
         }
-        System.out.println("insert Tour fail");
         conn.close();
+        System.out.println("TourDAO insert fail.");
         return false;
     }
 
@@ -82,13 +82,15 @@ public class TourDAO {
         }
         if (conn.executeUpdate(sql)) {
             conn.close();
+            System.out.println("TourDAO update success.");
             return true;
         }
         conn.close();
+        System.out.println("TourDAO update fail.");
         return false;
     }
     
-    public boolean xoaTour(String maTour) {
+    public boolean deleteTour(String maTour) {
         String sql =    "update Tour " +
                         "set Status=0 " +
                         "where MaTour='" + maTour + "'";
@@ -96,8 +98,11 @@ public class TourDAO {
         conn.getConnection();
         if(conn.executeUpdate(sql)){
             conn.close();
+            System.out.println("TourDAO delete success.");
             return true;
         }
+        conn.close();
+        System.out.println("TourDAO delete fail.");
         return false;
     }
 }

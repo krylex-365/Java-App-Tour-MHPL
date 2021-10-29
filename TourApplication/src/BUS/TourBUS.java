@@ -84,7 +84,7 @@ public class TourBUS {
     public boolean xoaTour(String maTour){
         DoanDuLichDTO doanDuLichDTO = new DoanDuLichBUS().getDoanDuLichByMaTour(maTour);
         if(doanDuLichDTO == null) {
-            if(tourDAO.xoaTour(maTour)){
+            if(tourDAO.deleteTour(maTour)){
                 tourDTOs.remove(indexTour(maTour));
                 new DiaDiemThamQuanBUS().xoaDiaDiemThamQuanByMaTour(maTour);
                 new GiaTourBUS().xoaGiaTourByMaTour(maTour);
