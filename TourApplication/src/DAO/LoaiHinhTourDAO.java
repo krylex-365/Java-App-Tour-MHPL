@@ -16,36 +16,75 @@ import java.util.ArrayList;
  * @author minhk
  */
 public class LoaiHinhTourDAO {
+
     Connect conn;
-    
 
     public LoaiHinhTourDAO() {
-        
+
     }
-    
-    public ArrayList<LoaiHinhTourDTO> getList(){
-        ArrayList<LoaiHinhTourDTO> dsChiPhi = new ArrayList<LoaiHinhTourDTO>();
+
+    public ArrayList<LoaiHinhTourDTO> getList() {
+        ArrayList<LoaiHinhTourDTO> dsLoaiHinh = new ArrayList<LoaiHinhTourDTO>();
         conn = new Connect();
         conn.getConnection();
         String query = "select * from LoaiHinhTour where Status=1";
         try {
             conn.executeQuery(query);
             while (conn.rs.next()) {
-                LoaiHinhTourDTO lhcp = new LoaiHinhTourDTO();
-                lhcp.setMaLoai(conn.rs.getString(1));
-                lhcp.setTenLoai(conn.rs.getString(2));
-                dsChiPhi.add(lhcp);
+                LoaiHinhTourDTO lht = new LoaiHinhTourDTO();
+                lht.setMaLoai(conn.rs.getString(1));
+                lht.setTenLoai(conn.rs.getString(2));
+                dsLoaiHinh.add(lht);
             }
         } catch (SQLException e) {
             System.out.println(e);
-            System.out.println("ChiPhiDao.getList.executeQuery error.");
+            System.out.println("LoaiHinhTourDAO.getList.executeQuery error.");
         }
-        try{
-        conn.getConn().close();
-        }catch (SQLException e){
-            System.out.println("ChiPhiDao.getList.close error.");
+        try {
+            conn.getConn().close();
+        } catch (SQLException e) {
+            System.out.println("LoaiHinhTourDAO.getList.close error.");
         }
-        return dsChiPhi;
+        return dsLoaiHinh;
     }
-    
+
+    public boolean addLoaiHinh(String maLoai, String tenLoai) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "insert into LoaiHinhTour"
+                + " (MaLoai,TenLoai,1)"
+                + " values ('" + maLoai + "','" + tenLoai + "', 1);";
+        if (conn.executeUpdate(query)) {
+            System.out.println("LoaiHinhTourDAO add success.");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteLoaiHinh(String maLoai) {
+        conn = new Connect();
+        conn.getConnection();
+        String sql = "update LoaiHinhTour "
+                + "set Status=0 "
+                + "where MaLoai='" + maLoai + "'";
+        if (conn.executeUpdate(sql)) {
+            conn.close();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateLoaiHinh(LoaiHinhTourDTO loaiHinhTourDTO) {
+        conn = new Connect();
+        conn.getConnection();
+        String sql = "UPDATE LoaiHinhTour SET"
+                + " TenLoai='" + loaiHinhTourDTO.getTenLoai() + "',"
+                + " WHERE MaLoai='" + loaiHinhTourDTO.getMaLoai() + "'";
+        if (conn.executeUpdate(sql)) {
+            conn.close();
+            return true;
+        }
+        conn.close();
+        return false;
+    }
 }
