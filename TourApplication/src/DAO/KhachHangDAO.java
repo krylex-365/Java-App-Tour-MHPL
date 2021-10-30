@@ -54,4 +54,50 @@ public class KhachHangDAO {
         return dsKhachHang;
     }
     
+    public boolean add(String maKhachHang,String tenKhachHang,String cmnd,String diaChi,String gioiTinh,String sdt,String mail,String quocTich){
+        conn = new Connect();
+        conn.getConnection();
+        //System.out.println(maTour);
+        String query = "insert into KhachHang"
+                + " (MaKhachHang,TenKhachHang,Cmnd,DiaChi,GioiTinh,Sdt,Mail,QuocTich)"
+                + " values ('"+maKhachHang+"','"+tenKhachHang+"','"+cmnd+"','"+diaChi+"','"+gioiTinh+"','"+sdt+"','"+mail+"','"+quocTich+"')";
+        if(conn.executeUpdate(query)){
+            System.out.println("KhachHangDAO add success.");
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean delete(String maKhachHang){
+        conn = new Connect();
+        conn.getConnection();
+        String query = "update KhachHang " +
+                        "set Status=0 " +"where MaKhachHang='"+maKhachHang+"'";
+        if(conn.executeUpdate(query)){
+            System.out.println("KhachHangDAO delete success.");
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean update(String maKhachHang,String tenKhachHang,String cmnd,String diaChi,String gioiTinh,String sdt,String mail,String quocTich){
+        String sql =    "update KhachHang " +
+                        "set TenKhachHang='"+ tenKhachHang +"' "+
+                        ",Cmnd='"+cmnd+"'" +
+                        ",DiaChi='"+diaChi+"'" +
+                        ",GioiTinh='"+gioiTinh+"'" +
+                        ",Sdt='"+sdt+"'" +
+                        ",Mail='"+mail+"'" +
+                        ",QuocTich='"+quocTich+"'" +
+                        " where MaKhachHang='"+maKhachHang+"'";
+        conn = new Connect();
+        conn.getConnection();
+        if(conn.executeUpdate(sql)){
+            System.out.println("KhachHangDAO update success.");
+            conn.close();
+            return true;
+        }
+        return false;
+    }
+    
 }
