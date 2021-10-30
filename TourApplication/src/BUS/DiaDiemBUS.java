@@ -62,6 +62,14 @@ public class DiaDiemBUS {
         }
         return result;
     }
+    
+    public ArrayList<DiaDiemDTO> searchListDiaDiemByMaDiaDiem(String maDiaDiem){
+        ArrayList<DiaDiemDTO> result = new ArrayList<>();
+        for(DiaDiemDTO a : diaDiemDTOs){
+            if(maDiaDiem.equals(a.getMaDiaDiem()))result.add(a);
+        }
+        return result;
+    }
 
     public boolean themDiaDiem(String maDiaDiem, String tenDiaDiem){
         DiaDiemDTO diaDiemDTO = new DiaDiemDTO(maDiaDiem, tenDiaDiem);

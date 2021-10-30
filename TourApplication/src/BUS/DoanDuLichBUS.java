@@ -8,6 +8,7 @@ package BUS;
 import DAO.DoanDuLichDAO;
 import DTO.DoanDuLichDTO;
 import java.util.ArrayList;
+import org.codehaus.groovy.runtime.DefaultGroovyMethods;
 
 /**
  *
@@ -69,4 +70,13 @@ public class DoanDuLichBUS {
         }
         return null;
     }
+    
+    public int countDoanTrongTour(String maTour){
+        int count=0;
+        for(DoanDuLichDTO a : doanDuLichDTOs){
+            if(a.getMaTour().equals(maTour))count++;
+        }
+        return count;
+    }
+
 }

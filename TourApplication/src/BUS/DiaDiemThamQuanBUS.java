@@ -35,6 +35,14 @@ public class DiaDiemThamQuanBUS {
         return result;  
     }
     
+    public ArrayList<DiaDiemThamQuanDTO> getDiaDiemThamQuanDTOs() {
+        return diaDiemThamQuanDTOs;
+    }
+
+    public void setDiaDiemThamQuanDTOs(ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs) {
+        this.diaDiemThamQuanDTOs = diaDiemThamQuanDTOs;
+    }
+    
     public boolean themDDiemTQuan(String maTour,String maDiaDiem,int thuTu){
         if(diaDiemThamQuanDAO.add(maTour, maDiaDiem, thuTu)){
             DiaDiemThamQuanDTO newDiaDiemThamQuan = new DiaDiemThamQuanDTO(maTour,maDiaDiem,thuTu);
@@ -98,6 +106,48 @@ public class DiaDiemThamQuanBUS {
                 }
             }
             diaDiemThamQuanDTOs.removeAll(ddtq);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean checkDuplicateThuTu(String maTour,int num){
+        for(DiaDiemThamQuanDTO a : diaDiemThamQuanDTOs){
+            if(a.getMaTour().equals(maTour)&&a.getThuTu()==num)return false;
+        }
+        return true;
+    }
+
+    public boolean addDiaDiemThamQuan(String maTour,String maDiaDiem,int thuThu){
+
+        if(diaDiemThamQuanDAO.add(maTour, maDiaDiem, thuThu)){
+            diaDiemThamQuanDTOs.add(new DiaDiemThamQuanDTO(maTour,maDiaDiem,thuThu));
+            System.out.println("Add Success");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteDiaDiemThamQuan(String maTour,String maDiaDiem,int thuTu){
+        if(diaDiemThamQuanDAO.delete(maTour, maDiaDiem, thuTu)){
+            for(int i = 0;i< diaDiemThamQuanDTOs.size();i++){
+                if(diaDiemThamQuanDTOs.get(i).getMaDiaDiem().equals(maDiaDiem)&&diaDiemThamQuanDTOs.get(i).getMaTour().equals(maTour)&&diaDiemThamQuanDTOs.get(i).getThuTu()== thuTu){
+                    diaDiemThamQuanDTOs.remove(i);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateDiaDiemThamQuan(String  maTour,String maDiaDiem,int thuTu,int newThuTu){
+        System.out.println(maTour +" "+ maDiaDiem +" "+ thuTu +" "+ newThuTu);
+        if(diaDiemThamQuanDAO.updateDiaDiemThamQuan(maTour, maDiaDiem, thuTu,newThuTu)){
+            for(int i = 0;i< diaDiemThamQuanDTOs.size();i++){
+                if(diaDiemThamQuanDTOs.get(i).getMaDiaDiem().equals(maDiaDiem)&&diaDiemThamQuanDTOs.get(i).getMaTour().equals(maTour)&&diaDiemThamQuanDTOs.get(i).getThuTu()== thuTu){
+                    diaDiemThamQuanDTOs.get(i).setThuTu(newThuTu);
+                }
+            }
             return true;
         }
         return false;
