@@ -38,12 +38,12 @@ public class TourDAO {
             }
         } catch (SQLException e) {
             System.out.println(e);
-            System.out.println("ChiPhiDao.getList.executeQuery error.");
+            System.out.println("TourDAO.getList.executeQuery error.");
         }
         try {
             conn.getConn().close();
         } catch (SQLException e) {
-            System.out.println("ChiPhiDao.getList.close error.");
+            System.out.println("TourDAO.getList.close error.");
         }
         return dsTour;
     }

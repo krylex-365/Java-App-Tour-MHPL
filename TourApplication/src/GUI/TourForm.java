@@ -65,7 +65,8 @@ public class TourForm extends javax.swing.JPanel {
     Vector tbColTour = new Vector();//Vector chứa các dòng dữ liệu của bảng.
     Vector tbColDiadiem = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tbColDoan = new Vector();
-    DefaultTableModel tbModelTour, tbModelDiadiem, tbModelDoan;
+    Vector tbColLoaiHinh=new Vector();
+    DefaultTableModel tbModelTour, tbModelDiadiem, tbModelDoan, tbModelLoaiHinh;
 
     public TourForm() {
         initComponents();
@@ -190,11 +191,21 @@ public class TourForm extends javax.swing.JPanel {
         jTableDoan = new javax.swing.JTable();
         jLbThuTu = new javax.swing.JLabel();
         jPanelTLTour = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLbMaLH = new javax.swing.JLabel();
         jTextMaLoaiHinh = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jTextTenLoaiHinh = new javax.swing.JTextField();
+        jLbTenLH = new javax.swing.JLabel();
+        jBtnThemLH = new javax.swing.JButton();
+        jBtnSuaLH = new javax.swing.JButton();
+        jBtnHuyLH = new javax.swing.JButton();
+        jTextTenLH = new javax.swing.JTextField();
+        jBtnXoaLH = new javax.swing.JButton();
         jBtnCapPhatMaLH = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTableLH = new javax.swing.JTable();
+        jTextTimKiemLH = new javax.swing.JTextField();
+        jBtnTimKiemLH = new javax.swing.JButton();
+        jBtnRefreshLH = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(233, 242, 249));
         setPreferredSize(new java.awt.Dimension(990, 650));
@@ -475,7 +486,7 @@ public class TourForm extends javax.swing.JPanel {
                 .addGap(27, 27, 27))
         );
 
-        jTabbedPane1.addTab("Quản lý Tour", jPanelQLTour);
+        jTabbedPane1.addTab("Quản Lý Tour", jPanelQLTour);
 
         jPanelChiTietTour.setBackground(new java.awt.Color(233, 242, 249));
 
@@ -755,36 +766,127 @@ public class TourForm extends javax.swing.JPanel {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Chi tiết Tour", jPanelChiTietTour);
+        jTabbedPane1.addTab("Chi Tiết Tour", jPanelChiTietTour);
 
         jPanelTLTour.setBackground(new java.awt.Color(233, 242, 249));
         jPanelTLTour.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanelTLTour.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel4.setText("<html> <body> Mã Loại Hình<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
-        jPanelTLTour.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, -1, 30));
+        jPanel6.setBackground(new java.awt.Color(233, 242, 249));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Loại Hình", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 51, 102))); // NOI18N
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextMaLoaiHinh.setBackground(new java.awt.Color(214, 217, 223));
+        jLbMaLH.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbMaLH.setText("<html> <body> Mã Loại Hình <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jPanel6.add(jLbMaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
+
         jTextMaLoaiHinh.setEditable(false);
-        jPanelTLTour.add(jTextMaLoaiHinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 140, 30));
+        jTextMaLoaiHinh.setBackground(new java.awt.Color(214, 217, 223));
+        jTextMaLoaiHinh.setForeground(new java.awt.Color(51, 51, 51));
+        jTextMaLoaiHinh.setRequestFocusEnabled(false);
+        jPanel6.add(jTextMaLoaiHinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 180, 30));
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel8.setText("<html>  <body> Tên Loại Hình<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
-        jPanelTLTour.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, -1, 30));
-        jPanelTLTour.add(jTextTenLoaiHinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, 180, 30));
+        jLbTenLH.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTenLH.setText("<html><body> Tên Loại Hình<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jPanel6.add(jLbTenLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 110, 30));
+
+        jBtnThemLH.setBackground(new java.awt.Color(136, 193, 184));
+        jBtnThemLH.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jBtnThemLH.setText("Thêm");
+        jBtnThemLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.add(jBtnThemLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 110, 40));
+
+        jBtnSuaLH.setBackground(new java.awt.Color(136, 193, 184));
+        jBtnSuaLH.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jBtnSuaLH.setText("Sửa");
+        jBtnSuaLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.add(jBtnSuaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 110, 40));
+
+        jBtnHuyLH.setBackground(new java.awt.Color(136, 193, 184));
+        jBtnHuyLH.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jBtnHuyLH.setText("Hủy");
+        jBtnHuyLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.add(jBtnHuyLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 110, 40));
+        jPanel6.add(jTextTenLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 180, 30));
+
+        jBtnXoaLH.setBackground(new java.awt.Color(136, 193, 184));
+        jBtnXoaLH.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
+        jBtnXoaLH.setText("Xóa");
+        jBtnXoaLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel6.add(jBtnXoaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 110, 40));
 
         jBtnCapPhatMaLH.setBackground(new java.awt.Color(81, 113, 131));
-        jBtnCapPhatMaLH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_edit_account_16.png"))); // NOI18N
+        jBtnCapPhatMaLH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_add_32.png"))); // NOI18N
         jBtnCapPhatMaLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnCapPhatMaLH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCapPhatMaLHActionPerformed(evt);
             }
         });
-        jPanelTLTour.add(jBtnCapPhatMaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 30, 30));
+        jPanel6.add(jBtnCapPhatMaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 30, 30));
 
-        jTabbedPane1.addTab("Loại hình Tour", jPanelTLTour);
+        jPanelTLTour.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 590, 210));
+
+        jTableLH.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jTableLH.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jTableLH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableLHMouseClicked(evt);
+            }
+        });
+        tbColLoaiHinh.add("Mă Loại Hình");
+        tbColLoaiHinh.add("Tên Loại Hình");
+
+        tbModelLoaiHinh= new DefaultTableModel(tbColLoaiHinh,5){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return false;
+            }
+        };
+        jTableLH.setModel (tbModelLoaiHinh);
+        jTableLH.setShowGrid(true);
+        jTableLH.setFocusable(false);
+        jTableLH.setIntercellSpacing(new Dimension(0,0));
+        jTableLH.setRowHeight(25);
+        jTableLH.getTableHeader().setOpaque(false);
+        jTableLH.setFillsViewportHeight(true);
+        jTableLH.getTableHeader().setBackground(new Color(232,57,99));
+        jTableLH.getTableHeader().setForeground(new Color(141, 22, 22));
+        jTableLH.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
+        jTableLH.setSelectionBackground(new Color(52,152,219));
+        jTableLH.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jScrollPane5.setViewportView(jTableLH);
+
+        jPanelTLTour.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 590, 310));
+
+        jTextTimKiemLH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextTimKiemLHActionPerformed(evt);
+            }
+        });
+        jPanelTLTour.add(jTextTimKiemLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 262, 230, 30));
+
+        jBtnTimKiemLH.setText("Tìm kiếm");
+        jPanelTLTour.add(jBtnTimKiemLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, -1, 30));
+
+        jBtnRefreshLH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
+        jBtnRefreshLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRefreshLH.setMaximumSize(new java.awt.Dimension(50, 50));
+        jBtnRefreshLH.setMinimumSize(new java.awt.Dimension(50, 50));
+        jBtnRefreshLH.setPreferredSize(new java.awt.Dimension(50, 50));
+        jPanelTLTour.add(jBtnRefreshLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 40, 30));
+
+        jTabbedPane1.addTab("Quản Lý Loại Hình", jPanelTLTour);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -870,15 +972,6 @@ public class TourForm extends javax.swing.JPanel {
         }*/
         return "";
     }
-
-    private void jBtnCapPhatMaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaLHActionPerformed
-        // TODO add your handling code here:
-//        String cpmanv = null;
-//        cpmanv = tbnv.getDsnv().CapPhatManv();
-//        tk.getjBtnThemNv().setEnabled(true);
-//        jBtnHuy.setEnabled(true);
-//        jTextManv.setText(cpmanv);
-    }//GEN-LAST:event_jBtnCapPhatMaLHActionPerformed
 
     private void jBtnThemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemTourActionPerformed
         // TODO add your handling code here:jBtnCapPhatMaTour.setEnabled(true);
@@ -1365,6 +1458,18 @@ public class TourForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextDacDiemActionPerformed
 
+    private void jTableLHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLHMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableLHMouseClicked
+
+    private void jTextTimKiemLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTimKiemLHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextTimKiemLHActionPerformed
+
+    private void jBtnCapPhatMaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaLHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnCapPhatMaLHActionPerformed
+
 //    DefaultTableModel md=tbnv.bangnhanvien ();
 //    public void listPhongban(JComboBox cmb)
 //    {
@@ -1607,17 +1712,23 @@ public class TourForm extends javax.swing.JPanel {
     private javax.swing.JButton jBtnChonGiaTour;
     private javax.swing.JButton jBtnChonLoaiHinh;
     private javax.swing.JButton jBtnHuyDD;
+    private javax.swing.JButton jBtnHuyLH;
     private javax.swing.JButton jBtnHuyTour;
     private javax.swing.JButton jBtnLuuDD;
     private javax.swing.JButton jBtnRefresh1;
+    private javax.swing.JButton jBtnRefreshLH;
     private javax.swing.JButton jBtnRefreshTour;
     private javax.swing.JButton jBtnSuaDD;
+    private javax.swing.JButton jBtnSuaLH;
     private javax.swing.JButton jBtnSuaTour;
     private javax.swing.JButton jBtnThemDD;
+    private javax.swing.JButton jBtnThemLH;
     private javax.swing.JButton jBtnThemTour;
+    private javax.swing.JButton jBtnTimKiemLH;
     private javax.swing.JButton jBtnTimKiemTour;
     private javax.swing.JButton jBtnXemTour;
     private javax.swing.JButton jBtnXoaDD;
+    private javax.swing.JButton jBtnXoaLH;
     private javax.swing.JButton jBtnXoaTour;
     private javax.swing.JButton jButtonTimKiem1;
     private com.toedter.calendar.JDateChooser jDateNgayBD;
@@ -1629,25 +1740,28 @@ public class TourForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLbDiaDiem;
+    private javax.swing.JLabel jLbMaLH;
     private javax.swing.JLabel jLbManv;
+    private javax.swing.JLabel jLbTenLH;
     private javax.swing.JLabel jLbThuTu;
     private javax.swing.JLabel jLbThuTu1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanelChiTietTour;
     private javax.swing.JPanel jPanelQLTour;
     private javax.swing.JPanel jPanelTLTour;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableDiadiem;
     private javax.swing.JTable jTableDoan;
+    private javax.swing.JTable jTableLH;
     private javax.swing.JTable jTableTour;
     private javax.swing.JTextField jTextDacDiem;
     private javax.swing.JTextField jTextGiaTour;
@@ -1657,10 +1771,11 @@ public class TourForm extends javax.swing.JPanel {
     private javax.swing.JTextField jTextMaTour;
     private javax.swing.JTextField jTextMaTour1;
     private javax.swing.JTextField jTextTenDiaDiem;
-    private javax.swing.JTextField jTextTenLoaiHinh;
+    private javax.swing.JTextField jTextTenLH;
     private javax.swing.JTextField jTextTenTour;
     private javax.swing.JTextField jTextTenTour1;
     private javax.swing.JTextField jTextThuTu;
+    private javax.swing.JTextField jTextTimKiemLH;
     private javax.swing.JTextField jTextTimKiemNV1;
     private javax.swing.JTextField jTextTimKiemTour;
     // End of variables declaration//GEN-END:variables

@@ -55,7 +55,8 @@ public class KhachHangBUS {
     
     public boolean addKhachHang(String maKhachHang,String tenKhachHang,String cmnd,String diaChi,String gioiTinh,String sdt,String mail,String quocTich){
         if(khachHangDAO.add(maKhachHang, tenKhachHang, cmnd, diaChi, gioiTinh, sdt, mail, quocTich)){
-            khachHangDTOs.add(new KhachHangDTO(maKhachHang, tenKhachHang, cmnd, diaChi, gioiTinh, sdt, mail, quocTich));
+            // NHỚ SỬA LẠI
+            //khachHangDTOs.add(new KhachHangDTO(maKhachHang, tenKhachHang, cmnd, diaChi, gioiTinh, sdt, mail, quocTich));
             maLast.updateMaKhach(maKhachHang);
         }
         return false;

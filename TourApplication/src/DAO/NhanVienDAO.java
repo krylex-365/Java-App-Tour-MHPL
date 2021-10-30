@@ -32,8 +32,10 @@ public class NhanVienDAO {
                 NhanVienDTO nv = new NhanVienDTO();
                 nv.setMaNhanVien(conn.rs.getString(1));
                 nv.setTenNhanVien(conn.rs.getString(2));
-                nv.setSDT(conn.rs.getString(3));
-                nv.setDiaChi(conn.rs.getString(4));
+                nv.setGioiTinh(conn.rs.getString(3));
+                nv.setNgaySinh(conn.rs.getString(4));
+                nv.setSDT(conn.rs.getString(5));
+                nv.setDiaChi(conn.rs.getString(6));
                 dsNhanVien.add(nv);
             }
         } catch (SQLException e) {

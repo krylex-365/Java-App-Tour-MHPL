@@ -11,24 +11,26 @@ public class KhachHangDTO {
 
     private String MaKhachHang;
     private String TenKhachHang;
-    private String CMND;
-    private String DiaChi;
     private String GioiTinh;
+    private String NgaySinh;
+    private String CMND;
     private String SDT;
     private String Mail;
+    private String DiaChi;
     private String QuocTich;
 
     public KhachHangDTO() {
     }
 
-    public KhachHangDTO(String MaKhachHang, String TenKhachHang, String CMND, String DiaChi, String GioiTinh, String SDT, String Mail, String QuocTich) {
+    public KhachHangDTO(String MaKhachHang, String TenKhachHang, String GioiTinh, String NgaySinh, String CMND, String SDT, String Mail, String DiaChi, String QuocTich) {
         this.MaKhachHang = MaKhachHang;
         this.TenKhachHang = TenKhachHang;
-        this.CMND = CMND;
-        this.DiaChi = DiaChi;
         this.GioiTinh = GioiTinh;
+        this.NgaySinh = NgaySinh;
+        this.CMND = CMND;
         this.SDT = SDT;
         this.Mail = Mail;
+        this.DiaChi = DiaChi;
         this.QuocTich = QuocTich;
     }
 
@@ -70,6 +72,14 @@ public class KhachHangDTO {
 
     public void setGioiTinh(String GioiTinh) {
         this.GioiTinh = GioiTinh;
+    }
+
+    public String getNgaySinh() {
+        return NgaySinh;
+    }
+
+    public void setNgaySinh(String NgaySinh) {
+        this.NgaySinh = NgaySinh;
     }
 
     public String getSDT() {

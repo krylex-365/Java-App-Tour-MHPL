@@ -27,6 +27,9 @@ public class DashBoard extends javax.swing.JFrame
 
     private boolean check = true;
     private TourForm tourForm;
+    private DiadiemForm diadiemForm;
+    private NhanVienForm nhanvienForm;
+    private KhachHangForm khachhangForm;
 //    private phongbanForm pb;
 //    private duanForm da;
 //    private hopdongForm hd;
@@ -68,6 +71,9 @@ public class DashBoard extends javax.swing.JFrame
     public DashBoard()
     {
         tourForm = new TourForm();
+        diadiemForm = new DiadiemForm();
+        nhanvienForm = new NhanVienForm();
+        khachhangForm = new KhachHangForm();
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
@@ -81,8 +87,7 @@ public class DashBoard extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         kGradientPanel1 = new keeptoo.KGradientPanel();
         kGradientPanel2 = new keeptoo.KGradientPanel();
@@ -105,25 +110,25 @@ public class DashBoard extends javax.swing.JFrame
         jLabel7 = new javax.swing.JLabel();
         tourPanel = new javax.swing.JPanel();
         tourLabel = new javax.swing.JLabel();
-        pbPanel = new javax.swing.JPanel();
-        pbLabel = new javax.swing.JLabel();
+        diadiemPanel = new javax.swing.JPanel();
+        diadiemLabel = new javax.swing.JLabel();
         duanPanel = new javax.swing.JPanel();
         duanLabel = new javax.swing.JLabel();
         hopdongPanel = new javax.swing.JPanel();
         hopdongLabel = new javax.swing.JLabel();
-        bccPanel = new javax.swing.JPanel();
-        bccLabel = new javax.swing.JLabel();
-        phucapPanel = new javax.swing.JPanel();
-        phucapLabel = new javax.swing.JLabel();
+        khachPanel = new javax.swing.JPanel();
+        khachLabel = new javax.swing.JLabel();
+        nhanvienPanel = new javax.swing.JPanel();
+        nhanvienLabel = new javax.swing.JLabel();
         thuongphatPanel = new javax.swing.JPanel();
         thuongphatLabel = new javax.swing.JLabel();
         luongPanel = new javax.swing.JPanel();
         luongLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
+        jPanelTour = new javax.swing.JPanel();
+        jPanelDiaDiem = new javax.swing.JPanel();
+        jPanelKhach = new javax.swing.JPanel();
+        jPanelNhanvien = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -156,17 +161,13 @@ public class DashBoard extends javax.swing.JFrame
         jLabelMini.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_minimize_window_48.png"))); // NOI18N
         jLabelMini.setToolTipText("Minimize");
         jLabelMini.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelMini.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jLabelMini.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelMiniMouseClicked(evt);
             }
         });
-        jLabelMini.addPropertyChangeListener(new java.beans.PropertyChangeListener()
-        {
-            public void propertyChange(java.beans.PropertyChangeEvent evt)
-            {
+        jLabelMini.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jLabelMiniPropertyChange(evt);
             }
         });
@@ -176,18 +177,14 @@ public class DashBoard extends javax.swing.JFrame
         jLabelClosed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/1_48.png"))); // NOI18N
         jLabelClosed.setToolTipText("Close");
         jLabelClosed.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabelClosed.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        jLabelClosed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelClosedMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabelClosedMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLabelClosedMouseExited(evt);
             }
         });
@@ -252,18 +249,14 @@ public class DashBoard extends javax.swing.JFrame
         btnHidemenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnHidemenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_menu_32.png"))); // NOI18N
         btnHidemenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnHidemenu.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnHidemenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnHidemenuMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHidemenuMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnHidemenuMouseExited(evt);
             }
         });
@@ -294,18 +287,14 @@ public class DashBoard extends javax.swing.JFrame
         btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_exit_32.png"))); // NOI18N
         btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLogout.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLogoutMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLogoutMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnLogoutMouseExited(evt);
             }
         });
@@ -359,18 +348,14 @@ public class DashBoard extends javax.swing.JFrame
         tourLabel.setText("TOUR");
         tourLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(230, 233, 237)));
         tourLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        tourLabel.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        tourLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tourLabelMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 tourLabelMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
                 tourLabelMouseExited(evt);
             }
         });
@@ -386,40 +371,36 @@ public class DashBoard extends javax.swing.JFrame
             .addComponent(tourLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
 
-        pbPanel.setBackground(new java.awt.Color(81, 113, 131));
-        pbPanel.setPreferredSize(new java.awt.Dimension(200, 50));
+        diadiemPanel.setBackground(new java.awt.Color(81, 113, 131));
+        diadiemPanel.setPreferredSize(new java.awt.Dimension(200, 50));
 
-        pbLabel.setFont(new java.awt.Font("DialogInput", 1, 19)); // NOI18N
-        pbLabel.setForeground(new java.awt.Color(208, 245, 253));
-        pbLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-place-32.png"))); // NOI18N
-        pbLabel.setText("ĐỊA ĐIỂM");
-        pbLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(230, 233, 237)));
-        pbLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        pbLabel.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                pbLabelMouseClicked(evt);
+        diadiemLabel.setFont(new java.awt.Font("DialogInput", 1, 19)); // NOI18N
+        diadiemLabel.setForeground(new java.awt.Color(208, 245, 253));
+        diadiemLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-place-32.png"))); // NOI18N
+        diadiemLabel.setText("ĐỊA ĐIỂM");
+        diadiemLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(230, 233, 237)));
+        diadiemLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        diadiemLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                diadiemLabelMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
-                pbLabelMouseEntered(evt);
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                diadiemLabelMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
-                pbLabelMouseExited(evt);
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                diadiemLabelMouseExited(evt);
             }
         });
 
-        javax.swing.GroupLayout pbPanelLayout = new javax.swing.GroupLayout(pbPanel);
-        pbPanel.setLayout(pbPanelLayout);
-        pbPanelLayout.setHorizontalGroup(
-            pbPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pbLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout diadiemPanelLayout = new javax.swing.GroupLayout(diadiemPanel);
+        diadiemPanel.setLayout(diadiemPanelLayout);
+        diadiemPanelLayout.setHorizontalGroup(
+            diadiemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(diadiemLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        pbPanelLayout.setVerticalGroup(
-            pbPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pbLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        diadiemPanelLayout.setVerticalGroup(
+            diadiemPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(diadiemLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
 
         duanPanel.setBackground(new java.awt.Color(81, 113, 131));
@@ -431,18 +412,14 @@ public class DashBoard extends javax.swing.JFrame
         duanLabel.setText("GIÁ TOUR");
         duanLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(230, 233, 237)));
         duanLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        duanLabel.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        duanLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 duanLabelMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 duanLabelMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
                 duanLabelMouseExited(evt);
             }
         });
@@ -467,18 +444,14 @@ public class DashBoard extends javax.swing.JFrame
         hopdongLabel.setText("ĐOÀN THAM QUAN");
         hopdongLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(230, 233, 237)));
         hopdongLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        hopdongLabel.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        hopdongLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 hopdongLabelMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 hopdongLabelMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
                 hopdongLabelMouseExited(evt);
             }
         });
@@ -494,77 +467,69 @@ public class DashBoard extends javax.swing.JFrame
             .addComponent(hopdongLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
 
-        bccPanel.setBackground(new java.awt.Color(81, 113, 131));
-        bccPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bccPanel.setPreferredSize(new java.awt.Dimension(200, 50));
+        khachPanel.setBackground(new java.awt.Color(81, 113, 131));
+        khachPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        khachPanel.setPreferredSize(new java.awt.Dimension(200, 50));
 
-        bccLabel.setFont(new java.awt.Font("DialogInput", 1, 19)); // NOI18N
-        bccLabel.setForeground(new java.awt.Color(208, 245, 253));
-        bccLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-customer-32.png"))); // NOI18N
-        bccLabel.setText("KHÁCH HÀNG");
-        bccLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(230, 233, 237)));
-        bccLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        bccLabel.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                bccLabelMouseClicked(evt);
+        khachLabel.setFont(new java.awt.Font("DialogInput", 1, 19)); // NOI18N
+        khachLabel.setForeground(new java.awt.Color(208, 245, 253));
+        khachLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-customer-32.png"))); // NOI18N
+        khachLabel.setText("KHÁCH HÀNG");
+        khachLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(230, 233, 237)));
+        khachLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        khachLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                khachLabelMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
-                bccLabelMouseEntered(evt);
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                khachLabelMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
-                bccLabelMouseExited(evt);
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                khachLabelMouseExited(evt);
             }
         });
 
-        javax.swing.GroupLayout bccPanelLayout = new javax.swing.GroupLayout(bccPanel);
-        bccPanel.setLayout(bccPanelLayout);
-        bccPanelLayout.setHorizontalGroup(
-            bccPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bccLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout khachPanelLayout = new javax.swing.GroupLayout(khachPanel);
+        khachPanel.setLayout(khachPanelLayout);
+        khachPanelLayout.setHorizontalGroup(
+            khachPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(khachLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        bccPanelLayout.setVerticalGroup(
-            bccPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bccLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        khachPanelLayout.setVerticalGroup(
+            khachPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(khachLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
 
-        phucapPanel.setBackground(new java.awt.Color(81, 113, 131));
-        phucapPanel.setPreferredSize(new java.awt.Dimension(200, 50));
+        nhanvienPanel.setBackground(new java.awt.Color(81, 113, 131));
+        nhanvienPanel.setPreferredSize(new java.awt.Dimension(200, 50));
 
-        phucapLabel.setFont(new java.awt.Font("DialogInput", 1, 19)); // NOI18N
-        phucapLabel.setForeground(new java.awt.Color(208, 245, 253));
-        phucapLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-staff-32.png"))); // NOI18N
-        phucapLabel.setText("NHÂN VIÊN");
-        phucapLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
-        phucapLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        phucapLabel.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                phucapLabelMouseClicked(evt);
+        nhanvienLabel.setFont(new java.awt.Font("DialogInput", 1, 19)); // NOI18N
+        nhanvienLabel.setForeground(new java.awt.Color(208, 245, 253));
+        nhanvienLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-staff-32.png"))); // NOI18N
+        nhanvienLabel.setText("NHÂN VIÊN");
+        nhanvienLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
+        nhanvienLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        nhanvienLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nhanvienLabelMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
-                phucapLabelMouseEntered(evt);
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nhanvienLabelMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
-                phucapLabelMouseExited(evt);
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                nhanvienLabelMouseExited(evt);
             }
         });
 
-        javax.swing.GroupLayout phucapPanelLayout = new javax.swing.GroupLayout(phucapPanel);
-        phucapPanel.setLayout(phucapPanelLayout);
-        phucapPanelLayout.setHorizontalGroup(
-            phucapPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(phucapLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout nhanvienPanelLayout = new javax.swing.GroupLayout(nhanvienPanel);
+        nhanvienPanel.setLayout(nhanvienPanelLayout);
+        nhanvienPanelLayout.setHorizontalGroup(
+            nhanvienPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(nhanvienLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        phucapPanelLayout.setVerticalGroup(
-            phucapPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(phucapLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+        nhanvienPanelLayout.setVerticalGroup(
+            nhanvienPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(nhanvienLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
         );
 
         thuongphatPanel.setBackground(new java.awt.Color(81, 113, 131));
@@ -576,18 +541,14 @@ public class DashBoard extends javax.swing.JFrame
         thuongphatLabel.setText("CHI PHÍ");
         thuongphatLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         thuongphatLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        thuongphatLabel.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        thuongphatLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 thuongphatLabelMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 thuongphatLabelMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
                 thuongphatLabelMouseExited(evt);
             }
         });
@@ -611,18 +572,14 @@ public class DashBoard extends javax.swing.JFrame
         luongLabel.setText("DOANH THU");
         luongLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(255, 255, 255)));
         luongLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        luongLabel.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        luongLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 luongLabelMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt)
-            {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
                 luongLabelMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt)
-            {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
                 luongLabelMouseExited(evt);
             }
         });
@@ -646,12 +603,12 @@ public class DashBoard extends javax.swing.JFrame
                 .addComponent(menuIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(phucapPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(nhanvienPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                     .addComponent(duanPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                     .addComponent(hopdongPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                    .addComponent(bccPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(khachPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                     .addComponent(tourPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                    .addComponent(pbPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                    .addComponent(diadiemPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(luongPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(thuongphatPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
@@ -667,15 +624,15 @@ public class DashBoard extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tourPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(pbPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(diadiemPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(duanPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(hopdongPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(bccPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(khachPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(phucapPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nhanvienPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(thuongphatPanel, 38, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -689,17 +646,17 @@ public class DashBoard extends javax.swing.JFrame
         jPanel2.setBackground(new java.awt.Color(134, 162, 154));
         jPanel2.setEnabled(false);
 
-        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
-        jPanel4.setVisible (false);
+        jPanelTour.setLayout(new javax.swing.BoxLayout(jPanelTour, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelTour.setVisible (false);
 
-        jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.LINE_AXIS));
-        jPanel10.setVisible (false);
+        jPanelDiaDiem.setLayout(new javax.swing.BoxLayout(jPanelDiaDiem, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelDiaDiem.setVisible (false);
 
-        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.LINE_AXIS));
-        jPanel7.setVisible (false);
+        jPanelKhach.setLayout(new javax.swing.BoxLayout(jPanelKhach, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelKhach.setVisible (false);
 
-        jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.LINE_AXIS));
-        jPanel8.setVisible (false);
+        jPanelNhanvien.setLayout(new javax.swing.BoxLayout(jPanelNhanvien, javax.swing.BoxLayout.LINE_AXIS));
+        jPanelNhanvien.setVisible (false);
 
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.LINE_AXIS));
         jPanel9.setVisible (false);
@@ -727,10 +684,10 @@ public class DashBoard extends javax.swing.JFrame
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, 992, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelDiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelKhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelNhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -749,10 +706,10 @@ public class DashBoard extends javax.swing.JFrame
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelDiaDiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelKhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelTour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelNhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -768,10 +725,13 @@ public class DashBoard extends javax.swing.JFrame
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel4.add (tourForm);
+        jPanelTour.add (tourForm);
         //jPanel10.add(pb);
+        jPanelDiaDiem.add(diadiemForm);
         //jPanel7.add(da);
+        jPanelKhach.add(khachhangForm);
         //jPanel8.add (hd);
+        jPanelNhanvien.add(nhanvienForm);
         //jPanel9.add(bcc);
         //jPanel11.add(phucap);
         //jPanel12.add(luong);
@@ -907,8 +867,8 @@ public class DashBoard extends javax.swing.JFrame
         changecolor(settingLogout, new Color(66, 98, 124));
     }//GEN-LAST:event_btnLogoutMouseExited
 
-    private void pbLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_pbLabelMouseClicked
-    {//GEN-HEADEREND:event_pbLabelMouseClicked
+    private void diadiemLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_diadiemLabelMouseClicked
+    {//GEN-HEADEREND:event_diadiemLabelMouseClicked
 //       new CommbinedPanel(jPanel2,new phongbanForm ());
 //        jPanel2.setLayout (null);
 //        new CommbinedPanel(jPanel10,new phongbanForm ());
@@ -926,48 +886,21 @@ public class DashBoard extends javax.swing.JFrame
 //        if (flagAcc == 1 || flagAcc == 2){
 //            JOptionPane.showMessageDialog(null, "Bạn không có quyền hạn truy cập Phòng Ban!");
 //        }
-    }//GEN-LAST:event_pbLabelMouseClicked
+        jPanelTour.setVisible(false);
+        jPanelDiaDiem.setVisible(true);
+        jPanelNhanvien.setVisible(false);
+        jPanelKhach.setVisible(false);
+    }//GEN-LAST:event_diadiemLabelMouseClicked
 
-    private void pbLabelMouseEntered(java.awt.event.MouseEvent evt)//GEN-FIRST:event_pbLabelMouseEntered
-    {//GEN-HEADEREND:event_pbLabelMouseEntered
-        changecolor(pbPanel, new Color(107, 138, 164));
-    }//GEN-LAST:event_pbLabelMouseEntered
+    private void diadiemLabelMouseEntered(java.awt.event.MouseEvent evt)//GEN-FIRST:event_diadiemLabelMouseEntered
+    {//GEN-HEADEREND:event_diadiemLabelMouseEntered
+        changecolor(diadiemPanel, new Color(107, 138, 164));
+    }//GEN-LAST:event_diadiemLabelMouseEntered
 
-    private void pbLabelMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_pbLabelMouseExited
-    {//GEN-HEADEREND:event_pbLabelMouseExited
-        changecolor(pbPanel, new Color(81, 113, 131));
-    }//GEN-LAST:event_pbLabelMouseExited
-
-    private void duanLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_duanLabelMouseClicked
-    {//GEN-HEADEREND:event_duanLabelMouseClicked
-//      new CommbinedPanel(jPanel2,new duanForm ());
-//        jPanel2.setLayout (null);
-//       new CommbinedPanel(jPanel7,new duanForm ());
-//        if (flagAcc == 0){
-//            da.initTableDaNv ();
-//            jPanel7.setVisible (true);
-//            jPanel4.setVisible (false);
-//            jPanel10.setVisible (false);
-//            jPanel8.setVisible (false);
-//            jPanel9.setVisible (false);
-//            jPanel11.setVisible (false);
-//            jPanel12.setVisible (false);
-//            jPanel13.setVisible (false);
-//        }
-//        if (flagAcc == 1 || flagAcc == 2){
-//            JOptionPane.showMessageDialog(null, "Bạn không có quyền hạn truy cập Dự Án!");
-//        }
-    }//GEN-LAST:event_duanLabelMouseClicked
-
-    private void duanLabelMouseEntered(java.awt.event.MouseEvent evt)//GEN-FIRST:event_duanLabelMouseEntered
-    {//GEN-HEADEREND:event_duanLabelMouseEntered
-        changecolor(duanPanel, new Color(107, 138, 164));
-    }//GEN-LAST:event_duanLabelMouseEntered
-
-    private void duanLabelMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_duanLabelMouseExited
-    {//GEN-HEADEREND:event_duanLabelMouseExited
-        changecolor(duanPanel, new Color(81, 113, 131));
-    }//GEN-LAST:event_duanLabelMouseExited
+    private void diadiemLabelMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_diadiemLabelMouseExited
+    {//GEN-HEADEREND:event_diadiemLabelMouseExited
+        changecolor(diadiemPanel, new Color(81, 113, 131));
+    }//GEN-LAST:event_diadiemLabelMouseExited
 
     private void hopdongLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_hopdongLabelMouseClicked
     {//GEN-HEADEREND:event_hopdongLabelMouseClicked
@@ -1010,8 +943,8 @@ public class DashBoard extends javax.swing.JFrame
         changecolor(hopdongPanel, new Color(81, 113, 131));
     }//GEN-LAST:event_hopdongLabelMouseExited
 
-    private void bccLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_bccLabelMouseClicked
-    {//GEN-HEADEREND:event_bccLabelMouseClicked
+    private void khachLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_khachLabelMouseClicked
+    {//GEN-HEADEREND:event_khachLabelMouseClicked
 //        if (flagAcc == 0){
 //            System.out.println ("click label BCC");
 //            bcc.initTableBcc ();
@@ -1041,20 +974,24 @@ public class DashBoard extends javax.swing.JFrame
 //        if (flagAcc == 2){
 //            JOptionPane.showMessageDialog(null, "Bạn không có quyền hạn truy cập Bảng Chấm Công!");
 //        }
-    }//GEN-LAST:event_bccLabelMouseClicked
+        jPanelTour.setVisible(false);
+        jPanelDiaDiem.setVisible(false);
+        jPanelNhanvien.setVisible(false);
+        jPanelKhach.setVisible(true);
+    }//GEN-LAST:event_khachLabelMouseClicked
 
-    private void bccLabelMouseEntered(java.awt.event.MouseEvent evt)//GEN-FIRST:event_bccLabelMouseEntered
-    {//GEN-HEADEREND:event_bccLabelMouseEntered
-        changecolor(bccPanel, new Color(107, 138, 164));
-    }//GEN-LAST:event_bccLabelMouseEntered
+    private void khachLabelMouseEntered(java.awt.event.MouseEvent evt)//GEN-FIRST:event_khachLabelMouseEntered
+    {//GEN-HEADEREND:event_khachLabelMouseEntered
+        changecolor(khachPanel, new Color(107, 138, 164));
+    }//GEN-LAST:event_khachLabelMouseEntered
 
-    private void bccLabelMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_bccLabelMouseExited
-    {//GEN-HEADEREND:event_bccLabelMouseExited
-        changecolor(bccPanel, new Color(81, 113, 131));
-    }//GEN-LAST:event_bccLabelMouseExited
+    private void khachLabelMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_khachLabelMouseExited
+    {//GEN-HEADEREND:event_khachLabelMouseExited
+        changecolor(khachPanel, new Color(81, 113, 131));
+    }//GEN-LAST:event_khachLabelMouseExited
 
-    private void phucapLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_phucapLabelMouseClicked
-    {//GEN-HEADEREND:event_phucapLabelMouseClicked
+    private void nhanvienLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_nhanvienLabelMouseClicked
+    {//GEN-HEADEREND:event_nhanvienLabelMouseClicked
 //        System.out.println ("click label phụ cấp");
 ////       luong.setVisible (true);
 //        if (flagAcc == 0){
@@ -1071,17 +1008,21 @@ public class DashBoard extends javax.swing.JFrame
 //        if (flagAcc == 1 || flagAcc == 2){
 //            JOptionPane.showMessageDialog(null, "Bạn không có quyền hạn truy cập Phụ Cấp!");
 //        }
-    }//GEN-LAST:event_phucapLabelMouseClicked
+        jPanelTour.setVisible(false);
+        jPanelDiaDiem.setVisible(false);
+        jPanelNhanvien.setVisible(true);
+        jPanelKhach.setVisible(false);
+    }//GEN-LAST:event_nhanvienLabelMouseClicked
 
-    private void phucapLabelMouseEntered(java.awt.event.MouseEvent evt)//GEN-FIRST:event_phucapLabelMouseEntered
-    {//GEN-HEADEREND:event_phucapLabelMouseEntered
-        changecolor(phucapPanel, new Color(107, 138, 164));
-    }//GEN-LAST:event_phucapLabelMouseEntered
+    private void nhanvienLabelMouseEntered(java.awt.event.MouseEvent evt)//GEN-FIRST:event_nhanvienLabelMouseEntered
+    {//GEN-HEADEREND:event_nhanvienLabelMouseEntered
+        changecolor(nhanvienPanel, new Color(107, 138, 164));
+    }//GEN-LAST:event_nhanvienLabelMouseEntered
 
-    private void phucapLabelMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_phucapLabelMouseExited
-    {//GEN-HEADEREND:event_phucapLabelMouseExited
-        changecolor(phucapPanel, new Color(81, 113, 131));
-    }//GEN-LAST:event_phucapLabelMouseExited
+    private void nhanvienLabelMouseExited(java.awt.event.MouseEvent evt)//GEN-FIRST:event_nhanvienLabelMouseExited
+    {//GEN-HEADEREND:event_nhanvienLabelMouseExited
+        changecolor(nhanvienPanel, new Color(81, 113, 131));
+    }//GEN-LAST:event_nhanvienLabelMouseExited
 
     private void luongLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_luongLabelMouseClicked
 //        System.out.println ("click label luong");
@@ -1191,7 +1132,10 @@ public class DashBoard extends javax.swing.JFrame
 //            jPanel13.setVisible (false);
 //        }
         tourForm.initTableTour();
-        jPanel4.setVisible(true);
+        jPanelTour.setVisible(true);
+        jPanelDiaDiem.setVisible(false);
+        jPanelNhanvien.setVisible(false);
+        jPanelKhach.setVisible(false);
     }//GEN-LAST:event_tourLabelMouseClicked
 
     private void thuongphatLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thuongphatLabelMouseClicked
@@ -1202,10 +1146,10 @@ public class DashBoard extends javax.swing.JFrame
             //thuongphat.initTableTp();
             jPanel13.setVisible(true);
             jPanel9.setVisible(false);
-            jPanel4.setVisible(false);
-            jPanel10.setVisible(false);
-            jPanel7.setVisible(false);
-            jPanel8.setVisible(false);
+            jPanelTour.setVisible(false);
+            jPanelDiaDiem.setVisible(false);
+            jPanelKhach.setVisible(false);
+            jPanelNhanvien.setVisible(false);
             jPanel11.setVisible(false);
             jPanel12.setVisible(false);
         }
@@ -1217,10 +1161,10 @@ public class DashBoard extends javax.swing.JFrame
 //            bcc.initTableBccPB ();
             jPanel13.setVisible(true);
             jPanel9.setVisible(false);
-            jPanel4.setVisible(false);
-            jPanel10.setVisible(false);
-            jPanel7.setVisible(false);
-            jPanel8.setVisible(false);
+            jPanelTour.setVisible(false);
+            jPanelDiaDiem.setVisible(false);
+            jPanelKhach.setVisible(false);
+            jPanelNhanvien.setVisible(false);
             jPanel11.setVisible(false);
             jPanel12.setVisible(false);
         }
@@ -1237,6 +1181,34 @@ public class DashBoard extends javax.swing.JFrame
     private void thuongphatLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thuongphatLabelMouseExited
         changecolor(thuongphatPanel, new Color(81, 113, 131));
     }//GEN-LAST:event_thuongphatLabelMouseExited
+
+    private void duanLabelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_duanLabelMouseExited
+        changecolor(duanPanel, new Color(81, 113, 131));
+    }//GEN-LAST:event_duanLabelMouseExited
+
+    private void duanLabelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_duanLabelMouseEntered
+        changecolor(duanPanel, new Color(107, 138, 164));
+    }//GEN-LAST:event_duanLabelMouseEntered
+
+    private void duanLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_duanLabelMouseClicked
+        //      new CommbinedPanel(jPanel2,new duanForm ());
+        //        jPanel2.setLayout (null);
+        //       new CommbinedPanel(jPanel7,new duanForm ());
+        //        if (flagAcc == 0){
+            //            da.initTableDaNv ();
+            //            jPanel7.setVisible (true);
+            //            jPanel4.setVisible (false);
+            //            jPanel10.setVisible (false);
+            //            jPanel8.setVisible (false);
+            //            jPanel9.setVisible (false);
+            //            jPanel11.setVisible (false);
+            //            jPanel12.setVisible (false);
+            //            jPanel13.setVisible (false);
+            //        }
+        //        if (flagAcc == 1 || flagAcc == 2){
+            //            JOptionPane.showMessageDialog(null, "Bạn không có quyền hạn truy cập Dự Án!");
+            //        }
+    }//GEN-LAST:event_duanLabelMouseClicked
 
     public JLabel getjLabel5()
     {
@@ -1359,12 +1331,12 @@ public class DashBoard extends javax.swing.JFrame
 //    }
     public JLabel getBccLabel()
     {
-        return bccLabel;
+        return khachLabel;
     }
 
     public void setBccLabel(JLabel bccLabel)
     {
-        this.bccLabel = bccLabel;
+        this.khachLabel = bccLabel;
     }
 
     public JLabel getBtnHidemenu()
@@ -1385,16 +1357,6 @@ public class DashBoard extends javax.swing.JFrame
     public void setBtnLogout(JLabel btnLogout)
     {
         this.btnLogout = btnLogout;
-    }
-
-    public JLabel getDuanLabel()
-    {
-        return duanLabel;
-    }
-
-    public void setDuanLabel(JLabel duanLabel)
-    {
-        this.duanLabel = duanLabel;
     }
 
     public JLabel getHopdongLabel()
@@ -1429,22 +1391,22 @@ public class DashBoard extends javax.swing.JFrame
 
     public JLabel getPbLabel()
     {
-        return pbLabel;
+        return diadiemLabel;
     }
 
     public void setPbLabel(JLabel pbLabel)
     {
-        this.pbLabel = pbLabel;
+        this.diadiemLabel = pbLabel;
     }
 
     public JLabel getPhucapLabel()
     {
-        return phucapLabel;
+        return nhanvienLabel;
     }
 
     public void setPhucapLabel(JLabel phucapLabel)
     {
-        this.phucapLabel = phucapLabel;
+        this.nhanvienLabel = phucapLabel;
     }
 
     public JLabel getThuongphatLabel()
@@ -1479,10 +1441,10 @@ public class DashBoard extends javax.swing.JFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel bccLabel;
-    private javax.swing.JPanel bccPanel;
     private javax.swing.JLabel btnHidemenu;
     private javax.swing.JLabel btnLogout;
+    private javax.swing.JLabel diadiemLabel;
+    private javax.swing.JPanel diadiemPanel;
     private javax.swing.JLabel duanLabel;
     private javax.swing.JPanel duanPanel;
     private javax.swing.JPanel hidemenu;
@@ -1497,28 +1459,28 @@ public class DashBoard extends javax.swing.JFrame
     private javax.swing.JLabel jLabelClosed;
     private javax.swing.JLabel jLabelMini;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelDiaDiem;
+    private javax.swing.JPanel jPanelKhach;
+    private javax.swing.JPanel jPanelNhanvien;
+    private javax.swing.JPanel jPanelTour;
     private keeptoo.KGradientPanel kGradientPanel1;
     private keeptoo.KGradientPanel kGradientPanel2;
+    private javax.swing.JLabel khachLabel;
+    private javax.swing.JPanel khachPanel;
     private javax.swing.JPanel linehideMenu;
     private javax.swing.JPanel logout;
     private javax.swing.JLabel luongLabel;
     private javax.swing.JPanel luongPanel;
     private javax.swing.JPanel menuIcon;
-    private javax.swing.JLabel pbLabel;
-    private javax.swing.JPanel pbPanel;
-    private javax.swing.JLabel phucapLabel;
-    private javax.swing.JPanel phucapPanel;
+    private javax.swing.JLabel nhanvienLabel;
+    private javax.swing.JPanel nhanvienPanel;
     private javax.swing.JPanel settingLogout;
     private javax.swing.JLabel thuongphatLabel;
     private javax.swing.JPanel thuongphatPanel;

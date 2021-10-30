@@ -34,12 +34,13 @@ public class KhachHangDAO {
                 KhachHangDTO kh = new KhachHangDTO();
                 kh.setMaKhachHang(conn.rs.getString(1));
                 kh.setTenKhachHang(conn.rs.getString(2));
-                kh.setCMND(conn.rs.getString(3));
-                kh.setDiaChi(conn.rs.getString(4));
-                kh.setGioiTinh(conn.rs.getString(5));
+                kh.setGioiTinh(conn.rs.getString(3));
+                kh.setNgaySinh(conn.rs.getString(4));
+                kh.setCMND(conn.rs.getString(5));
                 kh.setSDT(conn.rs.getString(6));
                 kh.setMail(conn.rs.getString(7));
-                kh.setQuocTich(conn.rs.getString(8));
+                kh.setDiaChi(conn.rs.getString(8));
+                kh.setQuocTich(conn.rs.getString(9));
                 dsKhachHang.add(kh);
             }
         } catch (SQLException e) {

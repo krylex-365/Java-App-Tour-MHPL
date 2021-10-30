@@ -11,15 +11,19 @@ public class NhanVienDTO {
 
     private String MaNhanVien;
     private String TenNhanVien;
+    private String GioiTinh;
+    private String NgaySinh;
     private String SDT;
     private String DiaChi;
 
     public NhanVienDTO() {
     }
 
-    public NhanVienDTO(String MaNhanVien, String TenNhanVien, String SDT, String DiaChi) {
+    public NhanVienDTO(String MaNhanVien, String TenNhanVien, String GioiTinh, String NgaySinh, String SDT, String DiaChi) {
         this.MaNhanVien = MaNhanVien;
         this.TenNhanVien = TenNhanVien;
+        this.GioiTinh = GioiTinh;
+        this.NgaySinh = NgaySinh;
         this.SDT = SDT;
         this.DiaChi = DiaChi;
     }
@@ -54,6 +58,22 @@ public class NhanVienDTO {
 
     public void setDiaChi(String DiaChi) {
         this.DiaChi = DiaChi;
+    }
+
+    public String getGioiTinh() {
+        return GioiTinh;
+    }
+
+    public void setGioiTinh(String GioiTinh) {
+        this.GioiTinh = GioiTinh;
+    }
+
+    public String getNgaySinh() {
+        return NgaySinh;
+    }
+
+    public void setNgaySinh(String NgaySinh) {
+        this.NgaySinh = NgaySinh;
     }
 
     @Override
