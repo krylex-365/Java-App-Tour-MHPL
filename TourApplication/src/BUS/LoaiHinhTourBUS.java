@@ -54,7 +54,7 @@ public class LoaiHinhTourBUS {
         if (loaiHinhTourDAO.insertLoaiHinh(maLoai, tenLoai)) {
             LoaiHinhTourDTO newLoaiHinh = new LoaiHinhTourDTO(maLoai, tenLoai);
             loaiHinhTourDTOs.add(newLoaiHinh);
-            maLast.updateMaDiaDiem(maLoai);
+            maLast.updateMaLoai(maLoai);
             System.out.println("Thêm thành công themLoaiHinhTourBUS");
             return true;
         }

@@ -123,6 +123,23 @@ public class MaDuLieuCuoiDAO {
         return false;
     }
 
+    public boolean updateMaKhach(String newLatestMaKhach) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "UPDATE MaDuLieuCuoi SET"
+                + " MaKhachHang='" + newLatestMaKhach + "'"
+                + " WHERE MaKhachHang='" + getMaKhachHangLast()+ "'";
+        if (conn.executeUpdate(query)) {
+            System.out.println("Update last MaKhach success.");
+            setMaKhachHangLast(newLatestMaKhach);
+            conn.close();
+            return true;
+        }
+        System.out.println("Update last MaKhach fail.");
+        conn.close();
+        return false;
+    }
+    
     public String getMaLoaiLast() {
         return MaLoaiLast;
     }
