@@ -91,7 +91,8 @@ public class Utils {
     }
     
     ////////////////Tạo mã KhachHang
-    public String initMaKhachHang(String init) {
+    public String initMaKhachHang() {
+        String result = "KH";
         maDLCuoi = new MaDuLieuCuoiDAO();
         System.out.println("- In initMakhachhang");
         String temp = maDLCuoi.getMaKhachHangLast();
@@ -102,12 +103,11 @@ public class Utils {
         int totalzero = 6;
         add = String.valueOf(maKhachHang);
         int cpzero = totalzero - add.length();
-        init = "KH";
         for (int i = 0; i < cpzero; i++) {
-            init += '0';
+            result += '0';
         }
-        init += add;
-        return init;
+        result += add;
+        return result;
     }
 
     ////////////////Lấy ngày hiện tại

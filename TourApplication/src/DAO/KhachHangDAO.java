@@ -55,13 +55,14 @@ public class KhachHangDAO {
         return dsKhachHang;
     }
     
-    public boolean add(String maKhachHang,String tenKhachHang,String cmnd,String diaChi,String gioiTinh,String sdt,String mail,String quocTich){
+    public boolean add(KhachHangDTO khachHang){
+//        String maKhachHang,String tenKhachHang,String cmnd,String diaChi,String gioiTinh,String sdt,String mail,String quocTich
         conn = new Connect();
         conn.getConnection();
         //System.out.println(maTour);
         String query = "insert into KhachHang"
-                + " (MaKhachHang,TenKhachHang,Cmnd,DiaChi,GioiTinh,Sdt,Mail,QuocTich)"
-                + " values ('"+maKhachHang+"','"+tenKhachHang+"','"+cmnd+"','"+diaChi+"','"+gioiTinh+"','"+sdt+"','"+mail+"','"+quocTich+"')";
+                + " (MaKhachHang,TenKhachHang,NgaySinh,Cmnd,DiaChi,GioiTinh,Sdt,Mail,QuocTich)"
+                + " values ('"+khachHang.getMaKhachHang()+"','"+khachHang.getTenKhachHang()+"','"+khachHang.getNgaySinh()+"','"+khachHang.getCMND()+"','"+khachHang.getDiaChi()+"','"+khachHang.getGioiTinh()+"','"+khachHang.getSDT()+"','"+khachHang.getMail()+"','"+khachHang.getQuocTich()+"')";
         if(conn.executeUpdate(query)){
             System.out.println("KhachHangDAO add success.");
             return true;
@@ -81,16 +82,17 @@ public class KhachHangDAO {
         return false;
     }
     
-    public boolean update(String maKhachHang,String tenKhachHang,String cmnd,String diaChi,String gioiTinh,String sdt,String mail,String quocTich){
+    public boolean update(KhachHangDTO khachHang){
         String sql =    "update KhachHang " +
-                        "set TenKhachHang='"+ tenKhachHang +"' "+
-                        ",Cmnd='"+cmnd+"'" +
-                        ",DiaChi='"+diaChi+"'" +
-                        ",GioiTinh='"+gioiTinh+"'" +
-                        ",Sdt='"+sdt+"'" +
-                        ",Mail='"+mail+"'" +
-                        ",QuocTich='"+quocTich+"'" +
-                        " where MaKhachHang='"+maKhachHang+"'";
+                        "set TenKhachHang='"+ khachHang.getTenKhachHang() +"' "+
+                        ",Cmnd='"+khachHang.getCMND()+"'" +
+                        ",DiaChi='"+khachHang.getDiaChi()+"'" +
+                        ",NgaySinh='"+khachHang.getNgaySinh()+"'" +
+                        ",GioiTinh='"+khachHang.getGioiTinh()+"'" +
+                        ",Sdt='"+khachHang.getSDT()+"'" +
+                        ",Mail='"+khachHang.getMail()+"'" +
+                        ",QuocTich='"+khachHang.getQuocTich()+"'" +
+                        " where MaKhachHang='"+khachHang.getMaKhachHang()+"'";
         conn = new Connect();
         conn.getConnection();
         if(conn.executeUpdate(sql)){

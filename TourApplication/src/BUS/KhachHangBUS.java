@@ -25,11 +25,10 @@ public class KhachHangBUS {
         this.khachHangDTOs = khachHangDTOs;
     }
     
-    public String CapPhat(String init) {
+    public String CapPhat() {
         System.out.println("- cap 1");
-        init = utl.initMaKhachHang(init);
         System.out.println("- cap 2");
-        return init;
+        return utl.initMaKhachHang();
     }
 
     public KhachHangBUS() {
@@ -53,11 +52,15 @@ public class KhachHangBUS {
         this.khachHangDTOs = khachHangDTOs;
     }
     
-    public boolean addKhachHang(String maKhachHang,String tenKhachHang,String cmnd,String diaChi,String gioiTinh,String sdt,String mail,String quocTich){
-        if(khachHangDAO.add(maKhachHang, tenKhachHang, cmnd, diaChi, gioiTinh, sdt, mail, quocTich)){
+    public boolean addKhachHang(KhachHangDTO khachHang){
+        for(KhachHangDTO a  : khachHangDTOs)
+            if(a.getMaKhachHang().equals(khachHang.getMaKhachHang()))return false;
+
+        if(khachHangDAO.add(khachHang)){
             // NHỚ SỬA LẠI
-            //khachHangDTOs.add(new KhachHangDTO(maKhachHang, tenKhachHang, cmnd, diaChi, gioiTinh, sdt, mail, quocTich));
-            maLast.updateMaKhach(maKhachHang);
+            khachHangDTOs.add(khachHang);
+            maLast.updateMaKhach(khachHang.getMaKhachHang());
+            return true;
         }
         return false;
     }
@@ -67,27 +70,37 @@ public class KhachHangBUS {
             for(int i = 0; i< khachHangDTOs.size();i++){
                 if(khachHangDTOs.get(i).getMaKhachHang().equals(maKhachHang)){
                     khachHangDTOs.remove(i);
-                    break;
+                    return true;
                 }                        
             }
         }
         return false;
     }
     
-    public boolean updateKhachHang(String maKhachHang,String tenKhachHang,String cmnd,String diaChi,String gioiTinh,String sdt,String mail,String quocTich){
-        if(khachHangDAO.update(maKhachHang, tenKhachHang, cmnd, diaChi, gioiTinh, sdt, mail, quocTich)){
+    public ArrayList<KhachHangDTO> searchKhachHangByMaKhachHang(String maKhachHang){
+        ArrayList<KhachHangDTO> result = new ArrayList<>();
+        for(KhachHangDTO a : khachHangDTOs){
+            if(a.getMaKhachHang().equals(maKhachHang))result.add(a);
+        }
+        return result;
+    }
+    
+    public boolean updateKhachHang(KhachHangDTO khachHang){
+        if(khachHangDAO.update(khachHang)){
             for(KhachHangDTO a: khachHangDTOs){
-                if(a.getMaKhachHang().equals(maKhachHang)){
-                    a.setMaKhachHang(maKhachHang);
-                    a.setTenKhachHang(tenKhachHang);
-                    a.setCMND(cmnd);
-                    a.setDiaChi(diaChi);
-                    a.setGioiTinh(gioiTinh);
-                    a.setSDT(sdt);
-                    a.setMail(mail);
-                    a.setQuocTich(quocTich);
+                if(a.getMaKhachHang().equals(khachHang.getMaKhachHang())){
+                    //a.setMaKhachHang(maKhachHang);
+                    a.setTenKhachHang(khachHang.getTenKhachHang());
+                    a.setCMND(khachHang.getCMND());
+                    a.setDiaChi(khachHang.getDiaChi());
+                    a.setGioiTinh(khachHang.getGioiTinh());
+                    a.setSDT(khachHang.getSDT());
+                    a.setMail(khachHang.getMail());
+                    a.setQuocTich(khachHang.getQuocTich());
+                    a.setNgaySinh(khachHang.getNgaySinh());
                 }                        
             }
+            return true;
         }
         return false;
     }
