@@ -29,7 +29,7 @@ public class ChiTietTour {
     ChiTietDoanBUS chiTietDoanBUS;
 
     public ChiTietTour() {
-//        chiTietDoanBUS = new ChiTietDoanBUS();
+        chiTietDoanBUS = new ChiTietDoanBUS();
         doanDuLichBUS = new DoanDuLichBUS();
         diaDiemThamQuanBUS = new DiaDiemThamQuanBUS();
         diaDiemBUS = new DiaDiemBUS();

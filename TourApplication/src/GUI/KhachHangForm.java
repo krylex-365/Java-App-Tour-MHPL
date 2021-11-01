@@ -661,7 +661,7 @@ public class KhachHangForm extends javax.swing.JPanel
         jTextMaKhachHang.setText((String)modelnv.getValueAt(selectedRow, 0));
         jTextTen.setText((String)modelnv.getValueAt(selectedRow, 1));
         
-        if(modelnv.getValueAt(selectedRow, 6).equals("nam")){
+        if(modelnv.getValueAt(selectedRow, 6).equals("Nam")){
             jCbGioiTinh.setSelectedIndex(0);
         }
         else{
