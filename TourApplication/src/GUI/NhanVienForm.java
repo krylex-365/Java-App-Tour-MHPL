@@ -451,7 +451,12 @@ public class NhanVienForm extends javax.swing.JPanel
         tableCol.add ("Số ĐT");
         tableCol.add ("Chức Vụ");
         tableCol.add ("Công Việc");
-        modelnv = new DefaultTableModel(tableCol, 5);
+        modelnv = new DefaultTableModel(tableCol, 5){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return false;
+            }
+        };
         jTableNV.setModel(modelnv);
         jTableNV.setShowGrid(true);
         jTableNV.setFocusable(false);

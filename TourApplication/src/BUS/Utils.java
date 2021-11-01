@@ -53,7 +53,7 @@ public class Utils {
         return init;
     }
     ////////////////Tạo mã loại hình
-    public String initMaLoai(String init) {
+    public String initMaLoai() {
         String temp = maDLCuoi.getMaLoaiLast();
         System.out.println(temp);
         String add = temp.substring(2, temp.length());
@@ -62,7 +62,7 @@ public class Utils {
         int totalzero = 6;
         add = String.valueOf(maLoai);
         int cpzero = totalzero - add.length();
-        init = "LH";
+        String init = "LH";
         for (int i = 0; i < cpzero; i++) {
             init += '0';
         }
@@ -71,7 +71,7 @@ public class Utils {
     }
 
     ////////////////Tạo địa điểm
-    public String initMaDiaDiem(String init) {
+    public String initMaDiaDiem() {
         maDLCuoi = new MaDuLieuCuoiDAO();
         System.out.println("- In initDiaDiem");
         String temp = maDLCuoi.getMaDiaDiemLast();
@@ -82,7 +82,7 @@ public class Utils {
         int totalzero = 6;
         add = String.valueOf(maDiaDiem);
         int cpzero = totalzero - add.length();
-        init = "DD";
+        String init = "DD";
         for (int i = 0; i < cpzero; i++) {
             init += '0';
         }

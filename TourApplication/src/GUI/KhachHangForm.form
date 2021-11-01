@@ -91,34 +91,15 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jBtnThemNV" min="-2" pref="110" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jBtnSuaNV" min="-2" pref="110" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jBtnXoaNV" min="-2" pref="110" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                                          <Component id="jBtnHuy1" min="-2" pref="110" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="jButtonExcel1" min="-2" pref="108" max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel14" min="-2" pref="60" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Component id="jTextMail" min="-2" pref="180" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="jTextQuocTich" min="-2" pref="180" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel16" min="-2" pref="40" max="-2" attributes="0"/>
@@ -130,7 +111,7 @@
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Component id="jTextMaKhachHang" min="-2" pref="140" max="-2" attributes="0"/>
                                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                              <Component id="jBtnCapPhatMaNV" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="jBtnCapPhatMaKH" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
@@ -147,6 +128,11 @@
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Component id="jTextTen" min="-2" pref="180" max="-2" attributes="0"/>
                                           </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                              <Component id="jTextQuocTich" min="-2" pref="180" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
@@ -159,10 +145,23 @@
                                           <Component id="jTextCmnd" min="-2" pref="180" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jBtnXoaKH" min="-2" pref="110" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jBtnThemKH" min="-2" pref="110" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jBtnSuaKH" min="-2" pref="110" max="-2" attributes="0"/>
+                                              <Component id="jBtnHuyKH" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="28" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -173,7 +172,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jTextMaKhachHang" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jBtnCapPhatMaNV" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jBtnCapPhatMaKH" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -217,14 +216,13 @@
                           </Group>
                           <EmptySpace pref="23" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jBtnThemNV" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="jBtnSuaNV" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="jBtnXoaNV" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnThemKH" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnSuaKH" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jBtnHuy1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                              <Component id="jButtonExcel1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnHuyKH" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="jBtnXoaKH" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -232,7 +230,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jBtnThemNV">
+                <Component class="javax.swing.JButton" name="jBtnThemKH">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b8" green="c1" red="88" type="rgb"/>
@@ -246,10 +244,10 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnThemNVActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnThemKHActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtnSuaNV">
+                <Component class="javax.swing.JButton" name="jBtnSuaKH">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b8" green="c1" red="88" type="rgb"/>
@@ -263,10 +261,10 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnSuaNVActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnSuaKHActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtnXoaNV">
+                <Component class="javax.swing.JButton" name="jBtnXoaKH">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b8" green="c1" red="88" type="rgb"/>
@@ -280,10 +278,10 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnXoaNVActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnXoaKHActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtnHuy1">
+                <Component class="javax.swing.JButton" name="jBtnHuyKH">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="b8" green="c1" red="88" type="rgb"/>
@@ -297,7 +295,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnHuy1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnHuyKHActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel4">
@@ -318,7 +316,7 @@
                     <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTextMaKhachHang.setEditable(false);"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JButton" name="jBtnCapPhatMaNV">
+                <Component class="javax.swing.JButton" name="jBtnCapPhatMaKH">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="83" green="71" red="51" type="rgb"/>
@@ -331,7 +329,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnCapPhatMaNVActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnCapPhatMaKHActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7">
@@ -353,23 +351,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextSDT">
-                </Component>
-                <Component class="javax.swing.JButton" name="jButtonExcel1">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="b8" green="c1" red="88" type="rgb"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Verdana" size="13" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t Excel"/>
-                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[79, 23]"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonExcel1ActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
@@ -544,7 +525,7 @@
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableKHMouseClicked"/>
                   </Events>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tableCol.add (&quot;M&#xe3; Kh&#xe1;ch H&#xe0;ng&quot;);&#xa;tableCol.add (&quot;T&#xea;n Kh&#xe1;ch H&#xe0;ng&quot;);&#xa;tableCol.add (&quot;Ng&#xe0;y Sinh&quot;);&#xa;tableCol.add (&quot;S&#x1ed1; &#x110;T&quot;);&#xa;tableCol.add (&quot;Mail&quot;);&#xa;tableCol.add (&quot;CMND&quot;);&#xa;tableCol.add (&quot;Gi&#x1edb;i T&#xed;nh&quot;);&#xa;tableCol.add (&quot;&#x110;&#x1ecb;a Ch&#x1ec9;&quot;);&#xa;tableCol.add (&quot;Qu&#x1ed1;c T&#x1ecb;ch&quot;);&#xa;modelnv = new DefaultTableModel(tableCol, 5);&#xa;jTableKH.setModel(modelnv);&#xa;jTableKH.setShowGrid(true);&#xa;        jTableKH.setFocusable(false);&#xa;        jTableKH.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableKH.setRowHeight(25);  &#xa;        jTableKH.getTableHeader().setOpaque(false);&#xa;        jTableKH.setFillsViewportHeight(true);&#xa;        jTableKH.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableKH.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableKH.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableKH.setSelectionBackground(new Color(52,152,219));&#xa;jTableKH.setGridColor(new java.awt.Color(83, 86, 88));"/>
+                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tableCol.add (&quot;M&#xe3; Kh&#xe1;ch H&#xe0;ng&quot;);&#xa;tableCol.add (&quot;T&#xea;n Kh&#xe1;ch H&#xe0;ng&quot;);&#xa;tableCol.add (&quot;Ng&#xe0;y Sinh&quot;);&#xa;tableCol.add (&quot;S&#x1ed1; &#x110;T&quot;);&#xa;tableCol.add (&quot;Mail&quot;);&#xa;tableCol.add (&quot;CMND&quot;);&#xa;tableCol.add (&quot;Gi&#x1edb;i T&#xed;nh&quot;);&#xa;tableCol.add (&quot;&#x110;&#x1ecb;a Ch&#x1ec9;&quot;);&#xa;tableCol.add (&quot;Qu&#x1ed1;c T&#x1ecb;ch&quot;);&#xa;tbModelKH = new DefaultTableModel(tableCol, 5){&#xa;    @Override&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableKH.setModel(tbModelKH);&#xa;jTableKH.setShowGrid(true);&#xa;        jTableKH.setFocusable(false);&#xa;        jTableKH.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableKH.setRowHeight(25);  &#xa;        jTableKH.getTableHeader().setOpaque(false);&#xa;        jTableKH.setFillsViewportHeight(true);&#xa;        jTableKH.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableKH.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableKH.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableKH.setSelectionBackground(new Color(52,152,219));&#xa;jTableKH.setGridColor(new java.awt.Color(83, 86, 88));"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

@@ -32,12 +32,12 @@ public class DiaDiemBUS {
         diaDiemDTOs = diaDiemDAO.getList();
     }
 
-    public String CapPhat(String init) {
-        System.out.println("- cap 1");
-        init = utl.initMaDiaDiem(init);
-        System.out.println("- cap 2");
-        return init;
-    }
+//    public String CapPhat(String init) {
+//        System.out.println("- cap 1");
+//        init = utl.initMaDiaDiem(init);
+//        System.out.println("- cap 2");
+//        return init;
+//    }
 
     public DiaDiemDAO getDiaDiemDAO() {
         return diaDiemDAO;

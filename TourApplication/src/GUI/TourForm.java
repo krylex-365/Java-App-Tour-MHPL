@@ -5,14 +5,10 @@
  */
 package GUI;
 
-//import BUS.*;
-//import DAO.XuatExcel;
-//import DTO.ChucVuDTO;
-//import DTO.CongViecDTO;
-//import DTO.PhongBanDTO;
 import BUS.GiaTourBUS;
 import BUS.LoaiHinhTourBUS;
 import BUS.TourBUS;
+import BUS.Utils;
 import DTO.DiaDiemThamQuanDTO;
 import DTO.GiaTourDTO;
 import DTO.LoaiHinhTourDTO;
@@ -58,15 +54,17 @@ public class TourForm extends javax.swing.JPanel {
     LoaiHinhTourBUS loaiHinhTourBUS = new LoaiHinhTourBUS();
     public BufferedImage i = null;
     public String imgName = null;
-    int rowTour,rowDiaDiemThamQuan,flagThemDiaDiem;
-    private String maTour, tenTour, maLoai, maLoaiHienHanh, maGia, maGiaHienHanh, maTourChiTiet,tenTourChiTiet;
-    private String maDiaDiem,tenDiaDiem,thuTu;
+    int rowTour, rowDiaDiemThamQuan, flagThemDiaDiem, rowLoaiHinh;
+    private String maTour, tenTour, maLoai, maLoaiHienHanh, maGia, maGiaHienHanh, maTourChiTiet, tenTourChiTiet;
+    private String maDiaDiem, tenDiaDiem, thuTu;
     private ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanTempArr;
+    private Tour tour;
     Vector tbColTour = new Vector();//Vector chứa các dòng dữ liệu của bảng.
     Vector tbColDiadiem = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tbColDoan = new Vector();
-    Vector tbColLoaiHinh=new Vector();
+    Vector tbColLoaiHinh = new Vector();
     DefaultTableModel tbModelTour, tbModelDiadiem, tbModelDoan, tbModelLoaiHinh;
+    private Utils ult = new Utils();
 
     public TourForm() {
         initComponents();
@@ -89,40 +87,23 @@ public class TourForm extends javax.swing.JPanel {
         jBtnLuuDD.setEnabled(false);
         jBtnXoaDD.setEnabled(false);
         jBtnChonDiaDiem.setEnabled(false);
+        jBtnCapPhatMaLH.setEnabled(true);
+        jBtnThemLH.setEnabled(false);
+        jBtnSuaLH.setEnabled(false);
+        jBtnXoaLH.setEnabled(false);
+        jBtnHuyLH.setEnabled(false);
     }
 
-    public void reloadData() {
-        tourBUS = new TourBUS();
-        giaTourBUS = new GiaTourBUS();
-        loaiHinhTourBUS = new LoaiHinhTourBUS();
-    }
-
-    public void initTableTour() {
-        reloadData();
+    public void loadDataTour() {
+        tour = new Tour();
         tbModelTour.setRowCount(0);
-        tableModelTour(tbModelTour);
+        tour.tableModelTour(tbModelTour);
         jTableTour.setModel(tbModelTour);
     }
 
-    public void tableModelTour(DefaultTableModel model) {
-        for (TourDTO tour : tourBUS.getTourDTOS()) {
-            Vector row = new Vector();
-            row.add(tour.getMaTour());
-            row.add(tour.getTenTour());
-            for (LoaiHinhTourDTO loaiHinhTour : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
-                if (loaiHinhTour.getMaLoai().equals(tour.getMaLoai())) {
-                    row.add(loaiHinhTour.getTenLoai());
-                }
-            }
-            for (GiaTourDTO giaTour : giaTourBUS.getGiaTourDTOs()) {
-                if (giaTour.getMaTour().equals(tour.getMaTour()) && giaTour.getHienHanh() == 1) {
-                    row.add(giaTour.getThanhTien());
-                    row.add(giaTour.getTgBatDau());
-                    row.add(giaTour.getTgKetThuc());
-                }
-            }
-            model.addRow(row);
-        }
+    public void initTableTour() {
+        loadDataTour();
+
     }
 
     /**
@@ -206,6 +187,8 @@ public class TourForm extends javax.swing.JPanel {
         jTextTimKiemLH = new javax.swing.JTextField();
         jBtnTimKiemLH = new javax.swing.JButton();
         jBtnRefreshLH = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(233, 242, 249));
         setPreferredSize(new java.awt.Dimension(990, 650));
@@ -216,7 +199,7 @@ public class TourForm extends javax.swing.JPanel {
         jPanelQLTour.setBackground(new java.awt.Color(233, 242, 249));
 
         jPanel4.setBackground(new java.awt.Color(233, 242, 249));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin Tour", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 51, 102)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Tour", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 51, 102)));
         jPanel4.setPreferredSize(new java.awt.Dimension(1000, 550));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -778,13 +761,13 @@ public class TourForm extends javax.swing.JPanel {
 
         jLbMaLH.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLbMaLH.setText("<html> <body> Mã Loại Hình <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
-        jPanel6.add(jLbMaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
+        jPanel6.add(jLbMaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 30));
 
         jTextMaLoaiHinh.setEditable(false);
         jTextMaLoaiHinh.setBackground(new java.awt.Color(214, 217, 223));
         jTextMaLoaiHinh.setForeground(new java.awt.Color(51, 51, 51));
         jTextMaLoaiHinh.setRequestFocusEnabled(false);
-        jPanel6.add(jTextMaLoaiHinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 180, 30));
+        jPanel6.add(jTextMaLoaiHinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 180, 30));
 
         jLbTenLH.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLbTenLH.setText("<html><body> Tên Loại Hình<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
@@ -794,18 +777,33 @@ public class TourForm extends javax.swing.JPanel {
         jBtnThemLH.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnThemLH.setText("Thêm");
         jBtnThemLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnThemLH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnThemLHActionPerformed(evt);
+            }
+        });
         jPanel6.add(jBtnThemLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 110, 40));
 
         jBtnSuaLH.setBackground(new java.awt.Color(136, 193, 184));
         jBtnSuaLH.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnSuaLH.setText("Sửa");
         jBtnSuaLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnSuaLH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSuaLHActionPerformed(evt);
+            }
+        });
         jPanel6.add(jBtnSuaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 110, 40));
 
         jBtnHuyLH.setBackground(new java.awt.Color(136, 193, 184));
         jBtnHuyLH.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnHuyLH.setText("Hủy");
         jBtnHuyLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnHuyLH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnHuyLHActionPerformed(evt);
+            }
+        });
         jPanel6.add(jBtnHuyLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 110, 40));
         jPanel6.add(jTextTenLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 180, 30));
 
@@ -813,6 +811,11 @@ public class TourForm extends javax.swing.JPanel {
         jBtnXoaLH.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnXoaLH.setText("Xóa");
         jBtnXoaLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnXoaLH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnXoaLHActionPerformed(evt);
+            }
+        });
         jPanel6.add(jBtnXoaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 110, 40));
 
         jBtnCapPhatMaLH.setBackground(new java.awt.Color(81, 113, 131));
@@ -823,9 +826,9 @@ public class TourForm extends javax.swing.JPanel {
                 jBtnCapPhatMaLHActionPerformed(evt);
             }
         });
-        jPanel6.add(jBtnCapPhatMaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 30, 30));
+        jPanel6.add(jBtnCapPhatMaLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 30, 30));
 
-        jPanelTLTour.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 590, 210));
+        jPanelTLTour.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 590, 210));
 
         jTableLH.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jTableLH.setModel(new javax.swing.table.DefaultTableModel(
@@ -867,24 +870,48 @@ public class TourForm extends javax.swing.JPanel {
         jTableLH.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane5.setViewportView(jTableLH);
 
-        jPanelTLTour.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 590, 310));
+        jPanelTLTour.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 590, 300));
 
         jTextTimKiemLH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextTimKiemLHActionPerformed(evt);
             }
         });
-        jPanelTLTour.add(jTextTimKiemLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 262, 230, 30));
+        jPanelTLTour.add(jTextTimKiemLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 260, 230, 30));
 
         jBtnTimKiemLH.setText("Tìm kiếm");
-        jPanelTLTour.add(jBtnTimKiemLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, -1, 30));
+        jBtnTimKiemLH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnTimKiemLHActionPerformed(evt);
+            }
+        });
+        jPanelTLTour.add(jBtnTimKiemLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(687, 260, -1, 30));
 
         jBtnRefreshLH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
         jBtnRefreshLH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnRefreshLH.setMaximumSize(new java.awt.Dimension(50, 50));
         jBtnRefreshLH.setMinimumSize(new java.awt.Dimension(50, 50));
         jBtnRefreshLH.setPreferredSize(new java.awt.Dimension(50, 50));
-        jPanelTLTour.add(jBtnRefreshLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 260, 40, 30));
+        jBtnRefreshLH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRefreshLHActionPerformed(evt);
+            }
+        });
+        jPanelTLTour.add(jBtnRefreshLH, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 260, 40, 30));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Loại Hình Tour");
+        jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(83, 86, 88)));
+        jPanelTLTour.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 190, 30));
+
+        jLabel7.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Danh Sách Loại Hình");
+        jLabel7.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        jPanelTLTour.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 180, 30));
 
         jTabbedPane1.addTab("Quản Lý Loại Hình", jPanelTLTour);
 
@@ -1043,7 +1070,7 @@ public class TourForm extends javax.swing.JPanel {
         tbModelDoan.setRowCount(0);
         String maDoan = jTextTimKiemNV1.getText();
         System.out.println(maDoan);
-        chiTietTour.tbModelSearchDoanDuLich(tbModelDoan,maDoan);
+        chiTietTour.tbModelSearchDoanDuLich(tbModelDoan, maDoan);
     }//GEN-LAST:event_jButtonTimKiem1ActionPerformed
 
     private void jBtnRefresh1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefresh1ActionPerformed
@@ -1059,7 +1086,7 @@ public class TourForm extends javax.swing.JPanel {
         //        tbModelTour.setRowCount(0);
         //        tbnv.bangnhanvien(tbModelTour);
         jTextTimKiemTour.setText("");
-        initTableTour();
+        loadDataTour();
     }//GEN-LAST:event_jBtnRefreshTourActionPerformed
 
     private void jBtnTimKiemTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnTimKiemTourActionPerformed
@@ -1074,7 +1101,7 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnCapPhatMaTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCapPhatMaTourActionPerformed
     {//GEN-HEADEREND:event_jBtnCapPhatMaTourActionPerformed
         // TODO add your handling code here:
-        reloadData();
+        loadDataTour();
         String init = null;
         init = tourBUS.CapPhat(init);
         jTextMaTour.setText(init);
@@ -1116,7 +1143,7 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnXoaTourActionPerformed
         // TODO add your handling code here:
         if (tourBUS.xoaTour(maTour)) {
-            initTableTour();
+            tbModelTour.removeRow(rowTour);
             JOptionPane.showMessageDialog(this, "Xóa Tour thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Xóa Tour thất bại!");
@@ -1145,12 +1172,16 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnSuaTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaTourActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaTourActionPerformed
         // TODO add your handling code here:
-        String tenTour = (String) jTextTenTour.getText();
+        String tenTour = (String) jTextTenTour.getText(),
+                ngayBD = (String) ((JTextField) jDateNgayBD.getDateEditor().getUiComponent()).getText(),
+                ngayKT = (String) ((JTextField) jDateNgayKT.getDateEditor().getUiComponent()).getText();
         System.out.println("Sua tour: " + maTour);
-//                ngayBD = (String) ((JTextField)jDateNgayBD.getDateEditor().getUiComponent()).getText (),
-//                ngayKT = (String) ((JTextField)jDateNgayKT.getDateEditor().getUiComponent()).getText ();
         if (tourBUS.suaTour(getMaTour(), tenTour, (String) jTextDacDiem.getText(), getMaLoaiHienHanh(), getMaLoai(), getMaGiaHienHanh(), getMaGia())) {
-            initTableTour();
+            tbModelTour.setValueAt(tenTour, rowTour, 1);
+            tbModelTour.setValueAt(jTextLoaiHinh.getText(), rowTour, 2);
+            tbModelTour.setValueAt(jTextGiaTour.getText(), rowTour, 3);
+            tbModelTour.setValueAt(ngayBD, rowTour, 4);
+            tbModelTour.setValueAt(ngayKT, rowTour, 5);
             JOptionPane.showMessageDialog(this, "Sửa Tour thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Sửa Tour thất bại!");
@@ -1275,9 +1306,9 @@ public class TourForm extends javax.swing.JPanel {
         row.add(jTextMaDiaDiem.getText());
         row.add(jTextTenDiaDiem.getText());
         row.add(Integer.parseInt(jTextThuTu.getText()));
-        if(chiTietTour.deleteDiaDiemThamQuan(maTourChiTiet,jTextMaDiaDiem.getText(),Integer.parseInt(jTextThuTu.getText()))){
+        if (chiTietTour.deleteDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()))) {
             tbModelDiadiem.removeRow(rowDiaDiemThamQuan);
-        }else{
+        } else {
             System.out.println("Loi them Dia Diem Tham Quan");
         }
         jBtnChonDiaDiem.setEnabled(true);
@@ -1311,9 +1342,9 @@ public class TourForm extends javax.swing.JPanel {
 //        }else {
 //            System.out.println("Trùng hoặc rỗng");
 //        }
-        if(chiTietTour.addDiaDiemThamQuan(maTourChiTiet,jTextMaDiaDiem.getText(),Integer.parseInt(jTextThuTu.getText()))){
+        if (chiTietTour.addDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()))) {
             tbModelDiadiem.addRow(row);
-        }else{
+        } else {
             System.out.println("Loi them Dia Diem Tham Quan");
         }
         jBtnChonDiaDiem.setEnabled(true);
@@ -1350,16 +1381,17 @@ public class TourForm extends javax.swing.JPanel {
 //            }
 //            tbModelDiadiem.setValueAt(jTextThuTu.getText(), rowDiaDiemThamQuan, 2);
 //   
-        if(chiTietTour.updateDiaDiemThamQuan(maTourChiTiet,jTextMaDiaDiem.getText(),(int)tbModelDiadiem.getValueAt(rowDiaDiemThamQuan, 2),Integer.parseInt(jTextThuTu.getText()))){
+        if (chiTietTour.updateDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), (int) tbModelDiadiem.getValueAt(rowDiaDiemThamQuan, 2), Integer.parseInt(jTextThuTu.getText()))) {
             tbModelDiadiem.setValueAt(jTextThuTu.getText(), rowDiaDiemThamQuan, 2);
-        }else{
+        } else {
             System.out.println("Loi them Dia Diem Tham Quan");
         }
         jBtnChonDiaDiem.setEnabled(true);
-        if(flagThemDiaDiem==1){
+        if (flagThemDiaDiem == 1) {
             jBtnThemDD.setEnabled(true);
-        }else
+        } else {
             jBtnThemDD.setEnabled(false);
+        }
         jBtnSuaDD.setEnabled(false);
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
@@ -1375,7 +1407,7 @@ public class TourForm extends javax.swing.JPanel {
         jTextTenDiaDiem.setText((String) jTableDiadiem.getValueAt(rowDiaDiemThamQuan, 1));
         jTextThuTu.setText(Integer.toString((int) jTableDiadiem.getValueAt(rowDiaDiemThamQuan, 2)));
         //System.out.println(Integer.toString( Integer.parseInt((String)jTableDiadiem.getValueAt(rowDiaDiemThamQuan, 2))));
-        if (flagThemDiaDiem==1){ // NẾU TOUR CHƯA CÓ ĐOÀN
+        if (flagThemDiaDiem == 1) { // NẾU TOUR CHƯA CÓ ĐOÀN
             jBtnChonDiaDiem.setEnabled(false);
             jBtnThemDD.setEnabled(false);
             jBtnSuaDD.setEnabled(true);
@@ -1404,15 +1436,16 @@ public class TourForm extends javax.swing.JPanel {
         maTourChiTiet = (String) jTableTour.getModel().getValueAt(rowTour, 0);
         tenTourChiTiet = (String) jTableTour.getModel().getValueAt(rowTour, 1);
         jTextMaTour1.setText(maTourChiTiet);//System.out.println(maTourChiTiet);
-        jTextTenTour1.setText(tenTour); System.out.println(tenTour);
+        jTextTenTour1.setText(tenTour);
+        System.out.println(tenTour);
         tbModelDoan.setRowCount(0);
         tbModelDiadiem.setRowCount(0);
-        chiTietTour.tbModelDiaDiemThamQuan(tbModelDiadiem,maTourChiTiet);
-        chiTietTour.tbModelDoanDuLich(tbModelDoan,maTourChiTiet);
+        chiTietTour.tbModelDiaDiemThamQuan(tbModelDiadiem, maTourChiTiet);
+        chiTietTour.tbModelDoanDuLich(tbModelDoan, maTourChiTiet);
         System.out.println(chiTietTour.countDoanTrongTour(maTourChiTiet));
         System.out.println(maTourChiTiet);
-        if (chiTietTour.countDoanTrongTour(maTourChiTiet)==0){ // NẾU TOUR CHƯA CÓ ĐOÀN
-            flagThemDiaDiem=1;
+        if (chiTietTour.countDoanTrongTour(maTourChiTiet) == 0) { // NẾU TOUR CHƯA CÓ ĐOÀN
+            flagThemDiaDiem = 1;
             jBtnChonDiaDiem.setEnabled(true);
             jBtnThemDD.setEnabled(false);
             jBtnSuaDD.setEnabled(false);
@@ -1420,7 +1453,7 @@ public class TourForm extends javax.swing.JPanel {
             jBtnHuyDD.setEnabled(false);
             jBtnLuuDD.setEnabled(false);
         } else { // NẾU CÓ ĐOÀN
-            flagThemDiaDiem=0;
+            flagThemDiaDiem = 0;
             jBtnChonDiaDiem.setEnabled(false);
             jBtnThemDD.setEnabled(false);
             jBtnSuaDD.setEnabled(false);
@@ -1460,6 +1493,11 @@ public class TourForm extends javax.swing.JPanel {
 
     private void jTableLHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLHMouseClicked
         // TODO add your handling code here:
+        jBtnCapPhatMaLH.setEnabled(false);
+        jBtnThemLH.setEnabled(false);
+        jBtnSuaLH.setEnabled(true);
+        jBtnXoaLH.setEnabled(true);
+        jBtnHuyLH.setEnabled(true);
     }//GEN-LAST:event_jTableLHMouseClicked
 
     private void jTextTimKiemLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTimKiemLHActionPerformed
@@ -1468,66 +1506,91 @@ public class TourForm extends javax.swing.JPanel {
 
     private void jBtnCapPhatMaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaLHActionPerformed
         // TODO add your handling code here:
+        jBtnCapPhatMaLH.setEnabled(false);
+        jBtnThemLH.setEnabled(true);
+        jBtnSuaLH.setEnabled(false);
+        jBtnXoaLH.setEnabled(false);
+        jBtnHuyLH.setEnabled(true);
+        jTextMaLoaiHinh.setText(ult.initMaLoai());
+        jTextTenLH.setText("");
     }//GEN-LAST:event_jBtnCapPhatMaLHActionPerformed
 
-//    DefaultTableModel md=tbnv.bangnhanvien ();
-//    public void listPhongban(JComboBox cmb)
-//    {
-//        ArrayList<PhongBanDTO> cbdspb = tbpb.getDspb().getDspb().getDspb();
-//        System.out.println("nhanvienForm " + tbpb.getDspb().getDspb().getDspb());
-//        addCombo(cmb, cbdspb);
-//    }
-//    public void listChucvu(JComboBox cmb)
-//    {
-//        ArrayList<ChucVuDTO> cbdscvu = tbchucvu.getDscv().getDscv();
-//        addCombo(cmb, cbdscvu);
-//    }
-//    public void listCongviec(JComboBox cmb)
-//    {
-//        ArrayList<CongViecDTO> cbdscviec = tbcviec.getDscviec().getDscviec();
-//        addCombo(cmb, cbdscviec);
-//    }
-//
-//    public void addCombo(JComboBox cmb, ArrayList list)
-//    {
-//        for (Object a : list)
-//        {
-//            cmb.addItem(a);
-//        }
-//    }
-//    public JTable getjTable1()
-//    {
-////        return jTable1;
-//    }
-    public DefaultTableModel getModelnv() {
+    private void jBtnThemLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemLHActionPerformed
+        // TODO add your handling code here:
+        jBtnCapPhatMaLH.setEnabled(true);
+        jBtnThemLH.setEnabled(false);
+        jBtnSuaLH.setEnabled(false);
+        jBtnXoaLH.setEnabled(false);
+        jBtnHuyLH.setEnabled(false);
+        jTextMaLoaiHinh.setText("");
+        jTextTenLH.setText("");
+    }//GEN-LAST:event_jBtnThemLHActionPerformed
+
+    private void jBtnSuaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaLHActionPerformed
+        // TODO add your handling code here:
+        jBtnCapPhatMaLH.setEnabled(true);
+        jBtnThemLH.setEnabled(false);
+        jBtnSuaLH.setEnabled(false);
+        jBtnXoaLH.setEnabled(false);
+        jBtnHuyLH.setEnabled(false);
+        jTextMaLoaiHinh.setText("");
+        jTextTenLH.setText("");
+    }//GEN-LAST:event_jBtnSuaLHActionPerformed
+
+    private void jBtnXoaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaLHActionPerformed
+        // TODO add your handling code here:
+        jBtnCapPhatMaLH.setEnabled(true);
+        jBtnThemLH.setEnabled(false);
+        jBtnSuaLH.setEnabled(false);
+        jBtnXoaLH.setEnabled(false);
+        jBtnHuyLH.setEnabled(false);
+        jTextMaLoaiHinh.setText("");
+        jTextTenLH.setText("");
+    }//GEN-LAST:event_jBtnXoaLHActionPerformed
+
+    private void jBtnHuyLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyLHActionPerformed
+        // TODO add your handling code here:
+        jBtnCapPhatMaLH.setEnabled(true);
+        jBtnThemLH.setEnabled(false);
+        jBtnSuaLH.setEnabled(false);
+        jBtnXoaLH.setEnabled(false);
+        jBtnHuyLH.setEnabled(false);
+        jTextMaLoaiHinh.setText("");
+        jTextTenLH.setText("");
+    }//GEN-LAST:event_jBtnHuyLHActionPerformed
+
+    private void jBtnTimKiemLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemLHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnTimKiemLHActionPerformed
+
+    private void jBtnRefreshLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshLHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnRefreshLHActionPerformed
+
+    public int getRowTour() {
+        return rowTour;
+    }
+
+    public void setRowTour(int rowTour) {
+        this.rowTour = rowTour;
+    }
+
+    public DefaultTableModel getTbModelTour() {
         return tbModelTour;
     }
 
-//    public JButton getjBtnCapNhatNV()
-//    {
-//        return jBtnHuy1;
-//    }
+    public void setTbModelTour(DefaultTableModel tbModelTour) {
+        this.tbModelTour = tbModelTour;
+    }
+
     public JButton getjBtnCapPhatMaNV() {
         return jBtnCapPhatMaLH;
     }
 
-//    public JButton getjBtnHuy()
-//    {
-//        return jBtnHuy;
-//    }
     public JButton getjBtnXoaNV() {
         return jBtnXemTour;
     }
 
-//    public JButton getjBtnQuaylai()
-//    {
-//        return jBtnQuaylai;
-//    }
-//
-//    public void setjBtnQuaylai(JButton jBtnQuaylai)
-//    {
-//        this.jBtnQuaylai = jBtnQuaylai;
-//    }
     public JButton getjBtnRefresh() {
         return jBtnRefreshTour;
     }
@@ -1536,15 +1599,6 @@ public class TourForm extends javax.swing.JPanel {
         this.jBtnRefreshTour = jBtnRefresh;
     }
 
-//    public JButton getjBtnXacNhan()
-//    {
-//        return jBtnXacNhan;
-//    }
-//
-//    public void setjBtnXacNhan(JButton jBtnXacNhan)
-//    {
-//        this.jBtnXacNhan = jBtnXacNhan;
-//    }
     public JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
     }
@@ -1568,7 +1622,7 @@ public class TourForm extends javax.swing.JPanel {
     public void setjButtonTimKiem(JButton jButtonTimKiem) {
         this.jBtnTimKiemTour = jButtonTimKiem;
     }
-    
+
     public JTextField getjTextMaDiaDiem() {
         return jTextMaDiaDiem;
     }
@@ -1584,7 +1638,7 @@ public class TourForm extends javax.swing.JPanel {
     public void setjTextTenDiaDiem(JTextField jTextTenDiaDiem) {
         this.jTextTenDiaDiem = jTextTenDiaDiem;
     }
-    
+
     public String getMaDiaDiem() {
         return maDiaDiem;
     }
@@ -1733,6 +1787,7 @@ public class TourForm extends javax.swing.JPanel {
     private javax.swing.JButton jButtonTimKiem1;
     private com.toedter.calendar.JDateChooser jDateNgayBD;
     private com.toedter.calendar.JDateChooser jDateNgayKT;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -1742,6 +1797,7 @@ public class TourForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLbDiaDiem;
     private javax.swing.JLabel jLbMaLH;
     private javax.swing.JLabel jLbManv;

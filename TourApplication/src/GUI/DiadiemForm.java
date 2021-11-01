@@ -30,29 +30,22 @@ import javax.swing.table.JTableHeader;
  *
  * @author Hyung
  */
-public class DiadiemForm extends javax.swing.JPanel
-{
+public class DiadiemForm extends javax.swing.JPanel {
 
-//    BangPhongBanBUS bpbBUS = new BangPhongBanBUS();
-    DefaultTableModel modelDiaDiem;
-//    DefaultTableModel modelpbnv = new DefaultTableModel();
-    int row, row1;
-    String tenpbOld;
+    DefaultTableModel tbModelDiaDiem;
+    private Utils ult = new Utils();
+    int rowTbl;
 
     /**
      * Creates new form jPanel2
      */
-    public DiadiemForm()
-    {
+    public DiadiemForm() {
         initComponents();
-    }
-
-    public void initTablePb()
-    {
-//        bpbBUS.loadDataPB();
-        modelDiaDiem.setRowCount(0);
-//        bpbBUS.bangpbModel(modelpb);
-        jTableDiaDiem.setModel(modelDiaDiem);
+        jBtnCapPhatMaDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
+        jBtnSuaDD.setEnabled(false);
+        jBtnXoaDD.setEnabled(false);
+        jBtnHuy.setEnabled(false);
     }
 
     /**
@@ -96,12 +89,12 @@ public class DiadiemForm extends javax.swing.JPanel
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Thêm Địa Điểm");
+        jLabel1.setText("Địa Điểm");
         jLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(83, 86, 88)));
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 190, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 190, 30));
 
         jPanel3.setBackground(new java.awt.Color(233, 242, 249));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Chi Tiết Địa Điểm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 51, 102))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông Tin Địa Điểm", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(0, 51, 102)));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("<html> <body> Mã Địa Điểm <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
@@ -119,26 +112,51 @@ public class DiadiemForm extends javax.swing.JPanel
         jBtnCapPhatMaDD.setBackground(new java.awt.Color(81, 113, 131));
         jBtnCapPhatMaDD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_add_32.png"))); // NOI18N
         jBtnCapPhatMaDD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnCapPhatMaDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnCapPhatMaDDActionPerformed(evt);
+            }
+        });
 
         jBtnThemDD.setBackground(new java.awt.Color(136, 193, 184));
         jBtnThemDD.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnThemDD.setText("Thêm");
         jBtnThemDD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnThemDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnThemDDActionPerformed(evt);
+            }
+        });
 
         jBtnSuaDD.setBackground(new java.awt.Color(136, 193, 184));
         jBtnSuaDD.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnSuaDD.setText("Sửa");
         jBtnSuaDD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnSuaDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnSuaDDActionPerformed(evt);
+            }
+        });
 
         jBtnXoaDD.setBackground(new java.awt.Color(136, 193, 184));
         jBtnXoaDD.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnXoaDD.setText("Xóa");
         jBtnXoaDD.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnXoaDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnXoaDDActionPerformed(evt);
+            }
+        });
 
         jBtnHuy.setBackground(new java.awt.Color(136, 193, 184));
         jBtnHuy.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
         jBtnHuy.setText("Hủy");
         jBtnHuy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnHuyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -164,20 +182,20 @@ public class DiadiemForm extends javax.swing.JPanel
                         .addComponent(jBtnSuaDD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(jBtnXoaDD, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(jBtnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextMaDD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jBtnCapPhatMaDD, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBtnCapPhatMaDD, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextTenDD, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -191,19 +209,20 @@ public class DiadiemForm extends javax.swing.JPanel
                 .addGap(30, 30, 30))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 570, 220));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 570, 220));
+        jPanel3.getAccessibleContext().setAccessibleName("");
 
         Vector tableCol=new Vector();
         tableCol.add("Mã Địa Điểm");
         tableCol.add("Tên Địa Điểm");
 
-        modelDiaDiem = new DefaultTableModel (tableCol,5){
+        tbModelDiaDiem = new DefaultTableModel (tableCol,5){
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
-        jTableDiaDiem.setModel (modelDiaDiem);
+        jTableDiaDiem.setModel (tbModelDiaDiem);
         jTableDiaDiem.setShowGrid(true);
         jTableDiaDiem.setFocusable(false);
         jTableDiaDiem.setIntercellSpacing(new Dimension(0,0));
@@ -216,28 +235,43 @@ public class DiadiemForm extends javax.swing.JPanel
         jTableDiaDiem.setSelectionBackground(new Color(52,152,219));
         jTableDiaDiem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTableDiaDiem.setGridColor(new java.awt.Color(83, 86, 88));
+        jTableDiaDiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableDiaDiemMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableDiaDiem);
         jTableDiaDiem.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 590, 290));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 590, 290));
 
         jLabel6.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 51, 102));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Danh Sách Địa Điểm");
         jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 180, 30));
-        jPanel1.add(jTextTimKiemDD, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 220, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 180, 30));
+        jPanel1.add(jTextTimKiemDD, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 220, 30));
 
         jBtnTimKiemDD.setText("Tìm kiếm");
-        jPanel1.add(jBtnTimKiemDD, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 80, 30));
+        jBtnTimKiemDD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnTimKiemDDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnTimKiemDD, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 270, 80, 30));
 
         jBtnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
         jBtnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnRefresh.setMaximumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setMinimumSize(new java.awt.Dimension(50, 50));
         jBtnRefresh.setPreferredSize(new java.awt.Dimension(50, 50));
-        jPanel1.add(jBtnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, 40, 30));
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRefreshActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 270, 40, 30));
 
         jTabbedPane1.addTab("Quản Lý Địa Điểm", jPanel1);
 
@@ -253,207 +287,79 @@ public class DiadiemForm extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-//    public String ktrapb() {
-//        String temp = "";
-//        String sopb = "^\\d{5}$|(^[0-9]\\d{5})$";
-//        if (jTextMapb.getText().equals("") || jTextMapb.getText().equals(null)) {
-//            temp += "Vui lòng cấp phát mã phòng ban!";
-//        } else if (jTextMapb.getText().length() != 7) {
-//            temp += "Mã phòng ban có độ dài là 7 kí tự!";
-//        } else if (!jTextMapb.getText().substring(0, 2).equals("pb")) {
-//            temp += "Mã phòng ban có 2 kí tự đầu là <pb>!";
-//        } else if (!Pattern.matches(sopb, jTextMapb.getText().substring(2, 7))) {
-//            temp += "Mã phòng ban có 5 kí tự sau là số từ 0 đến 9!";
-//        }
-//        boolean flag = true;
-//        String str;
-//        do {
-//            str = "";
-//            str = temp;
-//            flag = true;
-//            try {
-//                String pb = jTextTenpb.getText();
-//                String[] tenpb = pb.split("\\s");
-//                int dem = 0;
-//                for (int i = 0; i < tenpb.length; i++) {
-//                    dem++;
-//                }
-//                if (dem == 3) {
-//                    String regpb = "^\\d+$";
-//                    if (!tenpb[0].equalsIgnoreCase("Phòng") || !tenpb[1].equalsIgnoreCase("Ban") || !Pattern.matches(regpb, tenpb[2])) {
-//                        str += "- Tên phòng ban không hợp lệ!\n";
-//                    }
-//                } else {
-//                    str += "- Tên phòng ban không hợp lệ!\n";
-//                }
-//            } catch (NumberFormatException e) {
-//                str += "- Tên phòng ban không hợp lệ!\n";
-//                flag = false;
-//            }
-//        } while (flag == false);
-//        temp = str;
-//        String sdt = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";//^\\d{10}$|(^[0]+[1-9]\\d{10})$";
-//        if (!Pattern.matches(sdt, jTextSodtPb.getText())) {
-//            temp += "- Số điện thoại phải có độ dài là 10, bắt đầu bằng 0 hoặc +84\n"
-//                    + "và thuộc định dạng số điện thoại của các nhà mạng!";
-//        }
-//        return temp;
-//    }
-    public JTextField getjTextMapb()
-    {
-        return jTextMaDD;
-    }
+    private void jBtnCapPhatMaDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaDDActionPerformed
+        // TODO add your handling code here:
+        jBtnCapPhatMaDD.setEnabled(false);
+        jBtnThemDD.setEnabled(true);
+        jBtnSuaDD.setEnabled(false);
+        jBtnXoaDD.setEnabled(false);
+        jBtnHuy.setEnabled(true);
+        jTextMaDD.setText(ult.initMaDiaDiem());
+        jTextTenDD.setText("");
+    }//GEN-LAST:event_jBtnCapPhatMaDDActionPerformed
 
-    public void setjTextMapb(JTextField jTextMapb)
-    {
-        this.jTextMaDD = jTextMapb;
-    }
+    private void jBtnThemDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemDDActionPerformed
+        // TODO add your handling code here:
+        jBtnCapPhatMaDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
+        jBtnSuaDD.setEnabled(false);
+        jBtnXoaDD.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jTextMaDD.setText("");
+        jTextTenDD.setText("");
+    }//GEN-LAST:event_jBtnThemDDActionPerformed
 
-//    public JTextField getjTextSodtPb()
-//    {
-//        return jTextSodtPb;
-//    }
-//
-//    public void setjTextSodtPb(JTextField jTextSodtPb)
-//    {
-//        this.jTextSodtPb = jTextSodtPb;
-//    }
+    private void jBtnSuaDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaDDActionPerformed
+        // TODO add your handling code here:
+        jBtnCapPhatMaDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
+        jBtnSuaDD.setEnabled(false);
+        jBtnXoaDD.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jTextMaDD.setText("");
+        jTextTenDD.setText("");
+    }//GEN-LAST:event_jBtnSuaDDActionPerformed
 
-    public JTextField getjTextTenpb()
-    {
-        return jTextTenDD;
-    }
+    private void jBtnXoaDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaDDActionPerformed
+        // TODO add your handling code here:
+        jBtnCapPhatMaDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
+        jBtnSuaDD.setEnabled(false);
+        jBtnXoaDD.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jTextMaDD.setText("");
+        jTextTenDD.setText("");
+    }//GEN-LAST:event_jBtnXoaDDActionPerformed
 
-    public void setjTextTenpb(JTextField jTextTenpb)
-    {
-        this.jTextTenDD = jTextTenpb;
-    }
-//    public JButton getjBtnHuyPB()
-//    {
-//        return jBtnHuyPB;
-//    }
-//
-//    public void setjBtnHuyPB(JButton jBtnHuyPB)
-//    {
-//        this.jBtnHuyPB = jBtnHuyPB;
-//    }
+    private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
+        // TODO add your handling code here:
+        jBtnCapPhatMaDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
+        jBtnSuaDD.setEnabled(false);
+        jBtnXoaDD.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jTextMaDD.setText("");
+        jTextTenDD.setText("");
+    }//GEN-LAST:event_jBtnHuyActionPerformed
 
-//    public JButton getjBtnSuaPB()
-//    {
-//        return jBtnSuaPB;
-//    }
-//
-//    public void setjBtnSuaPB(JButton jBtnSuaPB)
-//    {
-//        this.jBtnSuaPB = jBtnSuaPB;
-//    }
+    private void jTableDiaDiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDiaDiemMouseClicked
+        // TODO add your handling code here:
+        jBtnCapPhatMaDD.setEnabled(false);
+        jBtnThemDD.setEnabled(false);
+        jBtnSuaDD.setEnabled(true);
+        jBtnXoaDD.setEnabled(true);
+        jBtnHuy.setEnabled(true);
+        jTextMaDD.setText("");
+        jTextTenDD.setText("");
+    }//GEN-LAST:event_jTableDiaDiemMouseClicked
 
-//    public JButton getjBtnXoaPB()
-//    {
-//        return jBtnXoaPB;
-//    }
-//
-//    public void setjBtnXoaPB(JButton jBtnXoaPB)
-//    {
-//        this.jBtnXoaPB = jBtnXoaPB;
-//    }
+    private void jBtnTimKiemDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemDDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnTimKiemDDActionPerformed
 
-    public JButton getjBtnCapPhatMaPB()
-    {
-        return jBtnCapPhatMaDD;
-    }
-
-    public void setjBtnCapPhatMaPB(JButton jBtnCapPhatMaPB)
-    {
-        this.jBtnCapPhatMaDD = jBtnCapPhatMaPB;
-    }
-
-//    public JButton getjBtnThemPB()
-//    {
-////        return jBtnThemPB;
-//    }
-
-    public void setjBtnThemPB(JButton jBtnThemPB)
-    {
-//        this.jBtnThemPB = jBtnThemPB;
-    }
-
-//    public JTable getjTable1()
-//    {
-//        return jTablePhongban;
-//    }
-
-//    public JTable getjTable3()
-//    {
-//        return jTablePbNv;
-//    }
-
-//    public JPanel getjPanel1()
-//    {
-//        return jPanel1;
-//    }
-
-//    public JButton getjButtonNhapExcel()
-//    {
-//        return jButtonNhapExcel;
-//    }
-//
-//    public void setjButtonNhapExcel(JButton jButtonNhapExcel)
-//    {
-//        this.jButtonNhapExcel = jButtonNhapExcel;
-//    }
-
-//    public JButton getjButtonXuatExcel()
-//    {
-//        return jButtonXuatExcel;
-//    }
-//
-//    public void setjButtonXuatExcel(JButton jButtonXuatExcel)
-//    {
-//        this.jButtonXuatExcel = jButtonXuatExcel;
-//    }
-
-
-//    public JTable getjTablePbNv()
-//    {
-//        return jTablePbNv;
-//    }
-//
-//    public void setjTablePbNv(JTable jTablePbNv)
-//    {
-//        this.jTablePbNv = jTablePbNv;
-//    }
-
-    public JTable getjTablePhongban()
-    {
-        return jTableDiaDiem;
-    }
-
-    public void setjTablePhongban(JTable jTablePhongban)
-    {
-        this.jTableDiaDiem = jTablePhongban;
-    }
-
-//    public JButton getjBtnInDSPB()
-//    {
-//        return jBtnInDSPB;
-//    }
-//
-//    public void setjBtnInDSPB(JButton jBtnInDSPB)
-//    {
-//        this.jBtnInDSPB = jBtnInDSPB;
-//    }
-
-    public JTextField getjTextTimKiemPB()
-    {
-        return jTextTimKiemDD;
-    }
-
-    public void setjTextTimKiemPB(JTextField jTextTimKiemPB)
-    {
-        this.jTextTimKiemDD = jTextTimKiemPB;
-    }
-
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCapPhatMaDD;

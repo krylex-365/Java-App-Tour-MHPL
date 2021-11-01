@@ -34,12 +34,12 @@ public class LoaiHinhTourBUS {
         this.loaiHinhTourDTOs = loaiHinhTourDTOs;
     }
 
-    public String CapPhat(String init) {
-        System.out.println("- cap 1");
-        init = utl.initMaLoai(init);
-        System.out.println("- cap 2");
-        return init;
-    }
+//    public String CapPhat(String init) {
+//        System.out.println("- cap 1");
+//        init = utl.initMaLoai(init);
+//        System.out.println("- cap 2");
+//        return init;
+//    }
 
     private int indexLoaiHinh(String maLoai) {
         for (int i = 0; i < loaiHinhTourDTOs.size(); i++) {

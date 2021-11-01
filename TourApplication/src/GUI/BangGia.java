@@ -413,6 +413,12 @@ public class BangGia extends javax.swing.JFrame {
                 ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
                 ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
         if (giaTourBUS.suaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh)){
+            tourForm.getjTextGiaTour().setText(giaTour);
+            tourForm.getjDateNgayBD().setCalendar(jDateBatDau.getCalendar());
+            tourForm.getjDateNgayKT().setCalendar(jDateKetThuc.getCalendar());
+            tourForm.getTbModelTour().setValueAt(giaTour,tourForm.getRowTour(),3);
+            tourForm.getTbModelTour().setValueAt(ngayBD,tourForm.getRowTour(),4);
+            tourForm.getTbModelTour().setValueAt(ngayKT,tourForm.getRowTour(),5);
             initTable();
             JOptionPane.showMessageDialog(this, "Sửa Giá Tour thành công!");
         } else {
