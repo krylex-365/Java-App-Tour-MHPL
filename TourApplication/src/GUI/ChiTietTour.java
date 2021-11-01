@@ -6,6 +6,7 @@
 package GUI;
 
 //import BUS.ChiTietDoanBUS;
+import BUS.ChiTietDoanBUS;
 import BUS.DiaDiemThamQuanBUS;
 import BUS.DoanDuLichBUS;
 import BUS.DiaDiemBUS;
@@ -25,6 +26,7 @@ public class ChiTietTour {
     DoanDuLichBUS doanDuLichBUS;
     DiaDiemThamQuanBUS diaDiemThamQuanBUS;
     DiaDiemBUS diaDiemBUS;
+    ChiTietDoanBUS chiTietDoanBUS;
 
     public ChiTietTour() {
 //        chiTietDoanBUS = new ChiTietDoanBUS();
@@ -45,9 +47,10 @@ public class ChiTietTour {
     }
     
     public void tbModelDoanDuLich(DefaultTableModel model,String maTour){
-        Vector row = new Vector();
+        Vector row;
         //System.out.println("ChiTietTour");
         for(DoanDuLichDTO a : doanDuLichBUS.searchDoanDuLichByMaTour(maTour)){
+            row = new Vector();
             row.add(a.getMaDoan());
             row.add(a.getTenDoan());
             row.add(a.getGiaTour());
@@ -55,7 +58,7 @@ public class ChiTietTour {
             row.add(a.getNgayKetThuc());
             System.out.println(a);
 //            row.add(chiTietDoanBUS.peopleCount(a.getMaDoan()));
-            row.add(doanDuLichBUS.soKhach(a.getMaDoan()));
+            row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan()));
             model.addRow(row);
         }
     }
