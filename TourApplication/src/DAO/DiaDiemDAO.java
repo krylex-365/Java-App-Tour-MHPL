@@ -65,8 +65,8 @@ public class DiaDiemDAO {
 
     public boolean updateMaDiaDiem(String maDiaDiem, String tenDiaDiem) {
         String sql = "update DiaDiem set" +
-                    " TenDiaDiem = '" + maDiaDiem + "'" +
-                    " where MaDiaDiem = '" + tenDiaDiem + "'";
+                    " TenDiaDiem = '" + tenDiaDiem + "'" +
+                    " where MaDiaDiem = '" + maDiaDiem + "'";
         conn = new Connect();
         conn.getConnection();
         if(conn.executeUpdate(sql)){

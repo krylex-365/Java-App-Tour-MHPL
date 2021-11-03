@@ -6,6 +6,7 @@
 package GUI;
 
 import BUS.*;
+import DTO.DiaDiemDTO;
 //import DAO.DocExcel;
 //import DAO.WritePDF;
 //import DAO.XuatExcel;
@@ -35,12 +36,18 @@ public class DiadiemForm extends javax.swing.JPanel {
     DefaultTableModel tbModelDiaDiem;
     private Utils ult = new Utils();
     int rowTbl;
+    DiaDiem diaDiem;
+    private int rowDiaDiem;
+    private String maDiaDiem;
+    private String tenDiaDiem;
+    private DiaDiemBUS diaDiemBUS;
 
     /**
      * Creates new form jPanel2
      */
     public DiadiemForm() {
         initComponents();
+        diaDiemBUS = new DiaDiemBUS();
         jBtnCapPhatMaDD.setEnabled(true);
         jBtnThemDD.setEnabled(false);
         jBtnSuaDD.setEnabled(false);
@@ -300,6 +307,16 @@ public class DiadiemForm extends javax.swing.JPanel {
 
     private void jBtnThemDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemDDActionPerformed
         // TODO add your handling code here:
+        maDiaDiem = jTextMaDD.getText();
+        tenDiaDiem = jTextTenDD.getText();
+        if(!isNullOrEmpty(maDiaDiem) && !isNullOrEmpty(tenDiaDiem)){
+            if(diaDiemBUS.themDiaDiem(maDiaDiem, tenDiaDiem)){
+                diaDiem.themDiaDiem(tbModelDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
+                JOptionPane.showMessageDialog(this, "Thêm địa điểm thành công!");
+            }else {
+                JOptionPane.showMessageDialog(this, "Thêm địa điểm thất bại!");
+            }
+        }
         jBtnCapPhatMaDD.setEnabled(true);
         jBtnThemDD.setEnabled(false);
         jBtnSuaDD.setEnabled(false);
@@ -309,8 +326,29 @@ public class DiadiemForm extends javax.swing.JPanel {
         jTextTenDD.setText("");
     }//GEN-LAST:event_jBtnThemDDActionPerformed
 
+    public void initTableDiaDiem() {
+        loadDataDiaDiem();
+    }
+
+    public void loadDataDiaDiem() {
+        diaDiem = new DiaDiem(diaDiemBUS);
+        tbModelDiaDiem.setRowCount(0);
+        diaDiem.tableModelDiaDiem(tbModelDiaDiem);
+        jTableDiaDiem.setModel(tbModelDiaDiem);
+    }
+
     private void jBtnSuaDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaDDActionPerformed
         // TODO add your handling code here:
+        maDiaDiem = jTextMaDD.getText();
+        tenDiaDiem = jTextTenDD.getText();
+        if(!isNullOrEmpty(maDiaDiem) && !isNullOrEmpty(tenDiaDiem)){
+            if(diaDiemBUS.suaDiaDiem(maDiaDiem, tenDiaDiem)){
+                diaDiem.suaDiaDiem(tbModelDiaDiem, rowDiaDiem,new DiaDiemDTO(maDiaDiem, tenDiaDiem));
+                JOptionPane.showMessageDialog(this, "Sửa địa điểm thành công!");
+            }else {
+                JOptionPane.showMessageDialog(this, "Sửa địa điểm thất bại!");
+            }
+        }
         jBtnCapPhatMaDD.setEnabled(true);
         jBtnThemDD.setEnabled(false);
         jBtnSuaDD.setEnabled(false);
@@ -322,6 +360,15 @@ public class DiadiemForm extends javax.swing.JPanel {
 
     private void jBtnXoaDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaDDActionPerformed
         // TODO add your handling code here:
+        maDiaDiem = jTextMaDD.getText();
+        if(!isNullOrEmpty(maDiaDiem)){
+            if (diaDiemBUS.xoaDiaDiem(maDiaDiem)){
+                diaDiem.xoaDiaDiem(tbModelDiaDiem, rowDiaDiem);
+                JOptionPane.showMessageDialog(this, "Xóa địa điểm thành công!");
+            }else {
+                JOptionPane.showMessageDialog(this, "Xóa địa điểm thất bại!");
+            }
+        }
         jBtnCapPhatMaDD.setEnabled(true);
         jBtnThemDD.setEnabled(false);
         jBtnSuaDD.setEnabled(false);
@@ -330,6 +377,13 @@ public class DiadiemForm extends javax.swing.JPanel {
         jTextMaDD.setText("");
         jTextTenDD.setText("");
     }//GEN-LAST:event_jBtnXoaDDActionPerformed
+
+    private boolean isNullOrEmpty(String text){
+        if(text == null || text.equals("")){
+            return true;
+        }
+        return false;
+    }
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyActionPerformed
         // TODO add your handling code here:
@@ -344,21 +398,40 @@ public class DiadiemForm extends javax.swing.JPanel {
 
     private void jTableDiaDiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDiaDiemMouseClicked
         // TODO add your handling code here:
+        rowDiaDiem = jTableDiaDiem.getSelectedRow();
+        if(rowDiaDiem != -1){
+            maDiaDiem = (String) jTableDiaDiem.getModel().getValueAt(rowDiaDiem, 0);
+            tenDiaDiem = (String) jTableDiaDiem.getModel().getValueAt(rowDiaDiem, 1);
+            if (!maDiaDiem.equals("null")){
+                jTextMaDD.setText(maDiaDiem);
+                jTextTenDD.setText(tenDiaDiem);
+            }
+        }
         jBtnCapPhatMaDD.setEnabled(false);
         jBtnThemDD.setEnabled(false);
         jBtnSuaDD.setEnabled(true);
         jBtnXoaDD.setEnabled(true);
         jBtnHuy.setEnabled(true);
-        jTextMaDD.setText("");
-        jTextTenDD.setText("");
     }//GEN-LAST:event_jTableDiaDiemMouseClicked
 
     private void jBtnTimKiemDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemDDActionPerformed
         // TODO add your handling code here:
+        //Tìm kiếm = mã hoặc like tên
+        diaDiem.timKiem(tbModelDiaDiem, jTableDiaDiem, jTextTimKiemDD.getText());
     }//GEN-LAST:event_jBtnTimKiemDDActionPerformed
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
         // TODO add your handling code here:
+        jTextMaDD.setText("");
+        jTextTenDD.setText("");
+        jTextTimKiemDD.setText("");
+        jBtnCapPhatMaDD.setEnabled(true);
+        jBtnThemDD.setEnabled(false);
+        jBtnSuaDD.setEnabled(false);
+        jBtnXoaDD.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        diaDiemBUS = new DiaDiemBUS();
+        loadDataDiaDiem();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

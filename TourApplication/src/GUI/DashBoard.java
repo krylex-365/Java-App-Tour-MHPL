@@ -886,6 +886,7 @@ public class DashBoard extends javax.swing.JFrame
 //        if (flagAcc == 1 || flagAcc == 2){
 //            JOptionPane.showMessageDialog(null, "Bạn không có quyền hạn truy cập Phòng Ban!");
 //        }
+        diadiemForm.initTableDiaDiem();
         jPanelTour.setVisible(false);
         jPanelDiaDiem.setVisible(true);
         jPanelNhanvien.setVisible(false);
