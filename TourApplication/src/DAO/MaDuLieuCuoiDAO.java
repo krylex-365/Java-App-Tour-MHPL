@@ -158,6 +158,23 @@ public class MaDuLieuCuoiDAO {
         return false;
     }
     
+    public boolean updateMaDoanDuLich(String newLatestMaDoan) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "UPDATE MaDuLieuCuoi SET"
+                + " MaDoan='" + newLatestMaDoan + "'"
+                + " WHERE MaDoan='" + getMaDoanLast() + "'";
+        if (conn.executeUpdate(query)) {
+            System.out.println("Update last MaDoan success.");
+            setMaDoanLast(newLatestMaDoan);
+            conn.close();
+            return true;
+        }
+        System.out.println("Update last MaDoan fail.");
+        conn.close();
+        return false;
+    }
+    
     public String getMaLoaiLast() {
         return MaLoaiLast;
     }

@@ -6,6 +6,7 @@
 package BUS;
 
 import DAO.DoanDuLichDAO;
+import DAO.MaDuLieuCuoiDAO;
 import DTO.DoanDuLichDTO;
 import java.util.ArrayList;
 //import org.codehaus.groovy.runtime.DefaultGroovyMethods;
@@ -18,6 +19,7 @@ public class DoanDuLichBUS {
 
     private DoanDuLichDAO doanDuLichDAO;
     private ArrayList<DoanDuLichDTO> doanDuLichDTOs;
+    private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
 
     public DoanDuLichBUS(DoanDuLichDAO doanDuLichDAO, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
         this.doanDuLichDAO = doanDuLichDAO;
@@ -54,29 +56,57 @@ public class DoanDuLichBUS {
         return result;
     }
 
-    public int soKhach(String maDoan) {
+//    public int soKhach(String maDoan) {
+//        int count = 0;
+//        for (DoanDuLichDTO dto : doanDuLichDTOs) {
+//            if (dto.getMaDoan().equals(maDoan)) {
+//                count++;
+//            }
+//        }
+//        return count;
+//    }
+    public DoanDuLichDTO getDoanDuLichByMaTour(String maTour) {
+        for (DoanDuLichDTO doanDuLichDTO : doanDuLichDTOs) {
+            if (doanDuLichDTO.getMaTour().equals(maTour)) {
+                return doanDuLichDTO;
+            }
+        }
+        return null;
+    }
+
+    public int countDoanTrongTour(String maTour) {
         int count = 0;
-        for (DoanDuLichDTO dto : doanDuLichDTOs) {
-            if (dto.getMaDoan().equals(maDoan)) {
+        for (DoanDuLichDTO a : doanDuLichDTOs) {
+            if (a.getMaTour().equals(maTour)) {
                 count++;
             }
         }
         return count;
     }
-    
-    public DoanDuLichDTO getDoanDuLichByMaTour(String maTour) {
-        for (DoanDuLichDTO doanDuLichDTO: doanDuLichDTOs){
-            if(doanDuLichDTO.getMaTour().equals(maTour)) return doanDuLichDTO;
+
+    public boolean themDoan(String MaDoan, String MaTour, String TenDoan, String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
+        for (DoanDuLichDTO doanDL : doanDuLichDTOs) {
+            if (doanDL.getMaDoan().equals(MaDoan)) {
+                return false;
+            }
         }
-        return null;
+        DoanDuLichDTO doanDuLichDTO = new DoanDuLichDTO(MaDoan, MaTour, TenDoan, GiaTour, NgayKhoiHanh, NgayKetThuc, ChiTietNoiDung);
+        if (doanDuLichDAO.insertDoan(doanDuLichDTO)) {
+            doanDuLichDTOs.add(doanDuLichDTO);
+            maLast.updateMaDoanDuLich(doanDuLichDTO.getMaDoan());
+            System.out.println("Thêm Đoàn thành công BUS");
+            return true;
+        }
+        System.out.println("Thêm Đoàn thất bại BUS");
+        return false;
     }
-    
-    public int countDoanTrongTour(String maTour){
-        int count=0;
-        for(DoanDuLichDTO a : doanDuLichDTOs){
-            if(a.getMaTour().equals(maTour))count++;
-        }
-        return count;
+
+    public boolean suaDoan(String MaDoan, String MaTour, String TenDoan, String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
+        return false;
+    }
+
+    public boolean xoaDoan(String MaDoan, String MaTour, String TenDoan, String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
+        return false;
     }
 
 }

@@ -72,7 +72,7 @@ public class ChiTietTour {
             row.add(a.getNgayKhoiHanh());
             row.add(a.getNgayKetThuc());
 //            row.add(chiTietDoanBUS.peopleCount(a.getMaDoan()));
-            row.add(doanDuLichBUS.soKhach(a.getMaDoan()));
+            row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan()));
             model.addRow(row);
         }
     }    

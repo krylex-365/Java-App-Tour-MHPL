@@ -52,6 +52,7 @@ public class Utils {
         init += add;
         return init;
     }
+    
     ////////////////Tạo mã loại hình
     public String initMaLoai() {
         String temp = maDLCuoi.getMaLoaiLast();
@@ -122,6 +123,25 @@ public class Utils {
         maNhanVien++;
         int totalzero = 6;
         add = String.valueOf(maNhanVien);
+        int cpzero = totalzero - add.length();
+        for (int i = 0; i < cpzero; i++) {
+            result += '0';
+        }
+        result += add;
+        return result;
+    }
+    
+    public String initMaDoanDuLich() {
+        String result = "DL";
+        maDLCuoi = new MaDuLieuCuoiDAO();
+        System.out.println("- In initMaDoanDuLich");
+        String temp = maDLCuoi.getMaDoanLast();
+        System.out.println(temp);
+        String add = temp.substring(2, temp.length());
+        int maDoanDuLich = Integer.parseInt(add);
+        maDoanDuLich++;
+        int totalzero = 6;
+        add = String.valueOf(maDoanDuLich);
         int cpzero = totalzero - add.length();
         for (int i = 0; i < cpzero; i++) {
             result += '0';

@@ -16,14 +16,14 @@ import java.util.ArrayList;
  * @author minhk
  */
 public class DoanDuLichDAO {
+
     Connect conn;
-    
 
     public DoanDuLichDAO() {
-        
+
     }
-    
-    public ArrayList<DoanDuLichDTO> getList(){
+
+    public ArrayList<DoanDuLichDTO> getList() {
         ArrayList<DoanDuLichDTO> dsChiPhi = new ArrayList<DoanDuLichDTO>();
         conn = new Connect();
         conn.getConnection();
@@ -45,12 +45,82 @@ public class DoanDuLichDAO {
             System.out.println(e);
             System.out.println("DoanDuLichDAO.getList.executeQuery error.");
         }
-        try{
-        conn.getConn().close();
-        }catch (SQLException e){
+        try {
+            conn.getConn().close();
+        } catch (SQLException e) {
             System.out.println("DoanDuLichDAO.getList.close error.");
         }
         return dsChiPhi;
     }
-    
+
+    public boolean insertDoan(DoanDuLichDTO doanDuLichDTO) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "INSERT INTO DoanDuLich"
+                + " VALUES ('" + doanDuLichDTO.getMaDoan()
+                + "','" + doanDuLichDTO.getMaTour()
+                + "','" + doanDuLichDTO.getTenDoan()
+                + "','" + doanDuLichDTO.getGiaTour()
+                + "','" + doanDuLichDTO.getNgayKhoiHanh()
+                + "','" + doanDuLichDTO.getNgayKetThuc()
+                + "','" + doanDuLichDTO.getChiTietNoiDung()
+                + "', 1);";
+        if (conn.executeUpdate(query)) {
+            conn.close();
+            System.out.println("DoanDuLichDAO insert success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("DoanDuLichDAO insert fail.");
+        return false;
+    }
+
+    public boolean updateDoan(DoanDuLichDTO tourDTO, boolean checkTour) {
+        conn = new Connect();
+        conn.getConnection();
+        String sql;
+        if (checkTour) {
+            sql = "UPDATE DoanDuLich SET"
+                    + " TenDoan='" + tourDTO.getTenDoan() + "',"
+                    + " ChiTietNoiDung='" + tourDTO.getChiTietNoiDung() + "',"
+                    + " MaTour='" + tourDTO.getMaTour() + "'"
+                    + " WHERE MaDoan='" + tourDTO.getMaDoan() + "';";
+        } else {
+            sql = "UPDATE DoanDuLich SET"
+                    + " TenDoan='" + tourDTO.getTenDoan() + "',"
+                    + " ChiTietNoiDung='" + tourDTO.getChiTietNoiDung() + "',"
+                    + " WHERE MaDoan='" + tourDTO.getMaDoan() + "';";
+        }
+        if (conn.executeUpdate(sql)) {
+            conn.close();
+            System.out.println("DoanDuLichDAO update success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("DoanDuLichDAO update fail.");
+        return false;
+    }
+
+    public boolean deleteDoan(String maDoan) {
+        String sql = "update DoanDuLich "
+                + "set Status=0 "
+                + "where MaDoan='" + maDoan + "'";
+        conn = new Connect();
+        conn.getConnection();
+        if (conn.executeUpdate(sql)) {
+            conn.close();
+            System.out.println("DoanDuLich delete success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("DoanDuLich delete fail.");
+        return false;
+    }
+
+//    public static void main(String[] args) {
+//        DoanDuLichDAO doanDAO = new DoanDuLichDAO();
+//        ArrayList<DoanDuLichDTO> test = new ArrayList<DoanDuLichDTO>();
+//        test = doanDAO.getList();
+//        System.out.println(test);
+//    }
 }
