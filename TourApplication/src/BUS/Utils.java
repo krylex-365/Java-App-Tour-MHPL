@@ -52,8 +52,9 @@ public class Utils {
         init += add;
         return init;
     }
+
     ////////////////Tạo mã loại hình
-    public String initMaLoai() {
+     public String initMaLoai() {
         String temp = maDLCuoi.getMaLoaiLast();
         System.out.println(temp);
         String add = temp.substring(2, temp.length());
@@ -89,7 +90,7 @@ public class Utils {
         init += add;
         return init;
     }
-    
+
     ////////////////Tạo mã KhachHang
     public String initMaKhachHang() {
         String result = "KH";

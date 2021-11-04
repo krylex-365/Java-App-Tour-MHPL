@@ -34,12 +34,12 @@ public class LoaiHinhTourBUS {
         this.loaiHinhTourDTOs = loaiHinhTourDTOs;
     }
 
-//    public String CapPhat(String init) {
-//        System.out.println("- cap 1");
-//        init = utl.initMaLoai(init);
-//        System.out.println("- cap 2");
-//        return init;
-//    }
+    public String CapPhat(String init) {
+        System.out.println("- cap 1");
+        init = utl.initMaLoai();
+        System.out.println("- cap 2");
+        return init;
+    }
 
     private int indexLoaiHinh(String maLoai) {
         for (int i = 0; i < loaiHinhTourDTOs.size(); i++) {
@@ -58,7 +58,7 @@ public class LoaiHinhTourBUS {
             System.out.println("Thêm thành công themLoaiHinhTourBUS");
             return true;
         }
-         System.out.println("Thêm thất bại themLoaiHinhTourBUS");
+        System.out.println("Thêm thất bại themLoaiHinhTourBUS");
         return false;
     }
 
@@ -78,12 +78,23 @@ public class LoaiHinhTourBUS {
             return false;
         }
         LoaiHinhTourDTO loaihinhDTO = new LoaiHinhTourDTO(maLoai, tenLoai);
-        if (loaiHinhTourDAO.updateLoaiHinh(loaihinhDTO)) {
+        if (loaiHinhTourDAO.updateLoaiHinh(maLoai, tenLoai)) {
             loaiHinhTourDTOs.set(indexMaLH, loaihinhDTO);
             System.out.println("Sửa thành công suaLoaiHinhTourBUS");
             return true;
         }
         System.out.println("Sửa thất bại suaLoaiHinhTourBUS");
         return false;
+    }
+
+    public ArrayList<LoaiHinhTourDTO> searchLoaiHinhByMaLH(String maLoaiHinh) {
+        ArrayList<LoaiHinhTourDTO> result = new ArrayList<>();
+        for (LoaiHinhTourDTO a : loaiHinhTourDTOs) {
+            if (a.getMaLoai().equals(maLoaiHinh)) {
+                result.add(a);
+            }
+        }
+        return result;
+
     }
 }

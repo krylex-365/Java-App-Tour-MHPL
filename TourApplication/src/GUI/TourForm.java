@@ -13,6 +13,8 @@ import DTO.DiaDiemThamQuanDTO;
 import DTO.GiaTourDTO;
 import DTO.LoaiHinhTourDTO;
 import DTO.TourDTO;
+import com.mysql.cj.util.StringUtils;
+import com.privatejgoodies.common.base.Strings;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -24,8 +26,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Vector;
 import java.util.regex.Pattern;
+import javafx.beans.binding.Bindings;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -57,8 +61,10 @@ public class TourForm extends javax.swing.JPanel {
     int rowTour, rowDiaDiemThamQuan, flagThemDiaDiem, rowLoaiHinh;
     private String maTour, tenTour, maLoai, maLoaiHienHanh, maGia, maGiaHienHanh, maTourChiTiet, tenTourChiTiet;
     private String maDiaDiem, tenDiaDiem, thuTu;
+    private String maLH, tenLH;
     private ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanTempArr;
     private Tour tour;
+    private LoaiHinh loaihinh;
     Vector tbColTour = new Vector();//Vector chứa các dòng dữ liệu của bảng.
     Vector tbColDiadiem = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tbColDoan = new Vector();
@@ -104,6 +110,18 @@ public class TourForm extends javax.swing.JPanel {
     public void initTableTour() {
         loadDataTour();
 
+    }
+
+    public void loadDataLH() {
+        loaihinh = new LoaiHinh();
+        tbModelLoaiHinh.setRowCount(0);
+        loaihinh.tableModelLoaiHinh(tbModelLoaiHinh);
+        jTableLH.setModel(tbModelLoaiHinh);
+
+    }
+
+    public void initTableLH() {
+        loadDataLH();
     }
 
     /**
@@ -1000,6 +1018,12 @@ public class TourForm extends javax.swing.JPanel {
         return "";
     }
 
+    private boolean isNullOrEmpty(String text) {
+        if (text == null || text.equals("")) {
+            return true;
+        }
+        return false;
+    }
     private void jBtnThemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemTourActionPerformed
         // TODO add your handling code here:jBtnCapPhatMaTour.setEnabled(true);
         String maTour = (String) jTextMaTour.getText(),
@@ -1493,6 +1517,16 @@ public class TourForm extends javax.swing.JPanel {
 
     private void jTableLHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLHMouseClicked
         // TODO add your handling code here:
+
+        rowLoaiHinh = jTableLH.getSelectedRow();
+        if (rowLoaiHinh != -1) {
+            maLH = (String) jTableLH.getModel().getValueAt(rowLoaiHinh, 0);
+            tenLH = (String) jTableLH.getModel().getValueAt(rowLoaiHinh, 1);
+            if (!maLH.equals("null")) {
+                jTextMaLoaiHinh.setText(maLH);
+                jTextTenLH.setText(tenLH);
+            }
+        }
         jBtnCapPhatMaLH.setEnabled(false);
         jBtnThemLH.setEnabled(false);
         jBtnSuaLH.setEnabled(true);
@@ -1506,6 +1540,12 @@ public class TourForm extends javax.swing.JPanel {
 
     private void jBtnCapPhatMaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaLHActionPerformed
         // TODO add your handling code here:
+        /*loadDataTour();
+        String init = null;
+        init = tourBUS.CapPhat(init);*/
+        loadDataLH();
+        String init = null;
+        init = loaiHinhTourBUS.CapPhat(init);
         jBtnCapPhatMaLH.setEnabled(false);
         jBtnThemLH.setEnabled(true);
         jBtnSuaLH.setEnabled(false);
@@ -1517,35 +1557,62 @@ public class TourForm extends javax.swing.JPanel {
 
     private void jBtnThemLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemLHActionPerformed
         // TODO add your handling code here:
+        String maLoai = (String) jTextMaLoaiHinh.getText(), tenLoai = (String) jTextTenLH.getText();
+        if (!isNullOrEmpty(tenLoai)) {
+            if (loaiHinhTourBUS.themLoaiHinhTour(maLoai, tenLoai)) {
+                Vector newrow = new Vector();
+                newrow.add(maLoai);
+                newrow.add(tenLoai);
+                tbModelLoaiHinh.addRow(newrow);
+                JOptionPane.showMessageDialog(this, "Thêm Loại hình tour thành công!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm Loại hình tour thất bại!");
+        }
+
         jBtnCapPhatMaLH.setEnabled(true);
         jBtnThemLH.setEnabled(false);
         jBtnSuaLH.setEnabled(false);
         jBtnXoaLH.setEnabled(false);
         jBtnHuyLH.setEnabled(false);
-        jTextMaLoaiHinh.setText("");
-        jTextTenLH.setText("");
+
     }//GEN-LAST:event_jBtnThemLHActionPerformed
 
     private void jBtnSuaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaLHActionPerformed
         // TODO add your handling code here:
+        String tenLoai = (String) jTextTenLH.getText();
+        if (!isNullOrEmpty(tenLoai)) {
+            if (loaiHinhTourBUS.suaLoaiHinhTour(maLH, tenLoai)) {
+                tbModelLoaiHinh.setValueAt(tenLoai, rowLoaiHinh, 1);
+                JOptionPane.showMessageDialog(this, "Sửa Loại hình tour thành công!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa Loại hình tour thất bại!");
+        }
+
         jBtnCapPhatMaLH.setEnabled(true);
         jBtnThemLH.setEnabled(false);
         jBtnSuaLH.setEnabled(false);
         jBtnXoaLH.setEnabled(false);
         jBtnHuyLH.setEnabled(false);
-        jTextMaLoaiHinh.setText("");
-        jTextTenLH.setText("");
+
     }//GEN-LAST:event_jBtnSuaLHActionPerformed
 
     private void jBtnXoaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaLHActionPerformed
         // TODO add your handling code here:
+        if (loaiHinhTourBUS.xoaLoaiHinhTour(maLH)) {
+            tbModelLoaiHinh.removeRow(rowLoaiHinh);
+            JOptionPane.showMessageDialog(this, "Xóa Loại hình tour thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa Loại hình tour thất bại!");
+        }
+
         jBtnCapPhatMaLH.setEnabled(true);
         jBtnThemLH.setEnabled(false);
         jBtnSuaLH.setEnabled(false);
         jBtnXoaLH.setEnabled(false);
         jBtnHuyLH.setEnabled(false);
-        jTextMaLoaiHinh.setText("");
-        jTextTenLH.setText("");
+
     }//GEN-LAST:event_jBtnXoaLHActionPerformed
 
     private void jBtnHuyLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuyLHActionPerformed
@@ -1561,6 +1628,9 @@ public class TourForm extends javax.swing.JPanel {
 
     private void jBtnTimKiemLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemLHActionPerformed
         // TODO add your handling code here:
+        tbModelLoaiHinh.setRowCount(0);
+        loaihinh.tbModelSearchLoaiHinh(tbModelLoaiHinh, jTextMaLoaiHinh.getText().toString());
+        System.out.println(jTextMaLoaiHinh.getText().toString());
     }//GEN-LAST:event_jBtnTimKiemLHActionPerformed
 
     private void jBtnRefreshLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshLHActionPerformed

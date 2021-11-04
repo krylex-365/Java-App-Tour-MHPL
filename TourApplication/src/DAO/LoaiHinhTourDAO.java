@@ -79,12 +79,12 @@ public class LoaiHinhTourDAO {
         return false;
     }
 
-    public boolean updateLoaiHinh(LoaiHinhTourDTO loaiHinhTourDTO) {
+    public boolean updateLoaiHinh(String maLoai, String tenLoai) {
         conn = new Connect();
         conn.getConnection();
         String sql = "UPDATE LoaiHinhTour SET"
-                + " TenLoai='" + loaiHinhTourDTO.getTenLoai() + "',"
-                + " WHERE MaLoai='" + loaiHinhTourDTO.getMaLoai() + "'";
+                + " TenLoai='" + maLoai + "',"
+                + " WHERE MaLoai='" + tenLoai + "'";
         if (conn.executeUpdate(sql)) {
             conn.close();
             System.out.println("LoaiHinhTourDAO update success.");
