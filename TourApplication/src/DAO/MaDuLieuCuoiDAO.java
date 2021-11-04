@@ -140,6 +140,24 @@ public class MaDuLieuCuoiDAO {
         return false;
     }
     
+    public boolean updateMaNhanVien(String newLatestMaNhanVien) {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "UPDATE MaDuLieuCuoi SET"
+                + " MaNhanVien='" + newLatestMaNhanVien + "'"
+                + " WHERE MaNhanVien='" + getMaNhanVienLast()+ "'";
+        System.out.println(getMaNhanVienLast());
+        if (conn.executeUpdate(query)) {
+            System.out.println("Update last MaNhanVien success.");
+            setMaNhanVienLast(newLatestMaNhanVien);
+            conn.close();
+            return true;
+        }
+        System.out.println("Update last MaNhanVien fail.");
+        conn.close();
+        return false;
+    }
+    
     public String getMaLoaiLast() {
         return MaLoaiLast;
     }
