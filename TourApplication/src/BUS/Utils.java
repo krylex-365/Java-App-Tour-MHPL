@@ -109,6 +109,26 @@ public class Utils {
         result += add;
         return result;
     }
+    
+    ////////////////Tạo mã nhân viên
+    public String initMaNhanVien() {
+        String result = "NV";
+        maDLCuoi = new MaDuLieuCuoiDAO();
+        System.out.println("- In initManhanvien");
+        String temp = maDLCuoi.getMaNhanVienLast();
+        System.out.println(temp);
+        String add = temp.substring(2, temp.length());
+        int maNhanVien = Integer.parseInt(add);
+        maNhanVien++;
+        int totalzero = 6;
+        add = String.valueOf(maNhanVien);
+        int cpzero = totalzero - add.length();
+        for (int i = 0; i < cpzero; i++) {
+            result += '0';
+        }
+        result += add;
+        return result;
+    }
 
     ////////////////Lấy ngày hiện tại
     public String initDateNow() {
@@ -252,6 +272,7 @@ public class Utils {
                 return 30;
         }
     }
+
 }
 
 class main {
