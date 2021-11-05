@@ -83,7 +83,7 @@ public class LoaiHinhTourDAO {
         conn = new Connect();
         conn.getConnection();
         String sql = "UPDATE LoaiHinhTour SET"
-                + " TenLoai='" + loaiHinhTourDTO.getTenLoai() + "',"
+                + " TenLoai='" + loaiHinhTourDTO.getTenLoai() + "'"
                 + " WHERE MaLoai='" + loaiHinhTourDTO.getMaLoai() + "'";
         if (conn.executeUpdate(sql)) {
             conn.close();

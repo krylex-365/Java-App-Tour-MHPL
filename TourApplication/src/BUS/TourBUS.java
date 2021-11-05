@@ -4,6 +4,7 @@ import DAO.GiaTourDAO;
 import DAO.MaDuLieuCuoiDAO;
 import DAO.TourDAO;
 import DTO.DoanDuLichDTO;
+import DTO.GiaTourDTO;
 import DTO.TourDTO;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 public class TourBUS {
 
     private ArrayList<TourDTO> tourDTOs;
+    private ArrayList<GiaTourDTO> giaTourDTOs;
     private TourDAO tourDAO;
     private GiaTourBUS giaTourBUS;
     private Utils utl = new Utils();
@@ -19,7 +21,9 @@ public class TourBUS {
 
     public TourBUS() {
         tourDAO = new TourDAO();
+        giaTourBUS = new GiaTourBUS();
         this.tourDTOs = tourDAO.getList();
+        this.giaTourDTOs = giaTourBUS.getGiaTourDTOs();
     }
     
     public String CapPhat(String init) {
@@ -39,11 +43,10 @@ public class TourBUS {
         }
         TourDTO newTour = new TourDTO(MaTour,MaLoai,TenTour,DacDiem);
         if (tourDAO.insertTour(newTour)) {
-            tourDTOs.add(newTour);
-            System.out.println("Thêm thành công themTourBUS");
-            maLast.updateMaTour(MaTour);
-            giaTourBUS = new GiaTourBUS();
             if (giaTourBUS.themGiaTourByTour(MaTour, ThanhTien, TgBatDau, TgKetThuc)) {
+                tourDTOs.add(newTour);
+                System.out.println("Thêm thành công themTourBUS");
+                maLast.updateMaTour(MaTour);
                 return true;
             }
         }
@@ -68,7 +71,6 @@ public class TourBUS {
         }
         if (tourDAO.updateTour(tourDTO, checkLH)) {
             tourDTOs.set(indexTour, tourDTO);
-            giaTourBUS = new GiaTourBUS();
             if (maGiaHH.equals(maGia)){
                 return true;
             }
@@ -88,9 +90,11 @@ public class TourBUS {
                 tourDTOs.remove(indexTour(maTour));
                 new DiaDiemThamQuanBUS().xoaDiaDiemThamQuanByMaTour(maTour);
                 new GiaTourBUS().xoaGiaTourByMaTour(maTour);
+                System.out.println("Xóa thành công xoaTourBUS");
                 return true;
             }
         }
+        System.out.println("Xóa thất bại xoaTourBUS");
         return false;
     }
 
@@ -110,4 +114,14 @@ public class TourBUS {
     public void setTourDTOS(ArrayList<TourDTO> tourDTOS) {
         this.tourDTOs = tourDTOS;
     }
+
+    public ArrayList<GiaTourDTO> getGiaTourDTOs() {
+        return giaTourDTOs;
+    }
+
+    public void setGiaTourDTOs(ArrayList<GiaTourDTO> giaTourDTOs) {
+        this.giaTourDTOs = giaTourDTOs;
+    }
+    
+    
 }

@@ -44,6 +44,7 @@ public class BangGia extends javax.swing.JFrame {
     DefaultTableModel tbModel;
     String maTour, maGiaHH;
     int hienHanh;
+    GiaTourDTO giaTourHH;
 
     public BangGia() {
         initComponents();
@@ -91,10 +92,18 @@ public class BangGia extends javax.swing.JFrame {
                 row.add(giaTour.getThanhTien());
                 row.add(giaTour.getTgBatDau());
                 row.add(giaTour.getTgKetThuc());
-                if (giaTour.getHienHanh()==1)
+                if (giaTour.getHienHanh()==1){
                     row.add("X");
-                else
+                    giaTourHH = new GiaTourDTO(giaTour.getMaGia(),
+                            giaTour.getMaTour(),
+                            giaTour.getThanhTien(),
+                            giaTour.getTgBatDau(),
+                            giaTour.getTgKetThuc(),
+                            giaTour.getHienHanh());
+                }
+                else {
                     row.add("");
+                }
                 model.addRow(row);
             }
         }
@@ -413,12 +422,19 @@ public class BangGia extends javax.swing.JFrame {
                 ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
                 ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
         if (giaTourBUS.suaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh)){
-            tourForm.getjTextGiaTour().setText(giaTour);
-            tourForm.getjDateNgayBD().setCalendar(jDateBatDau.getCalendar());
-            tourForm.getjDateNgayKT().setCalendar(jDateKetThuc.getCalendar());
-            tourForm.getTbModelTour().setValueAt(giaTour,tourForm.getRowTour(),3);
-            tourForm.getTbModelTour().setValueAt(ngayBD,tourForm.getRowTour(),4);
-            tourForm.getTbModelTour().setValueAt(ngayKT,tourForm.getRowTour(),5);
+            if (maGia.equals(maGiaHH)){
+                tourForm.getjTextGiaTour().setText(giaTour);
+                tourForm.getjDateNgayBD().setCalendar(jDateBatDau.getCalendar());
+                tourForm.getjDateNgayKT().setCalendar(jDateKetThuc.getCalendar());
+                tourForm.getTbModelTour().setValueAt(giaTour,tourForm.getRowTour(),3);
+                tourForm.getTbModelTour().setValueAt(ngayBD,tourForm.getRowTour(),4);
+                tourForm.getTbModelTour().setValueAt(ngayKT,tourForm.getRowTour(),5);
+            }
+            if (maGia.equals(tourForm.getMaGia())){
+                tourForm.getjTextGiaTour().setText(giaTour);
+                tourForm.getjDateNgayBD().setCalendar(jDateBatDau.getCalendar());
+                tourForm.getjDateNgayKT().setCalendar(jDateKetThuc.getCalendar());
+            }
             initTable();
             JOptionPane.showMessageDialog(this, "Sửa Giá Tour thành công!");
         } else {
@@ -592,6 +608,21 @@ public class BangGia extends javax.swing.JFrame {
                 ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
                 ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
         if (giaTourBUS.xoaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh)){
+            if (maGia.equals(tourForm.getMaGia())) {
+                tourForm.getjTextGiaTour().setText(giaTourHH.getThanhTien());
+                try {
+                    Date dateBD = new SimpleDateFormat("yyyy-MM-dd").parse(giaTourHH.getTgBatDau());
+                    tourForm.getjDateNgayBD().setDate(dateBD);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(BangGia.this, e);
+                }
+                try {
+                    Date dateKT = new SimpleDateFormat("yyyy-MM-dd").parse(giaTourHH.getTgKetThuc());
+                    tourForm.getjDateNgayKT().setDate(dateKT);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(BangGia.this, e);
+                }
+            }
             initTable();
             JOptionPane.showMessageDialog(this, "Xóa Giá Tour thành công!");
         } else {

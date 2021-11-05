@@ -1107,6 +1107,7 @@ public class DashBoard extends javax.swing.JFrame
 //            jPanel13.setVisible (false);
 //        }
         tourForm.initTableTour();
+        tourForm.initTableLH();
         jPanelTour.setVisible(true);
         jPanelDiaDiem.setVisible(false);
         jPanelNhanvien.setVisible(false);

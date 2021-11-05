@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author User
  */
 public class Tour {
+
     TourBUS tourBUS;
     GiaTourBUS giaTourBUS;
     ChiTietTour chiTietTour;
@@ -30,7 +31,7 @@ public class Tour {
         chiTietTour = new ChiTietTour();
         loaiHinhTourBUS = new LoaiHinhTourBUS();
     }
-    
+
     public void tableModelTour(DefaultTableModel model) {
         for (TourDTO tour : tourBUS.getTourDTOS()) {
             Vector row = new Vector();
@@ -50,5 +51,30 @@ public class Tour {
             }
             model.addRow(row);
         }
+    }
+
+    public void themVectorTour(DefaultTableModel model, String maTour, String tenTour,
+            String tenLoai, String giaTour, String ngayBD, String ngayKT) {
+        Vector newrow = new Vector();
+        newrow.add(maTour);
+        newrow.add(tenTour);
+        newrow.add(tenLoai);
+        newrow.add(giaTour);
+        newrow.add(ngayBD);
+        newrow.add(ngayKT);
+        model.addRow(newrow);
+    }
+
+    public void suaVectorTour(DefaultTableModel model, int row, String tenTour,
+            String tenLoai, String giaTour, String ngayBD, String ngayKT) {
+        model.setValueAt(tenTour, row, 1);
+        model.setValueAt(tenLoai, row, 2);
+        model.setValueAt(giaTour, row, 3);
+        model.setValueAt(ngayBD, row, 4);
+        model.setValueAt(ngayKT, row, 5);
+    }
+
+    public void xoaVectorTour(DefaultTableModel model, int row) {
+        model.removeRow(row);
     }
 }

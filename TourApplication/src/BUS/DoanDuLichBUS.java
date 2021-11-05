@@ -83,8 +83,18 @@ public class DoanDuLichBUS {
         }
         return count;
     }
+    
+    private int indexDoan(String maDoan) {
+        for (int i = 0; i < doanDuLichDTOs.size(); i++) {
+            if (maDoan.equals(doanDuLichDTOs.get(i).getMaDoan())) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-    public boolean themDoan(String MaDoan, String MaTour, String TenDoan, String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
+    public boolean themDoan(String MaDoan, String MaTour, String TenDoan, 
+            String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
         for (DoanDuLichDTO doanDL : doanDuLichDTOs) {
             if (doanDL.getMaDoan().equals(MaDoan)) {
                 return false;
@@ -94,18 +104,39 @@ public class DoanDuLichBUS {
         if (doanDuLichDAO.insertDoan(doanDuLichDTO)) {
             doanDuLichDTOs.add(doanDuLichDTO);
             maLast.updateMaDoanDuLich(doanDuLichDTO.getMaDoan());
-            System.out.println("Thêm Đoàn thành công BUS");
+            System.out.println("Thêm thành công themDoanDuLichBUS");
             return true;
         }
-        System.out.println("Thêm Đoàn thất bại BUS");
+        System.out.println("Thêm thất bại themDoanDuLichBUS");
         return false;
     }
 
-    public boolean suaDoan(String MaDoan, String MaTour, String TenDoan, String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
+    public boolean suaDoan(String MaDoan, String MaTourHH, String MaTour, String TenDoan, 
+            String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
+        int index = indexDoan(MaDoan);
+        if (index == -1) {
+            return false;
+        }
+        DoanDuLichDTO doanDuLichDTO = new DoanDuLichDTO(MaDoan, MaTour, TenDoan, GiaTour, NgayKhoiHanh, NgayKetThuc, ChiTietNoiDung);
+        boolean checkTour;
+        if (MaTourHH.equals(MaTour)){
+            // NẾU KHÔNG SỬA TOUR
+            checkTour = false;
+        } else {
+            // NẾU SỬA TOUR
+            checkTour = true;
+        }
+        if (doanDuLichDAO.updateDoan(doanDuLichDTO, checkTour)) {
+            doanDuLichDTOs.set(index, doanDuLichDTO);
+            System.out.println("Sửa thành công suaDoanDuLichBUS");
+            return true;
+        }
+        System.out.println("Sửa thất bại suaDoanDuLichBUS");
         return false;
     }
 
-    public boolean xoaDoan(String MaDoan, String MaTour, String TenDoan, String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
+    public boolean xoaDoan(String MaDoan, String MaTour, String TenDoan, 
+            String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
         return false;
     }
 

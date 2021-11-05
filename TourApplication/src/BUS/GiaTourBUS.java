@@ -62,10 +62,10 @@ public class GiaTourBUS {
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, HienHanh);
         if (giaTourDAO.deleteGiaTour(MaTour, MaGia)) {
             giaTourDTOs.remove(giaTourDTO);
-            System.out.println("Sửa thành công GiaTourBUS");
+            System.out.println("Xóa thành công GiaTourBUS");
             return true;
         }
-        System.out.println("Sửa thất bại GiaTourBUS");
+        System.out.println("Xóa thất bại GiaTourBUS");
         return false;
     }
     
@@ -76,11 +76,11 @@ public class GiaTourBUS {
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, 1);
         if (giaTourDAO.insertGiaTourByTour(giaTourDTO)) {
             giaTourDTOs.add(giaTourDTO);
-            System.out.println("Thêm thành công");
+            System.out.println("Thêm thành công themGiaTourByTour");
             maLast.updateMaGia(MaGia);
             return true;
         }
-        System.out.println("Thêm thất bại");
+        System.out.println("Thêm thất bại themGiaTourByTour");
         return false;
     }
 
@@ -92,10 +92,10 @@ public class GiaTourBUS {
 //        return true;
         if (giaTourDAO.updateHienHanhByTour(maGia, maTour)) {
             setHienHanh(maGia, maTour);
-            System.out.println("Sửa thành công suaHienHanhBUS");
+            System.out.println("Sửa Hiện hành thành công suaHienHanhBUS");
             return true;
         }
-        System.out.println("Sửa thất bại suaHienHanhBUS");
+        System.out.println("Sửa Hiện hành thất bại suaHienHanhBUS");
         return false;
     }
 

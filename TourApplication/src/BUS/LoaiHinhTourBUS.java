@@ -58,17 +58,7 @@ public class LoaiHinhTourBUS {
             System.out.println("Thêm thành công themLoaiHinhTourBUS");
             return true;
         }
-         System.out.println("Thêm thất bại themLoaiHinhTourBUS");
-        return false;
-    }
-
-    public boolean xoaLoaiHinhTour(String maLoai) {
-        if (loaiHinhTourDAO.deleteLoaiHinh(maLoai)) {
-            loaiHinhTourDTOs.remove(indexLoaiHinh(maLoai));
-            System.out.println("Xóa thành công xoaLoaiHinhTourBUS");
-            return true;
-        }
-        System.out.println("Xóa thất bại xoaLoaiHinhTourBUS");
+        System.out.println("Thêm thất bại themLoaiHinhTourBUS");
         return false;
     }
 
@@ -85,5 +75,25 @@ public class LoaiHinhTourBUS {
         }
         System.out.println("Sửa thất bại suaLoaiHinhTourBUS");
         return false;
+    }
+
+    public boolean xoaLoaiHinhTour(String maLoai) {
+        if (loaiHinhTourDAO.deleteLoaiHinh(maLoai)) {
+            loaiHinhTourDTOs.remove(indexLoaiHinh(maLoai));
+            System.out.println("Xóa thành công xoaLoaiHinhTourBUS");
+            return true;
+        }
+        System.out.println("Xóa thất bại xoaLoaiHinhTourBUS");
+        return false;
+    }
+    
+    public ArrayList<LoaiHinhTourDTO> searchLoaiHinhByMaLH(String maLoaiHinh) {
+        ArrayList<LoaiHinhTourDTO> result = new ArrayList<>();
+        for (LoaiHinhTourDTO a : loaiHinhTourDTOs) {
+            if (a.getMaLoai().equals(maLoaiHinh)) {
+                result.add(a);
+            }
+        }
+        return result;
     }
 }
