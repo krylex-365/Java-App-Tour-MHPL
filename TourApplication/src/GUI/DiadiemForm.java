@@ -13,6 +13,7 @@ import DTO.DiaDiemDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
@@ -36,7 +37,6 @@ public class DiadiemForm extends javax.swing.JPanel {
     DefaultTableModel tbModelDiaDiem;
     private Utils ult = new Utils();
     int rowTbl;
-    DiaDiem diaDiem;
     private int rowDiaDiem;
     private String maDiaDiem;
     private String tenDiaDiem;
@@ -311,7 +311,7 @@ public class DiadiemForm extends javax.swing.JPanel {
         tenDiaDiem = jTextTenDD.getText();
         if(!isNullOrEmpty(maDiaDiem) && !isNullOrEmpty(tenDiaDiem)){
             if(diaDiemBUS.themDiaDiem(maDiaDiem, tenDiaDiem)){
-                diaDiem.themDiaDiem(tbModelDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
+                themDiaDiem(tbModelDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
                 JOptionPane.showMessageDialog(this, "Thêm địa điểm thành công!");
             }else {
                 JOptionPane.showMessageDialog(this, "Thêm địa điểm thất bại!");
@@ -331,9 +331,8 @@ public class DiadiemForm extends javax.swing.JPanel {
     }
 
     public void loadDataDiaDiem() {
-        diaDiem = new DiaDiem(diaDiemBUS);
         tbModelDiaDiem.setRowCount(0);
-        diaDiem.tableModelDiaDiem(tbModelDiaDiem);
+        tableModelDiaDiem(tbModelDiaDiem);
         jTableDiaDiem.setModel(tbModelDiaDiem);
     }
 
@@ -343,7 +342,7 @@ public class DiadiemForm extends javax.swing.JPanel {
         tenDiaDiem = jTextTenDD.getText();
         if(!isNullOrEmpty(maDiaDiem) && !isNullOrEmpty(tenDiaDiem)){
             if(diaDiemBUS.suaDiaDiem(maDiaDiem, tenDiaDiem)){
-                diaDiem.suaDiaDiem(tbModelDiaDiem, rowDiaDiem,new DiaDiemDTO(maDiaDiem, tenDiaDiem));
+                suaDiaDiem(tbModelDiaDiem, rowDiaDiem,new DiaDiemDTO(maDiaDiem, tenDiaDiem));
                 JOptionPane.showMessageDialog(this, "Sửa địa điểm thành công!");
             }else {
                 JOptionPane.showMessageDialog(this, "Sửa địa điểm thất bại!");
@@ -363,7 +362,7 @@ public class DiadiemForm extends javax.swing.JPanel {
         maDiaDiem = jTextMaDD.getText();
         if(!isNullOrEmpty(maDiaDiem)){
             if (diaDiemBUS.xoaDiaDiem(maDiaDiem)){
-                diaDiem.xoaDiaDiem(tbModelDiaDiem, rowDiaDiem);
+                xoaDiaDiem(tbModelDiaDiem, rowDiaDiem);
                 JOptionPane.showMessageDialog(this, "Xóa địa điểm thành công!");
             }else {
                 JOptionPane.showMessageDialog(this, "Xóa địa điểm thất bại!");
@@ -417,7 +416,7 @@ public class DiadiemForm extends javax.swing.JPanel {
     private void jBtnTimKiemDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemDDActionPerformed
         // TODO add your handling code here:
         //Tìm kiếm = mã hoặc like tên
-        diaDiem.timKiem(tbModelDiaDiem, jTableDiaDiem, jTextTimKiemDD.getText());
+        timKiem(tbModelDiaDiem, jTableDiaDiem, jTextTimKiemDD.getText());
     }//GEN-LAST:event_jBtnTimKiemDDActionPerformed
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
@@ -433,6 +432,43 @@ public class DiadiemForm extends javax.swing.JPanel {
         diaDiemBUS = new DiaDiemBUS();
         loadDataDiaDiem();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
+
+    public void tableModelDiaDiem(DefaultTableModel model) {
+        for (DiaDiemDTO diaDiemDTO : diaDiemBUS.getDiaDiemDTOs()) {
+            Vector row = new Vector();
+            row.add(diaDiemDTO.getMaDiaDiem());
+            row.add(diaDiemDTO.getTenDiaDiem());
+            model.addRow(row);
+        }
+    }
+
+    public void suaDiaDiem(DefaultTableModel model, int row, DiaDiemDTO diaDiemDTO){
+        model.setValueAt(diaDiemDTO.getMaDiaDiem(),row, 0);
+        model.setValueAt(diaDiemDTO.getTenDiaDiem(), row, 1);
+    }
+
+    public void themDiaDiem(DefaultTableModel model, DiaDiemDTO diaDiemDTO){
+        Vector row = new Vector();
+        row.add(diaDiemDTO.getMaDiaDiem());
+        row.add(diaDiemDTO.getTenDiaDiem());
+        model.addRow(row);
+    }
+
+    public void xoaDiaDiem(DefaultTableModel model, int row){
+        model.removeRow(row);
+    }
+
+    public void timKiem(DefaultTableModel model, JTable jTable, String value){
+        model.setRowCount(0);
+        for(DiaDiemDTO diaDiemDTO: diaDiemBUS.getDiaDiemDTOs()){
+            if(diaDiemDTO.getMaDiaDiem().equals(value) || diaDiemDTO.getTenDiaDiem().indexOf(value) != -1){
+                Vector row = new Vector();
+                row.add(diaDiemDTO.getMaDiaDiem());
+                row.add(diaDiemDTO.getTenDiaDiem());
+                model.addRow(row);
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCapPhatMaDD;
