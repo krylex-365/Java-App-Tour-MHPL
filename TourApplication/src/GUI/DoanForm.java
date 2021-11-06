@@ -61,7 +61,6 @@ public class DoanForm extends javax.swing.JPanel
     private String maTour, tenTour, maLoai, maLoaiHienHanh, maGia, maGiaHienHanh, maTourChiTiet, tenTourChiTiet;
     private String maDiaDiem, tenDiaDiem, thuTu;
     private ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanTempArr;
-    private Tour tour;
     Vector tbColDoan = new Vector();//Vector chứa các dòng dữ liệu của bảng.
     Vector tbColKhach = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tbColLoaiHinh = new Vector();
@@ -96,9 +95,9 @@ public class DoanForm extends javax.swing.JPanel
 
     public void loadDataTour()
     {
-        tour = new Tour();
+//        tour = new Tour();
         tbModelDoan.setRowCount(0);
-        tour.tableModelTour(tbModelDoan);
+//        tour.tableModelTour(tbModelDoan);
         jTableDoan.setModel(tbModelDoan);
     }
 

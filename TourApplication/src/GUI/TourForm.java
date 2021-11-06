@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import BUS.GiaTourBUS;
 import BUS.LoaiHinhTourBUS;
 import BUS.TourBUS;
 import BUS.Utils;
@@ -47,9 +48,10 @@ public class TourForm extends javax.swing.JPanel {
      * Creates new form jPanel2
      */
     static int flagtkmk = 0;
-    TourBUS tourBUS = new TourBUS();
-    ChiTietTour chiTietTour = new ChiTietTour();
-    LoaiHinhTourBUS loaiHinhTourBUS = new LoaiHinhTourBUS();
+    TourBUS tourBUS;
+    GiaTourBUS giaTourBUS;
+    ChiTietTour chiTietTour;
+    LoaiHinhTourBUS loaiHinhTourBUS;
     public BufferedImage i = null;
     public String imgName = null;
     int rowTour, rowDiaDiemThamQuan, flagThemDiaDiem, rowLoaiHinh;
@@ -57,7 +59,6 @@ public class TourForm extends javax.swing.JPanel {
             maTourChiTiet, tenTourChiTiet, maLH;
     private String maDiaDiem, tenDiaDiem, thuTu;
     private ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanTempArr;
-    private Tour tour;
     private LoaiHinh loaiHinh;
     Vector tbColTour = new Vector();//Vector chứa các dòng dữ liệu của bảng.
     Vector tbColDiadiem = new Vector();//Vector chứa các tiêu đề của bảng.
@@ -93,11 +94,62 @@ public class TourForm extends javax.swing.JPanel {
         jBtnXoaLH.setEnabled(false);
         jBtnHuyLH.setEnabled(false);
     }
+    
+    public void tableModelTour(DefaultTableModel model) {
+        for (TourDTO tour : tourBUS.getTourDTOS()) {
+            Vector row = new Vector();
+            row.add(tour.getMaTour());
+            row.add(tour.getTenTour());
+            for (LoaiHinhTourDTO loaiHinhTour : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
+                if (loaiHinhTour.getMaLoai().equals(tour.getMaLoai())) {
+                    row.add(loaiHinhTour.getTenLoai());
+                    break;
+                }
+            }
+            for (GiaTourDTO giaTour : giaTourBUS.getGiaTourDTOs()) {
+                if (giaTour.getMaTour().equals(tour.getMaTour()) && giaTour.getHienHanh() == 1) {
+                    row.add(giaTour.getThanhTien());
+                    row.add(giaTour.getTgBatDau());
+                    row.add(giaTour.getTgKetThuc());
+                    break;
+                }
+            }
+            model.addRow(row);
+        }
+    }
+    
+    public void themVectorTour(DefaultTableModel model, String maTour, String tenTour,
+            String tenLoai, String giaTour, String ngayBD, String ngayKT) {
+        Vector newrow = new Vector();
+        newrow.add(maTour);
+        newrow.add(tenTour);
+        newrow.add(tenLoai);
+        newrow.add(giaTour);
+        newrow.add(ngayBD);
+        newrow.add(ngayKT);
+        model.addRow(newrow);
+    }
+
+    public void suaVectorTour(DefaultTableModel model, int row, String tenTour,
+            String tenLoai, String giaTour, String ngayBD, String ngayKT) {
+        model.setValueAt(tenTour, row, 1);
+        model.setValueAt(tenLoai, row, 2);
+        model.setValueAt(giaTour, row, 3);
+        model.setValueAt(ngayBD, row, 4);
+        model.setValueAt(ngayKT, row, 5);
+    }
+
+    public void xoaVectorTour(DefaultTableModel model, int row) {
+        model.removeRow(row);
+    }
 
     public void loadDataTour() {
-        tour = new Tour();
+        tourBUS = new TourBUS();
+        giaTourBUS = new GiaTourBUS();
+        chiTietTour = new ChiTietTour();
+        loaiHinhTourBUS = new LoaiHinhTourBUS();
         tbModelTour.setRowCount(0);
-        tour.tableModelTour(tbModelTour);
+        tableModelTour(tbModelTour);
         jTableTour.setModel(tbModelTour);
     }
 
@@ -1019,7 +1071,7 @@ public class TourForm extends javax.swing.JPanel {
                 ngayKT = (String) ((JTextField) jDateNgayKT.getDateEditor().getUiComponent()).getText();
         if (tourBUS.themTour(maTour, (String) getMaLoai(), tenTour,
                 (String) jTextDacDiem.getText(), giaTour, ngayBD, ngayKT)) {
-            tour.themVectorTour(tbModelTour, maTour, tenTour, (String) jTextLoaiHinh.getText(), giaTour, ngayBD, ngayKT);
+            themVectorTour(tbModelTour, maTour, tenTour, (String) jTextLoaiHinh.getText(), giaTour, ngayBD, ngayKT);
             JOptionPane.showMessageDialog(this, "Thêm Tour thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Thêm Tour thất bại!");
@@ -1054,6 +1106,9 @@ public class TourForm extends javax.swing.JPanel {
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
         jBtnLuuDD.setEnabled(false);
+        jTextMaDiaDiem.setText("");
+        jTextTenDiaDiem.setText("");
+        jTextThuTu.setText("");
     }//GEN-LAST:event_jBtnLuuDDActionPerformed
 
     private void jBtnHuyDDActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnHuyDDActionPerformed
@@ -1065,6 +1120,9 @@ public class TourForm extends javax.swing.JPanel {
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
         jBtnLuuDD.setEnabled(false);
+        jTextMaDiaDiem.setText("");
+        jTextTenDiaDiem.setText("");
+        jTextThuTu.setText("");
     }//GEN-LAST:event_jBtnHuyDDActionPerformed
 
     private void jButtonTimKiem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonTimKiem1ActionPerformed
@@ -1142,7 +1200,7 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnXoaTourActionPerformed
         // TODO add your handling code here:
         if (tourBUS.xoaTour(maTour)) {
-            tour.xoaVectorTour(tbModelTour, rowTour);
+            xoaVectorTour(tbModelTour, rowTour);
             JOptionPane.showMessageDialog(this, "Xóa Tour thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Xóa Tour thất bại!");
@@ -1176,7 +1234,7 @@ public class TourForm extends javax.swing.JPanel {
                 ngayKT = (String) ((JTextField) jDateNgayKT.getDateEditor().getUiComponent()).getText();
         System.out.println("Sua tour: " + maTour);
         if (tourBUS.suaTour(getMaTour(), tenTour, (String) jTextDacDiem.getText(), getMaLoaiHienHanh(), getMaLoai(), getMaGiaHienHanh(), getMaGia())) {
-            tour.suaVectorTour(tbModelTour, rowTour, tenTour, jTextLoaiHinh.getText(), jTextGiaTour.getText(), ngayBD, ngayKT);
+            suaVectorTour(tbModelTour, rowTour, tenTour, jTextLoaiHinh.getText(), jTextGiaTour.getText(), ngayBD, ngayKT);
             JOptionPane.showMessageDialog(this, "Sửa Tour thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Sửa Tour thất bại!");
@@ -1306,8 +1364,9 @@ public class TourForm extends javax.swing.JPanel {
         row.add(Integer.parseInt(jTextThuTu.getText()));
         if (chiTietTour.deleteDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()))) {
             tbModelDiadiem.removeRow(rowDiaDiemThamQuan);
+            JOptionPane.showMessageDialog(this, "Xóa Địa điểm khỏi Tour thành công!");
         } else {
-            System.out.println("Loi them Dia Diem Tham Quan");
+            JOptionPane.showMessageDialog(this, "Xóa Địa điểm khỏi Tour thất bại!");
         }
         jBtnChonDiaDiem.setEnabled(true);
         jBtnThemDD.setEnabled(false);
@@ -1315,15 +1374,38 @@ public class TourForm extends javax.swing.JPanel {
         jBtnXoaDD.setEnabled(false);
         jBtnHuyDD.setEnabled(false);
         jBtnLuuDD.setEnabled(false);
+        jTextMaDiaDiem.setText("");
+        jTextTenDiaDiem.setText("");
+        jTextThuTu.setText("");
     }//GEN-LAST:event_jBtnXoaDDActionPerformed
 
     private void jBtnThemDDActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemDDActionPerformed
     {//GEN-HEADEREND:event_jBtnThemDDActionPerformed
         // TODO add your handling code here:
-        Vector row = new Vector();
-        row.add(jTextMaDiaDiem.getText());
-        row.add(jTextTenDiaDiem.getText());
-        row.add(Integer.parseInt(jTextThuTu.getText()));
+        if (jTextThuTu.getText() == null || jTextThuTu.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Thứ tự không được bỏ trống!");
+        } else {
+            if (chiTietTour.addDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()))) {
+                Vector row = new Vector();
+                row.add(jTextMaDiaDiem.getText());
+                row.add(jTextTenDiaDiem.getText());
+                row.add(Integer.parseInt(jTextThuTu.getText()));
+                tbModelDiadiem.addRow(row);
+                JOptionPane.showMessageDialog(this, "Thêm Địa điểm vào Tour thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm Địa điểm vào Tour thất bại!");
+            }
+            jBtnChonDiaDiem.setEnabled(true);
+            jBtnThemDD.setEnabled(false);
+            jBtnSuaDD.setEnabled(false);
+            jBtnXoaDD.setEnabled(false);
+            jBtnHuyDD.setEnabled(false);
+            jBtnLuuDD.setEnabled(false);
+            jTextMaDiaDiem.setText("");
+            jTextTenDiaDiem.setText("");
+            jTextThuTu.setText("");
+        }
+        
 //        DiaDiemThamQuanDTO temp = new DiaDiemThamQuanDTO(jTextMaDiaDiem.getText(),maTourChiTiet,Integer.parseInt(jTextThuTu.getText()));
 //        //System.out.println(jTextThuTu.getText());
 //        int flag = 1;
@@ -1340,17 +1422,7 @@ public class TourForm extends javax.swing.JPanel {
 //        }else {
 //            System.out.println("Trùng hoặc rỗng");
 //        }
-        if (chiTietTour.addDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()))) {
-            tbModelDiadiem.addRow(row);
-        } else {
-            System.out.println("Loi them Dia Diem Tham Quan");
-        }
-        jBtnChonDiaDiem.setEnabled(true);
-        jBtnThemDD.setEnabled(false);
-        jBtnSuaDD.setEnabled(false);
-        jBtnXoaDD.setEnabled(false);
-        jBtnHuyDD.setEnabled(false);
-        jBtnLuuDD.setEnabled(false);
+        
     }//GEN-LAST:event_jBtnThemDDActionPerformed
 
     private void jBtnSuaDDActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaDDActionPerformed
@@ -1800,6 +1872,14 @@ public class TourForm extends javax.swing.JPanel {
 
     public void setjBtnThemDD(JButton jBtnThemDD) {
         this.jBtnThemDD = jBtnThemDD;
+    }
+
+    public JButton getjBtnHuyDD() {
+        return jBtnHuyDD;
+    }
+
+    public void setjBtnHuyDD(JButton jBtnHuyDD) {
+        this.jBtnHuyDD = jBtnHuyDD;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

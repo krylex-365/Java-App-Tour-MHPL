@@ -17,11 +17,9 @@ import DTO.LoaiHinhTourDTO;
  */
 public class LoaiHinh {
     LoaiHinhTourBUS loaiHinhTourBUS;
-    private Utils ult;
 
     public LoaiHinh() {
         loaiHinhTourBUS = new LoaiHinhTourBUS();
-        ult = new Utils();
     }
     
     public boolean isNullOrEmpty(String text) {
