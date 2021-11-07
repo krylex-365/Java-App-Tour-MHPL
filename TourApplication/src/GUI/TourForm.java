@@ -59,7 +59,7 @@ public class TourForm extends javax.swing.JPanel {
             maTourChiTiet, tenTourChiTiet, maLH;
     private String maDiaDiem, tenDiaDiem, thuTu;
     private ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanTempArr;
-    private LoaiHinh loaiHinh;
+ 
     Vector tbColTour = new Vector();//Vector chứa các dòng dữ liệu của bảng.
     Vector tbColDiadiem = new Vector();//Vector chứa các tiêu đề của bảng.
     Vector tbColDoan = new Vector();
@@ -143,6 +143,48 @@ public class TourForm extends javax.swing.JPanel {
         model.removeRow(row);
     }
 
+    public boolean isNullOrEmpty(String text) {
+        if (text == null || text.equals("")) {
+            return true;
+        }
+        return false;
+    }
+    
+    public void tbModelSearchLoaiHinh(DefaultTableModel model, String maLH) {
+        Vector row = new Vector();
+        for (LoaiHinhTourDTO a : loaiHinhTourBUS.searchLoaiHinhByMaLH(maLH)) {
+            System.out.println(a);
+            row.add(a.getMaLoai());
+            row.add(a.getTenLoai());
+            model.addRow(row);
+            break;
+        }
+    }
+
+    public void tableModelLoaiHinh(DefaultTableModel model) {
+        for (LoaiHinhTourDTO lh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
+            Vector row = new Vector();
+            row.add(lh.getMaLoai());
+            row.add(lh.getTenLoai());
+            model.addRow(row);
+        }
+    }
+
+    public void themVectorLoaiHinh(DefaultTableModel model, LoaiHinhTourDTO loaiHinhDTO){
+        Vector newrow = new Vector();
+        newrow.add(loaiHinhDTO.getMaLoai());
+        newrow.add(loaiHinhDTO.getTenLoai());
+        model.addRow(newrow);
+    }
+    
+    public void suaVectorLoaiHinh(DefaultTableModel model, int row, LoaiHinhTourDTO loaiHinhDTO){
+        model.setValueAt(loaiHinhDTO.getTenLoai(), row, 1);
+    }
+    
+    public void xoaVectorLoaiHinh(DefaultTableModel model, int row){
+        model.removeRow(row);
+    }
+    
     public void loadDataTour() {
         tourBUS = new TourBUS();
         giaTourBUS = new GiaTourBUS();
@@ -158,9 +200,9 @@ public class TourForm extends javax.swing.JPanel {
     }
     
     public void loadDataLH() {
-        loaiHinh = new LoaiHinh();
+        loaiHinhTourBUS = new LoaiHinhTourBUS();
         tbModelLoaiHinh.setRowCount(0);
-        loaiHinh.tableModelLoaiHinh(tbModelLoaiHinh);
+        tableModelLoaiHinh(tbModelLoaiHinh);
         jTableLH.setModel(tbModelLoaiHinh);
     }
     
@@ -1604,10 +1646,10 @@ public class TourForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         String maLoai = (String) jTextMaLoaiHinh.getText(), 
                 tenLoai = (String) jTextTenLH.getText();
-        if (!loaiHinh.isNullOrEmpty(tenLoai)) {
+        if (!isNullOrEmpty(tenLoai)) {
             if (loaiHinhTourBUS.themLoaiHinhTour(maLoai, tenLoai)) {
                 LoaiHinhTourDTO loaiHinhDTO = new LoaiHinhTourDTO(maLoai, tenLoai);
-                loaiHinh.themVectorLoaiHinh(tbModelLoaiHinh, loaiHinhDTO);
+                themVectorLoaiHinh(tbModelLoaiHinh, loaiHinhDTO);
                 JOptionPane.showMessageDialog(this, "Thêm Loại hình tour thành công!");
             }
         } else {
@@ -1625,9 +1667,9 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnSuaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaLHActionPerformed
         // TODO add your handling code here:
         String tenLoai = (String) jTextTenLH.getText();
-        if (!loaiHinh.isNullOrEmpty(tenLoai) && loaiHinhTourBUS.suaLoaiHinhTour(maLH, tenLoai)) {
+        if (!isNullOrEmpty(tenLoai) && loaiHinhTourBUS.suaLoaiHinhTour(maLH, tenLoai)) {
             LoaiHinhTourDTO loaiHinhDTO = new LoaiHinhTourDTO(maLH, tenLoai);
-            loaiHinh.suaVectorLoaiHinh(tbModelLoaiHinh, rowLoaiHinh, loaiHinhDTO);
+            suaVectorLoaiHinh(tbModelLoaiHinh, rowLoaiHinh, loaiHinhDTO);
             JOptionPane.showMessageDialog(this, "Sửa Loại hình tour thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Sửa Loại hình tour thất bại!");
@@ -1644,7 +1686,7 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnXoaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaLHActionPerformed
         // TODO add your handling code here:
         if (loaiHinhTourBUS.xoaLoaiHinhTour(maLH)) {
-            loaiHinh.xoaVectorLoaiHinh(tbModelLoaiHinh, rowLoaiHinh);
+            xoaVectorLoaiHinh(tbModelLoaiHinh, rowLoaiHinh);
             JOptionPane.showMessageDialog(this, "Xóa Loại hình tour thành công!");
         } else {
             JOptionPane.showMessageDialog(this, "Xóa Loại hình tour thất bại!");
@@ -1672,7 +1714,7 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnTimKiemLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemLHActionPerformed
         // TODO add your handling code here:
         tbModelLoaiHinh.setRowCount(0);
-        loaiHinh.tbModelSearchLoaiHinh(tbModelLoaiHinh, (String) jTextTimKiemLH.getText());
+        tbModelSearchLoaiHinh(tbModelLoaiHinh, (String) jTextTimKiemLH.getText());
 //        System.out.println(jTextMaLoaiHinh.getText().toString());
     }//GEN-LAST:event_jBtnTimKiemLHActionPerformed
 
