@@ -78,10 +78,12 @@ public class DiaDiemThamQuanBUS {
                 return Integer.compare(o1.getThuTu(), o2.getThuTu());
             }
         });
+        //newDiaDiemThamQuanDTOs = newDiaDiemThamQuanDTOs;
         if(diaDiemThamQuanDAO.deleteAll(maTour)){
             int i = 1;
             for(DiaDiemThamQuanDTO a : newDiaDiemThamQuanDTOs){
                 diaDiemThamQuanDAO.add(a.getMaTour(),a.getMaDiaDiem(), i);
+                a.setThuTu(i);
                 i++;
             }
             for(int k = 0; k < diaDiemThamQuanDTOs.size();k++){
@@ -90,10 +92,13 @@ public class DiaDiemThamQuanBUS {
                 }
             }
             for(DiaDiemThamQuanDTO a : newDiaDiemThamQuanDTOs){
+                //System.out.println(a);
                 diaDiemThamQuanDTOs.add(a);
             }
+            
             return true;
         }
+        System.out.println(newDiaDiemThamQuanDTOs.size());
         return false;
     }
     
@@ -120,7 +125,7 @@ public class DiaDiemThamQuanBUS {
 
     public boolean addDiaDiemThamQuan(String maTour,String maDiaDiem,int thuThu){
 
-        if(diaDiemThamQuanDAO.add(maTour, maDiaDiem, thuThu)){
+        if(diaDiemThamQuanDAO.Add(maTour, maDiaDiem, thuThu)){
             diaDiemThamQuanDTOs.add(new DiaDiemThamQuanDTO(maTour,maDiaDiem,thuThu));
             System.out.println("Add Success");
             return true;

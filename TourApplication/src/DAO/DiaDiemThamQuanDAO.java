@@ -55,9 +55,36 @@ public class DiaDiemThamQuanDAO {
         String query = "insert into DiaDiemThamQuan"
                 + " (MaTour,MaDiaDiem,ThuTu)"
                 + " values ('"+maTour+"','"+maDiaDiem+"',"+thuTu+")";
+        
         if(conn.executeUpdate(query)){
             System.out.println("DiaDiemThamQuanDAO add success.");
+            conn.close();
             return true;
+        }
+        return false;
+    }
+    
+    public boolean Add(String maTour,String maDiaDiem,int thuTu){
+        conn = new Connect();
+        conn.getConnection();
+        String query = " IF EXISTS (SELECT * FROM DiaDiemThamQuan WHERE MaTour='"+maTour+"' AND MaDiaDiem='"+maDiaDiem+"' AND ThuTu="+thuTu+") "+
+        " BEGIN "+
+        " UPDATE DiaDiemThamQuan SET Status=1 WHERE MaTour='"+maTour+"' AND MaDiaDiem='"+maDiaDiem+"' AND ThuTu="+thuTu+
+        " END "+
+        " ELSE "+
+        " BEGIN "+
+        " INSERT INTO DiaDiemThamQuan (MaTour,MaDiaDiem,ThuTu) VALUES ('"+maTour+"','"+maDiaDiem+"',"+thuTu+") "+
+        " END";
+        
+        try{
+        if(conn.executeUpdate(query)){
+            conn.getConn().close();
+            return true;
+        }
+
+        return false;
+        }catch (SQLException e){
+            System.out.println("DiDiemThamQuanDAO.getList.close error.");
         }
         return false;
     }
