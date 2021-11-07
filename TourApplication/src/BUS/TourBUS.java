@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class TourBUS {
 
     private ArrayList<TourDTO> tourDTOs;
-    private ArrayList<GiaTourDTO> giaTourDTOs;
+    public static ArrayList<GiaTourDTO> giaTourDTOs;
     private TourDAO tourDAO;
     private GiaTourBUS giaTourBUS;
     private Utils utl = new Utils();

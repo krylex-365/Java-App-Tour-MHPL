@@ -37,6 +37,7 @@ public class GiaTourBUS {
     public boolean themGiaTour(String MaGia, String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc){
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, 0);
         if (giaTourDAO.insertGiaTourByTour(giaTourDTO)) {
+            TourBUS.giaTourDTOs.add(giaTourDTO);
             giaTourDTOs.add(giaTourDTO);
             System.out.println("Thêm thành công GiaTourBUS");
             maLast.updateMaGia(MaGia);
@@ -50,6 +51,7 @@ public class GiaTourBUS {
         int i = indexTour(MaGia);
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, HienHanh);
         if (giaTourDAO.updateGiaTour(giaTourDTO)) {
+            TourBUS.giaTourDTOs.set(i, giaTourDTO);
             giaTourDTOs.set(i, giaTourDTO);
             System.out.println("Sửa thành công GiaTourBUS");
             return true;
@@ -61,6 +63,7 @@ public class GiaTourBUS {
     public boolean xoaGiaTour(String MaTour, String MaGia, String ThanhTien, String TgBatDau, String TgKetThuc, int HienHanh){
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, HienHanh);
         if (giaTourDAO.deleteGiaTour(MaTour, MaGia)) {
+            TourBUS.giaTourDTOs.remove(giaTourDTO);
             giaTourDTOs.remove(giaTourDTO);
             System.out.println("Xóa thành công GiaTourBUS");
             return true;

@@ -52,6 +52,52 @@ public class DoanDuLichDAO {
         }
         return dsChiPhi;
     }
+    
+    public String getTenTour(String maTour) {
+        conn = new Connect();
+        conn.getConnection();
+        String tenTour = "";
+        String query = "SELECT TenTour"
+                + " FROM Tour"
+                + " WHERE MaTour='" + maTour + "'";
+        try {
+            conn.executeQuery(query);
+            while (conn.rs.next()) {
+                tenTour = conn.rs.getString(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        try {
+            conn.getConn().close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return tenTour;
+    }
+
+    public String getGiaTour(String maTour) {
+        conn = new Connect();
+        conn.getConnection();
+        String giaTour = "";
+        String query = "SELECT ThanhTien"
+                + " FROM GiaTour"
+                + " WHERE MaTour='" + maTour + "' AND HienHanh=1";
+        try {
+            conn.executeQuery(query);
+            while (conn.rs.next()) {
+                giaTour = conn.rs.getString(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        try {
+            conn.getConn().close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return giaTour;
+    }
 
     public boolean insertDoan(DoanDuLichDTO doanDuLichDTO) {
         conn = new Connect();
@@ -75,21 +121,26 @@ public class DoanDuLichDAO {
         return false;
     }
 
-    public boolean updateDoan(DoanDuLichDTO tourDTO, boolean checkTour) {
+    public boolean updateDoan(DoanDuLichDTO doanDTO, boolean checkTour) {
         conn = new Connect();
         conn.getConnection();
         String sql;
         if (checkTour) {
             sql = "UPDATE DoanDuLich SET"
-                    + " TenDoan='" + tourDTO.getTenDoan() + "',"
-                    + " ChiTietNoiDung='" + tourDTO.getChiTietNoiDung() + "',"
-                    + " MaTour='" + tourDTO.getMaTour() + "'"
-                    + " WHERE MaDoan='" + tourDTO.getMaDoan() + "';";
+                    + " TenDoan='" + doanDTO.getTenDoan() + "',"
+                    + " ChiTietNoiDung='" + doanDTO.getChiTietNoiDung() + "',"
+                    + " MaTour='" + doanDTO.getMaTour() + "',"
+                    + " NgayKhoiHanh='" + doanDTO.getNgayKhoiHanh()+ "',"
+                    + " NgayKetThuc='" + doanDTO.getNgayKetThuc()+ "'"
+                    + " WHERE MaDoan='" + doanDTO.getMaDoan() + "';";
+            System.out.println("DoanDuLichDAO update maTour");
         } else {
             sql = "UPDATE DoanDuLich SET"
-                    + " TenDoan='" + tourDTO.getTenDoan() + "',"
-                    + " ChiTietNoiDung='" + tourDTO.getChiTietNoiDung() + "',"
-                    + " WHERE MaDoan='" + tourDTO.getMaDoan() + "';";
+                    + " TenDoan='" + doanDTO.getTenDoan() + "',"
+                    + " ChiTietNoiDung='" + doanDTO.getChiTietNoiDung() + "',"
+                    + " NgayKhoiHanh='" + doanDTO.getNgayKhoiHanh()+ "',"
+                    + " NgayKetThuc='" + doanDTO.getNgayKetThuc()+ "'"
+                    + " WHERE MaDoan='" + doanDTO.getMaDoan() + "';";
         }
         if (conn.executeUpdate(sql)) {
             conn.close();

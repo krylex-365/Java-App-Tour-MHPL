@@ -84,7 +84,7 @@ public class DoanDuLichBUS {
         return count;
     }
     
-    private int indexDoan(String maDoan) {
+    private int indexDoan(ArrayList<DoanDuLichDTO> doanDuLichDTOs, String maDoan) {
         for (int i = 0; i < doanDuLichDTOs.size(); i++) {
             if (maDoan.equals(doanDuLichDTOs.get(i).getMaDoan())) {
                 return i;
@@ -93,14 +93,12 @@ public class DoanDuLichBUS {
         return -1;
     }
 
-    public boolean themDoan(String MaDoan, String MaTour, String TenDoan, 
-            String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
-        for (DoanDuLichDTO doanDL : doanDuLichDTOs) {
-            if (doanDL.getMaDoan().equals(MaDoan)) {
+    public boolean themDoan(DoanDuLichDTO doanDuLichDTO, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
+        for (DoanDuLichDTO doan : doanDuLichDTOs) {
+            if (doan.getMaDoan().equals(doanDuLichDTO.getMaDoan())) {
                 return false;
             }
         }
-        DoanDuLichDTO doanDuLichDTO = new DoanDuLichDTO(MaDoan, MaTour, TenDoan, GiaTour, NgayKhoiHanh, NgayKetThuc, ChiTietNoiDung);
         if (doanDuLichDAO.insertDoan(doanDuLichDTO)) {
             doanDuLichDTOs.add(doanDuLichDTO);
             maLast.updateMaDoanDuLich(doanDuLichDTO.getMaDoan());
@@ -111,15 +109,13 @@ public class DoanDuLichBUS {
         return false;
     }
 
-    public boolean suaDoan(String MaDoan, String MaTourHH, String MaTour, String TenDoan, 
-            String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
-        int index = indexDoan(MaDoan);
+    public boolean suaDoan(DoanDuLichDTO doanDuLichDTO, ArrayList<DoanDuLichDTO> doanDuLichDTOs, String maTourHH) {
+        int index = indexDoan(doanDuLichDTOs, doanDuLichDTO.getMaDoan());
         if (index == -1) {
             return false;
         }
-        DoanDuLichDTO doanDuLichDTO = new DoanDuLichDTO(MaDoan, MaTour, TenDoan, GiaTour, NgayKhoiHanh, NgayKetThuc, ChiTietNoiDung);
         boolean checkTour;
-        if (MaTourHH.equals(MaTour)){
+        if (maTourHH.equals(doanDuLichDTO.getMaTour())){
             // NẾU KHÔNG SỬA TOUR
             checkTour = false;
         } else {

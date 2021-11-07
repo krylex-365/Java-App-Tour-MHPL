@@ -5,12 +5,20 @@
  */
 package GUI;
 
-//import DTO.AccountDTO;
+import DAO.ChiPhiDAO;
+import DAO.DoanDuLichDAO;
+import DAO.GiaTourDAO;
+import DAO.TourDAO;
+import DTO.ChiPhiDTO;
+import DTO.DoanDuLichDTO;
+import DTO.GiaTourDTO;
+import DTO.TourDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,44 +39,20 @@ public class DashBoard extends javax.swing.JFrame
     private NhanVienForm nhanvienForm;
     private KhachHangForm khachhangForm;
     private DoanForm doanForm;
-//    private phongbanForm pb;
-//    private duanForm da;
-//    private hopdongForm hd;
-//    private BccForm bcc;
-//    private phucapForm phucap;
-//    private LuongForm luong;
-//    private AccountDTO account;
-//    private thuongphatForm thuongphat;
     static int loadagain = 0;
     private int flagAcc;
-    private String mapb;
+    public static ArrayList<TourDTO> tourDTOs;
+    TourDAO tourDAO;
+    public static ArrayList<GiaTourDTO> giaTourDTOs;
+    GiaTourDAO giaTourDAO;
+    public static ArrayList<DoanDuLichDTO> doanDuLichDTOs;
+    DoanDuLichDAO doanDuLichDAO;
+    public static ArrayList<ChiPhiDTO> chiPhiDTOs;
+    ChiPhiDAO chiPhiDAO;
 
     /**
      * Creates new form DashBoard
      */
-//    public DashBoard (AccountDTO account)
-//    {
-//        nv = new nhanvienForm ();
-//        pb = new phongbanForm ();
-//        da = new duanForm ();
-//        hd = new hopdongForm ();
-//        bcc = new BccForm ();
-//        phucap = new phucapForm ();
-//        luong = new LuongForm ();
-//        thuongphat = new thuongphatForm();
-//        initComponents ();
-//        if(account.getQuyen().equals("admin")){
-//            flagAcc = 0;
-//        }
-//        if(account.getQuyen().equals("quanly") || account.getQuyen().equals("Quản lý")){
-//            flagAcc = 1;
-//        }
-//        if(account.getQuyen().equals("nhanvien") || account.getQuyen().equals("Nhân Viên")){
-//            flagAcc = 2;
-//        }
-//        setLocationRelativeTo (null);
-//        setDefaultCloseOperation (DashBoard.DISPOSE_ON_CLOSE);
-//    }
     public DashBoard()
     {
         tourForm = new TourForm();
@@ -76,6 +60,14 @@ public class DashBoard extends javax.swing.JFrame
         nhanvienForm = new NhanVienForm();
         khachhangForm = new KhachHangForm();
         doanForm = new DoanForm();
+        tourDAO = new TourDAO();
+        tourDTOs = tourDAO.getList();
+        giaTourDAO = new GiaTourDAO();
+        giaTourDTOs = giaTourDAO.getList();
+        doanDuLichDAO = new DoanDuLichDAO();
+        doanDuLichDTOs = doanDuLichDAO.getList();
+        chiPhiDAO = new ChiPhiDAO();
+        chiPhiDTOs = chiPhiDAO.getList();
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
@@ -899,6 +891,7 @@ public class DashBoard extends javax.swing.JFrame
 //        if (flagAcc == 2){
 //            JOptionPane.showMessageDialog(null, "Bạn không có quyền hạn truy cập Hợp Đồng!");
 //        }
+        doanForm.initTableDoan();
         jPanelTour.setVisible(false);
         jPanelDiaDiem.setVisible(false);
         jPanelNhanvien.setVisible(false);
