@@ -1502,7 +1502,7 @@ public class TourForm extends javax.swing.JPanel {
                 }
             }
             if (flagDiaDiem == 1&&diaDiemThamQuanBUS.addDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()))) {
-                diaDiemThamQuanTempArr.add(new DiaDiemThamQuanDTO(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText())));    
+                diaDiemThamQuanTempArr.add(new DiaDiemThamQuanDTO(maTourChiTiet, jTextMaDiaDiem.getText(), diaDiemThamQuanTempArr.size()+1));    
                 Vector row = new Vector();
                 row.add(jTextMaDiaDiem.getText());
                 row.add(jTextTenDiaDiem.getText());
