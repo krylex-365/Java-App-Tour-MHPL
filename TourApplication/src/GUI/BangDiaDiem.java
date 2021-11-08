@@ -296,6 +296,7 @@ public class BangDiaDiem extends javax.swing.JFrame
         tourForm.getjTextTenDiaDiem().setText(jTextTenLH.getText());
         tourForm.getjBtnThemDD().setEnabled(true);
         tourForm.getjBtnHuyDD().setEnabled(true);
+        tourForm.getjTextThuTu().setText(String.valueOf(tourForm.getDiaDiemThamQuanTempArr().size()+1));
         dispose();
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 

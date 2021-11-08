@@ -8,6 +8,7 @@ package GUI;
 //import BUS.CongViecBUS;
 import BUS.GiaTourBUS;
 import DTO.GiaTourDTO;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -218,6 +219,8 @@ public class BangGia extends javax.swing.JFrame {
 
         jDateBatDau.setBackground(new java.awt.Color(214, 217, 223));
         jDateBatDau.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) jDateBatDau.getDateEditor();
+        editor.setEditable(false);
         jPanel4.add(jDateBatDau, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 200, 30));
 
         jBtnXoa.setBackground(new java.awt.Color(136, 193, 184));
