@@ -6,6 +6,7 @@
 package GUI;
 
 import BUS.*;
+import DTO.KhachHangDTO;
 //import DAO.XuatExcel;
 //import DTO.ChucVuDTO;
 //import DTO.CongViecDTO;
@@ -66,10 +67,11 @@ public class KhachHangForm extends javax.swing.JPanel {
     private int flagAcc;
     private String manv;
     private String mapb;
-    private KhachHang khachHang;
+    //private KhachHang khachHang;
     private int selectedRow;
     private Vector addRow;
     private Utils ult = new Utils();
+    private KhachHangBUS khachHangBUS;
 
     public KhachHangForm() {
         initComponents();
@@ -83,9 +85,67 @@ public class KhachHangForm extends javax.swing.JPanel {
     }
 
     public void loadData() {
-        khachHang = new KhachHang();
+        //khachHang = new KhachHang();
+        khachHangBUS = new KhachHangBUS();
         tbModelKH.setRowCount(0);
-        khachHang.tbModelKhachHang(tbModelKH);
+        tbModelKhachHang(tbModelKH);
+    }
+    
+    public void tbModelKhachHang(DefaultTableModel model){
+        Vector row;
+        for(KhachHangDTO a : khachHangBUS.getKhachHangDTOs()){
+            row = new Vector();
+            row.add(a.getMaKhachHang());
+            row.add(a.getTenKhachHang());
+            row.add(a.getNgaySinh());
+            row.add(a.getSDT());
+            row.add(a.getMail());
+            row.add(a.getCMND());
+            if(a.getGioiTinh().equals("1")){
+                row.add("Nam");
+            }else{
+                row.add("Nữ");
+            }
+            
+            row.add(a.getDiaChi());
+            row.add(a.getQuocTich());
+            model.addRow(row);
+        }  
+    }
+    
+    public void searchKhachHangByMaKhachHang(DefaultTableModel model,String maKhachHang){
+        Vector row;
+        for(KhachHangDTO a : khachHangBUS.searchKhachHangByMaKhachHang(maKhachHang)){
+                row = new Vector();
+                System.out.println(a);
+                row.add(a.getMaKhachHang());
+                row.add(a.getTenKhachHang());
+                row.add(a.getNgaySinh());
+                row.add(a.getSDT());
+                row.add(a.getMail());
+                row.add(a.getCMND());
+                if(a.getGioiTinh().equals("1")){
+                    row.add("Nam");
+                }else{
+                    row.add("Nữ");
+                }
+                row.add(a.getDiaChi());
+                row.add(a.getQuocTich());
+                model.addRow(row);
+                break;
+        }  
+    }
+    
+    public boolean add(String maKhachHang,String tenKhachHang,String gioiTinh,String ngaySinh,String cmnd,String sdt,String mail,String diaChi,String quocTich){  
+        return khachHangBUS.addKhachHang(new KhachHangDTO(maKhachHang,tenKhachHang,gioiTinh,ngaySinh,cmnd,sdt,mail,diaChi,quocTich));
+    }
+    
+    public boolean update(String maKhachHang,String tenKhachHang,String gioiTinh,String ngaySinh,String cmnd,String sdt,String mail,String diaChi,String quocTich){
+        return khachHangBUS.updateKhachHang(new KhachHangDTO(maKhachHang,tenKhachHang,gioiTinh,ngaySinh,cmnd,sdt,mail,diaChi,quocTich));
+    }
+    
+    public boolean delete(String maKhachHang){
+        return khachHangBUS.deleteKhachHang(maKhachHang);
     }
 
     public void initThongtinNhanvien() {
@@ -600,7 +660,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         tbModelKH.setRowCount(0);
-        khachHang.searchKhachHangByMaKhachHang(tbModelKH, jTextTimKiemKH.getText().toString());
+        searchKhachHangByMaKhachHang(tbModelKH, jTextTimKiemKH.getText().toString());
         System.out.println(jTextTimKiemKH.getText().toString());
 //        String manv = jTextTimKiemNV.getText();
 //        tbnv.searchbangnhanvien(tbModelKH, manv);
@@ -680,7 +740,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         } else {
             gioiTinh = "0";
         }
-        if (khachHang.add(
+        if (add(
                 jTextMaKhachHang.getText(),
                  jTextTen.getText(),
                  gioiTinh,
@@ -717,7 +777,7 @@ public class KhachHangForm extends javax.swing.JPanel {
         } else {
             gioiTinh = "0";
         }
-        if (khachHang.update(
+        if (update(
                 jTextMaKhachHang.getText(),
                  jTextTen.getText(),
                  gioiTinh,
@@ -756,7 +816,7 @@ public class KhachHangForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jBtnSuaKHActionPerformed
 
     private void jBtnXoaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaKHActionPerformed
-        if (khachHang.delete(tbModelKH.getValueAt(selectedRow, 0).toString())) {
+        if (delete(tbModelKH.getValueAt(selectedRow, 0).toString())) {
             tbModelKH.removeRow(selectedRow);
             JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công!");
         } else {

@@ -6,6 +6,7 @@
 package GUI;
 
 import BUS.*;
+import DTO.NhanVienDTO;
 //import DAO.XuatExcel;
 //import DTO.ChucVuDTO;
 //import DTO.CongViecDTO;
@@ -67,7 +68,8 @@ public class NhanVienForm extends javax.swing.JPanel
     private int flagAcc;
     private String manv;
     private String mapb;
-    private NhanVien nhanVien = new NhanVien();
+    //private NhanVien nhanVien = new NhanVien();
+    private NhanVienBUS nhanVienBUS;
     private int selectedRow;
     private Utils ult = new Utils();
 
@@ -79,8 +81,58 @@ public class NhanVienForm extends javax.swing.JPanel
     }
     
     public void loadData(){
+        nhanVienBUS = new NhanVienBUS();
         modelnv.setRowCount(0);
-        nhanVien.tbModelNhanVien(modelnv);
+        tbModelNhanVien(modelnv);
+    }
+    public void tbModelNhanVien(DefaultTableModel model){
+        Vector row;
+        for(NhanVienDTO a : nhanVienBUS.getNhanVienDTOs()){
+            row = new Vector();
+            row.add(a.getMaNhanVien());
+            row.add(a.getTenNhanVien());
+            if(a.getGioiTinh().equals("1")){
+                row.add("Nam");
+            }else{
+                row.add("Nữ");
+            }
+            row.add(a.getNgaySinh());
+            row.add(a.getSDT());
+            row.add(a.getDiaChi());
+            model.addRow(row);
+        }
+    }
+    
+    public boolean add(String maNhanVien,String tenNhanVien,String gioiTinh,String ngaySinh,String sdt,String diaChi){
+        return nhanVienBUS.add(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi));
+    }
+    
+    public boolean update(String maNhanVien,String tenNhanVien,String gioiTinh,String ngaySinh,String sdt,String diaChi){
+        return nhanVienBUS.update(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi));
+    }
+    
+    public boolean delete(String maNhanVien){
+        return nhanVienBUS.delete(maNhanVien);
+    }
+    
+    public void searchNhanVienByMaNhanVien(DefaultTableModel model,String maNhanVien){
+        Vector row;
+        for(NhanVienDTO a : nhanVienBUS.searchNhanVienByMaNhanVien(maNhanVien)){
+                row = new Vector();
+                System.out.println(a);
+                row.add(a.getMaNhanVien());
+                row.add(a.getTenNhanVien());
+                if(a.getGioiTinh().equals("1")){
+                    row.add("Nam");
+                }else{
+                    row.add("Nữ");
+                }
+                row.add(a.getNgaySinh());
+                row.add(a.getSDT());
+                row.add(a.getDiaChi());
+                model.addRow(row);
+                break;
+        }  
     }
 
     public void initThongtinNhanvien()
@@ -577,7 +629,7 @@ public class NhanVienForm extends javax.swing.JPanel
 //        jTable1.setModel(modelnv);
 //        System.out.println("click tim kiem");
         modelnv.setRowCount(0);
-        nhanVien.searchNhanVienByMaNhanVien(modelnv, jTextTimKiemNV.getText());
+        searchNhanVienByMaNhanVien(modelnv, jTextTimKiemNV.getText());
     }//GEN-LAST:event_jButtonTimKiemActionPerformed
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
@@ -643,7 +695,7 @@ public class NhanVienForm extends javax.swing.JPanel
         } else {
             gioiTinh = "0";
         }
-        if(nhanVien.add(jTextMaNhanVien.getText(),jTextTenNhanVien.getText(),gioiTinh, ngaySinh,jTextSDT.getText(),jTextDiaChi.getText())){
+        if(add(jTextMaNhanVien.getText(),jTextTenNhanVien.getText(),gioiTinh, ngaySinh,jTextSDT.getText(),jTextDiaChi.getText())){
             addRow = new Vector();
             addRow.add(jTextMaNhanVien.getText());
             addRow.add(jTextTenNhanVien.getText());
@@ -666,7 +718,7 @@ public class NhanVienForm extends javax.swing.JPanel
         } else {
             gioiTinh = "0";
         }
-        if(nhanVien.update(jTextMaNhanVien.getText(),jTextTenNhanVien.getText(),gioiTinh, ngaySinh,jTextSDT.getText(),jTextDiaChi.getText())){
+        if(update(jTextMaNhanVien.getText(),jTextTenNhanVien.getText(),gioiTinh, ngaySinh,jTextSDT.getText(),jTextDiaChi.getText())){
             modelnv.setValueAt(jTextMaNhanVien.getText(), selectedRow, 0);
             modelnv.setValueAt(jTextTenNhanVien.getText(), selectedRow, 1);
             modelnv.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 2);
@@ -679,7 +731,7 @@ public class NhanVienForm extends javax.swing.JPanel
     }//GEN-LAST:event_jBtnSuaNVActionPerformed
 
     private void jBtnXoaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaNVActionPerformed
-        if(nhanVien.delete(modelnv.getValueAt(selectedRow, 0).toString())){
+        if(delete(modelnv.getValueAt(selectedRow, 0).toString())){
             modelnv.removeRow(selectedRow);
         }
     }//GEN-LAST:event_jBtnXoaNVActionPerformed
