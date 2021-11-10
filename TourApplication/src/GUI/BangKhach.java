@@ -316,9 +316,9 @@ public class BangKhach extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextMaKhachActionPerformed
     public String ktra() {
         String temp = "";
-        if (jTextMaKhach.getText().equals("")) {
-            temp += "- Vui lòng chọn loại hình!";
-        }
+//        if (jTextMaKhach.getText().equals("")) {
+//            temp += "- Vui lòng chọn loại hình!";
+//        }
         return temp;
     }
     private void jBtnXacNhanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXacNhanActionPerformed
@@ -337,6 +337,10 @@ public class BangKhach extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(null, ktra());
 //            }
 //        }
+        doanForm.getjBtnChonKhach().setEnabled(false);
+        doanForm.getjBtnThemKhach().setEnabled(true);
+        doanForm.getjBtnHuyKhach().setEnabled(true);
+        dispose();
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
     private void jTableKhachMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKhachMouseClicked

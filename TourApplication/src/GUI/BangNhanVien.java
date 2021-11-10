@@ -300,9 +300,9 @@ public class BangNhanVien extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextMaNVActionPerformed
     public String ktra() {
         String temp = "";
-        if (jTextMaNV.getText().equals("")) {
-            temp += "- Vui lòng chọn loại hình!";
-        }
+//        if (jTextMaNV.getText().equals("")) {
+//            temp += "- Vui lòng chọn loại hình!";
+//        }
         return temp;
     }
     private void jBtnXacNhanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXacNhanActionPerformed
@@ -321,6 +321,10 @@ public class BangNhanVien extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(null, ktra());
 //            }
 //        }
+        doanForm.getjBtnChonNV().setEnabled(false);
+        doanForm.getjBtnThemNV().setEnabled(true);
+        doanForm.getjBtnHuyNV().setEnabled(true);
+        dispose();
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
     private void jTableKhachMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKhachMouseClicked

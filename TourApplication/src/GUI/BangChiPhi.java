@@ -6,8 +6,12 @@
 package GUI;
 
 //import BUS.CongViecBUS;
+import BUS.ChiPhiBUS;
 import BUS.GiaTourBUS;
+import BUS.Utils;
+import DTO.ChiPhiDTO;
 import DTO.GiaTourDTO;
+import DTO.LoaiChiPhiDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -23,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -31,85 +36,84 @@ import javax.swing.JTextField;
  *
  * @author Hyung
  */
-public class BangChiPhi extends javax.swing.JFrame
-{
+public class BangChiPhi extends javax.swing.JFrame {
 
     /**
      * Creates new form DSNV
      */
     int rowTbl;
-    public TourForm tourForm;
     DoanForm doanForm;
-    public GiaTourBUS giaTourBUS;
-    private boolean thuongphatAc = false;
     Vector tbCol = new Vector();
     DefaultTableModel tbModel;
-    String maTour, maGiaHH;
-    int hienHanh;
+    String maDoan, tenDoan, tongChiPhi;
+    ChiPhiBUS chiPhiBUS;
+    private Utils ult = new Utils();
 
-    public BangChiPhi()
-    {
+    public BangChiPhi() {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
     }
 
-    public BangChiPhi(String maTour, String maGiaHH)
-    {
+    public BangChiPhi(String maDoan, String tenDoan, String tongChiPhi) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
-        this.maTour = maTour;
-        this.maGiaHH = maGiaHH;
-        System.out.println("maTourCon: " + this.maTour);
-        System.out.println("maGiaCon: " + this.maGiaHH);
+        this.maDoan = maDoan;
+        this.tenDoan = tenDoan;
+        this.tongChiPhi = tongChiPhi;
         initTable();
         jTableChiPhi.setEditingColumn(5);
-        jTextMaDoan.setText(this.maTour);
-        jTextTenDoan.setText(this.maGiaHH);
+        jTextMaDoan.setText(this.maDoan);
+        jTextTenDoan.setText(this.tenDoan);
         jBtnCapPhatMaChiPhi.setEnabled(true);
         jBtnThem.setEnabled(false);
         jBtnSua.setEnabled(false);
         jBtnXoa.setEnabled(false);
         jBtnHuy.setEnabled(false);
-//        jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
     }
 
-    public void reloadData()
-    {
-        giaTourBUS = new GiaTourBUS();
-    }
-
-    public void initTable()
-    {
-        reloadData();
+    public void initTable() {
+        chiPhiBUS = new ChiPhiBUS();
         tbModel.setRowCount(0);
         tableModel(tbModel);
         jTableChiPhi.setModel(tbModel);
+        jCbLoaiCP.removeAllItems();
+        addCombo(jCbLoaiCP);
     }
 
-    public void tableModel(DefaultTableModel model)
-    {
-        for (GiaTourDTO giaTour : giaTourBUS.getGiaTourDTOs())
-        {
-            if (giaTour.getMaTour().equals(this.maTour))
-            {
+    public void tableModel(DefaultTableModel model) {
+        for (ChiPhiDTO chiPhi : DashBoard.chiPhiDTOs) {
+            if (chiPhi.getMaDoan().equals(this.maDoan)) {
                 Vector row = new Vector();
-                row.add(giaTour.getMaGia());
-                row.add(giaTour.getThanhTien());
-                row.add(giaTour.getTgBatDau());
-                row.add(giaTour.getTgKetThuc());
-                if (giaTour.getHienHanh() == 1)
-                {
-                    row.add("X");
-                } else
-                {
-                    row.add("");
+                row.add(chiPhi.getMaChiPhi());
+                for (LoaiChiPhiDTO loaiCP : DashBoard.loaiChiPhiDTOs) {
+                    if (loaiCP.getMaLoaiChiPhi().equals(chiPhi.getMaLoaiChiPhi())) {
+                        row.add(loaiCP.getTenLoai());
+                    }
                 }
+                row.add(chiPhi.getSoTien());
                 model.addRow(row);
             }
         }
+    }
+
+    public void themVectorChiPhi(DefaultTableModel model, ChiPhiDTO chiPhiDTO, String tenLoaiCP) {
+        Vector newrow = new Vector();
+        newrow.add(chiPhiDTO.getMaChiPhi());
+        newrow.add(tenLoaiCP);
+        newrow.add(chiPhiDTO.getSoTien());
+        model.addRow(newrow);
+    }
+
+    public void suaVectorChiPhi(DefaultTableModel model, int row, ChiPhiDTO chiPhiDTO, String tenLoaiCP) {
+        model.setValueAt(tenLoaiCP, row, 1);
+        model.setValueAt(chiPhiDTO.getSoTien(), row, 2);
+    }
+
+    public void xoaVectorChiPhi(DefaultTableModel model, int row) {
+        model.removeRow(row);
     }
 
     /**
@@ -138,14 +142,15 @@ public class BangChiPhi extends javax.swing.JFrame
         jSeparator1 = new javax.swing.JSeparator();
         jBtnCapPhatMaChiPhi = new javax.swing.JButton();
         jLbGiaTour1 = new javax.swing.JLabel();
-        jTextLoaiChiPhi1 = new javax.swing.JTextField();
-        jCbGioiTinh = new javax.swing.JComboBox<>();
-        jTextGhiChu = new javax.swing.JTextField();
+        jTextSoTien = new javax.swing.JTextField();
+        jCbLoaiCP = new javax.swing.JComboBox<>();
         jLbGiaTour2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextGhiChu = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableChiPhi = new javax.swing.JTable();
         jTextTimKiemGia = new javax.swing.JTextField();
-        jBtnTimKiemGia = new javax.swing.JButton();
+        jBtnTimKiemCP = new javax.swing.JButton();
         jBtnRefresh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(236, 245, 252));
@@ -169,12 +174,7 @@ public class BangChiPhi extends javax.swing.JFrame
         jTextMaChiPhi.setEditable(false);
         jTextMaChiPhi.setBackground(new java.awt.Color(214, 217, 223));
         jTextMaChiPhi.setForeground(new java.awt.Color(51, 51, 51));
-        jTextMaChiPhi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextMaChiPhiActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextMaChiPhi, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 160, 30));
+        jPanel4.add(jTextMaChiPhi, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 170, 30));
 
         jLbGiaTour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLbGiaTour.setText("<html> <body>Loai Chi Phí <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
@@ -211,7 +211,7 @@ public class BangChiPhi extends javax.swing.JFrame
                 jBtnXoaActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 100, 40));
+        jPanel4.add(jBtnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 100, 40));
 
         jBtnHuy.setBackground(new java.awt.Color(136, 193, 184));
         jBtnHuy.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
@@ -222,7 +222,7 @@ public class BangChiPhi extends javax.swing.JFrame
                 jBtnHuyActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 400, 100, 40));
+        jPanel4.add(jBtnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 100, 40));
 
         jBtnThoat.setBackground(new java.awt.Color(136, 193, 184));
         jBtnThoat.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
@@ -233,7 +233,7 @@ public class BangChiPhi extends javax.swing.JFrame
                 jBtnThoatActionPerformed(evt);
             }
         });
-        jPanel4.add(jBtnThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 400, 100, 40));
+        jPanel4.add(jBtnThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 390, 100, 40));
 
         jLbMaTour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLbMaTour.setText("<html> <body> Mã Đoàn</body> </html>");
@@ -242,12 +242,7 @@ public class BangChiPhi extends javax.swing.JFrame
         jTextMaDoan.setEditable(false);
         jTextMaDoan.setBackground(new java.awt.Color(214, 217, 223));
         jTextMaDoan.setForeground(new java.awt.Color(51, 51, 51));
-        jTextMaDoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextMaDoanActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextMaDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 200, 30));
+        jPanel4.add(jTextMaDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 170, 30));
 
         jLbMaGiaNow.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLbMaGiaNow.setText("<html><body>Tên Đoàn</body> </html>");
@@ -256,12 +251,7 @@ public class BangChiPhi extends javax.swing.JFrame
         jTextTenDoan.setEditable(false);
         jTextTenDoan.setBackground(new java.awt.Color(214, 217, 223));
         jTextTenDoan.setForeground(new java.awt.Color(51, 51, 51));
-        jTextTenDoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextTenDoanActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextTenDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, 30));
+        jPanel4.add(jTextTenDoan, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 170, 30));
         jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 320, 10));
 
         jBtnCapPhatMaChiPhi.setBackground(new java.awt.Color(81, 113, 131));
@@ -278,23 +268,24 @@ public class BangChiPhi extends javax.swing.JFrame
         jLbGiaTour1.setText("<html> <body>Ghi Chú <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
         jPanel4.add(jLbGiaTour1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, 30));
 
-        jTextLoaiChiPhi1.setForeground(new java.awt.Color(51, 51, 51));
-        jPanel4.add(jTextLoaiChiPhi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 160, 30));
+        jTextSoTien.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel4.add(jTextSoTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 170, 30));
 
-        jCbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "L1", "L2", "L3", "L4..." }));
-        jCbGioiTinh.setPreferredSize(new java.awt.Dimension(64, 22));
-        jPanel4.add(jCbGioiTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 172, 160, 30));
-
-        jTextGhiChu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextGhiChuActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextGhiChu, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 160, 70));
+        /*
+        jCbLoaiCP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "L1", "L2", "L3", "L4..." }));
+        */
+        jCbLoaiCP.setPreferredSize(new java.awt.Dimension(64, 22));
+        jPanel4.add(jCbLoaiCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 172, 170, 30));
 
         jLbGiaTour2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbGiaTour2.setText("<html> <body>Thành Tiền <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jLbGiaTour2.setText("<html><body>Số Tiền <span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
         jPanel4.add(jLbGiaTour2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, 30));
+
+        jTextGhiChu.setColumns(20);
+        jTextGhiChu.setRows(5);
+        jScrollPane2.setViewportView(jTextGhiChu);
+
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, 170, 80));
 
         jTableChiPhi.setAutoCreateRowSorter(true);
         jTableChiPhi.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -311,7 +302,7 @@ public class BangChiPhi extends javax.swing.JFrame
         ));
         tbCol.add("Mă Chi Phí");
         tbCol.add("Loại Chi Phí");
-        tbCol.add("Thành Tiền");
+        tbCol.add("Số Tiền");
         tbModel= new DefaultTableModel(tbCol,5){
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex){
@@ -337,10 +328,10 @@ public class BangChiPhi extends javax.swing.JFrame
         });
         jScrollPane1.setViewportView(jTableChiPhi);
 
-        jBtnTimKiemGia.setText("Tìm kiếm");
-        jBtnTimKiemGia.addActionListener(new java.awt.event.ActionListener() {
+        jBtnTimKiemCP.setText("Tìm kiếm");
+        jBtnTimKiemCP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemGiaActionPerformed(evt);
+                jBtnTimKiemCPActionPerformed(evt);
             }
         });
 
@@ -368,7 +359,7 @@ public class BangChiPhi extends javax.swing.JFrame
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addComponent(jTextTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtnTimKiemCP, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -383,7 +374,7 @@ public class BangChiPhi extends javax.swing.JFrame
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
                         .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtnTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnTimKiemCP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -406,167 +397,82 @@ public class BangChiPhi extends javax.swing.JFrame
 
     private void jBtnSuaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaActionPerformed
-//        String maGia = (String) jTextMaChiPhi.getText(),
-//                giaTour = (String) jTextLoaiChiPhi.getText(),
-//                ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
-//                ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
-//        if (giaTourBUS.suaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh))
-//        {
-//            tourForm.getjTextGiaTour().setText(giaTour);
-//            tourForm.getjDateNgayBD().setCalendar(jDateBatDau.getCalendar());
-//            tourForm.getjDateNgayKT().setCalendar(jDateKetThuc.getCalendar());
-//            tourForm.getTbModelTour().setValueAt(giaTour, tourForm.getRowTour(), 3);
-//            tourForm.getTbModelTour().setValueAt(ngayBD, tourForm.getRowTour(), 4);
-//            tourForm.getTbModelTour().setValueAt(ngayKT, tourForm.getRowTour(), 5);
-//            initTable();
-//            JOptionPane.showMessageDialog(this, "Sửa Giá Tour thành công!");
-//        } else
-//        {
-//            JOptionPane.showMessageDialog(this, "Sửa Giá Tour thất bại!");
-//        }
-//        jTextMaChiPhi.setText("");
-//        jTextLoaiChiPhi.setText("");
-//        jDateBatDau.setCalendar(null);
-//        jDateKetThuc.setCalendar(null);
-//        jBtnCapPhatMaChiPhi.setEnabled(true);
-//        jBtnThem.setEnabled(false);
-//        jBtnSua.setEnabled(false);
-//        jBtnXoa.setEnabled(false);
-//        jBtnHuy.setEnabled(false);
-//        jBtnXacNhan.setEnabled(false);
-//        jBtnThoat.setEnabled(true);
-//        jTextPban.setText("");
-//        jTextCviec.setText("");
+        jBtnCapPhatMaChiPhi.setEnabled(true);
+        jBtnThem.setEnabled(false);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jBtnThoat.setEnabled(true);
+        jTextMaChiPhi.setText("");
+        jTextSoTien.setText("");
+        jTextGhiChu.setText("");
     }//GEN-LAST:event_jBtnSuaActionPerformed
 
-    private void jTextMaChiPhiActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextMaChiPhiActionPerformed
-    {//GEN-HEADEREND:event_jTextMaChiPhiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextMaChiPhiActionPerformed
-
-    private void jTextMaDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextMaDoanActionPerformed
-    {//GEN-HEADEREND:event_jTextMaDoanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextMaDoanActionPerformed
-    public String ktra()
-    {
+    public String ktra() {
         String temp = "";
-        if (jTextMaDoan.getText().equals(""))
-        {
-            temp += "- Vui lòng chọn giá tour!";
-        }
         return temp;
     }
+
     private void jBtnThemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemActionPerformed
     {//GEN-HEADEREND:event_jBtnThemActionPerformed
-//        String maGia = (String) jTextMaChiPhi.getText(),
-//                maTour = (String) jTextMaDoan.getText(),
-//                giaTour = (String) jTextLoaiChiPhi.getText(),
-//                ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
-//                ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
-//        if (giaTourBUS.themGiaTour(maGia, maTour, giaTour, ngayBD, ngayKT))
-//        {
-//            initTable();
-//            JOptionPane.showMessageDialog(this, "Thêm Giá Tour thành công!");
-//        } else
-//        {
-//            JOptionPane.showMessageDialog(this, "Thêm Giá Tour thất bại!");
-//        }
-//        jTextMaChiPhi.setText("");
-//        jTextLoaiChiPhi.setText("");
-//        jDateBatDau.setCalendar(null);
-//        jDateKetThuc.setCalendar(null);
-//        jBtnCapPhatMaChiPhi.setEnabled(true);
-//        jBtnThem.setEnabled(false);
-//        jBtnSua.setEnabled(false);
-//        jBtnXoa.setEnabled(false);
-//        jBtnHuy.setEnabled(false);
-//        jBtnXacNhan.setEnabled(false);
-//        jBtnThoat.setEnabled(true);
-//        if (!jBtnXacNhan.isEnabled())
-//        {
-//            System.out.println("Disabled");
-//        } else
-//        {
-//            if (ktra().equals(""))
-//            {
-//                String manv = jTextManv.getText();
-//                if (bccForm != null)
-//                {
-//                    bccForm.getjTextManv().setText(manv);
-//                }
-//                if (luongForm != null)
-//                {
-//                    luongForm.getjTextManv().setText(manv);
-//                }
-//                if (thuongphatForm != null && thuongphatAc)
-//                {
-//                    thuongphatForm.getjTextManv().setText(manv);
-//                    thuongphatForm.getjBtnThemTp().setEnabled(true);
-//                    thuongphatForm.getjBtnSuaTp().setEnabled(false);
-//                    thuongphatForm.getjBtnXoaTp().setEnabled(false);
-//                    thuongphatForm.getjBtnHuy().setEnabled(true);
-//                    thuongphatAc = false;
-//                }
-//                setVisible(false);
-//                JOptionPane.showMessageDialog(null, "Chọn thành công!");
-//            } else
-//            {
-//                JOptionPane.showMessageDialog(null, ktra());
-//            }
-//        }
+        String maCP = (String) jTextMaChiPhi.getText(),
+                tenLoaiCP = jCbLoaiCP.getSelectedItem().toString(),
+                maLoaiCP = searchMaLoai(tenLoaiCP),
+                soTien = (String) jTextSoTien.getText(),
+                ghiChu = (String) jTextGhiChu.getText();
+        System.out.println(maLoaiCP);
+        System.out.println(tenLoaiCP);
+        ChiPhiDTO chiPhiDTO = new ChiPhiDTO(maCP, maDoan, maLoaiCP, soTien, ghiChu);
+        if (chiPhiBUS.themChiPhi(chiPhiDTO, DashBoard.chiPhiDTOs)) {
+            themVectorChiPhi(tbModel, chiPhiDTO, tenLoaiCP);
+            long tongCP = Long.parseLong(tongChiPhi) + Long.parseLong(soTien);
+            tongChiPhi = String.valueOf(tongCP);
+            doanForm.getjTextChiPhi().setText(tongChiPhi);
+            JOptionPane.showMessageDialog(this, "Thêm Chi phí thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm Chi phí thất bại!");
+        }
+        jBtnCapPhatMaChiPhi.setEnabled(true);
+        jBtnThem.setEnabled(false);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jBtnThoat.setEnabled(true);
+        jTextMaChiPhi.setText("");
+        jTextSoTien.setText("");
+        jTextGhiChu.setText("");
     }//GEN-LAST:event_jBtnThemActionPerformed
 
     private void jTableChiPhiMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableChiPhiMouseClicked
     {//GEN-HEADEREND:event_jTableChiPhiMouseClicked
         // TODO add your handling code here:
-//        if (evt.getSource() == jTableGiaTour)
-//        {
-//            rowTbl = jTableGiaTour.getSelectedRow();
-//            if (rowTbl != -1)
-//            {
-//                jTextMaChiPhi.setText((String) jTableGiaTour.getValueAt(rowTbl, 0));
-//                jTextLoaiChiPhi.setText((String) jTableGiaTour.getValueAt(rowTbl, 1));
-//                try
-//                {
-//                    Date dateBD = new SimpleDateFormat("yyyy-MM-dd").parse(jTableGiaTour.getModel().getValueAt(rowTbl, 2).toString());
-//                    jDateBatDau.setDate(dateBD);
-//                } catch (Exception e)
-//                {
-//                    JOptionPane.showMessageDialog(BangChiPhi.this, e);
-//                    System.out.println("- Load sai ngày bắt đầu!");
-//                }
-//                try
-//                {
-//                    Date dateBD = new SimpleDateFormat("yyyy-MM-dd").parse(jTableGiaTour.getModel().getValueAt(rowTbl, 3).toString());
-//                    jDateKetThuc.setDate(dateBD);
-//                } catch (Exception e)
-//                {
-//                    JOptionPane.showMessageDialog(BangChiPhi.this, e);
-//                    System.out.println("- Load sai ngày kết thúc!");
-//                }
-//                if (jTableGiaTour.getValueAt(rowTbl, 4).equals("X"))
-//                {
-//                    System.out.println("Hiện hành");
-//                    hienHanh = 1;
-//                    jBtnXoa.setEnabled(false);
-//                    jBtnXacNhan.setEnabled(false);
-//                } else
-//                {
-//                    hienHanh = 0;
-//                    jBtnXoa.setEnabled(true);
-//                    jBtnXacNhan.setEnabled(true);
-//                }
-//                jBtnCapPhatMaChiPhi.setEnabled(false);
-//                jBtnThem.setEnabled(false);
-//                jBtnSua.setEnabled(true);
-//                jBtnHuy.setEnabled(true);
-//                jBtnThoat.setEnabled(true);
-//            }
-//        }
+        if (evt.getSource() == jTableChiPhi) {
+            rowTbl = jTableChiPhi.getSelectedRow();
+            if (rowTbl != -1) {
+                jTextMaChiPhi.setText((String) jTableChiPhi.getModel().getValueAt(rowTbl, 0));
+                jCbLoaiCP.setSelectedItem(searchObject((String) jTableChiPhi.getModel().getValueAt(rowTbl, 1)));
+                jTextSoTien.setText((String) jTableChiPhi.getModel().getValueAt(rowTbl, 2));
+                for (ChiPhiDTO chiPhi : DashBoard.chiPhiDTOs) {
+                    if (chiPhi.getMaChiPhi().equals((String) jTableChiPhi.getModel().getValueAt(rowTbl, 0))) {
+                        jTextGhiChu.setText(chiPhi.getGhiChu());
+                    }
+                }
+                jBtnCapPhatMaChiPhi.setEnabled(false);
+                jBtnThem.setEnabled(false);
+                jBtnSua.setEnabled(true);
+                jBtnXoa.setEnabled(true);
+                jBtnHuy.setEnabled(true);
+            } else {
+                jBtnCapPhatMaChiPhi.setEnabled(true);
+                jBtnThem.setEnabled(false);
+                jBtnSua.setEnabled(false);
+                jBtnXoa.setEnabled(false);
+                jBtnHuy.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_jTableChiPhiMouseClicked
 
-    private void jBtnTimKiemGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemGiaActionPerformed
+    private void jBtnTimKiemCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemCPActionPerformed
 //        // TODO add your handling code here:
 //        String manv = jTextTimKiemNV.getText();
 //        if (manv.equals(""))
@@ -584,59 +490,38 @@ public class BangChiPhi extends javax.swing.JFrame
 //        }
 //        searchlistSP(temp);
 //        System.out.println("click tim kiem");
-    }//GEN-LAST:event_jBtnTimKiemGiaActionPerformed
+    }//GEN-LAST:event_jBtnTimKiemCPActionPerformed
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
         // TODO add your handling code here:
-//        jTextTimKiemNV.setText("");
-//        listSP();
-//        jBtnXacNhan.setEnabled(false);
-//        jBtnRefresh.setEnabled(true);
-//        jBtnQuayLai.setEnabled(false);
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
     private void jBtnXoaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaActionPerformed
-//        // TODO add your handling code here:
-//        String maGia = (String) jTextMaChiPhi.getText(),
-//                giaTour = (String) jTextLoaiChiPhi.getText(),
-//                ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
-//                ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
-//        if (giaTourBUS.xoaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh))
-//        {
-//            initTable();
-//            JOptionPane.showMessageDialog(this, "Xóa Giá Tour thành công!");
-//        } else
-//        {
-//            JOptionPane.showMessageDialog(this, "Xóa Giá Tour thất bại!");
-//        }
-//        jTextMaChiPhi.setText("");
-//        jTextLoaiChiPhi.setText("");
-//        jDateBatDau.setCalendar(null);
-//        jDateKetThuc.setCalendar(null);
-//        jBtnCapPhatMaChiPhi.setEnabled(true);
-//        jBtnThem.setEnabled(false);
-//        jBtnSua.setEnabled(false);
-//        jBtnXoa.setEnabled(false);
-//        jBtnHuy.setEnabled(false);
-//        jBtnXacNhan.setEnabled(false);
-//        jBtnThoat.setEnabled(true);
+        // TODO add your handling code here:
+        jBtnCapPhatMaChiPhi.setEnabled(true);
+        jBtnThem.setEnabled(false);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jBtnThoat.setEnabled(true);
+        jTextMaChiPhi.setText("");
+        jTextSoTien.setText("");
+        jTextGhiChu.setText("");
     }//GEN-LAST:event_jBtnXoaActionPerformed
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnHuyActionPerformed
     {//GEN-HEADEREND:event_jBtnHuyActionPerformed
-//        // TODO add your handling code here:
-//        jTextMaChiPhi.setText("");
-//        jTextLoaiChiPhi.setText("");
-//        jDateBatDau.setCalendar(null);
-//        jDateKetThuc.setCalendar(null);
-//        jBtnCapPhatMaChiPhi.setEnabled(true);
-//        jBtnThem.setEnabled(false);
-//        jBtnSua.setEnabled(false);
-//        jBtnXoa.setEnabled(false);
-//        jBtnHuy.setEnabled(false);
-//        jBtnXacNhan.setEnabled(false);
-//        jBtnThoat.setEnabled(true);
+        // TODO add your handling code here:
+        jBtnCapPhatMaChiPhi.setEnabled(true);
+        jBtnThem.setEnabled(false);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(false);
+        jBtnThoat.setEnabled(true);
+        jTextMaChiPhi.setText("");
+        jTextSoTien.setText("");
+        jTextGhiChu.setText("");
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jBtnThoatActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThoatActionPerformed
@@ -645,123 +530,39 @@ public class BangChiPhi extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_jBtnThoatActionPerformed
 
-    private void jTextTenDoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTenDoanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextTenDoanActionPerformed
-
     private void jBtnCapPhatMaChiPhiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaChiPhiActionPerformed
         // TODO add your handling code here:
-//        reloadData();
-//        String init = null;
-//        init = giaTourBUS.CapPhat(init);
-//        jTextMaChiPhi.setText(init);
-//        jBtnCapPhatMaChiPhi.setEnabled(false);
-//        jBtnThem.setEnabled(true);
-//        jBtnSua.setEnabled(false);
-//        jBtnXoa.setEnabled(false);
-//        jBtnHuy.setEnabled(true);
-//        jBtnXacNhan.setEnabled(false);
-//        jBtnThoat.setEnabled(true);
+        jTextMaChiPhi.setText(ult.initMaChiPhi());
+        jBtnCapPhatMaChiPhi.setEnabled(false);
+        jBtnThem.setEnabled(true);
+        jBtnSua.setEnabled(false);
+        jBtnXoa.setEnabled(false);
+        jBtnHuy.setEnabled(true);
+        jBtnThoat.setEnabled(true);
     }//GEN-LAST:event_jBtnCapPhatMaChiPhiActionPerformed
 
-    private void jTextGhiChuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextGhiChuActionPerformed
-    {//GEN-HEADEREND:event_jTextGhiChuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextGhiChuActionPerformed
-
-//    public void searchlistSP(ArrayList<NhanVienDTO> nv)
-//    {
-//        tbModel.setRowCount(0);
-//        outModel(tbModel, nv);
-//    }
-//
-//    public String getTextFieldContent()
-//    {
-//        return bccForm.getjTextManv().getText();
-//    }
-//
-//    public String getTextFieldContentLuong()
-//    {
-//        return luongForm.getjTextManv().getText();
-//    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[])
-    {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex)
-        {
-            java.util.logging.Logger.getLogger(BangChiPhi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
-            java.util.logging.Logger.getLogger(BangChiPhi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
-            java.util.logging.Logger.getLogger(BangChiPhi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
-            java.util.logging.Logger.getLogger(BangChiPhi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    public void addCombo(JComboBox cmb) {
+        for (LoaiChiPhiDTO a : DashBoard.loaiChiPhiDTOs) {
+            cmb.addItem(a);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+    }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                new BangChiPhi().setVisible(true);
+    public Object searchObject(String ten) {
+        for (LoaiChiPhiDTO a : DashBoard.loaiChiPhiDTOs) {
+            if (a.getTenLoai().equals(ten)) {
+                return a;
             }
-        });
+        }
+        return null;
     }
 
-    public JButton getjBtnQuayLai()
-    {
-        return jBtnSua;
-    }
-
-    public void setjBtnQuayLai(JButton jBtnQuayLai)
-    {
-        this.jBtnSua = jBtnQuayLai;
-    }
-
-    public JButton getjBtnXacNhan()
-    {
-        return jBtnThem;
-    }
-
-    public void setjBtnXacNhan(JButton jBtnXacNhan)
-    {
-        this.jBtnThem = jBtnXacNhan;
+    public String searchMaLoai(String ten) {
+        for (LoaiChiPhiDTO a : DashBoard.loaiChiPhiDTOs) {
+            if (a.getTenLoai().equals(ten)) {
+                return a.getMaLoaiChiPhi();
+            }
+        }
+        return null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -771,9 +572,9 @@ public class BangChiPhi extends javax.swing.JFrame
     private javax.swing.JButton jBtnSua;
     private javax.swing.JButton jBtnThem;
     private javax.swing.JButton jBtnThoat;
-    private javax.swing.JButton jBtnTimKiemGia;
+    private javax.swing.JButton jBtnTimKiemCP;
     private javax.swing.JButton jBtnXoa;
-    private javax.swing.JComboBox<String> jCbGioiTinh;
+    private javax.swing.JComboBox<String> jCbLoaiCP;
     private javax.swing.JLabel jLbGiaTour;
     private javax.swing.JLabel jLbGiaTour1;
     private javax.swing.JLabel jLbGiaTour2;
@@ -782,12 +583,13 @@ public class BangChiPhi extends javax.swing.JFrame
     private javax.swing.JLabel jLbMaTour;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableChiPhi;
-    private javax.swing.JTextField jTextGhiChu;
-    private javax.swing.JTextField jTextLoaiChiPhi1;
+    private javax.swing.JTextArea jTextGhiChu;
     private javax.swing.JTextField jTextMaChiPhi;
     private javax.swing.JTextField jTextMaDoan;
+    private javax.swing.JTextField jTextSoTien;
     private javax.swing.JTextField jTextTenDoan;
     private javax.swing.JTextField jTextTimKiemGia;
     private keeptoo.KGradientPanel kGradientPanel1;

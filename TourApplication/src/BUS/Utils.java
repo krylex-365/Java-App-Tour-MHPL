@@ -149,6 +149,46 @@ public class Utils {
         result += add;
         return result;
     }
+    
+     ////////////////Tạo Loai Chi Phí
+    public String initMaLoaiChiPhi() {
+        maDLCuoi = new MaDuLieuCuoiDAO();
+        System.out.println("- In initLoaiChiPhi");
+        String temp = maDLCuoi.getMaLoaiChiPhiLast();
+        System.out.println(temp);
+        String add = temp.substring(2, temp.length());
+        int maLoaiChiPhi = Integer.parseInt(add);
+        maLoaiChiPhi++;
+        int totalzero = 6;
+        add = String.valueOf(maLoaiChiPhi);
+        int cpzero = totalzero - add.length();
+        String init = "LP";
+        for (int i = 0; i < cpzero; i++) {
+            init += '0';
+        }
+        init += add;
+        return init;
+    }
+    
+     ////////////////Tạo Chi Phí
+    public String initMaChiPhi() {
+        maDLCuoi = new MaDuLieuCuoiDAO();
+        System.out.println("- In initChiPhi");
+        String temp = maDLCuoi.getMaChiPhiLast();
+        System.out.println(temp);
+        String add = temp.substring(2, temp.length());
+        int maChiPhi = Integer.parseInt(add);
+        maChiPhi++;
+        int totalzero = 6;
+        add = String.valueOf(maChiPhi);
+        int cpzero = totalzero - add.length();
+        String init = "CP";
+        for (int i = 0; i < cpzero; i++) {
+            init += '0';
+        }
+        init += add;
+        return init;
+    }
 
     ////////////////Lấy ngày hiện tại
     public String initDateNow() {
