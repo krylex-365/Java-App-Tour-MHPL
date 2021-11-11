@@ -7,6 +7,7 @@ package GUI;
 
 //import BUS.CongViecBUS;
 import BUS.GiaTourBUS;
+import BUS.Validation;
 import DTO.GiaTourDTO;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
@@ -46,6 +47,7 @@ public class BangGia extends javax.swing.JFrame {
     String maTour, maGiaHH;
     int hienHanh;
     GiaTourDTO giaTourHH;
+    String ngayBatDau = "";
 
     public BangGia() {
         initComponents();
@@ -420,10 +422,24 @@ public class BangGia extends javax.swing.JFrame {
 
     private void jBtnSuaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaActionPerformed
-        String maGia = (String) jTextMaGia.getText(), 
+        String maGia = (String) jTextMaGia.getText(),
                 giaTour = (String) jTextGiaTour.getText(),
                 ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
                 ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.positiveNumbers(message, "Giá tour", giaTour);
+        boolean isDate = Validation.isDate(message, "Ngày bắt đầu", ngayBD, "Ngày kết thúc", ngayKT);
+        if(isDate){
+            Validation.afterOrEquals(message, "Ngày bắt đầu", ngayBD, "Ngày bắt đầu trước",ngayBatDau);
+            Validation.afterOrEquals(message, "Ngày kết thúc", ngayKT, "Ngày bắt đầu", ngayBD);
+        }
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         if (giaTourBUS.suaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh)){
             if (maGia.equals(maGiaHH)){
                 tourForm.getjTextGiaTour().setText(giaTour);
@@ -481,6 +497,21 @@ public class BangGia extends javax.swing.JFrame {
                 giaTour = (String) jTextGiaTour.getText(),
                 ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
                 ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.positiveNumbers(message, "Giá tour", giaTour);
+        boolean isDate = Validation.isDate(message, "Ngày bắt đầu", ngayBD, "Ngày kết thúc", ngayKT);
+        if(isDate){
+            Validation.afterOrEquals(message, "Ngày bắt đầu", ngayBD, "Ngày hiện tại",
+                    new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            Validation.afterOrEquals(message, "Ngày kết thúc", ngayKT, "Ngày bắt đầu", ngayBD);
+        }
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         if (giaTourBUS.themGiaTour(maGia, maTour, giaTour, ngayBD, ngayKT)) {
             initTable();
             JOptionPane.showMessageDialog(this, "Thêm Giá Tour thành công!");
@@ -541,7 +572,8 @@ public class BangGia extends javax.swing.JFrame {
                 jTextMaGia.setText((String) jTableGiaTour.getValueAt(rowTbl, 0));
                 jTextGiaTour.setText((String) jTableGiaTour.getValueAt(rowTbl, 1));
                 try {
-                    Date dateBD = new SimpleDateFormat("yyyy-MM-dd").parse(jTableGiaTour.getModel().getValueAt(rowTbl, 2).toString());
+                    ngayBatDau = jTableGiaTour.getModel().getValueAt(rowTbl, 2).toString();
+                    Date dateBD = new SimpleDateFormat("yyyy-MM-dd").parse(ngayBatDau);
                     jDateBatDau.setDate(dateBD);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(BangGia.this, e);

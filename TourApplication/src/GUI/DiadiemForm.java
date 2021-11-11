@@ -309,13 +309,20 @@ public class DiadiemForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         maDiaDiem = jTextMaDD.getText();
         tenDiaDiem = jTextTenDD.getText();
-        if(!isNullOrEmpty(maDiaDiem) && !isNullOrEmpty(tenDiaDiem)){
-            if(diaDiemBUS.themDiaDiem(maDiaDiem, tenDiaDiem)){
-                themDiaDiem(tbModelDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
-                JOptionPane.showMessageDialog(this, "Thêm địa điểm thành công!");
-            }else {
-                JOptionPane.showMessageDialog(this, "Thêm địa điểm thất bại!");
-            }
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên địa điểm", tenDiaDiem);
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
+        if(diaDiemBUS.themDiaDiem(maDiaDiem, tenDiaDiem)){
+            themDiaDiem(tbModelDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
+            JOptionPane.showMessageDialog(this, "Thêm địa điểm thành công!");
+        }else {
+            JOptionPane.showMessageDialog(this, "Thêm địa điểm thất bại!");
         }
         jBtnCapPhatMaDD.setEnabled(true);
         jBtnThemDD.setEnabled(false);
@@ -340,13 +347,20 @@ public class DiadiemForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         maDiaDiem = jTextMaDD.getText();
         tenDiaDiem = jTextTenDD.getText();
-        if(!isNullOrEmpty(maDiaDiem) && !isNullOrEmpty(tenDiaDiem)){
-            if(diaDiemBUS.suaDiaDiem(maDiaDiem, tenDiaDiem)){
-                suaDiaDiem(tbModelDiaDiem, rowDiaDiem,new DiaDiemDTO(maDiaDiem, tenDiaDiem));
-                JOptionPane.showMessageDialog(this, "Sửa địa điểm thành công!");
-            }else {
-                JOptionPane.showMessageDialog(this, "Sửa địa điểm thất bại!");
-            }
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên địa điểm", tenDiaDiem);
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
+        if(diaDiemBUS.suaDiaDiem(maDiaDiem, tenDiaDiem)){
+            suaDiaDiem(tbModelDiaDiem, rowDiaDiem,new DiaDiemDTO(maDiaDiem, tenDiaDiem));
+            JOptionPane.showMessageDialog(this, "Sửa địa điểm thành công!");
+        }else {
+            JOptionPane.showMessageDialog(this, "Sửa địa điểm thất bại!");
         }
         jBtnCapPhatMaDD.setEnabled(true);
         jBtnThemDD.setEnabled(false);

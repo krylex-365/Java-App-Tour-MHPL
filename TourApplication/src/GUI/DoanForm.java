@@ -5,10 +5,7 @@
  */
 package GUI;
 
-import BUS.DoanDuLichBUS;
-import BUS.GiaTourBUS;
-import BUS.TourBUS;
-import BUS.Utils;
+import BUS.*;
 import DAO.DoanDuLichDAO;
 import DTO.ChiPhiDTO;
 import DTO.DoanDuLichDTO;
@@ -64,6 +61,9 @@ public class DoanForm extends javax.swing.JPanel {
     Vector tbColNhanVien = new Vector();
     DefaultTableModel tbModelDoan, tbModelDiadiem, tbModelLoaiHinh, tbModelKhach, tbModelNhanVien;
     private Utils ult = new Utils();
+    private String ngayBatDauGia = "";
+    private String ngayKetThucGia = "";
+    private String ngayKhoiHanh = "";
 
     public DoanForm() {
         initComponents();
@@ -98,7 +98,7 @@ public class DoanForm extends javax.swing.JPanel {
 //            row.add(doanDuLichDAO.getGiaTour(doan.getMaTour()));
             for (TourDTO tour : DashBoard.tourDTOs) {
                 if (tour.getMaTour().equals(doan.getMaTour())) {
-                    row.add(tour.getTenTour());
+                    row.add(tour.getMaTour() + ": " + tour.getTenTour());
                     break;
                 }
             }
@@ -121,7 +121,7 @@ public class DoanForm extends javax.swing.JPanel {
         Vector newrow = new Vector();
         newrow.add(doanDTO.getMaDoan());
         newrow.add(doanDTO.getTenDoan());
-        newrow.add(tenTour);
+        newrow.add(maTour + ": " + tenTour);
         newrow.add(doanDTO.getGiaTour());
         newrow.add(doanDTO.getNgayKhoiHanh());
         newrow.add(doanDTO.getNgayKetThuc());
@@ -130,7 +130,7 @@ public class DoanForm extends javax.swing.JPanel {
 
     public void suaVectorLDoan(DefaultTableModel model, int row, DoanDuLichDTO doanDTO, String tenTour) {
         model.setValueAt(doanDTO.getTenDoan(), row, 1);
-        model.setValueAt(tenTour, row, 2);
+        model.setValueAt(maTour + ": " + tenTour, row, 2);
         model.setValueAt(doanDTO.getGiaTour(), row, 3);
         model.setValueAt(doanDTO.getNgayKhoiHanh(), row, 4);
         model.setValueAt(doanDTO.getNgayKetThuc(), row, 5);
@@ -147,6 +147,22 @@ public class DoanForm extends javax.swing.JPanel {
         tbModelDoan.setRowCount(0);
         tableModelDoan(tbModelDoan);
         jTableDoan.setModel(tbModelDoan);
+    }
+
+    public String getNgayBatDauGia() {
+        return ngayBatDauGia;
+    }
+
+    public void setNgayBatDauGia(String ngayBatDauGia) {
+        this.ngayBatDauGia = ngayBatDauGia;
+    }
+
+    public String getNgayKetThucGia() {
+        return ngayKetThucGia;
+    }
+
+    public void setNgayKetThucGia(String ngayKetThucGia) {
+        this.ngayKetThucGia = ngayKetThucGia;
     }
 
     public void initTableDoan() {
@@ -926,6 +942,25 @@ public class DoanForm extends javax.swing.JPanel {
                 (String) ((JTextField) jDateNgayKH.getDateEditor().getUiComponent()).getText(),
                 (String) ((JTextField) jDateNgayKT.getDateEditor().getUiComponent()).getText(),
                 (String) jTextChiTiet.getText());
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên đoàn", doanDTO.getTenDoan(), "Tour", doanDTO.getMaTour(),
+                "Chi tiết", doanDTO.getChiTietNoiDung());
+        Validation.positiveNumbers(message, "Gia tour", doanDTO.getGiaTour());
+        boolean isDate = Validation.isDate(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày kết thúc", doanDTO.getNgayKetThuc());
+        if(isDate){
+            Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày hiện tại",
+                    new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày bắt đầu của giá", ngayBatDauGia);
+            Validation.afterOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày khởi hành", doanDTO.getNgayKhoiHanh());
+            Validation.beforeOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày kết thúc của giá", ngayKetThucGia);
+        }
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         if (doanDuLichBUS.themDoan(doanDTO, DashBoard.doanDuLichDTOs)) {
             themVectorDoan(tbModelDoan, doanDTO, (String) jTextTour.getText());
             JOptionPane.showMessageDialog(this, "Thêm Tour thành công!");
@@ -1056,6 +1091,24 @@ public class DoanForm extends javax.swing.JPanel {
                 (String) ((JTextField) jDateNgayKH.getDateEditor().getUiComponent()).getText(),
                 (String) ((JTextField) jDateNgayKT.getDateEditor().getUiComponent()).getText(),
                 (String) jTextChiTiet.getText());
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên đoàn", doanDTO.getTenDoan(), "Tour", doanDTO.getMaTour(),
+                "Chi tiết", doanDTO.getChiTietNoiDung());
+        Validation.positiveNumbers(message, "Gia tour", doanDTO.getGiaTour());
+        boolean isDate = Validation.isDate(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày kết thúc", doanDTO.getNgayKetThuc());
+        if(isDate){
+            Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày hiện tại", ngayKhoiHanh);
+            Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày bắt đầu của giá", ngayBatDauGia);
+            Validation.afterOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày khởi hành", doanDTO.getNgayKhoiHanh());
+            Validation.beforeOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày kết thúc của giá", ngayKetThucGia);
+        }
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         if (doanDuLichBUS.suaDoan(doanDTO, DashBoard.doanDuLichDTOs, maTourHienHanh)) {
             suaVectorLDoan(tbModelDoan, rowDoan, doanDTO, tenTour);
             JOptionPane.showMessageDialog(this, "Sửa Đoàn thành công!");
@@ -1228,8 +1281,10 @@ public class DoanForm extends javax.swing.JPanel {
                 if (!maDoan.equals("")) {
                     jTextMaDoan.setText(maDoan);
                     jTextTenDoan.setText(tenDoan);
-                    jTextTour.setText((String) jTableDoan.getModel().getValueAt(rowDoan, 2));
+                    int indexOfTour = ((String) jTableDoan.getModel().getValueAt(rowDoan, 2)).indexOf(":");
+                    jTextTour.setText(((String) jTableDoan.getModel().getValueAt(rowDoan, 2)).substring(indexOfTour + 2));
                     jTextGiaTour.setText((String) jTableDoan.getModel().getValueAt(rowDoan, 3));
+                    ngayKhoiHanh = (String) jTableDoan.getModel().getValueAt(rowDoan, 4);
                     try {
                         Date dateKH = new SimpleDateFormat("yyyy-MM-dd").parse(jTableDoan.getModel().getValueAt(rowDoan, 4).toString());
                         jDateNgayKH.setDate(dateKH);
@@ -1249,6 +1304,15 @@ public class DoanForm extends javax.swing.JPanel {
                             jTextChiTiet.setText(doan.getChiTietNoiDung());
                             setMaTour(doan.getMaTour());
                             setMaTourHienHanh(doan.getMaTour());
+                        }
+                    }
+                    // lấy giá trị ngày của giá tour
+                    maTour = ((String) jTableDoan.getModel().getValueAt(rowDoan, 2)).substring(0, indexOfTour);
+                    for (GiaTourDTO giaTourDTO: DashBoard.giaTourDTOs){
+                        if(maTour.equals(giaTourDTO.getMaTour())){
+                            ngayBatDauGia = giaTourDTO.getTgBatDau();
+                            ngayKetThucGia = giaTourDTO.getTgKetThuc();
+                            break;
                         }
                     }
                     long tongCP = 0;

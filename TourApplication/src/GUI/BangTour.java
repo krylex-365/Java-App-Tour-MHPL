@@ -33,7 +33,7 @@ public class BangTour extends javax.swing.JFrame {
     public DoanForm doanForm;
     Vector tbCol = new Vector();
     DefaultTableModel tbModel;
-    String maTour, tenTour, giaTour;
+    String maTour, tenTour, giaTour, ngayBD, ngayKT;
 
     public BangTour() {
         initComponents();
@@ -321,6 +321,8 @@ public class BangTour extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(null, ktra());
 //            }
 //        }
+        doanForm.setNgayBatDauGia(ngayBD);
+        doanForm.setNgayKetThucGia(ngayKT);
         doanForm.setMaTour(maTour);
         doanForm.getjTextTour().setText(tenTour);
         doanForm.getjTextGiaTour().setText(giaTour);
@@ -337,6 +339,8 @@ public class BangTour extends javax.swing.JFrame {
                 maTour = (String) jTableTour.getValueAt(rowTbl, 0);
                 tenTour = (String) jTableTour.getValueAt(rowTbl, 1);
                 giaTour = (String) jTableTour.getValueAt(rowTbl, 2);
+                ngayBD = (String) jTableTour.getValueAt(rowTbl, 3);
+                ngayKT = (String) jTableTour.getValueAt(rowTbl, 4);
                 jTextMaTour.setText(maTour);
                 jTextTenTour.setText(tenTour);
                 for (TourDTO tour : DashBoard.tourDTOs) {
