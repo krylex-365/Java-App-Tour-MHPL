@@ -175,6 +175,44 @@ public class MaDuLieuCuoiDAO {
         return false;
     }
     
+    public boolean updateMaLoaiChiPhi(String newLatestLoaiChiPhi)
+    {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "UPDATE MaDuLieuCuoi SET"
+                + " MaLoaiChiPhi ='" + newLatestLoaiChiPhi + "'"
+                + " WHERE MaLoaiChiPhi='" + getMaLoaiChiPhiLast() + "'";
+        if (conn.executeUpdate(query))
+        {
+            System.out.println("Update last MaLoaiChiPhi success.");
+            setMaLoaiChiPhiLast(newLatestLoaiChiPhi);
+            conn.close();
+            return true;
+        }
+        System.out.println("Update last MaLoaiChiPhi fail.");
+        conn.close();
+        return false;
+    }
+    
+    public boolean updateMaChiPhi(String newLatestChiPhi)
+    {
+        conn = new Connect();
+        conn.getConnection();
+        String query = "UPDATE MaDuLieuCuoi SET"
+                + " MaChiPhi ='" + newLatestChiPhi + "'"
+                + " WHERE MaChiPhi='" + getMaChiPhiLast() + "'";
+        if (conn.executeUpdate(query))
+        {
+            System.out.println("Update last MaChiPhi success.");
+            setMaChiPhiLast(newLatestChiPhi);
+            conn.close();
+            return true;
+        }
+        System.out.println("Update last MaChiPhi fail.");
+        conn.close();
+        return false;
+    }
+    
     public String getMaLoaiLast() {
         return MaLoaiLast;
     }

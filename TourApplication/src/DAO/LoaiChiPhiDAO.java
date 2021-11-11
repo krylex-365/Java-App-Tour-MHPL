@@ -48,4 +48,56 @@ public class LoaiChiPhiDAO {
         return dsLoaiChiPhi;
     }
     
+    public boolean insertLoaiChiPhi(LoaiChiPhiDTO loaiChiPhiDTO)
+    {
+        String sql = "insert into LoaiChiPhi"
+                + " values ('" + loaiChiPhiDTO.getMaLoaiChiPhi() + "', '" + loaiChiPhiDTO.getTenLoai() + "', 1)";
+        conn = new Connect();
+        conn.getConnection();
+        if (conn.executeUpdate(sql))
+        {
+            conn.close();
+            System.out.println("LoaiChiPhiDAO insert success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("LoaiChiPhiDAO insert fail.");
+        return false;
+    }
+
+    public boolean updateMaLoaiChiPhi(String maLoaiChiPhi, String tenLoaiChiPhi)
+    {
+        String sql = "update LoaiChiPhi set"
+                + " TenLoai = '" + tenLoaiChiPhi + "'"
+                + " where MaLoaiChiPhi = '" + maLoaiChiPhi + "'";
+        conn = new Connect();
+        conn.getConnection();
+        if (conn.executeUpdate(sql))
+        {
+            conn.close();
+            System.out.println("LoaiChiPhiDAO update success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("LoaiChiPhiDAO update fail.");
+        return false;
+    }
+
+    public boolean deleteLoaiChiPhi(String maLoaiChiPhi)
+    {
+        String sql = "update LoaiChiPhi set"
+                + " Status = 0"
+                + " where MaLoaiChiPhi = '" + maLoaiChiPhi + "'";
+        conn = new Connect();
+        conn.getConnection();
+        if (conn.executeUpdate(sql))
+        {
+            conn.close();
+            System.out.println("LoaiChiPhiDAO delete success.");
+            return true;
+        }
+        conn.close();
+        System.out.println("LoaiChiPhiDAO delete fail.");
+        return false;
+    }
 }

@@ -69,7 +69,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jTextTimKiemGia" min="-2" pref="209" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtnTimKiemGia" min="-2" pref="80" max="-2" attributes="0"/>
+                          <Component id="jBtnTimKiemCP" min="-2" pref="80" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jBtnRefresh" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -88,7 +88,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextTimKiemGia" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="jBtnTimKiemGia" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="jBtnTimKiemCP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jBtnRefresh" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -141,12 +141,9 @@
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextMaChiPhiActionPerformed"/>
-              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="140" y="130" width="160" height="30"/>
+                  <AbsoluteConstraints x="130" y="130" width="170" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -225,7 +222,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="250" y="340" width="100" height="40"/>
+                  <AbsoluteConstraints x="10" y="390" width="100" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -247,7 +244,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="190" y="400" width="100" height="40"/>
+                  <AbsoluteConstraints x="130" y="390" width="100" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -269,7 +266,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="70" y="400" width="100" height="40"/>
+                  <AbsoluteConstraints x="250" y="390" width="100" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -296,12 +293,9 @@
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextMaDoanActionPerformed"/>
-              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="140" y="30" width="200" height="30"/>
+                  <AbsoluteConstraints x="130" y="30" width="170" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -328,12 +322,9 @@
                   <Color blue="33" green="33" red="33" type="rgb"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextTenDoanActionPerformed"/>
-              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="140" y="70" width="200" height="30"/>
+                  <AbsoluteConstraints x="130" y="70" width="170" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -378,7 +369,7 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextLoaiChiPhi1">
+            <Component class="javax.swing.JTextField" name="jTextSoTien">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="33" green="33" red="33" type="rgb"/>
@@ -386,40 +377,26 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="140" y="210" width="160" height="30"/>
+                  <AbsoluteConstraints x="130" y="210" width="170" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jCbGioiTinh">
+            <Component class="javax.swing.JComboBox" name="jCbLoaiCP">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="L1"/>
-                    <StringItem index="1" value="L2"/>
-                    <StringItem index="2" value="L3"/>
-                    <StringItem index="3" value="L4..."/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="*/">
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;L1&quot;, &quot;L2&quot;, &quot;L3&quot;, &quot;L4...&quot; })" type="code"/>
                 </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[64, 22]"/>
                 </Property>
               </Properties>
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="/*"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="140" y="172" width="160" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JTextField" name="jTextGhiChu">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextGhiChuActionPerformed"/>
-              </Events>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="140" y="250" width="160" height="70"/>
+                  <AbsoluteConstraints x="130" y="172" width="170" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -428,7 +405,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&lt;html&gt; &lt;body&gt;Th&#xe0;nh Ti&#x1ec1;n &lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
+                <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;S&#x1ed1; Ti&#x1ec1;n &lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt; &lt;/html&gt;"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -436,6 +413,26 @@
                 </Constraint>
               </Constraints>
             </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="130" y="250" width="170" height="80"/>
+                </Constraint>
+              </Constraints>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextArea" name="jTextGhiChu">
+                  <Properties>
+                    <Property name="columns" type="int" value="20"/>
+                    <Property name="rows" type="int" value="5"/>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -453,7 +450,7 @@
                     <LineBorder roundedCorners="true"/>
                   </Border>
                 </Property>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="tbCol.add(&quot;M&#x103; Chi Ph&#xed;&quot;);&#xa;tbCol.add(&quot;Lo&#x1ea1;i Chi Ph&#xed;&quot;);&#xa;tbCol.add(&quot;Th&#xe0;nh Ti&#x1ec1;n&quot;);&#xa;tbModel= new DefaultTableModel(tbCol,5){&#xa;    @Override&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableChiPhi.setModel (tbModel);&#xa;jTableChiPhi.setShowGrid(true);&#xa;        jTableChiPhi.setFocusable(false);&#xa;        jTableChiPhi.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableChiPhi.setRowHeight(25);  &#xa;        jTableChiPhi.getTableHeader().setOpaque(false);&#xa;        jTableChiPhi.setFillsViewportHeight(true);&#xa;        jTableChiPhi.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableChiPhi.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableChiPhi.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableChiPhi.setSelectionBackground(new Color(52,152,219));&#xa;//listSP();">
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="tbCol.add(&quot;M&#x103; Chi Ph&#xed;&quot;);&#xa;tbCol.add(&quot;Lo&#x1ea1;i Chi Ph&#xed;&quot;);&#xa;tbCol.add(&quot;S&#x1ed1; Ti&#x1ec1;n&quot;);&#xa;tbModel= new DefaultTableModel(tbCol,5){&#xa;    @Override&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableChiPhi.setModel (tbModel);&#xa;jTableChiPhi.setShowGrid(true);&#xa;        jTableChiPhi.setFocusable(false);&#xa;        jTableChiPhi.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableChiPhi.setRowHeight(25);  &#xa;        jTableChiPhi.getTableHeader().setOpaque(false);&#xa;        jTableChiPhi.setFillsViewportHeight(true);&#xa;        jTableChiPhi.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableChiPhi.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableChiPhi.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableChiPhi.setSelectionBackground(new Color(52,152,219));&#xa;//listSP();">
                   <Table columnCount="0" rowCount="4"/>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -471,12 +468,12 @@
         </Container>
         <Component class="javax.swing.JTextField" name="jTextTimKiemGia">
         </Component>
-        <Component class="javax.swing.JButton" name="jBtnTimKiemGia">
+        <Component class="javax.swing.JButton" name="jBtnTimKiemCP">
           <Properties>
             <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnTimKiemGiaActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnTimKiemCPActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBtnRefresh">

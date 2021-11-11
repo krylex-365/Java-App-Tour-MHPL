@@ -240,7 +240,7 @@
                           <Component id="diadiemPanel" alignment="0" pref="204" max="32767" attributes="0"/>
                           <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
                           <Component id="luongPanel" max="32767" attributes="0"/>
-                          <Component id="thuongphatPanel" pref="204" max="32767" attributes="0"/>
+                          <Component id="chiphiPanel" pref="204" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="802" max="-2" attributes="0"/>
                   </Group>
@@ -264,7 +264,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="nhanvienPanel" min="38" pref="38" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="thuongphatPanel" min="38" pref="38" max="-2" attributes="0"/>
+                              <Component id="chiphiPanel" min="38" pref="38" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="luongPanel" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -780,7 +780,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="thuongphatPanel">
+            <Container class="javax.swing.JPanel" name="chiphiPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="83" green="71" red="51" type="rgb"/>
@@ -793,17 +793,17 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="thuongphatLabel" alignment="1" max="32767" attributes="0"/>
+                      <Component id="chiphiLabel" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="thuongphatLabel" alignment="0" pref="38" max="32767" attributes="0"/>
+                      <Component id="chiphiLabel" alignment="0" pref="38" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="thuongphatLabel">
+                <Component class="javax.swing.JLabel" name="chiphiLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="DialogInput" size="19" style="1"/>
@@ -827,9 +827,9 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="thuongphatLabelMouseClicked"/>
-                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="thuongphatLabelMouseEntered"/>
-                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="thuongphatLabelMouseExited"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="chiphiLabelMouseClicked"/>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="chiphiLabelMouseEntered"/>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="chiphiLabelMouseExited"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -904,7 +904,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jPanel11" min="-2" pref="992" max="-2" attributes="0"/>
+                      <Component id="jPanelChiPhi" min="-2" pref="992" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jPanelDiaDiem" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -945,7 +945,7 @@
                       </Group>
                       <EmptySpace min="650" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jPanel11" max="32767" attributes="0"/>
+                  <Component id="jPanelChiPhi" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jPanel12" alignment="0" pref="322" max="32767" attributes="0"/>
@@ -1004,10 +1004,10 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel11">
+            <Container class="javax.swing.JPanel" name="jPanelChiPhi">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//jPanel11.add(phucap);"/>
-                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="jPanel11.setVisible (false);"/>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//jPanel11.add(phucap);&#xa;jPanelChiPhi.add(chiPhiForm);"/>
+                <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="jPanelChiPhi.setVisible (false);"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>

@@ -131,8 +131,13 @@ public class DoanDuLichBUS {
         return false;
     }
 
-    public boolean xoaDoan(String MaDoan, String MaTour, String TenDoan, 
-            String GiaTour, String NgayKhoiHanh, String NgayKetThuc, String ChiTietNoiDung) {
+    public boolean xoaDoan(DoanDuLichDTO doanDuLichDTO, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
+        if (doanDuLichDAO.deleteDoan(doanDuLichDTO.getMaDoan())) {
+            doanDuLichDTOs.remove(doanDuLichDTO);
+            System.out.println("Xóa thành công suaDoanDuLichBUS");
+            return true;
+        }
+        System.out.println("Xóa thất bại suaDoanDuLichBUS");
         return false;
     }
 

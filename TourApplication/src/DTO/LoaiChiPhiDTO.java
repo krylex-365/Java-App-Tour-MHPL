@@ -35,6 +35,6 @@ public class LoaiChiPhiDTO {
     
     @Override
     public String toString() {
-        return "LoaiChiPhiDTO{" + "MaLoaiChiPhi=" + MaLoaiChiPhi + ", TenLoai=" + TenLoai + '}';
+        return TenLoai;
     }
 }
