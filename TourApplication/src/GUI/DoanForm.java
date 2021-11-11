@@ -98,7 +98,7 @@ public class DoanForm extends javax.swing.JPanel {
 //            row.add(doanDuLichDAO.getGiaTour(doan.getMaTour()));
             for (TourDTO tour : DashBoard.tourDTOs) {
                 if (tour.getMaTour().equals(doan.getMaTour())) {
-                    row.add(tour.getMaTour() + ": " + tour.getTenTour());
+                    row.add(tour.getTenTour());
                     break;
                 }
             }
@@ -121,7 +121,7 @@ public class DoanForm extends javax.swing.JPanel {
         Vector newrow = new Vector();
         newrow.add(doanDTO.getMaDoan());
         newrow.add(doanDTO.getTenDoan());
-        newrow.add(maTour + ": " + tenTour);
+        newrow.add(tenTour);
         newrow.add(doanDTO.getGiaTour());
         newrow.add(doanDTO.getNgayKhoiHanh());
         newrow.add(doanDTO.getNgayKetThuc());
@@ -130,7 +130,7 @@ public class DoanForm extends javax.swing.JPanel {
 
     public void suaVectorLDoan(DefaultTableModel model, int row, DoanDuLichDTO doanDTO, String tenTour) {
         model.setValueAt(doanDTO.getTenDoan(), row, 1);
-        model.setValueAt(maTour + ": " + tenTour, row, 2);
+        model.setValueAt(tenTour, row, 2);
         model.setValueAt(doanDTO.getGiaTour(), row, 3);
         model.setValueAt(doanDTO.getNgayKhoiHanh(), row, 4);
         model.setValueAt(doanDTO.getNgayKetThuc(), row, 5);
@@ -1281,8 +1281,7 @@ public class DoanForm extends javax.swing.JPanel {
                 if (!maDoan.equals("")) {
                     jTextMaDoan.setText(maDoan);
                     jTextTenDoan.setText(tenDoan);
-                    int indexOfTour = ((String) jTableDoan.getModel().getValueAt(rowDoan, 2)).indexOf(":");
-                    jTextTour.setText(((String) jTableDoan.getModel().getValueAt(rowDoan, 2)).substring(indexOfTour + 2));
+                    jTextTour.setText(((String) jTableDoan.getModel().getValueAt(rowDoan, 2)));
                     jTextGiaTour.setText((String) jTableDoan.getModel().getValueAt(rowDoan, 3));
                     ngayKhoiHanh = (String) jTableDoan.getModel().getValueAt(rowDoan, 4);
                     try {
@@ -1307,7 +1306,6 @@ public class DoanForm extends javax.swing.JPanel {
                         }
                     }
                     // lấy giá trị ngày của giá tour
-                    maTour = ((String) jTableDoan.getModel().getValueAt(rowDoan, 2)).substring(0, indexOfTour);
                     for (GiaTourDTO giaTourDTO: DashBoard.giaTourDTOs){
                         if(maTour.equals(giaTourDTO.getMaTour())){
                             ngayBatDauGia = giaTourDTO.getTgBatDau();

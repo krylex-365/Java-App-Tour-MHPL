@@ -64,14 +64,14 @@ public class Validation {
 
     public static void afterOrEquals(StringBuilder message, String title1, String date1, String title2, String date2) {
         int result = date1.compareTo(date2);
-        if(result == -1){
+        if(result < 0){
             message.append(title1 + " phải sau hoặc bằng " + title2 + "\n");
         }
     }
 
     public static void beforeOrEquals(StringBuilder message, String title1, String date1, String title2, String date2) {
         int result = date1.compareTo(date2);
-        if(result == 1){
+        if(result > 0){
             message.append(title1 + " phải trước hoặc bằng " + title2 + "\n");
         }
     }
