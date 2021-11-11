@@ -9,6 +9,7 @@ package GUI;
 import BUS.ChiPhiBUS;
 import BUS.GiaTourBUS;
 import BUS.Utils;
+import BUS.Validation;
 import DTO.ChiPhiDTO;
 import DTO.GiaTourDTO;
 import DTO.LoaiChiPhiDTO;
@@ -402,6 +403,16 @@ public class BangChiPhi extends javax.swing.JFrame {
                 maLoaiCP = searchMaLoai(tenLoaiCP),
                 soTien = (String) jTextSoTien.getText(),
                 ghiChu = (String) jTextGhiChu.getText();
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Loại chi phí", tenLoaiCP, "Ghi chú", ghiChu);
+        Validation.positiveNumbers(message, "Số tiền", soTien);
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         ChiPhiDTO chiPhiDTO = new ChiPhiDTO(maCP, maDoan, maLoaiCP, soTien, ghiChu);
         System.out.println(chiPhiDTO);
         System.out.println(maLoaiCPHH);
@@ -437,6 +448,16 @@ public class BangChiPhi extends javax.swing.JFrame {
                 maLoaiCP = searchMaLoai(tenLoaiCP),
                 soTien = (String) jTextSoTien.getText(),
                 ghiChu = (String) jTextGhiChu.getText();
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Loại chi phí", tenLoaiCP, "Ghi chú", ghiChu);
+        Validation.positiveNumbers(message, "Số tiền", soTien);
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         System.out.println(maLoaiCP);
         System.out.println(tenLoaiCP);
         ChiPhiDTO chiPhiDTO = new ChiPhiDTO(maCP, maDoan, maLoaiCP, soTien, ghiChu);
