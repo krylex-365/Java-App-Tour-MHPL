@@ -993,7 +993,7 @@ public class DoanForm extends javax.swing.JPanel {
         jDateNgayKH.setCalendar(null);
         jDateNgayKT.setCalendar(null);
         jBtnChonTour.setEnabled(true);
-        jBtnChonChiPhi.setEnabled(true);
+        jBtnChonChiPhi.setEnabled(false);
         jDateNgayKH.setEnabled(true);
         jDateNgayKT.setEnabled(true);
     }//GEN-LAST:event_jBtnCapPhatMaDoanActionPerformed
@@ -1009,14 +1009,15 @@ public class DoanForm extends javax.swing.JPanel {
     private void jBtnXoaDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaDoanActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaDoanActionPerformed
         // TODO add your handling code here:
-//        if ()
-//        {
-//            tbModelDoan.removeRow(rowDoan);
-//            JOptionPane.showMessageDialog(this, "Xóa Tour thành công!");
-//        } else
-//        {
-//            JOptionPane.showMessageDialog(this, "Xóa Tour thất bại!");
-//        }
+        DoanDuLichDTO doanDuLichDTO = new DoanDuLichDTO();
+        doanDuLichDTO = searchDoan(maDoan);
+        System.out.println(doanDuLichDTO);
+        if (doanDuLichBUS.xoaDoan(doanDuLichDTO, DashBoard.doanDuLichDTOs)) {
+            xoaVectorDoan(tbModelDoan, rowDoan);
+            JOptionPane.showMessageDialog(this, "Xóa Đoàn thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa Đoàn thất bại!");
+        }
         jBtnCapPhatMaDoan.setEnabled(true);
         jBtnThemDoan.setEnabled(false);
         jBtnSuaDoan.setEnabled(false);
@@ -1341,6 +1342,15 @@ public class DoanForm extends javax.swing.JPanel {
         bangTour.doanForm = this;
     }//GEN-LAST:event_jBtnChonTourActionPerformed
 
+    public DoanDuLichDTO searchDoan(String maDoan) {
+        for (DoanDuLichDTO a : DashBoard.doanDuLichDTOs) {
+            if (a.getMaDoan().equals(maDoan)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
     public int getRowDoan() {
         return rowDoan;
     }
@@ -1468,8 +1478,7 @@ public class DoanForm extends javax.swing.JPanel {
     public void setjBtnHuyNV(JButton jBtnHuyNV) {
         this.jBtnHuyNV = jBtnHuyNV;
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCapPhatMaDoan;
