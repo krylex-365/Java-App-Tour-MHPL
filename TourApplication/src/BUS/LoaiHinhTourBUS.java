@@ -16,22 +16,12 @@ import java.util.ArrayList;
  */
 public class LoaiHinhTourBUS {
 
-    private ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs;
     private LoaiHinhTourDAO loaiHinhTourDAO;
     private Utils utl = new Utils();
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
 
     public LoaiHinhTourBUS() {
         this.loaiHinhTourDAO = new LoaiHinhTourDAO();
-        this.loaiHinhTourDTOs = loaiHinhTourDAO.getList();
-    }
-
-    public ArrayList<LoaiHinhTourDTO> getLoaiHinhTourDTOs() {
-        return loaiHinhTourDTOs;
-    }
-
-    public void setLoaiHinhTourDTOs(ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs) {
-        this.loaiHinhTourDTOs = loaiHinhTourDTOs;
     }
 
 //    public String CapPhat(String init) {
@@ -41,7 +31,7 @@ public class LoaiHinhTourBUS {
 //        return init;
 //    }
 
-    private int indexLoaiHinh(String maLoai) {
+    private int indexLoaiHinh(String maLoai, ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs) {
         for (int i = 0; i < loaiHinhTourDTOs.size(); i++) {
             if (maLoai.equals(loaiHinhTourDTOs.get(i).getMaLoai())) {
                 return i;
@@ -50,7 +40,7 @@ public class LoaiHinhTourBUS {
         return -1;
     }
 
-    public boolean themLoaiHinhTour(String maLoai, String tenLoai) {
+    public boolean themLoaiHinhTour(String maLoai, String tenLoai, ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs) {
         if (loaiHinhTourDAO.insertLoaiHinh(maLoai, tenLoai)) {
             LoaiHinhTourDTO newLoaiHinh = new LoaiHinhTourDTO(maLoai, tenLoai);
             loaiHinhTourDTOs.add(newLoaiHinh);
@@ -62,8 +52,8 @@ public class LoaiHinhTourBUS {
         return false;
     }
 
-    public boolean suaLoaiHinhTour(String maLoai, String tenLoai) {
-        int indexMaLH = indexLoaiHinh(maLoai);
+    public boolean suaLoaiHinhTour(String maLoai, String tenLoai, ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs) {
+        int indexMaLH = indexLoaiHinh(maLoai, loaiHinhTourDTOs);
         if (indexMaLH == -1) {
             return false;
         }
@@ -77,9 +67,9 @@ public class LoaiHinhTourBUS {
         return false;
     }
 
-    public boolean xoaLoaiHinhTour(String maLoai) {
+    public boolean xoaLoaiHinhTour(String maLoai, ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs) {
         if (loaiHinhTourDAO.deleteLoaiHinh(maLoai)) {
-            loaiHinhTourDTOs.remove(indexLoaiHinh(maLoai));
+            loaiHinhTourDTOs.remove(indexLoaiHinh(maLoai, loaiHinhTourDTOs));
             System.out.println("Xóa thành công xoaLoaiHinhTourBUS");
             return true;
         }
@@ -87,7 +77,7 @@ public class LoaiHinhTourBUS {
         return false;
     }
     
-    public ArrayList<LoaiHinhTourDTO> searchLoaiHinhByMaLH(String maLoaiHinh) {
+    public ArrayList<LoaiHinhTourDTO> searchLoaiHinhByMaLH(String maLoaiHinh, ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs) {
         ArrayList<LoaiHinhTourDTO> result = new ArrayList<>();
         for (LoaiHinhTourDTO a : loaiHinhTourDTOs) {
             if (a.getMaLoai().equals(maLoaiHinh)) {

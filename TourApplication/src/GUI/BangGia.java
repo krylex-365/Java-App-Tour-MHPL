@@ -88,7 +88,7 @@ public class BangGia extends javax.swing.JFrame {
     }
 
     public void tableModel(DefaultTableModel model) {
-        for (GiaTourDTO giaTour : giaTourBUS.getGiaTourDTOs()) {
+        for (GiaTourDTO giaTour : DashBoard.giaTourDTOs) {
             if (giaTour.getMaTour().equals(this.maTour)) {
                 Vector row = new Vector();
                 row.add(giaTour.getMaGia());
@@ -442,7 +442,7 @@ public class BangGia extends javax.swing.JFrame {
             return;
         }
 
-        if (giaTourBUS.suaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh)){
+        if (giaTourBUS.suaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh, DashBoard.giaTourDTOs)){
             if (maGia.equals(maGiaHH)){
                 tourForm.getjTextGiaTour().setText(giaTour);
                 tourForm.getjDateNgayBD().setCalendar(jDateBatDau.getCalendar());
@@ -514,7 +514,7 @@ public class BangGia extends javax.swing.JFrame {
             return;
         }
 
-        if (giaTourBUS.themGiaTour(maGia, maTour, giaTour, ngayBD, ngayKT)) {
+        if (giaTourBUS.themGiaTour(maGia, maTour, giaTour, ngayBD, ngayKT, DashBoard.giaTourDTOs)) {
             initTable();
             JOptionPane.showMessageDialog(this, "Thêm Giá Tour thành công!");
         } else {
@@ -644,7 +644,7 @@ public class BangGia extends javax.swing.JFrame {
                 giaTour = (String) jTextGiaTour.getText(),
                 ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
                 ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
-        if (giaTourBUS.xoaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh)){
+        if (giaTourBUS.xoaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh, DashBoard.giaTourDTOs)){
             if (maGia.equals(tourForm.getMaGia())) {
                 tourForm.getjTextGiaTour().setText(giaTourHH.getThanhTien());
                 try {

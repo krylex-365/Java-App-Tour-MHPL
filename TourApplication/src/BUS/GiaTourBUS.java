@@ -8,14 +8,12 @@ import java.util.ArrayList;
 
 public class GiaTourBUS {
 
-    private ArrayList<GiaTourDTO> giaTourDTOs;
     private GiaTourDAO giaTourDAO;
     private Utils utl = new Utils();
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
 
     public GiaTourBUS() {
         this.giaTourDAO = new GiaTourDAO();
-        this.giaTourDTOs = giaTourDAO.getList();
     }
     
     public String CapPhat(String init) {
@@ -25,7 +23,7 @@ public class GiaTourBUS {
         return init;
     }
     
-    private int indexTour(String maGia) {
+    private int indexTour(String maGia, ArrayList<GiaTourDTO> giaTourDTOs) {
         for (int i = 0; i < giaTourDTOs.size(); i++) {
             if (maGia.equals(giaTourDTOs.get(i).getMaGia())) {
                 return i;
@@ -34,10 +32,10 @@ public class GiaTourBUS {
         return -1;
     }
     
-    public boolean themGiaTour(String MaGia, String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc){
+    public boolean themGiaTour(String MaGia, String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc,
+            ArrayList<GiaTourDTO> giaTourDTOs){
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, 0);
         if (giaTourDAO.insertGiaTourByTour(giaTourDTO)) {
-            TourBUS.giaTourDTOs.add(giaTourDTO);
             giaTourDTOs.add(giaTourDTO);
             System.out.println("Thêm thành công GiaTourBUS");
             maLast.updateMaGia(MaGia);
@@ -47,11 +45,11 @@ public class GiaTourBUS {
         return false;
     }
     
-    public boolean suaGiaTour(String MaTour, String MaGia, String ThanhTien, String TgBatDau, String TgKetThuc, int HienHanh){
-        int i = indexTour(MaGia);
+    public boolean suaGiaTour(String MaTour, String MaGia, String ThanhTien, String TgBatDau, String TgKetThuc, int HienHanh,
+            ArrayList<GiaTourDTO> giaTourDTOs){
+        int i = indexTour(MaGia, giaTourDTOs);
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, HienHanh);
         if (giaTourDAO.updateGiaTour(giaTourDTO)) {
-            TourBUS.giaTourDTOs.set(i, giaTourDTO);
             giaTourDTOs.set(i, giaTourDTO);
             System.out.println("Sửa thành công GiaTourBUS");
             return true;
@@ -60,10 +58,10 @@ public class GiaTourBUS {
         return false;
     }
     
-    public boolean xoaGiaTour(String MaTour, String MaGia, String ThanhTien, String TgBatDau, String TgKetThuc, int HienHanh){
+    public boolean xoaGiaTour(String MaTour, String MaGia, String ThanhTien, String TgBatDau, String TgKetThuc, int HienHanh,
+            ArrayList<GiaTourDTO> giaTourDTOs){
         GiaTourDTO giaTourDTO = new GiaTourDTO(MaGia, MaTour, ThanhTien, TgBatDau, TgKetThuc, HienHanh);
         if (giaTourDAO.deleteGiaTour(MaTour, MaGia)) {
-            TourBUS.giaTourDTOs.remove(giaTourDTO);
             giaTourDTOs.remove(giaTourDTO);
             System.out.println("Xóa thành công GiaTourBUS");
             return true;
@@ -72,7 +70,7 @@ public class GiaTourBUS {
         return false;
     }
     
-    public boolean themGiaTourByTour(String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc) {
+    public boolean themGiaTourByTour(String MaTour, String ThanhTien, String TgBatDau, String TgKetThuc, ArrayList<GiaTourDTO> giaTourDTOs) {
 //        int newMaGia = giaTourDTOs.size() + 1 ;
         String MaGia = null;
         MaGia = CapPhat(MaGia);
@@ -87,14 +85,14 @@ public class GiaTourBUS {
         return false;
     }
 
-    public boolean suaHienHanh(String maGia, String maTour) {
+    public boolean suaHienHanh(String maGia, String maTour, ArrayList<GiaTourDTO> giaTourDTOs) {
 //        if (!giaTourDAO.updateHienHanhByTour(maGia, maTour)) {
 //            return false;
 //        }
 //        setHienHanh(maGia, maTour);
 //        return true;
         if (giaTourDAO.updateHienHanhByTour(maGia, maTour)) {
-            setHienHanh(maGia, maTour);
+            setHienHanh(maGia, maTour, giaTourDTOs);
             System.out.println("Sửa Hiện hành thành công suaHienHanhBUS");
             return true;
         }
@@ -102,7 +100,7 @@ public class GiaTourBUS {
         return false;
     }
 
-    private boolean setHienHanh(String maGia, String maTour) {
+    private boolean setHienHanh(String maGia, String maTour, ArrayList<GiaTourDTO> giaTourDTOs) {
         for (int i = 0; i < giaTourDTOs.size(); i++) {
             GiaTourDTO giaTour = giaTourDTOs.get(i);
             if (giaTour.getMaGia().equals(maGia) && giaTour.getMaTour().equals(maTour)) {
@@ -114,7 +112,7 @@ public class GiaTourBUS {
         return true;
     }
     
-    public boolean xoaGiaTourByMaTour(String maTour) {
+    public boolean xoaGiaTourByMaTour(String maTour, ArrayList<GiaTourDTO> giaTourDTOs) {
         if(giaTourDAO.deleteGiaTourByTour(maTour)) {
             for (GiaTourDTO giaTourDTO : giaTourDTOs) {
                 if (giaTourDTO.getMaTour().equals(maTour)) {
@@ -124,14 +122,6 @@ public class GiaTourBUS {
             }
         }
         return false;
-    }
-
-    public ArrayList<GiaTourDTO> getGiaTourDTOs() {
-        return giaTourDTOs;
-    }
-
-    public void setGiaTourDTOs(ArrayList<GiaTourDTO> giaTourDTOs) {
-        this.giaTourDTOs = giaTourDTOs;
     }
 
     public GiaTourDAO getGiaTourDAO() {
