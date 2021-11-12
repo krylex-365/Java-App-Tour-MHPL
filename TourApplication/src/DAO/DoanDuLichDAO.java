@@ -160,11 +160,11 @@ public class DoanDuLichDAO {
         conn.getConnection();
         if (conn.executeUpdate(sql)) {
             conn.close();
-            System.out.println("DoanDuLich delete success.");
+            System.out.println("DoanDuLichDAO delete success.");
             return true;
         }
         conn.close();
-        System.out.println("DoanDuLich delete fail.");
+        System.out.println("DoanDuLichDAO delete fail.");
         return false;
     }
 

@@ -5,24 +5,9 @@
  */
 package GUI;
 
-import DAO.ChiPhiDAO;
-import DAO.ChiTietDoanDAO;
-import DAO.DoanDuLichDAO;
-import DAO.GiaTourDAO;
-import DAO.KhachHangDAO;
-import DAO.LoaiChiPhiDAO;
-import DAO.NhanVienDAO;
-import DAO.NhiemVuNhanVienDAO;
-import DAO.TourDAO;
-import DTO.ChiPhiDTO;
-import DTO.ChiTietDoanDTO;
-import DTO.DoanDuLichDTO;
-import DTO.GiaTourDTO;
-import DTO.KhachHangDTO;
-import DTO.LoaiChiPhiDTO;
-import DTO.NhanVienDTO;
-import DTO.NhiemVuNhanVienDTO;
-import DTO.TourDTO;
+
+import DAO.*;
+import DTO.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
@@ -42,6 +27,7 @@ import javax.swing.SwingUtilities;
  */
 public class DashBoard extends javax.swing.JFrame
 {
+
 
     private boolean check = true;
     private TourForm tourForm;
@@ -70,6 +56,11 @@ public class DashBoard extends javax.swing.JFrame
     ChiTietDoanDAO chiTietDoanDAO;
     public static ArrayList<NhiemVuNhanVienDTO> nhiemVuNhanVienDTOs;
     NhiemVuNhanVienDAO nhiemVuNhanVienDAO;
+
+    public static ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs;
+    DiaDiemThamQuanDAO diaDiemThamQuanDAO;
+    public static ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs;
+    LoaiHinhTourDAO loaiHinhTourDAO;
 
     /**
      * Creates new form DashBoard
@@ -100,8 +91,11 @@ public class DashBoard extends javax.swing.JFrame
         chiTietDoanDTOs = chiTietDoanDAO.getList();
         nhiemVuNhanVienDAO = new NhiemVuNhanVienDAO();
         nhiemVuNhanVienDTOs = nhiemVuNhanVienDAO.getList();
-        
-        
+        diaDiemThamQuanDAO = new DiaDiemThamQuanDAO();
+        diaDiemThamQuanDTOs = diaDiemThamQuanDAO.getList();
+        loaiHinhTourDAO = new LoaiHinhTourDAO();
+        loaiHinhTourDTOs = loaiHinhTourDAO.getList();
+
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);

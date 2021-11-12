@@ -63,7 +63,7 @@ public class BangLoaiHinh extends javax.swing.JFrame {
     }
 
     public void tableModel(DefaultTableModel model) {
-        for (LoaiHinhTourDTO loaiHinh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
+        for (LoaiHinhTourDTO loaiHinh : DashBoard.loaiHinhTourDTOs) {
             Vector row = new Vector();
             row.add(loaiHinh.getMaLoai());
             row.add(loaiHinh.getTenLoai());

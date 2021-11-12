@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import BUS.*;
 import BUS.DoanDuLichBUS;
 import BUS.Utils;
 import DAO.DoanDuLichDAO;
@@ -17,6 +18,7 @@ import DTO.NhanVienDTO;
 import DTO.NhiemVuNhanVienDTO;
 import DTO.TourDTO;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -64,6 +66,9 @@ public class DoanForm extends javax.swing.JPanel {
     Vector tbColNhanVien = new Vector();
     DefaultTableModel tbModelDoan, tbModelDiadiem, tbModelKhach, tbModelNhanVien;
     private Utils ult = new Utils();
+    private String ngayBatDauGia = "";
+    private String ngayKetThucGia = "";
+    private String ngayKhoiHanh = "";
 
     public DoanForm() {
         initComponents();
@@ -236,6 +241,22 @@ public class DoanForm extends javax.swing.JPanel {
         jTableDoan.setModel(tbModelDoan);
     }
 
+    public String getNgayBatDauGia() {
+        return ngayBatDauGia;
+    }
+
+    public void setNgayBatDauGia(String ngayBatDauGia) {
+        this.ngayBatDauGia = ngayBatDauGia;
+    }
+
+    public String getNgayKetThucGia() {
+        return ngayKetThucGia;
+    }
+
+    public void setNgayKetThucGia(String ngayKetThucGia) {
+        this.ngayKetThucGia = ngayKetThucGia;
+    }
+
     public void initTableDoan() {
         loadDataDoan();
     }
@@ -344,6 +365,8 @@ public class DoanForm extends javax.swing.JPanel {
 
         jDateNgayKT.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayKT.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editorKT = (JTextFieldDateEditor) jDateNgayKT.getDateEditor();
+        editorKT.setEditable(false);
         jPanel4.add(jDateNgayKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, 200, 30));
 
         jLabel22.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -375,6 +398,8 @@ public class DoanForm extends javax.swing.JPanel {
 
         jDateNgayKH.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayKH.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editorKH = (JTextFieldDateEditor) jDateNgayKH.getDateEditor();
+        editorKH.setEditable(false);
         jPanel4.add(jDateNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 200, 30));
 
         jBtnCapPhatMaDoan.setBackground(new java.awt.Color(81, 113, 131));
@@ -1013,6 +1038,25 @@ public class DoanForm extends javax.swing.JPanel {
                 (String) ((JTextField) jDateNgayKH.getDateEditor().getUiComponent()).getText(),
                 (String) ((JTextField) jDateNgayKT.getDateEditor().getUiComponent()).getText(),
                 (String) jTextChiTiet.getText());
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên đoàn", doanDTO.getTenDoan(), "Tour", doanDTO.getMaTour(),
+                "Chi tiết", doanDTO.getChiTietNoiDung());
+        Validation.positiveNumbers(message, "Gia tour", doanDTO.getGiaTour());
+        boolean isDate = Validation.isDate(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày kết thúc", doanDTO.getNgayKetThuc());
+        if(isDate){
+            Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày hiện tại",
+                    new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày bắt đầu của giá", ngayBatDauGia);
+            Validation.afterOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày khởi hành", doanDTO.getNgayKhoiHanh());
+            Validation.beforeOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày kết thúc của giá", ngayKetThucGia);
+        }
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         if (doanDuLichBUS.themDoan(doanDTO, DashBoard.doanDuLichDTOs)) {
             themVectorDoan(tbModelDoan, doanDTO, (String) jTextTour.getText());
             JOptionPane.showMessageDialog(this, "Thêm Đoàn thành công!");
@@ -1087,7 +1131,7 @@ public class DoanForm extends javax.swing.JPanel {
         jDateNgayKH.setCalendar(null);
         jDateNgayKT.setCalendar(null);
         jBtnChonTour.setEnabled(true);
-        jBtnChonChiPhi.setEnabled(true);
+        jBtnChonChiPhi.setEnabled(false);
         jDateNgayKH.setEnabled(true);
         jDateNgayKT.setEnabled(true);
     }//GEN-LAST:event_jBtnCapPhatMaDoanActionPerformed
@@ -1103,14 +1147,15 @@ public class DoanForm extends javax.swing.JPanel {
     private void jBtnXoaDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaDoanActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaDoanActionPerformed
         // TODO add your handling code here:
-//        if ()
-//        {
-//            tbModelDoan.removeRow(rowDoan);
-//            JOptionPane.showMessageDialog(this, "Xóa Tour thành công!");
-//        } else
-//        {
-//            JOptionPane.showMessageDialog(this, "Xóa Tour thất bại!");
-//        }
+        DoanDuLichDTO doanDuLichDTO = new DoanDuLichDTO();
+        doanDuLichDTO = searchDoan(maDoan);
+        System.out.println(doanDuLichDTO);
+        if (doanDuLichBUS.xoaDoan(doanDuLichDTO, DashBoard.doanDuLichDTOs)) {
+            xoaVectorDoan(tbModelDoan, rowDoan);
+            JOptionPane.showMessageDialog(this, "Xóa Đoàn thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Xóa Đoàn thất bại!");
+        }
         jBtnCapPhatMaDoan.setEnabled(true);
         jBtnThemDoan.setEnabled(false);
         jBtnSuaDoan.setEnabled(false);
@@ -1143,6 +1188,24 @@ public class DoanForm extends javax.swing.JPanel {
                 (String) ((JTextField) jDateNgayKH.getDateEditor().getUiComponent()).getText(),
                 (String) ((JTextField) jDateNgayKT.getDateEditor().getUiComponent()).getText(),
                 (String) jTextChiTiet.getText());
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên đoàn", doanDTO.getTenDoan(), "Tour", doanDTO.getMaTour(),
+                "Chi tiết", doanDTO.getChiTietNoiDung());
+        Validation.positiveNumbers(message, "Gia tour", doanDTO.getGiaTour());
+        boolean isDate = Validation.isDate(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày kết thúc", doanDTO.getNgayKetThuc());
+        if(isDate){
+            Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày hiện tại", ngayKhoiHanh);
+            Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày bắt đầu của giá", ngayBatDauGia);
+            Validation.afterOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày khởi hành", doanDTO.getNgayKhoiHanh());
+            Validation.beforeOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày kết thúc của giá", ngayKetThucGia);
+        }
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         if (doanDuLichBUS.suaDoan(doanDTO, DashBoard.doanDuLichDTOs, maTourHienHanh)) {
             suaVectorDoan(tbModelDoan, rowDoan, doanDTO, tenTour);
             JOptionPane.showMessageDialog(this, "Sửa Đoàn thành công!");
@@ -1335,8 +1398,9 @@ public class DoanForm extends javax.swing.JPanel {
                 if (!maDoan.equals("")) {
                     jTextMaDoan.setText(maDoan);
                     jTextTenDoan.setText(tenDoan);
-                    jTextTour.setText((String) jTableDoan.getModel().getValueAt(rowDoan, 2));
+                    jTextTour.setText(((String) jTableDoan.getModel().getValueAt(rowDoan, 2)));
                     jTextGiaTour.setText((String) jTableDoan.getModel().getValueAt(rowDoan, 3));
+                    ngayKhoiHanh = (String) jTableDoan.getModel().getValueAt(rowDoan, 4);
                     try {
                         Date dateKH = new SimpleDateFormat("yyyy-MM-dd").parse(jTableDoan.getModel().getValueAt(rowDoan, 4).toString());
                         jDateNgayKH.setDate(dateKH);
@@ -1356,6 +1420,14 @@ public class DoanForm extends javax.swing.JPanel {
                             jTextChiTiet.setText(doan.getChiTietNoiDung());
                             setMaTour(doan.getMaTour());
                             setMaTourHienHanh(doan.getMaTour());
+                        }
+                    }
+                    // lấy giá trị ngày của giá tour
+                    for (GiaTourDTO giaTourDTO: DashBoard.giaTourDTOs){
+                        if(maTour.equals(giaTourDTO.getMaTour())){
+                            ngayBatDauGia = giaTourDTO.getTgBatDau();
+                            ngayKetThucGia = giaTourDTO.getTgKetThuc();
+                            break;
                         }
                     }
                     long tongCP = 0;
@@ -1449,6 +1521,15 @@ public class DoanForm extends javax.swing.JPanel {
         BangTour bangTour = new BangTour();
         bangTour.doanForm = this;
     }//GEN-LAST:event_jBtnChonTourActionPerformed
+
+    public DoanDuLichDTO searchDoan(String maDoan) {
+        for (DoanDuLichDTO a : DashBoard.doanDuLichDTOs) {
+            if (a.getMaDoan().equals(maDoan)) {
+                return a;
+            }
+        }
+        return null;
+    }
 
     public int getRowDoan() {
         return rowDoan;
@@ -1577,8 +1658,7 @@ public class DoanForm extends javax.swing.JPanel {
     public void setjBtnHuyNV(JButton jBtnHuyNV) {
         this.jBtnHuyNV = jBtnHuyNV;
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCapPhatMaDoan;

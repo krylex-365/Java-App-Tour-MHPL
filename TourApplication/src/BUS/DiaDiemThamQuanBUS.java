@@ -26,9 +26,9 @@ public class DiaDiemThamQuanBUS {
         this.diaDiemThamQuanDTOs = diaDiemThamQuanDTOs;
     }
 
-    public ArrayList<DiaDiemThamQuanDTO> searchDiaDiemThamQuanByMaTour(String maTour){
+    public ArrayList<DiaDiemThamQuanDTO> searchDiaDiemThamQuanByMaTour(String maTour, ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         ArrayList<DiaDiemThamQuanDTO> result = new ArrayList<DiaDiemThamQuanDTO>();
-        for(DiaDiemThamQuanDTO a : diaDiemThamQuanDAO.getList()){
+        for(DiaDiemThamQuanDTO a : diaDiemThamQuanDTOs){
             if(a.getMaTour().equals(maTour))
                 result.add(a);
         }
@@ -102,7 +102,7 @@ public class DiaDiemThamQuanBUS {
         return false;
     }
     
-    public boolean xoaDiaDiemThamQuanByMaTour(String maTour) {
+    public boolean xoaDiaDiemThamQuanByMaTour(String maTour, ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs) {
         if (diaDiemThamQuanDAO.deleteDDTQuanByMaTour(maTour)){
             ArrayList<DiaDiemThamQuanDTO> ddtq = new ArrayList<>();
             for (DiaDiemThamQuanDTO diaDiemThamQuanDTO: diaDiemThamQuanDTOs){

@@ -3,6 +3,7 @@ package BUS;
 import DAO.GiaTourDAO;
 import DAO.MaDuLieuCuoiDAO;
 import DAO.TourDAO;
+import DTO.DiaDiemThamQuanDTO;
 import DTO.DoanDuLichDTO;
 import DTO.GiaTourDTO;
 import DTO.TourDTO;
@@ -12,8 +13,6 @@ import javax.swing.JOptionPane;
 
 public class TourBUS {
 
-    private ArrayList<TourDTO> tourDTOs;
-    public static ArrayList<GiaTourDTO> giaTourDTOs;
     private TourDAO tourDAO;
     private GiaTourBUS giaTourBUS;
     private Utils utl = new Utils();
@@ -22,8 +21,6 @@ public class TourBUS {
     public TourBUS() {
         tourDAO = new TourDAO();
         giaTourBUS = new GiaTourBUS();
-        this.tourDTOs = tourDAO.getList();
-        this.giaTourDTOs = giaTourBUS.getGiaTourDTOs();
     }
     
     public String CapPhat(String init) {
@@ -34,7 +31,8 @@ public class TourBUS {
     }
     
     public boolean themTour(String MaTour, String MaLoai, String TenTour, String DacDiem, 
-            String ThanhTien, String TgBatDau, String TgKetThuc) {
+            String ThanhTien, String TgBatDau, String TgKetThuc, 
+            ArrayList<TourDTO> tourDTOs, ArrayList<GiaTourDTO> giaTourDTOs) {
         for (TourDTO tour : tourDTOs) {
             if (tour.getMaTour().equals(MaTour)) {
                 JOptionPane.showMessageDialog(null, "Mã tour" + MaTour + " đã tồn tại!");
@@ -43,7 +41,7 @@ public class TourBUS {
         }
         TourDTO newTour = new TourDTO(MaTour,MaLoai,TenTour,DacDiem);
         if (tourDAO.insertTour(newTour)) {
-            if (giaTourBUS.themGiaTourByTour(MaTour, ThanhTien, TgBatDau, TgKetThuc)) {
+            if (giaTourBUS.themGiaTourByTour(MaTour, ThanhTien, TgBatDau, TgKetThuc, giaTourDTOs)) {
                 tourDTOs.add(newTour);
                 System.out.println("Thêm thành công themTourBUS");
                 maLast.updateMaTour(MaTour);
@@ -55,8 +53,9 @@ public class TourBUS {
     }
 
     public boolean suaTour(String maTour, String tenTour, String dacDiem, String maLoaiHH, 
-            String maLoai, String maGiaHH, String maGia) {
-        int indexTour = indexTour(maTour);
+            String maLoai, String maGiaHH, String maGia,
+            ArrayList<TourDTO> tourDTOs, ArrayList<GiaTourDTO> giaTourDTOs) {
+        int indexTour = indexTour(maTour, tourDTOs);
         if (indexTour == -1) {
             return false;
         }
@@ -74,7 +73,7 @@ public class TourBUS {
             if (maGiaHH.equals(maGia)){
                 return true;
             }
-            if (giaTourBUS.suaHienHanh(maGia, maTour)) {
+            if (giaTourBUS.suaHienHanh(maGia, maTour, giaTourDTOs)) {
                 System.out.println("Sửa thành công suaTourBUS");
                 return true;
             }
@@ -83,13 +82,14 @@ public class TourBUS {
         return false;
     }
     
-    public boolean xoaTour(String maTour){
+    public boolean xoaTour(String maTour, ArrayList<TourDTO> tourDTOs, 
+            ArrayList<GiaTourDTO> giaTourDTOs, ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         DoanDuLichDTO doanDuLichDTO = new DoanDuLichBUS().getDoanDuLichByMaTour(maTour);
         if(doanDuLichDTO == null) {
             if(tourDAO.deleteTour(maTour)){
-                tourDTOs.remove(indexTour(maTour));
-                new DiaDiemThamQuanBUS().xoaDiaDiemThamQuanByMaTour(maTour);
-                new GiaTourBUS().xoaGiaTourByMaTour(maTour);
+                tourDTOs.remove(indexTour(maTour, tourDTOs));
+                new DiaDiemThamQuanBUS().xoaDiaDiemThamQuanByMaTour(maTour, diaDiemThamQuanDTOs);
+                new GiaTourBUS().xoaGiaTourByMaTour(maTour, giaTourDTOs);
                 System.out.println("Xóa thành công xoaTourBUS");
                 return true;
             }
@@ -98,7 +98,7 @@ public class TourBUS {
         return false;
     }
 
-    private int indexTour(String maTour) {
+    private int indexTour(String maTour, ArrayList<TourDTO> tourDTOs) {
         for (int i = 0; i < tourDTOs.size(); i++) {
             if (maTour.equals(tourDTOs.get(i).getMaTour())) {
                 return i;
@@ -106,22 +106,4 @@ public class TourBUS {
         }
         return -1;
     }
-
-    public ArrayList<TourDTO> getTourDTOS() {
-        return tourDTOs;
-    }
-
-    public void setTourDTOS(ArrayList<TourDTO> tourDTOS) {
-        this.tourDTOs = tourDTOS;
-    }
-
-    public ArrayList<GiaTourDTO> getGiaTourDTOs() {
-        return giaTourDTOs;
-    }
-
-    public void setGiaTourDTOs(ArrayList<GiaTourDTO> giaTourDTOs) {
-        this.giaTourDTOs = giaTourDTOs;
-    }
-    
-    
 }

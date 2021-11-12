@@ -63,12 +63,13 @@ public class BangNhanVien extends javax.swing.JFrame {
     }
 
     public void tableModel(DefaultTableModel model) {
-        for (LoaiHinhTourDTO loaiHinh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
-            Vector row = new Vector();
-            row.add(loaiHinh.getMaLoai());
-            row.add(loaiHinh.getTenLoai());
-            model.addRow(row);
-        }
+        // đổi thành NhanVienDTOs
+//        for (LoaiHinhTourDTO loaiHinh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
+//            Vector row = new Vector();
+//            row.add(loaiHinh.getMaLoai());
+//            row.add(loaiHinh.getTenLoai());
+//            model.addRow(row);
+//        }
     }
 
     /**

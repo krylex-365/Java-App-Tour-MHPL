@@ -5,14 +5,7 @@
  */
 package GUI;
 
-import BUS.ChiTietDoanBUS;
-import BUS.DiaDiemBUS;
-import BUS.DiaDiemThamQuanBUS;
-import BUS.DoanDuLichBUS;
-import BUS.GiaTourBUS;
-import BUS.LoaiHinhTourBUS;
-import BUS.TourBUS;
-import BUS.Utils;
+import BUS.*;
 import DTO.DiaDiemDTO;
 import DTO.DiaDiemThamQuanDTO;
 import DTO.DoanDuLichDTO;
@@ -20,6 +13,7 @@ import DTO.GiaTourDTO;
 import DTO.LoaiHinhTourDTO;
 import DTO.TourDTO;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -81,7 +75,6 @@ public class TourForm extends javax.swing.JPanel {
     public TourForm() {
         initComponents();
         //initTableTour();
-
         jBtnCapPhatMaTour.setEnabled(true);
         jBtnThemTour.setEnabled(false);
         jBtnSuaTour.setEnabled(false);
@@ -109,7 +102,7 @@ public class TourForm extends javax.swing.JPanel {
 
     public void tbModelDiaDiemThamQuan(DefaultTableModel model, String maTour) {
         Vector row;
-        for (DiaDiemThamQuanDTO a : diaDiemThamQuanBUS.searchDiaDiemThamQuanByMaTour(maTour)) {
+        for (DiaDiemThamQuanDTO a : diaDiemThamQuanTempArr) {
             row = new Vector();
             row.add(a.getMaDiaDiem());
             row.add(diaDiemBUS.searchTenDiaDiemByMaDiaDiem(a.getMaDiaDiem()));
@@ -170,17 +163,17 @@ public class TourForm extends javax.swing.JPanel {
     }
 
     public void tableModelTour(DefaultTableModel model) {
-        for (TourDTO tour : tourBUS.getTourDTOS()) {
+        for (TourDTO tour : DashBoard.tourDTOs) {
             Vector row = new Vector();
             row.add(tour.getMaTour());
             row.add(tour.getTenTour());
-            for (LoaiHinhTourDTO loaiHinhTour : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
+            for (LoaiHinhTourDTO loaiHinhTour : DashBoard.loaiHinhTourDTOs) {
                 if (loaiHinhTour.getMaLoai().equals(tour.getMaLoai())) {
                     row.add(loaiHinhTour.getTenLoai());
                     break;
                 }
             }
-            for (GiaTourDTO giaTour : giaTourBUS.getGiaTourDTOs()) {
+            for (GiaTourDTO giaTour : DashBoard.giaTourDTOs) {
                 if (giaTour.getMaTour().equals(tour.getMaTour()) && giaTour.getHienHanh() == 1) {
                     row.add(giaTour.getThanhTien());
                     row.add(giaTour.getTgBatDau());
@@ -226,7 +219,7 @@ public class TourForm extends javax.swing.JPanel {
 
     public void tbModelSearchLoaiHinh(DefaultTableModel model, String maLH) {
         Vector row = new Vector();
-        for (LoaiHinhTourDTO a : loaiHinhTourBUS.searchLoaiHinhByMaLH(maLH)) {
+        for (LoaiHinhTourDTO a : loaiHinhTourBUS.searchLoaiHinhByMaLH(maLH, DashBoard.loaiHinhTourDTOs)) {
             System.out.println(a);
             row.add(a.getMaLoai());
             row.add(a.getTenLoai());
@@ -236,7 +229,7 @@ public class TourForm extends javax.swing.JPanel {
     }
 
     public void tableModelLoaiHinh(DefaultTableModel model) {
-        for (LoaiHinhTourDTO lh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
+        for (LoaiHinhTourDTO lh : DashBoard.loaiHinhTourDTOs) {
             Vector row = new Vector();
             row.add(lh.getMaLoai());
             row.add(lh.getTenLoai());
@@ -303,21 +296,22 @@ public class TourForm extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jBtnChonGiaTour = new javax.swing.JButton();
-        jLabel24 = new javax.swing.JLabel();
+        jLabelDacDiem = new javax.swing.JLabel();
         jTextGiaTour = new javax.swing.JTextField();
         jDateNgayKT = new com.toedter.calendar.JDateChooser();
-        jLabel22 = new javax.swing.JLabel();
+        jLabelTenTour = new javax.swing.JLabel();
         jTextTenTour = new javax.swing.JTextField();
         jTextLoaiHinh = new javax.swing.JTextField();
         jBtnChonLoaiHinh = new javax.swing.JButton();
         jDateNgayBD = new com.toedter.calendar.JDateChooser();
         jBtnCapPhatMaTour = new javax.swing.JButton();
         jTextMaTour = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelMaTour = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLbManv = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jTextDacDiem = new javax.swing.JTextField();
+        jLabelLoạiHinh = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextDacDiem = new javax.swing.JTextArea();
         jBtnThemTour = new javax.swing.JButton();
         jBtnXoaTour = new javax.swing.JButton();
         jBtnSuaTour = new javax.swing.JButton();
@@ -402,9 +396,9 @@ public class TourForm extends javax.swing.JPanel {
         });
         jPanel4.add(jBtnChonGiaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, -1, -1));
 
-        jLabel24.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel24.setText("<html> <body>Đặc Điểm<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
-        jPanel4.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, 30));
+        jLabelDacDiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelDacDiem.setText("<html> <body>Đặc Điểm<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
+        jPanel4.add(jLabelDacDiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, 30));
 
         jTextGiaTour.setBackground(new java.awt.Color(214, 217, 223));
         jTextGiaTour.setForeground(new java.awt.Color(51, 51, 51));
@@ -413,11 +407,13 @@ public class TourForm extends javax.swing.JPanel {
 
         jDateNgayKT.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayKT.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editorKT = (JTextFieldDateEditor) jDateNgayKT.getDateEditor();
+        editorKT.setEditable(false);
         jPanel4.add(jDateNgayKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, 200, 30));
 
-        jLabel22.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel22.setText("<html> <body>Tên Tour<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
-        jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 30));
+        jLabelTenTour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelTenTour.setText("<html> <body>Tên Tour<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
+        jPanel4.add(jLabelTenTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 30));
 
         jTextTenTour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -444,6 +440,8 @@ public class TourForm extends javax.swing.JPanel {
 
         jDateNgayBD.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayBD.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editorBD = (JTextFieldDateEditor) jDateNgayBD.getDateEditor();
+        editorBD.setEditable(false);
         jPanel4.add(jDateNgayBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 200, 30));
 
         jBtnCapPhatMaTour.setBackground(new java.awt.Color(81, 113, 131));
@@ -461,9 +459,9 @@ public class TourForm extends javax.swing.JPanel {
         jTextMaLoaiHinh.setEditable(false);
         jPanel4.add(jTextMaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 170, 30));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel5.setText("<html> <body> Mã Tour <span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
+        jLabelMaTour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelMaTour.setText("<html> <body> Mã Tour <span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
+        jPanel4.add(jLabelMaTour, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 30));
 
         jLabel25.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel25.setText("<html> <body>Ngày Bắt Đầu<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
@@ -473,16 +471,15 @@ public class TourForm extends javax.swing.JPanel {
         jLbManv.setText("<html> <body>Giá Tour<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
         jPanel4.add(jLbManv, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, -1, 30));
 
-        jLabel28.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel28.setText("<html> <body>Loại Hình<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
-        jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 30));
+        jLabelLoạiHinh.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelLoạiHinh.setText("<html> <body>Loại Hình<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
+        jPanel4.add(jLabelLoạiHinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 30));
 
-        jTextDacDiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextDacDiemActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jTextDacDiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 210, 70));
+        jTextDacDiem.setColumns(20);
+        jTextDacDiem.setRows(5);
+        jScrollPane2.setViewportView(jTextDacDiem);
+
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 210, 60));
 
         jBtnThemTour.setBackground(new java.awt.Color(136, 193, 184));
         jBtnThemTour.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
@@ -1192,8 +1189,26 @@ public class TourForm extends javax.swing.JPanel {
                 giaTour = (String) jTextGiaTour.getText(),
                 ngayBD = (String) ((JTextField) jDateNgayBD.getDateEditor().getUiComponent()).getText(),
                 ngayKT = (String) ((JTextField) jDateNgayKT.getDateEditor().getUiComponent()).getText();
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên tour", tenTour, "Loại hình", jTextLoaiHinh.getText(),
+                "Đặc điểm", jTextDacDiem.getText());
+        Validation.positiveNumbers(message, "Giá tour", giaTour);
+        boolean isDate = Validation.isDate(message, "Ngày bắt đầu", ngayBD, "Ngày kết thúc", ngayKT);
+        if(isDate){
+            Validation.afterOrEquals(message, "Ngày bắt đầu", ngayBD, "Ngày hiện tại",
+                    new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+            Validation.afterOrEquals(message, "Ngày kết thúc", ngayKT, "Ngày bắt đầu", ngayBD);
+        }
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         if (tourBUS.themTour(maTour, (String) getMaLoai(), tenTour,
-                (String) jTextDacDiem.getText(), giaTour, ngayBD, ngayKT)) {
+                (String) jTextDacDiem.getText(), giaTour, ngayBD, ngayKT,
+                DashBoard.tourDTOs, DashBoard.giaTourDTOs)) {
             themVectorTour(tbModelTour, maTour, tenTour, (String) jTextLoaiHinh.getText(), giaTour, ngayBD, ngayKT);
             JOptionPane.showMessageDialog(this, "Thêm Tour thành công!");
         } else {
@@ -1344,7 +1359,7 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnXoaTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaTourActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaTourActionPerformed
         // TODO add your handling code here:
-        if (tourBUS.xoaTour(maTour)) {
+        if (tourBUS.xoaTour(maTour, DashBoard.tourDTOs, DashBoard.giaTourDTOs, DashBoard.diaDiemThamQuanDTOs)) {
             xoaVectorTour(tbModelTour, rowTour);
             JOptionPane.showMessageDialog(this, "Xóa Tour thành công!");
         } else {
@@ -1377,8 +1392,19 @@ public class TourForm extends javax.swing.JPanel {
         String tenTour = (String) jTextTenTour.getText(),
                 ngayBD = (String) ((JTextField) jDateNgayBD.getDateEditor().getUiComponent()).getText(),
                 ngayKT = (String) ((JTextField) jDateNgayKT.getDateEditor().getUiComponent()).getText();
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên tour", tenTour, "Loại hình", jTextLoaiHinh.getText(),
+                "Đặc điểm", jTextDacDiem.getText());
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         System.out.println("Sua tour: " + maTour);
-        if (tourBUS.suaTour(getMaTour(), tenTour, (String) jTextDacDiem.getText(), getMaLoaiHienHanh(), getMaLoai(), getMaGiaHienHanh(), getMaGia())) {
+        if (tourBUS.suaTour(getMaTour(), tenTour, (String) jTextDacDiem.getText(), getMaLoaiHienHanh(), getMaLoai(),
+                getMaGiaHienHanh(), getMaGia(), DashBoard.tourDTOs, DashBoard.giaTourDTOs)) {
             suaVectorTour(tbModelTour, rowTour, tenTour, jTextLoaiHinh.getText(), jTextGiaTour.getText(), ngayBD, ngayKT);
             JOptionPane.showMessageDialog(this, "Sửa Tour thành công!");
         } else {
@@ -1431,7 +1457,7 @@ public class TourForm extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(TourForm.this, e);
                         System.out.println("- Load sai ngày kết thúc!");
                     }
-                    for (TourDTO tour : tourBUS.getTourDTOS()) {
+                    for (TourDTO tour : DashBoard.tourDTOs) {
                         if (maTour.equals(tour.getMaTour())) {
                             jTextDacDiem.setText(tour.getDacDiem());
                             setMaLoaiHienHanh(tour.getMaLoai());
@@ -1441,7 +1467,7 @@ public class TourForm extends javax.swing.JPanel {
                     setMaTour(maTour);
                     System.out.println("maTour: " + getMaTour());
                     System.out.println("maLoaiHH: " + getMaLoaiHienHanh());
-                    for (GiaTourDTO giaTour : tourBUS.getGiaTourDTOs()) {
+                    for (GiaTourDTO giaTour : DashBoard.giaTourDTOs) {
                         if (giaTour.getMaTour().equals(getMaTour()) && giaTour.getHienHanh() == 1) {
                             setMaGiaHienHanh(giaTour.getMaGia());
                             setMaGia(giaTour.getMaGia());
@@ -1704,7 +1730,7 @@ public class TourForm extends javax.swing.JPanel {
         System.out.println(tenTour);
         tbModelDoan.setRowCount(0);
         tbModelDiadiem.setRowCount(0);
-        diaDiemThamQuanTempArr = diaDiemThamQuanBUS.searchDiaDiemThamQuanByMaTour(maTourChiTiet);
+        diaDiemThamQuanTempArr = diaDiemThamQuanBUS.searchDiaDiemThamQuanByMaTour(maTourChiTiet, DashBoard.diaDiemThamQuanDTOs);
         tbModelDiaDiemThamQuan(tbModelDiadiem, maTourChiTiet);
         tbModelDoanDuLich(tbModelDoan, maTourChiTiet);
         System.out.println(doanDuLichBUS.countDoanTrongTour(maTourChiTiet));
@@ -1752,10 +1778,6 @@ public class TourForm extends javax.swing.JPanel {
         jDateNgayKT.setEnabled(false);
     }//GEN-LAST:event_jBtnHuyTourActionPerformed
 
-    private void jTextDacDiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDacDiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextDacDiemActionPerformed
-
     private void jTableLHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLHMouseClicked
         // TODO add your handling code here:
         System.out.println("1");
@@ -1799,8 +1821,17 @@ public class TourForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         String maLoai = (String) jTextMaLoaiHinh.getText(),
                 tenLoai = (String) jTextTenLH.getText();
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên loại hình", tenLoai);
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         if (!isNullOrEmpty(tenLoai)) {
-            if (loaiHinhTourBUS.themLoaiHinhTour(maLoai, tenLoai)) {
+            if (loaiHinhTourBUS.themLoaiHinhTour(maLoai, tenLoai, DashBoard.loaiHinhTourDTOs)) {
                 LoaiHinhTourDTO loaiHinhDTO = new LoaiHinhTourDTO(maLoai, tenLoai);
                 themVectorLoaiHinh(tbModelLoaiHinh, loaiHinhDTO);
                 JOptionPane.showMessageDialog(this, "Thêm Loại hình tour thành công!");
@@ -1820,7 +1851,16 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnSuaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaLHActionPerformed
         // TODO add your handling code here:
         String tenLoai = (String) jTextTenLH.getText();
-        if (!isNullOrEmpty(tenLoai) && loaiHinhTourBUS.suaLoaiHinhTour(maLH, tenLoai)) {
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Tên loại hình", tenLoai);
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
+        if (!isNullOrEmpty(tenLoai) && loaiHinhTourBUS.suaLoaiHinhTour(maLH, tenLoai, DashBoard.loaiHinhTourDTOs)) {
             LoaiHinhTourDTO loaiHinhDTO = new LoaiHinhTourDTO(maLH, tenLoai);
             suaVectorLoaiHinh(tbModelLoaiHinh, rowLoaiHinh, loaiHinhDTO);
             JOptionPane.showMessageDialog(this, "Sửa Loại hình tour thành công!");
@@ -1838,7 +1878,7 @@ public class TourForm extends javax.swing.JPanel {
 
     private void jBtnXoaLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaLHActionPerformed
         // TODO add your handling code here:
-        if (loaiHinhTourBUS.xoaLoaiHinhTour(maLH)) {
+        if (loaiHinhTourBUS.xoaLoaiHinhTour(maLH, DashBoard.loaiHinhTourDTOs)) {
             xoaVectorLoaiHinh(tbModelLoaiHinh, rowLoaiHinh);
             JOptionPane.showMessageDialog(this, "Xóa Loại hình tour thành công!");
         } else {
@@ -2123,16 +2163,16 @@ public class TourForm extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser jDateNgayBD;
     private com.toedter.calendar.JDateChooser jDateNgayKT;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelDacDiem;
+    private javax.swing.JLabel jLabelLoạiHinh;
+    private javax.swing.JLabel jLabelMaTour;
+    private javax.swing.JLabel jLabelTenTour;
     private javax.swing.JLabel jLbDiaDiem;
     private javax.swing.JLabel jLbMaLH;
     private javax.swing.JLabel jLbManv;
@@ -2146,6 +2186,7 @@ public class TourForm extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelQLTour;
     private javax.swing.JPanel jPanelTLTour;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
@@ -2154,7 +2195,7 @@ public class TourForm extends javax.swing.JPanel {
     private javax.swing.JTable jTableDoan;
     private javax.swing.JTable jTableLH;
     private javax.swing.JTable jTableTour;
-    private javax.swing.JTextField jTextDacDiem;
+    private javax.swing.JTextArea jTextDacDiem;
     private javax.swing.JTextField jTextGiaTour;
     private javax.swing.JTextField jTextLoaiHinh;
     private javax.swing.JTextField jTextMaDiaDiem;

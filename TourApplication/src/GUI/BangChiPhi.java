@@ -9,6 +9,7 @@ package GUI;
 import BUS.ChiPhiBUS;
 import BUS.GiaTourBUS;
 import BUS.Utils;
+import BUS.Validation;
 import DTO.ChiPhiDTO;
 import DTO.GiaTourDTO;
 import DTO.LoaiChiPhiDTO;
@@ -45,7 +46,7 @@ public class BangChiPhi extends javax.swing.JFrame {
     DoanForm doanForm;
     Vector tbCol = new Vector();
     DefaultTableModel tbModel;
-    String maDoan, tenDoan, tongChiPhi;
+    String maDoan, tenDoan, tongChiPhi, maLoaiCPHH, soTienHH;
     ChiPhiBUS chiPhiBUS;
     private Utils ult = new Utils();
 
@@ -397,6 +398,33 @@ public class BangChiPhi extends javax.swing.JFrame {
 
     private void jBtnSuaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaActionPerformed
+        String maCP = (String) jTextMaChiPhi.getText(),
+                tenLoaiCP = jCbLoaiCP.getSelectedItem().toString(),
+                maLoaiCP = searchMaLoai(tenLoaiCP),
+                soTien = (String) jTextSoTien.getText(),
+                ghiChu = (String) jTextGhiChu.getText();
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Loại chi phí", tenLoaiCP, "Ghi chú", ghiChu);
+        Validation.positiveNumbers(message, "Số tiền", soTien);
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
+        ChiPhiDTO chiPhiDTO = new ChiPhiDTO(maCP, maDoan, maLoaiCP, soTien, ghiChu);
+        System.out.println(chiPhiDTO);
+        System.out.println(maLoaiCPHH);
+        if (chiPhiBUS.suaChiPhi(chiPhiDTO, DashBoard.chiPhiDTOs, maLoaiCPHH)) {
+            suaVectorChiPhi(tbModel, rowTbl, chiPhiDTO, tenLoaiCP);
+            long tongCP = Long.parseLong(tongChiPhi) - Long.parseLong(soTienHH) + Long.parseLong(soTien);
+            tongChiPhi = String.valueOf(tongCP);
+            doanForm.getjTextChiPhi().setText(tongChiPhi);
+            JOptionPane.showMessageDialog(this, "Sửa Chi phí thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Sửa Chi phí thất bại!");
+        }
         jBtnCapPhatMaChiPhi.setEnabled(true);
         jBtnThem.setEnabled(false);
         jBtnSua.setEnabled(false);
@@ -420,6 +448,16 @@ public class BangChiPhi extends javax.swing.JFrame {
                 maLoaiCP = searchMaLoai(tenLoaiCP),
                 soTien = (String) jTextSoTien.getText(),
                 ghiChu = (String) jTextGhiChu.getText();
+
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.notNullOrEmpty(message, "Loại chi phí", tenLoaiCP, "Ghi chú", ghiChu);
+        Validation.positiveNumbers(message, "Số tiền", soTien);
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+
         System.out.println(maLoaiCP);
         System.out.println(tenLoaiCP);
         ChiPhiDTO chiPhiDTO = new ChiPhiDTO(maCP, maDoan, maLoaiCP, soTien, ghiChu);
@@ -450,8 +488,10 @@ public class BangChiPhi extends javax.swing.JFrame {
             rowTbl = jTableChiPhi.getSelectedRow();
             if (rowTbl != -1) {
                 jTextMaChiPhi.setText((String) jTableChiPhi.getModel().getValueAt(rowTbl, 0));
-                jCbLoaiCP.setSelectedItem(searchObject((String) jTableChiPhi.getModel().getValueAt(rowTbl, 1)));
+                jCbLoaiCP.setSelectedItem(searchLoaiCP((String) jTableChiPhi.getModel().getValueAt(rowTbl, 1)));
                 jTextSoTien.setText((String) jTableChiPhi.getModel().getValueAt(rowTbl, 2));
+                soTienHH = (String) jTableChiPhi.getModel().getValueAt(rowTbl, 2);
+                System.out.println(soTienHH);
                 for (ChiPhiDTO chiPhi : DashBoard.chiPhiDTOs) {
                     if (chiPhi.getMaChiPhi().equals((String) jTableChiPhi.getModel().getValueAt(rowTbl, 0))) {
                         jTextGhiChu.setText(chiPhi.getGhiChu());
@@ -499,6 +539,18 @@ public class BangChiPhi extends javax.swing.JFrame {
     private void jBtnXoaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaActionPerformed
         // TODO add your handling code here:
+        String maCP = (String) jTextMaChiPhi.getText();
+        ChiPhiDTO chiPhiDTO = new ChiPhiDTO();
+        chiPhiDTO = searchCP(maCP);
+        if (chiPhiBUS.xoaChiPhi(chiPhiDTO, DashBoard.chiPhiDTOs)) {
+            xoaVectorChiPhi(tbModel, rowTbl);
+            long tongCP = Long.parseLong(tongChiPhi) - Long.parseLong(soTienHH);
+            tongChiPhi = String.valueOf(tongCP);
+            doanForm.getjTextChiPhi().setText(tongChiPhi);
+            JOptionPane.showMessageDialog(this, "Thêm Chi phí thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm Chi phí thất bại!");
+        }
         jBtnCapPhatMaChiPhi.setEnabled(true);
         jBtnThem.setEnabled(false);
         jBtnSua.setEnabled(false);
@@ -547,9 +599,10 @@ public class BangChiPhi extends javax.swing.JFrame {
         }
     }
 
-    public Object searchObject(String ten) {
+    public LoaiChiPhiDTO searchLoaiCP(String ten) {
         for (LoaiChiPhiDTO a : DashBoard.loaiChiPhiDTOs) {
             if (a.getTenLoai().equals(ten)) {
+                maLoaiCPHH = a.getMaLoaiChiPhi();
                 return a;
             }
         }
@@ -560,6 +613,15 @@ public class BangChiPhi extends javax.swing.JFrame {
         for (LoaiChiPhiDTO a : DashBoard.loaiChiPhiDTOs) {
             if (a.getTenLoai().equals(ten)) {
                 return a.getMaLoaiChiPhi();
+            }
+        }
+        return null;
+    }
+    
+    public ChiPhiDTO searchCP(String maCP) {
+        for (ChiPhiDTO a : DashBoard.chiPhiDTOs) {
+            if (a.getMaChiPhi().equals(maCP)) {
+                return a;
             }
         }
         return null;

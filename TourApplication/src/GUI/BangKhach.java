@@ -62,6 +62,7 @@ public class BangKhach extends javax.swing.JFrame {
     }
 
     public void tableModel(DefaultTableModel model) {
+
         for (KhachHangDTO khachhang : DashBoard.khachHangDTOs) {
             Vector row = new Vector();
             row.add(khachhang.getMaKhachHang());
@@ -70,6 +71,15 @@ public class BangKhach extends javax.swing.JFrame {
             row.add(khachhang.getMail());
             model.addRow(row);
         }
+
+        // Đổi thành KhachHangDTOs
+//        for (LoaiHinhTourDTO loaiHinh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
+//            Vector row = new Vector();
+//            row.add(loaiHinh.getMaLoai());
+//            row.add(loaiHinh.getTenLoai());
+//            model.addRow(row);
+//        }
+
     }
 
     /**
@@ -338,6 +348,10 @@ public class BangKhach extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(null, ktra());
 //            }
 //        }
+        doanForm.getjTextMaKhach().setText((String) jTableKhach.getValueAt(rowTbl, 0));
+        doanForm.getjTextTenKhach().setText((String) jTableKhach.getValueAt(rowTbl, 1));
+        doanForm.getjTextSDT().setText((String) jTableKhach.getValueAt(rowTbl, 2));
+        
         doanForm.getjBtnChonKhach().setEnabled(false);
         doanForm.getjBtnThemKhach().setEnabled(true);
         doanForm.getjBtnHuyKhach().setEnabled(true);
@@ -352,6 +366,8 @@ public class BangKhach extends javax.swing.JFrame {
             if (rowTbl != -1) {
                 jTextMaKhach.setText((String) jTableKhach.getValueAt(rowTbl, 0));
                 jTextTenKhach.setText((String) jTableKhach.getValueAt(rowTbl, 1));
+                jTextSDT.setText((String) jTableKhach.getValueAt(rowTbl, 2));
+                jTextMail.setText((String) jTableKhach.getValueAt(rowTbl, 3));
                 jBtnXacNhan.setEnabled(true);
                 jBtnQuayLai.setEnabled(true);
             }
