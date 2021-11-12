@@ -8,6 +8,7 @@ package GUI;
 //import BUS.CongViecBUS;
 import BUS.LoaiHinhTourBUS;
 import DTO.LoaiHinhTourDTO;
+import DTO.NhanVienDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -64,12 +65,13 @@ public class BangNhanVien extends javax.swing.JFrame {
 
     public void tableModel(DefaultTableModel model) {
         // đổi thành NhanVienDTOs
-//        for (LoaiHinhTourDTO loaiHinh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
-//            Vector row = new Vector();
-//            row.add(loaiHinh.getMaLoai());
-//            row.add(loaiHinh.getTenLoai());
-//            model.addRow(row);
-//        }
+        for (NhanVienDTO nhanvien : DashBoard.nhanVienDTOs) {
+            Vector row = new Vector();
+            row.add(nhanvien.getMaNhanVien());
+            row.add(nhanvien.getTenNhanVien());
+            row.add(nhanvien.getSDT());
+            model.addRow(row);
+        }
     }
 
     /**
@@ -322,6 +324,8 @@ public class BangNhanVien extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(null, ktra());
 //            }
 //        }
+        doanForm.getjTextMaNV().setText((String) jTableKhach.getValueAt(rowTbl, 0));
+        doanForm.getjTextTenNV().setText((String) jTableKhach.getValueAt(rowTbl, 1));
         doanForm.getjBtnChonNV().setEnabled(false);
         doanForm.getjBtnThemNV().setEnabled(true);
         doanForm.getjBtnHuyNV().setEnabled(true);
@@ -336,6 +340,7 @@ public class BangNhanVien extends javax.swing.JFrame {
             if (rowTbl != -1) {
                 jTextMaNV.setText((String) jTableKhach.getValueAt(rowTbl, 0));
                 jTextTenNV.setText((String) jTableKhach.getValueAt(rowTbl, 1));
+                jTextSDTNV.setText((String) jTableKhach.getValueAt(rowTbl, 2));
                 jBtnXacNhan.setEnabled(true);
                 jBtnQuayLai.setEnabled(true);
             }

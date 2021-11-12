@@ -55,6 +55,8 @@ public class DoanForm extends javax.swing.JPanel {
      * Creates new form jPanel2
      */
     DoanDuLichBUS doanDuLichBUS;
+    ChiTietDoanBUS chiTietDoanBUS;
+    NhiemVuNhanVienBUS nhiemVuNhanVienBUS;
     public static ArrayList<DoanDuLichDTO> doanDuLichDTOs;
     public static ArrayList<NhanVienDTO> nhanVienDTOs;
     public static ArrayList<KhachHangDTO> khachHangDTOs;
@@ -169,18 +171,18 @@ public class DoanForm extends javax.swing.JPanel {
         System.out.println("- Thời gian chạy: " + totalTime + " ms");
     }
     
-    public void themVectorKhachHang(DefaultTableModel model, KhachHangDTO khachHangDTO) {
+    public void themVectorKhachHang(DefaultTableModel model, String maKhachHang,String tenKhachHang,String sdt) {
         Vector newrow = new Vector();
-        newrow.add(khachHangDTO.getMaKhachHang());
-        newrow.add(khachHangDTO.getTenKhachHang());
-        newrow.add(khachHangDTO.getSDT());
+        newrow.add(maKhachHang);
+        newrow.add(tenKhachHang);
+        newrow.add(sdt);
         model.addRow(newrow);
     }
 
     public void suaVectorKhachHang(DefaultTableModel model, int row, KhachHangDTO khachHangDTO, String tenKhachHang,String sdt) {
-        model.setValueAt(khachHangDTO.getMaKhachHang(), rowKhach, 1);
-        model.setValueAt(khachHangDTO.getTenKhachHang(), rowKhach, 2);
-        model.setValueAt(khachHangDTO.getSDT(), rowKhach, 3);
+        model.setValueAt(khachHangDTO.getMaKhachHang(), rowKhach, 0);
+        model.setValueAt(khachHangDTO.getTenKhachHang(), rowKhach, 1);
+        model.setValueAt(khachHangDTO.getSDT(), rowKhach, 2);
     }
 
     public void xoaVectorKhachHang(DefaultTableModel model, int row) {
@@ -223,9 +225,9 @@ public class DoanForm extends javax.swing.JPanel {
     }
 
     public void suaVectorNhanVien(DefaultTableModel model, String maNhanVien, String tenNhanVien, String nhiemVu) {
-        model.setValueAt(maNhanVien, rowNV, 1);
-        model.setValueAt(tenNhanVien, rowNV, 2);
-        model.setValueAt(nhiemVu, rowNV, 3);
+        model.setValueAt(maNhanVien, rowNV, 0);
+        model.setValueAt(tenNhanVien, rowNV, 1);
+        model.setValueAt(nhiemVu, rowNV, 2);
     }
 
     public void xoaVectorNhanVien(DefaultTableModel model, int row) {
@@ -236,6 +238,8 @@ public class DoanForm extends javax.swing.JPanel {
 
     public void loadDataDoan() {
         doanDuLichBUS = new DoanDuLichBUS();
+        chiTietDoanBUS = new ChiTietDoanBUS();
+        nhiemVuNhanVienBUS = new NhiemVuNhanVienBUS();
         tbModelDoan.setRowCount(0);
         tableModelDoan(tbModelDoan);
         jTableDoan.setModel(tbModelDoan);
@@ -1254,6 +1258,9 @@ public class DoanForm extends javax.swing.JPanel {
     private void jBtnXoaNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaNVActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaNVActionPerformed
         // TODO add your handling code here:
+        if(nhiemVuNhanVienBUS.delete(jTextMaNV.getText(), maDoan, DashBoard.nhiemVuNhanVienDTOs)){
+            xoaVectorNhanVien(tbModelNhanVien, rowNV);
+        }
         jBtnChonNV.setEnabled(true);
         jBtnThemNV.setEnabled(false);
         jBtnSuaNV.setEnabled(false);
@@ -1264,6 +1271,9 @@ public class DoanForm extends javax.swing.JPanel {
     private void jBtnThemNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemNVActionPerformed
     {//GEN-HEADEREND:event_jBtnThemNVActionPerformed
         // TODO add your handling code here:
+        if(nhiemVuNhanVienBUS.add(jTextMaNV.getText(), maDoan, jTextNhiemVu.getText(), DashBoard.nhiemVuNhanVienDTOs)){
+            themVectorNhanVien(tbModelNhanVien,jTextMaNV.getText(), maDoan, jTextNhiemVu.getText());
+        }
         jBtnChonNV.setEnabled(true);
         jBtnThemNV.setEnabled(false);
         jBtnSuaNV.setEnabled(false);
@@ -1274,6 +1284,9 @@ public class DoanForm extends javax.swing.JPanel {
     private void jBtnSuaNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaNVActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaNVActionPerformed
         // TODO add your handling code here:
+        if(nhiemVuNhanVienBUS.update(jTextMaNV.getText(), maDoan, jTextNhiemVu.getText(), DashBoard.nhiemVuNhanVienDTOs)){
+            suaVectorNhanVien(tbModelNhanVien,jTextMaNV.getText(), jTextTenNV.getText(), jTextNhiemVu.getText());
+        }
         jBtnChonNV.setEnabled(true);
         jBtnThemNV.setEnabled(false);
         jBtnSuaNV.setEnabled(false);
@@ -1478,6 +1491,13 @@ public class DoanForm extends javax.swing.JPanel {
     private void jBtnThemKhachActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemKhachActionPerformed
     {//GEN-HEADEREND:event_jBtnThemKhachActionPerformed
         // TODO add your handling code here:
+        
+        if(chiTietDoanBUS.add(maDoan, jTextMaKhach.getText(), DashBoard.chiTietDoanDTOs)){
+            //System.out.println("error1");
+            themVectorKhachHang(tbModelKhach, jTextMaKhach.getText(),jTextTenKhach.getText(),jTextSDT.getText());
+            
+            //System.out.println("error2");
+        }
         jBtnChonKhach.setEnabled(true);
         jBtnThemKhach.setEnabled(false);
         jBtnXoaKhach.setEnabled(false);
@@ -1496,6 +1516,9 @@ public class DoanForm extends javax.swing.JPanel {
     private void jBtnXoaKhachActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaKhachActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaKhachActionPerformed
         // TODO add your handling code here:
+        if(chiTietDoanBUS.delete(maDoan, jTextMaKhach.getText(), DashBoard.chiTietDoanDTOs)){
+            xoaVectorDoan(tbModelKhach, rowKhach);
+        }
         jBtnChonKhach.setEnabled(true);
         jBtnThemKhach.setEnabled(false);
         jBtnXoaKhach.setEnabled(false);
@@ -1657,6 +1680,54 @@ public class DoanForm extends javax.swing.JPanel {
 
     public void setjBtnHuyNV(JButton jBtnHuyNV) {
         this.jBtnHuyNV = jBtnHuyNV;
+    }
+
+    public JTextField getjTextMaKhach() {
+        return jTextMaKhach;
+    }
+
+    public void setjTextMaKhach(JTextField jTextMaKhach) {
+        this.jTextMaKhach = jTextMaKhach;
+    }
+
+    public JTextField getjTextMaNV() {
+        return jTextMaNV;
+    }
+
+    public void setjTextMaNV(JTextField jTextMaNV) {
+        this.jTextMaNV = jTextMaNV;
+    }
+
+    public JTextField getjTextNhiemVu() {
+        return jTextNhiemVu;
+    }
+
+    public void setjTextNhiemVu(JTextField jTextNhiemVu) {
+        this.jTextNhiemVu = jTextNhiemVu;
+    }
+
+    public JTextField getjTextSDT() {
+        return jTextSDT;
+    }
+
+    public void setjTextSDT(JTextField jTextSDT) {
+        this.jTextSDT = jTextSDT;
+    }
+
+    public JTextField getjTextTenKhach() {
+        return jTextTenKhach;
+    }
+
+    public void setjTextTenKhach(JTextField jTextTenKhach) {
+        this.jTextTenKhach = jTextTenKhach;
+    }
+
+    public JTextField getjTextTenNV() {
+        return jTextTenNV;
+    }
+
+    public void setjTextTenNV(JTextField jTextTenNV) {
+        this.jTextTenNV = jTextTenNV;
     }
 
 

@@ -35,16 +35,16 @@ public class ChiTietTour {
         diaDiemBUS = new DiaDiemBUS();
     }
     
-    public void tbModelDiaDiemThamQuan(DefaultTableModel model,String maTour){
-        Vector row;
-        for(DiaDiemThamQuanDTO a : diaDiemThamQuanBUS.searchDiaDiemThamQuanByMaTour(maTour)){
-            row = new Vector();
-            row.add(a.getMaDiaDiem());
-            row.add(diaDiemBUS.searchTenDiaDiemByMaDiaDiem(a.getMaDiaDiem()));
-            row.add(a.getThuTu());
-            model.addRow(row);
-        }
-    }
+//    public void tbModelDiaDiemThamQuan(DefaultTableModel model,String maTour){
+//        Vector row;
+//        for(DiaDiemThamQuanDTO a : diaDiemThamQuanBUS.searchDiaDiemThamQuanByMaTour(maTour)){
+//            row = new Vector();
+//            row.add(a.getMaDiaDiem());
+//            row.add(diaDiemBUS.searchTenDiaDiemByMaDiaDiem(a.getMaDiaDiem()));
+//            row.add(a.getThuTu());
+//            model.addRow(row);
+//        }
+//    }
     
     public void tbModelDoanDuLich(DefaultTableModel model,String maTour){
         Vector row;
@@ -58,7 +58,7 @@ public class ChiTietTour {
             row.add(a.getNgayKetThuc());
             System.out.println(a);
 //            row.add(chiTietDoanBUS.peopleCount(a.getMaDoan()));
-            row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan()));
+            //row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan()));
             model.addRow(row);
         }
     }
@@ -72,7 +72,7 @@ public class ChiTietTour {
             row.add(a.getNgayKhoiHanh());
             row.add(a.getNgayKetThuc());
 //            row.add(chiTietDoanBUS.peopleCount(a.getMaDoan()));
-            row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan()));
+            //row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan()));
             model.addRow(row);
         }
     }    

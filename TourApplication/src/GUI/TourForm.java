@@ -123,7 +123,7 @@ public class TourForm extends javax.swing.JPanel {
             row.add(a.getNgayKetThuc());
             System.out.println(a);
 //            row.add(chiTietDoanBUS.peopleCount(a.getMaDoan()));
-            row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan()));
+            row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan(),DashBoard.chiTietDoanDTOs));
             model.addRow(row);
         }
     }
@@ -137,7 +137,7 @@ public class TourForm extends javax.swing.JPanel {
             row.add(a.getNgayKhoiHanh());
             row.add(a.getNgayKetThuc());
 //            row.add(chiTietDoanBUS.peopleCount(a.getMaDoan()));
-            row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan()));
+            row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan(),DashBoard.chiTietDoanDTOs));
             model.addRow(row);
         }
     }
