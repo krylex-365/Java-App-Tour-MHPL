@@ -7,6 +7,7 @@ package GUI;
 
 //import BUS.CongViecBUS;
 import BUS.LoaiHinhTourBUS;
+import DTO.KhachHangDTO;
 import DTO.LoaiHinhTourDTO;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -36,7 +37,6 @@ public class BangKhach extends javax.swing.JFrame {
      */
     int rowTbl;
     public DoanForm doanForm;
-    public LoaiHinhTourBUS loaiHinhTourBUS;
     Vector tbCol = new Vector();
     DefaultTableModel tbModel;
 
@@ -50,7 +50,6 @@ public class BangKhach extends javax.swing.JFrame {
     }
 
     public void reloadData() {
-        loaiHinhTourBUS = new LoaiHinhTourBUS();
     }
 
     public void initTable() {
@@ -63,10 +62,12 @@ public class BangKhach extends javax.swing.JFrame {
     }
 
     public void tableModel(DefaultTableModel model) {
-        for (LoaiHinhTourDTO loaiHinh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
+        for (KhachHangDTO khachhang : DashBoard.khachHangDTOs) {
             Vector row = new Vector();
-            row.add(loaiHinh.getMaLoai());
-            row.add(loaiHinh.getTenLoai());
+            row.add(khachhang.getMaKhachHang());
+            row.add(khachhang.getTenKhachHang());
+            row.add(khachhang.getSDT());
+            row.add(khachhang.getMail());
             model.addRow(row);
         }
     }

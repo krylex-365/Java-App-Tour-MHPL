@@ -9,8 +9,12 @@ import BUS.DoanDuLichBUS;
 import BUS.Utils;
 import DAO.DoanDuLichDAO;
 import DTO.ChiPhiDTO;
+import DTO.ChiTietDoanDTO;
 import DTO.DoanDuLichDTO;
 import DTO.GiaTourDTO;
+import DTO.KhachHangDTO;
+import DTO.NhanVienDTO;
+import DTO.NhiemVuNhanVienDTO;
 import DTO.TourDTO;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
@@ -50,6 +54,8 @@ public class DoanForm extends javax.swing.JPanel {
      */
     DoanDuLichBUS doanDuLichBUS;
     public static ArrayList<DoanDuLichDTO> doanDuLichDTOs;
+    public static ArrayList<NhanVienDTO> nhanVienDTOs;
+    public static ArrayList<KhachHangDTO> khachHangDTOs;
     DoanDuLichDAO doanDuLichDAO;
     int rowDoan, rowKhach, flagThemDiaDiem, rowNV;
     private String maDoan, tenDoan, maTour, maTourHienHanh, tongChiPhi;
@@ -85,8 +91,9 @@ public class DoanForm extends javax.swing.JPanel {
 
     public void tableModelDoan(DefaultTableModel model) {
         long startTime = System.currentTimeMillis();
+        Vector row;
         for (DoanDuLichDTO doan : DashBoard.doanDuLichDTOs) {
-            Vector row = new Vector();
+            row = new Vector();
             row.add(doan.getMaDoan());
             row.add(doan.getTenDoan());
 //            row.add(doanDuLichDAO.getTenTour(doan.getMaTour()));
@@ -111,6 +118,7 @@ public class DoanForm extends javax.swing.JPanel {
         long totalTime = finishTime - startTime;
         System.out.println("- Thời gian chạy: " + totalTime + " ms");
     }
+    
 
     public void themVectorDoan(DefaultTableModel model, DoanDuLichDTO doanDTO, String tenTour) {
         Vector newrow = new Vector();
@@ -134,6 +142,92 @@ public class DoanForm extends javax.swing.JPanel {
     public void xoaVectorDoan(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
+    
+    public void tableModelKhachHang(DefaultTableModel model) {
+        long startTime = System.currentTimeMillis();
+        Vector row;
+        for (ChiTietDoanDTO chitietdoan : DashBoard.chiTietDoanDTOs) {
+            if(chitietdoan.getMaDoan().equals(maDoan)){
+                for(KhachHangDTO khachhang: DashBoard.khachHangDTOs){
+                    if(khachhang.getMaKhachHang().equals(chitietdoan.getMaKhachHang())){
+                        row = new Vector();
+                        row.add(khachhang.getMaKhachHang());
+                        row.add(khachhang.getTenKhachHang());
+                        row.add(khachhang.getSDT());
+                        model.addRow(row);
+                    }
+                } 
+            }            
+        }
+        long finishTime = System.currentTimeMillis();
+        long totalTime = finishTime - startTime;
+        System.out.println("- Thời gian chạy: " + totalTime + " ms");
+    }
+    
+    public void themVectorKhachHang(DefaultTableModel model, KhachHangDTO khachHangDTO) {
+        Vector newrow = new Vector();
+        newrow.add(khachHangDTO.getMaKhachHang());
+        newrow.add(khachHangDTO.getTenKhachHang());
+        newrow.add(khachHangDTO.getSDT());
+        model.addRow(newrow);
+    }
+
+    public void suaVectorKhachHang(DefaultTableModel model, int row, KhachHangDTO khachHangDTO, String tenKhachHang,String sdt) {
+        model.setValueAt(khachHangDTO.getMaKhachHang(), rowKhach, 1);
+        model.setValueAt(khachHangDTO.getTenKhachHang(), rowKhach, 2);
+        model.setValueAt(khachHangDTO.getSDT(), rowKhach, 3);
+    }
+
+    public void xoaVectorKhachHang(DefaultTableModel model, int row) {
+        model.removeRow(row);
+    }
+    
+    public void tableModelNhanVien(DefaultTableModel model) {
+        long startTime = System.currentTimeMillis();
+        Vector row;
+        for (NhiemVuNhanVienDTO nhiemvunhanvien : DashBoard.nhiemVuNhanVienDTOs) {
+//            System.out.println(nhiemvunhanvien);
+//            row = new Vector();
+//            row.add(nhiemvunhanvien.getMaNhanVien());
+//            row.add(nhiemvunhanvien.getMaDoan());
+//            row.add(nhiemvunhanvien.getTenNhiemVu());
+            if(nhiemvunhanvien.getMaDoan().equals(maDoan)){
+                
+                for(NhanVienDTO nhanvien : DashBoard.nhanVienDTOs){
+                    if(nhanvien.getMaNhanVien().equals(nhiemvunhanvien.getMaNhanVien())){
+                        row = new Vector();
+                        row.add(nhanvien.getMaNhanVien());
+                        row.add(nhanvien.getTenNhanVien());
+                        row.add(nhiemvunhanvien.getTenNhiemVu());
+                        model.addRow(row);
+                    }
+                }
+            }
+        }
+        long finishTime = System.currentTimeMillis();
+        long totalTime = finishTime - startTime;
+        System.out.println("- Thời gian chạy: " + totalTime + " ms");
+    }
+    
+    public void themVectorNhanVien(DefaultTableModel model, String maNhanVien, String tenNhanVien, String nhiemVu) {
+        Vector newrow = new Vector();
+        newrow.add(maNhanVien);
+        newrow.add(tenNhanVien);
+        newrow.add(nhiemVu);
+        model.addRow(newrow);
+    }
+
+    public void suaVectorNhanVien(DefaultTableModel model, String maNhanVien, String tenNhanVien, String nhiemVu) {
+        model.setValueAt(maNhanVien, rowNV, 1);
+        model.setValueAt(tenNhanVien, rowNV, 2);
+        model.setValueAt(nhiemVu, rowNV, 3);
+    }
+
+    public void xoaVectorNhanVien(DefaultTableModel model, int row) {
+        model.removeRow(row);
+    }
+    
+    
 
     public void loadDataDoan() {
         doanDuLichBUS = new DoanDuLichBUS();
@@ -1127,6 +1221,10 @@ public class DoanForm extends javax.swing.JPanel {
     private void jTableNhanVienMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableNhanVienMouseClicked
     {//GEN-HEADEREND:event_jTableNhanVienMouseClicked
         // TODO add your handling code here:
+        rowNV = jTableNhanVien.getSelectedRow();
+        jTextMaNV.setText(tbModelNhanVien.getValueAt(rowNV, 0).toString());
+        jTextTenNV.setText(tbModelNhanVien.getValueAt(rowNV, 1).toString());
+        jTextNhiemVu.setText(tbModelNhanVien.getValueAt(rowNV, 2).toString());
 //        rowKhach = jTableNhanVien.getSelectedRow();
 //        jTextMaNV.setText((String) jTableNhanVien.getValueAt(rowKhach, 0));
 //        //System.out.println((String) jTableDiadiem.getValueAt(rowKhach, 0));
@@ -1158,6 +1256,13 @@ public class DoanForm extends javax.swing.JPanel {
     private void jBtnXemDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXemDoanActionPerformed
     {//GEN-HEADEREND:event_jBtnXemDoanActionPerformed
         jTabbedPane1.setSelectedIndex(1);
+        tbModelKhach.setRowCount(0);
+        tbModelNhanVien.setRowCount(0);
+        tableModelKhachHang(tbModelKhach);
+        tableModelNhanVien(tbModelNhanVien);//tbModelNhanVien
+        jTextMaDoanChiTiet.setText(maDoan);
+        jTextTenDoanChiTiet.setText(tenDoan);
+        
 //        rowDoan = jTableDoan.getSelectedRow();
 //        jTextMaTour1.setText(maDoan);//System.out.println(maTourChiTiet);
 //        jTextTenTour1.setText(tenDoan);
@@ -1328,6 +1433,10 @@ public class DoanForm extends javax.swing.JPanel {
     private void jTableKhachHangMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKhachHangMouseClicked
     {//GEN-HEADEREND:event_jTableKhachHangMouseClicked
         // TODO add your handling code here:
+        rowKhach = jTableKhachHang.getSelectedRow();
+        jTextMaKhach.setText(tbModelKhach.getValueAt(rowKhach, 0).toString());
+        jTextTenKhach.setText(tbModelKhach.getValueAt(rowKhach, 1).toString());
+        jTextSDT.setText(tbModelKhach.getValueAt(rowKhach, 2).toString());
         jBtnChonKhach.setEnabled(false);
         jBtnThemKhach.setEnabled(false);
         jBtnXoaKhach.setEnabled(true);

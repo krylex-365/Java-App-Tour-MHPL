@@ -6,14 +6,22 @@
 package GUI;
 
 import DAO.ChiPhiDAO;
+import DAO.ChiTietDoanDAO;
 import DAO.DoanDuLichDAO;
 import DAO.GiaTourDAO;
+import DAO.KhachHangDAO;
 import DAO.LoaiChiPhiDAO;
+import DAO.NhanVienDAO;
+import DAO.NhiemVuNhanVienDAO;
 import DAO.TourDAO;
 import DTO.ChiPhiDTO;
+import DTO.ChiTietDoanDTO;
 import DTO.DoanDuLichDTO;
 import DTO.GiaTourDTO;
+import DTO.KhachHangDTO;
 import DTO.LoaiChiPhiDTO;
+import DTO.NhanVienDTO;
+import DTO.NhiemVuNhanVienDTO;
 import DTO.TourDTO;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -54,6 +62,14 @@ public class DashBoard extends javax.swing.JFrame
     ChiPhiDAO chiPhiDAO;
     public static ArrayList<LoaiChiPhiDTO> loaiChiPhiDTOs;
     LoaiChiPhiDAO loaiChiPhiDAO;
+    public static ArrayList<KhachHangDTO> khachHangDTOs;
+    KhachHangDAO khachHangDAO;
+    public static ArrayList<NhanVienDTO> nhanVienDTOs;
+    NhanVienDAO nhanVienDAO;
+    public static ArrayList<ChiTietDoanDTO> chiTietDoanDTOs;
+    ChiTietDoanDAO chiTietDoanDAO;
+    public static ArrayList<NhiemVuNhanVienDTO> nhiemVuNhanVienDTOs;
+    NhiemVuNhanVienDAO nhiemVuNhanVienDAO;
 
     /**
      * Creates new form DashBoard
@@ -76,6 +92,16 @@ public class DashBoard extends javax.swing.JFrame
         chiPhiDTOs = chiPhiDAO.getList();
         loaiChiPhiDAO = new LoaiChiPhiDAO();
         loaiChiPhiDTOs = loaiChiPhiDAO.getList();
+        nhanVienDAO = new NhanVienDAO();
+        nhanVienDTOs = nhanVienDAO.getList();
+        khachHangDAO = new KhachHangDAO();
+        khachHangDTOs = khachHangDAO.getList();
+        chiTietDoanDAO = new ChiTietDoanDAO();
+        chiTietDoanDTOs = chiTietDoanDAO.getList();
+        nhiemVuNhanVienDAO = new NhiemVuNhanVienDAO();
+        nhiemVuNhanVienDTOs = nhiemVuNhanVienDAO.getList();
+        
+        
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);

@@ -35,6 +35,7 @@ public class NhiemVuNhanVienDAO {
                 nvnv.setMaNhanVien(conn.rs.getString(1));
                 nvnv.setMaDoan(conn.rs.getString(2));
                 nvnv.setTenNhiemVu(conn.rs.getString(3));
+                dsNhiemVuNhanVien.add(nvnv);
             }
         } catch (SQLException e) {
             System.out.println(e);
