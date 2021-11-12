@@ -217,12 +217,14 @@ public class BangGia extends javax.swing.JFrame {
 
         jDateKetThuc.setBackground(new java.awt.Color(214, 217, 223));
         jDateKetThuc.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editorKT = (JTextFieldDateEditor) jDateKetThuc.getDateEditor();
+        editorKT.setEditable(false);
         jPanel4.add(jDateKetThuc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 200, 30));
 
         jDateBatDau.setBackground(new java.awt.Color(214, 217, 223));
         jDateBatDau.setDateFormatString("yyyy-MM-dd");
-        JTextFieldDateEditor editor = (JTextFieldDateEditor) jDateBatDau.getDateEditor();
-        editor.setEditable(false);
+        JTextFieldDateEditor editorBD = (JTextFieldDateEditor) jDateBatDau.getDateEditor();
+        editorBD.setEditable(false);
         jPanel4.add(jDateBatDau, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, 200, 30));
 
         jBtnXoa.setBackground(new java.awt.Color(136, 193, 184));

@@ -30,7 +30,7 @@ public class Validation {
             }else {
                 text = strings[i];
                 if(!text.matches("^[0-9]+$")){
-                    message.append(title + ": " + "không phải là số\n");
+                    message.append(title + ": " + "phải là số nguyên\n");
                 }
             }
         }

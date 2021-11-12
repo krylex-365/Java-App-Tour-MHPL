@@ -13,6 +13,7 @@ import DTO.GiaTourDTO;
 import DTO.LoaiHinhTourDTO;
 import DTO.TourDTO;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -74,7 +75,6 @@ public class TourForm extends javax.swing.JPanel {
     public TourForm() {
         initComponents();
         //initTableTour();
-
         jBtnCapPhatMaTour.setEnabled(true);
         jBtnThemTour.setEnabled(false);
         jBtnSuaTour.setEnabled(false);
@@ -406,6 +406,8 @@ public class TourForm extends javax.swing.JPanel {
 
         jDateNgayKT.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayKT.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editorKT = (JTextFieldDateEditor) jDateNgayKT.getDateEditor();
+        editorKT.setEditable(false);
         jPanel4.add(jDateNgayKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, 200, 30));
 
         jLabelTenTour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -437,6 +439,8 @@ public class TourForm extends javax.swing.JPanel {
 
         jDateNgayBD.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayBD.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editorBD = (JTextFieldDateEditor) jDateNgayBD.getDateEditor();
+        editorBD.setEditable(false);
         jPanel4.add(jDateNgayBD, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 200, 30));
 
         jBtnCapPhatMaTour.setBackground(new java.awt.Color(81, 113, 131));
@@ -1190,7 +1194,7 @@ public class TourForm extends javax.swing.JPanel {
         StringBuilder message = new StringBuilder();
         Validation.notNullOrEmpty(message, "Tên tour", tenTour, "Loại hình", jTextLoaiHinh.getText(),
                 "Đặc điểm", jTextDacDiem.getText());
-        Validation.positiveNumbers(message, "Gia tour", giaTour);
+        Validation.positiveNumbers(message, "Giá tour", giaTour);
         boolean isDate = Validation.isDate(message, "Ngày bắt đầu", ngayBD, "Ngày kết thúc", ngayKT);
         if(isDate){
             Validation.afterOrEquals(message, "Ngày bắt đầu", ngayBD, "Ngày hiện tại",

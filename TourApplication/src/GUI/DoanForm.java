@@ -14,6 +14,7 @@ import DTO.DoanDuLichDTO;
 import DTO.GiaTourDTO;
 import DTO.TourDTO;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -270,6 +271,8 @@ public class DoanForm extends javax.swing.JPanel {
 
         jDateNgayKT.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayKT.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editorKT = (JTextFieldDateEditor) jDateNgayKT.getDateEditor();
+        editorKT.setEditable(false);
         jPanel4.add(jDateNgayKT, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, 200, 30));
 
         jLabel22.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -301,6 +304,8 @@ public class DoanForm extends javax.swing.JPanel {
 
         jDateNgayKH.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgayKH.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editorKH = (JTextFieldDateEditor) jDateNgayKH.getDateEditor();
+        editorKH.setEditable(false);
         jPanel4.add(jDateNgayKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 200, 30));
 
         jBtnCapPhatMaDoan.setBackground(new java.awt.Color(81, 113, 131));

@@ -256,6 +256,9 @@
                 </Property>
                 <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="JTextFieldDateEditor editorKT = (JTextFieldDateEditor) jDateKetThuc.getDateEditor();&#xa;editorKT.setEditable(false);"/>
+              </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="140" y="250" width="200" height="30"/>
@@ -270,7 +273,7 @@
                 <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="JTextFieldDateEditor editor = (JTextFieldDateEditor) jDateBatDau.getDateEditor();&#xa;editor.setEditable(false);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="JTextFieldDateEditor editorBD = (JTextFieldDateEditor) jDateBatDau.getDateEditor();&#xa;editorBD.setEditable(false);"/>
               </AuxValues>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
