@@ -14,16 +14,16 @@ import java.util.Comparator;
  */
 public class DiaDiemThamQuanBUS {
     private DiaDiemThamQuanDAO diaDiemThamQuanDAO;
-    private ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs;
+    //private ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs;
 
     public DiaDiemThamQuanBUS() {
         diaDiemThamQuanDAO = new DiaDiemThamQuanDAO();
-        diaDiemThamQuanDTOs = diaDiemThamQuanDAO.getList();        
+        //diaDiemThamQuanDTOs = diaDiemThamQuanDAO.getList();        
     }
 
     public DiaDiemThamQuanBUS(DiaDiemThamQuanDAO diaDiemThamQuanDAO, ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs) {
         this.diaDiemThamQuanDAO = diaDiemThamQuanDAO;
-        this.diaDiemThamQuanDTOs = diaDiemThamQuanDTOs;
+        //this.diaDiemThamQuanDTOs = diaDiemThamQuanDTOs;
     }
 
     public ArrayList<DiaDiemThamQuanDTO> searchDiaDiemThamQuanByMaTour(String maTour, ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
@@ -35,15 +35,15 @@ public class DiaDiemThamQuanBUS {
         return result;  
     }
     
-    public ArrayList<DiaDiemThamQuanDTO> getDiaDiemThamQuanDTOs() {
-        return diaDiemThamQuanDTOs;
-    }
+//    public ArrayList<DiaDiemThamQuanDTO> getDiaDiemThamQuanDTOs() {
+//        return diaDiemThamQuanDTOs;
+//    }
 
-    public void setDiaDiemThamQuanDTOs(ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs) {
-        this.diaDiemThamQuanDTOs = diaDiemThamQuanDTOs;
-    }
+//    public void setDiaDiemThamQuanDTOs(ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs) {
+//        this.diaDiemThamQuanDTOs = diaDiemThamQuanDTOs;
+//    }
     
-    public boolean themDDiemTQuan(String maTour,String maDiaDiem,int thuTu){
+    public boolean themDDiemTQuan(String maTour,String maDiaDiem,int thuTu,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         if(diaDiemThamQuanDAO.add(maTour, maDiaDiem, thuTu)){
             DiaDiemThamQuanDTO newDiaDiemThamQuan = new DiaDiemThamQuanDTO(maTour,maDiaDiem,thuTu);
             diaDiemThamQuanDTOs.add(newDiaDiemThamQuan);
@@ -52,7 +52,7 @@ public class DiaDiemThamQuanBUS {
         return false;
     }
     
-    public boolean xoaDDiemTQuan(String maTour,String maDiaDiem,int thuTu){
+    public boolean xoaDDiemTQuan(String maTour,String maDiaDiem,int thuTu,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         if(diaDiemThamQuanDAO.delete(maTour, maDiaDiem, thuTu)){
             DiaDiemThamQuanDTO newDiaDiemThamQuan = new DiaDiemThamQuanDTO(maTour,maDiaDiem,thuTu);
             diaDiemThamQuanDTOs.remove(newDiaDiemThamQuan);
@@ -62,15 +62,20 @@ public class DiaDiemThamQuanBUS {
         return false;
     }
     
-    public boolean deleteAll(String maTour){
+    public boolean deleteAll(String maTour, ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         if(diaDiemThamQuanDAO.deleteAll(maTour)){
+            for(int i = 0;i < diaDiemThamQuanDTOs.size();i++){
+                if(diaDiemThamQuanDTOs.get(i).getMaTour().equals(maTour)){
+                    diaDiemThamQuanDTOs.remove(i);
+                }
+            }
             System.out.println("hello");
             return true;
         }
         return false;
     }
     
-    public boolean suaThuTuTQuan(ArrayList<DiaDiemThamQuanDTO> newDiaDiemThamQuanDTOs){
+    public boolean suaThuTuTQuan(ArrayList<DiaDiemThamQuanDTO> newDiaDiemThamQuanDTOs,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         String maTour = newDiaDiemThamQuanDTOs.get(0).getMaTour();
         newDiaDiemThamQuanDTOs.sort(new Comparator<DiaDiemThamQuanDTO>(){
             @Override
@@ -116,14 +121,14 @@ public class DiaDiemThamQuanBUS {
         return false;
     }
     
-    public boolean checkDuplicateThuTu(String maTour,int num){
+    public boolean checkDuplicateThuTu(String maTour,int num,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         for(DiaDiemThamQuanDTO a : diaDiemThamQuanDTOs){
             if(a.getMaTour().equals(maTour)&&a.getThuTu()==num)return false;
         }
         return true;
     }
 
-    public boolean addDiaDiemThamQuan(String maTour,String maDiaDiem,int thuThu){
+    public boolean addDiaDiemThamQuan(String maTour,String maDiaDiem,int thuThu,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
 
         if(diaDiemThamQuanDAO.Add(maTour, maDiaDiem, thuThu)){
             diaDiemThamQuanDTOs.add(new DiaDiemThamQuanDTO(maTour,maDiaDiem,thuThu));
@@ -133,7 +138,7 @@ public class DiaDiemThamQuanBUS {
         return false;
     }
 
-    public boolean deleteDiaDiemThamQuan(String maTour,String maDiaDiem,int thuTu){
+    public boolean deleteDiaDiemThamQuan(String maTour,String maDiaDiem,int thuTu,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         if(diaDiemThamQuanDAO.delete(maTour, maDiaDiem, thuTu)){
             for(int i = 0;i< diaDiemThamQuanDTOs.size();i++){
                 if(diaDiemThamQuanDTOs.get(i).getMaDiaDiem().equals(maDiaDiem)&&diaDiemThamQuanDTOs.get(i).getMaTour().equals(maTour)&&diaDiemThamQuanDTOs.get(i).getThuTu()== thuTu){
@@ -145,7 +150,7 @@ public class DiaDiemThamQuanBUS {
         return false;
     }
 
-    public boolean updateDiaDiemThamQuan(String  maTour,String maDiaDiem,int thuTu,int newThuTu){
+    public boolean updateDiaDiemThamQuan(String  maTour,String maDiaDiem,int thuTu,int newThuTu,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         System.out.println(maTour +" "+ maDiaDiem +" "+ thuTu +" "+ newThuTu);
         if(diaDiemThamQuanDAO.updateDiaDiemThamQuan(maTour, maDiaDiem, thuTu,newThuTu)){
             for(int i = 0;i< diaDiemThamQuanDTOs.size();i++){
@@ -158,7 +163,7 @@ public class DiaDiemThamQuanBUS {
         return false;
     }
 
-    public DiaDiemThamQuanDTO searchDiaDiemThamQuanByMaDiaDiem(String maDiaDiem) {
+    public DiaDiemThamQuanDTO searchDiaDiemThamQuanByMaDiaDiem(String maDiaDiem,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs) {
         for (DiaDiemThamQuanDTO diaDiemThamQuanDTO: diaDiemThamQuanDTOs){
             if(diaDiemThamQuanDTO.getMaDiaDiem().equals(maDiaDiem)) return diaDiemThamQuanDTO;
         }

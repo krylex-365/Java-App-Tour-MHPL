@@ -61,6 +61,9 @@ public class DashBoard extends javax.swing.JFrame
     DiaDiemThamQuanDAO diaDiemThamQuanDAO;
     public static ArrayList<LoaiHinhTourDTO> loaiHinhTourDTOs;
     LoaiHinhTourDAO loaiHinhTourDAO;
+    public static ArrayList<DiaDiemDTO> diaDiemDTOs;
+    DiaDiemDAO diaDiemDAO;
+    
 
     /**
      * Creates new form DashBoard
@@ -95,6 +98,8 @@ public class DashBoard extends javax.swing.JFrame
         diaDiemThamQuanDTOs = diaDiemThamQuanDAO.getList();
         loaiHinhTourDAO = new LoaiHinhTourDAO();
         loaiHinhTourDTOs = loaiHinhTourDAO.getList();
+        diaDiemDAO = new DiaDiemDAO();
+        diaDiemDTOs = diaDiemDAO.getList();
 
         setUndecorated(true);
         initComponents();
@@ -971,6 +976,7 @@ public class DashBoard extends javax.swing.JFrame
 //        if (flagAcc == 2){
 //            JOptionPane.showMessageDialog(null, "Bạn không có quyền hạn truy cập Bảng Chấm Công!");
 //        }
+        khachhangForm.loadData();
         jPanelTour.setVisible(false);
         jPanelDiaDiem.setVisible(false);
         jPanelNhanvien.setVisible(false);
@@ -1007,6 +1013,7 @@ public class DashBoard extends javax.swing.JFrame
 //        if (flagAcc == 1 || flagAcc == 2){
 //            JOptionPane.showMessageDialog(null, "Bạn không có quyền hạn truy cập Phụ Cấp!");
 //        }
+        nhanvienForm.loadData();
         jPanelTour.setVisible(false);
         jPanelDiaDiem.setVisible(false);
         jPanelNhanvien.setVisible(true);

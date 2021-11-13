@@ -96,10 +96,10 @@ public class DiaDiemBUS {
         return false;
     }
 
-    public boolean xoaDiaDiem(String maDiaDiem){
+    public boolean xoaDiaDiem(String maDiaDiem,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
         DiaDiemDTO diaDiemDTO = searchDiaDiemByMaDiaDiem(maDiaDiem);
         DiaDiemThamQuanDTO diaDiemThamQuanDTO = new DiaDiemThamQuanBUS()
-                .searchDiaDiemThamQuanByMaDiaDiem(maDiaDiem);
+                .searchDiaDiemThamQuanByMaDiaDiem(maDiaDiem,diaDiemThamQuanDTOs);
         if(diaDiemDTO != null && diaDiemThamQuanDTO == null){
             if(diaDiemDAO.deleteDiaDiem(maDiaDiem)){
                 diaDiemDTOs.remove(diaDiemDTO);

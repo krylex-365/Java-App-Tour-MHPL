@@ -375,7 +375,7 @@ public class DiadiemForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         maDiaDiem = jTextMaDD.getText();
         if(!isNullOrEmpty(maDiaDiem)){
-            if (diaDiemBUS.xoaDiaDiem(maDiaDiem)){
+            if (diaDiemBUS.xoaDiaDiem(maDiaDiem,DashBoard.diaDiemThamQuanDTOs)){
                 xoaDiaDiem(tbModelDiaDiem, rowDiaDiem);
                 JOptionPane.showMessageDialog(this, "Xóa địa điểm thành công!");
             }else {

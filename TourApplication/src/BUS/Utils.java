@@ -344,6 +344,6 @@ class main {
         DiaDiemBUS diaDiemBUS = new DiaDiemBUS();
 //        String maDD = diaDiemBUS.CapPhat(new MaDuLieuCuoiDAO().getMaDiaDiemLast());
 //        diaDiemBUS.themDiaDiem(maDD, "dsfsdgfds");
-        diaDiemBUS.xoaDiaDiem("DD000002");
+        //diaDiemBUS.xoaDiaDiem("DD000002");
     }
 }

@@ -50,7 +50,7 @@ public class TourForm extends javax.swing.JPanel {
     static int flagtkmk = 0;
     TourBUS tourBUS;
     GiaTourBUS giaTourBUS;
-    ChiTietTour chiTietTour;
+    //ChiTietTour chiTietTour;
     LoaiHinhTourBUS loaiHinhTourBUS;
     public BufferedImage i = null;
     public String imgName = null;
@@ -255,7 +255,7 @@ public class TourForm extends javax.swing.JPanel {
     public void loadDataTour() {
         tourBUS = new TourBUS();
         giaTourBUS = new GiaTourBUS();
-        chiTietTour = new ChiTietTour();
+        //chiTietTour = new ChiTietTour();
         loaiHinhTourBUS = new LoaiHinhTourBUS();
         doanDuLichBUS = new DoanDuLichBUS();
         diaDiemThamQuanBUS = new DiaDiemThamQuanBUS();
@@ -1239,7 +1239,7 @@ public class TourForm extends javax.swing.JPanel {
     {//GEN-HEADEREND:event_jBtnLuuDDActionPerformed
         // TODO add your handling code here:
         System.out.println(diaDiemThamQuanTempArr.size());
-        if (diaDiemThamQuanBUS.suaThuTuTQuan(diaDiemThamQuanTempArr)) {
+        if (diaDiemThamQuanBUS.suaThuTuTQuan(diaDiemThamQuanTempArr,DashBoard.diaDiemThamQuanDTOs)) {
             System.out.println("Luu thu tu tham quan thanh cong");
             System.out.println(diaDiemThamQuanTempArr.size());
             tbModelDiadiem.setRowCount(0);
@@ -1533,7 +1533,7 @@ public class TourForm extends javax.swing.JPanel {
         row.add(jTextMaDiaDiem.getText());
         row.add(jTextTenDiaDiem.getText());
         row.add(Integer.parseInt(jTextThuTu.getText()));
-        if (diaDiemThamQuanBUS.deleteDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()))) {
+        if (diaDiemThamQuanBUS.deleteDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()),DashBoard.diaDiemThamQuanDTOs)) {
             //System.out.println(jTableDiadiem.getValueAt(rowDiaDiemThamQuan, 2));
             DiaDiemThamQuanDTO a;
             //System.out.println(jTextMaDiaDiem.getText());
@@ -1577,7 +1577,7 @@ public class TourForm extends javax.swing.JPanel {
                     System.out.println("thu tu da ton tai");
                 }
             }
-            if (flagDiaDiem == 1 && diaDiemThamQuanBUS.addDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()))) {
+            if (flagDiaDiem == 1 && diaDiemThamQuanBUS.addDiaDiemThamQuan(maTourChiTiet, jTextMaDiaDiem.getText(), Integer.parseInt(jTextThuTu.getText()),DashBoard.diaDiemThamQuanDTOs)) {
                 diaDiemThamQuanTempArr.add(new DiaDiemThamQuanDTO(maTourChiTiet, jTextMaDiaDiem.getText(), diaDiemThamQuanTempArr.size() + 1));
                 Vector row = new Vector();
                 row.add(jTextMaDiaDiem.getText());

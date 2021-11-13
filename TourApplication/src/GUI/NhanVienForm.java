@@ -76,7 +76,7 @@ public class NhanVienForm extends javax.swing.JPanel
     public NhanVienForm()
     {
         initComponents();
-        loadData();
+        //loadData();
 //        tk.setVisible(false);
     }
     
@@ -87,7 +87,7 @@ public class NhanVienForm extends javax.swing.JPanel
     }
     public void tbModelNhanVien(DefaultTableModel model){
         Vector row;
-        for(NhanVienDTO a : nhanVienBUS.getNhanVienDTOs()){
+        for(NhanVienDTO a : DashBoard.nhanVienDTOs){
             row = new Vector();
             row.add(a.getMaNhanVien());
             row.add(a.getTenNhanVien());
@@ -104,20 +104,20 @@ public class NhanVienForm extends javax.swing.JPanel
     }
     
     public boolean add(String maNhanVien,String tenNhanVien,String gioiTinh,String ngaySinh,String sdt,String diaChi){
-        return nhanVienBUS.add(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi));
+        return nhanVienBUS.add(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi),DashBoard.nhanVienDTOs);
     }
     
     public boolean update(String maNhanVien,String tenNhanVien,String gioiTinh,String ngaySinh,String sdt,String diaChi){
-        return nhanVienBUS.update(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi));
+        return nhanVienBUS.update(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi),DashBoard.nhanVienDTOs);
     }
     
     public boolean delete(String maNhanVien){
-        return nhanVienBUS.delete(maNhanVien);
+        return nhanVienBUS.delete(maNhanVien,DashBoard.nhanVienDTOs);
     }
     
     public void searchNhanVienByMaNhanVien(DefaultTableModel model,String maNhanVien){
         Vector row;
-        for(NhanVienDTO a : nhanVienBUS.searchNhanVienByMaNhanVien(maNhanVien)){
+        for(NhanVienDTO a : nhanVienBUS.searchNhanVienByMaNhanVien(maNhanVien,DashBoard.nhanVienDTOs)){
                 row = new Vector();
                 System.out.println(a);
                 row.add(a.getMaNhanVien());

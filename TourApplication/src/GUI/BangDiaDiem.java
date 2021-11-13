@@ -65,7 +65,17 @@ public class BangDiaDiem extends javax.swing.JFrame
     
     public void loadData(){
         tbModel.setRowCount(0);
-        tourForm.chiTietTour.tbModelDiaDiem(tbModel);
+        tbModelDiaDiem(tbModel);
+    }
+    
+    public void tbModelDiaDiem(DefaultTableModel model){
+        Vector row;
+        for(DiaDiemDTO a : DashBoard.diaDiemDTOs){
+            row = new Vector();
+            row.add(a.getMaDiaDiem());
+            row.add(a.getTenDiaDiem());
+            model.addRow(row);
+        }
     }
 
     /**

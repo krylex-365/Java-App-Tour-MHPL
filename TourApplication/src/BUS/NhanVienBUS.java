@@ -16,21 +16,21 @@ import java.util.ArrayList;
  */
 public class NhanVienBUS {
     private NhanVienDAO nhanVienDAO;
-    private ArrayList<NhanVienDTO> nhanVienDTOs;
+    //private ArrayList<NhanVienDTO> nhanVienDTOs;
     private MaDuLieuCuoiDAO maLast;
     
     public NhanVienBUS(){
         nhanVienDAO = new NhanVienDAO();
         maLast = new MaDuLieuCuoiDAO();
-        nhanVienDTOs = nhanVienDAO.getList();
+        //nhanVienDTOs = nhanVienDAO.getList();
     }
 
-    public ArrayList<NhanVienDTO> getNhanVienDTOs() {
-        return nhanVienDTOs;
-    }
+//    public ArrayList<NhanVienDTO> getNhanVienDTOs() {
+//        return nhanVienDTOs;
+//    }
     
     
-    public boolean add(NhanVienDTO nhanVien){
+    public boolean add(NhanVienDTO nhanVien, ArrayList<NhanVienDTO> nhanVienDTOs){
         for(NhanVienDTO a  : nhanVienDTOs)
             if(a.getMaNhanVien().equals(nhanVien.getMaNhanVien()))return false;
         System.out.println(nhanVien);
@@ -43,7 +43,7 @@ public class NhanVienBUS {
         return false;
     }
     
-    public boolean delete(String maNhanVien){
+    public boolean delete(String maNhanVien, ArrayList<NhanVienDTO> nhanVienDTOs){
         
         if(nhanVienDAO.delete(maNhanVien)){
             for(int i = 0; i < nhanVienDTOs.size();i++)
@@ -53,7 +53,7 @@ public class NhanVienBUS {
         return false;
     }
     
-    public boolean update(NhanVienDTO nhanVien){
+    public boolean update(NhanVienDTO nhanVien, ArrayList<NhanVienDTO> nhanVienDTOs){
         if(nhanVienDAO.update(nhanVien)){
             for(NhanVienDTO a: nhanVienDTOs){
                 if(a.getMaNhanVien().equals(nhanVien.getMaNhanVien())){
@@ -70,7 +70,7 @@ public class NhanVienBUS {
         return false;
     }
     
-    public ArrayList<NhanVienDTO> searchNhanVienByMaNhanVien(String maNhanVien){
+    public ArrayList<NhanVienDTO> searchNhanVienByMaNhanVien(String maNhanVien, ArrayList<NhanVienDTO> nhanVienDTOs){
         ArrayList<NhanVienDTO> result = new ArrayList<>();
          for(NhanVienDTO a : nhanVienDTOs){
             if(a.getMaNhanVien().equals(maNhanVien))result.add(a);

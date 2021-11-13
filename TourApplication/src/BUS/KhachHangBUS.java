@@ -16,13 +16,13 @@ import java.util.ArrayList;
  */
 public class KhachHangBUS {
     private KhachHangDAO khachHangDAO;
-    private ArrayList<KhachHangDTO> khachHangDTOs;
+    //private ArrayList<KhachHangDTO> khachHangDTOs;
     private Utils utl = new Utils();
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
 
     public KhachHangBUS(KhachHangDAO khachHangDAO, ArrayList<KhachHangDTO> khachHangDTOs) {
         this.khachHangDAO = khachHangDAO;
-        this.khachHangDTOs = khachHangDTOs;
+        //this.khachHangDTOs = khachHangDTOs;
     }
     
     public String CapPhat() {
@@ -33,7 +33,7 @@ public class KhachHangBUS {
 
     public KhachHangBUS() {
         khachHangDAO = new KhachHangDAO();
-        khachHangDTOs = khachHangDAO.getList();
+       //khachHangDTOs = khachHangDAO.getList();
     }
 
     public KhachHangDAO getKhachHangDAO() {
@@ -44,15 +44,15 @@ public class KhachHangBUS {
         this.khachHangDAO = khachHangDAO;
     }
 
-    public ArrayList<KhachHangDTO> getKhachHangDTOs() {
-        return khachHangDTOs;
-    }
+//    public ArrayList<KhachHangDTO> getKhachHangDTOs() {
+//        return khachHangDTOs;
+//    }
 
-    public void setKhachHangDTOs(ArrayList<KhachHangDTO> khachHangDTOs) {
-        this.khachHangDTOs = khachHangDTOs;
-    }
+//    public void setKhachHangDTOs(ArrayList<KhachHangDTO> khachHangDTOs) {
+//        this.khachHangDTOs = khachHangDTOs;
+//    }
     
-    public boolean addKhachHang(KhachHangDTO khachHang){
+    public boolean addKhachHang(KhachHangDTO khachHang,ArrayList<KhachHangDTO> khachHangDTOs){
         for(KhachHangDTO a  : khachHangDTOs)
             if(a.getMaKhachHang().equals(khachHang.getMaKhachHang()))return false;
 
@@ -65,7 +65,7 @@ public class KhachHangBUS {
         return false;
     }
     
-    public boolean deleteKhachHang(String maKhachHang){
+    public boolean deleteKhachHang(String maKhachHang,ArrayList<KhachHangDTO> khachHangDTOs){
         if(khachHangDAO.delete(maKhachHang)){
             for(int i = 0; i< khachHangDTOs.size();i++){
                 if(khachHangDTOs.get(i).getMaKhachHang().equals(maKhachHang)){
@@ -77,7 +77,7 @@ public class KhachHangBUS {
         return false;
     }
     
-    public ArrayList<KhachHangDTO> searchKhachHangByMaKhachHang(String maKhachHang){
+    public ArrayList<KhachHangDTO> searchKhachHangByMaKhachHang(String maKhachHang,ArrayList<KhachHangDTO> khachHangDTOs){
         ArrayList<KhachHangDTO> result = new ArrayList<>();
         for(KhachHangDTO a : khachHangDTOs){
             if(a.getMaKhachHang().equals(maKhachHang))result.add(a);
@@ -85,7 +85,7 @@ public class KhachHangBUS {
         return result;
     }
     
-    public boolean updateKhachHang(KhachHangDTO khachHang){
+    public boolean updateKhachHang(KhachHangDTO khachHang,ArrayList<KhachHangDTO> khachHangDTOs){
         if(khachHangDAO.update(khachHang)){
             for(KhachHangDTO a: khachHangDTOs){
                 if(a.getMaKhachHang().equals(khachHang.getMaKhachHang())){

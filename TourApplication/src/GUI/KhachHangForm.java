@@ -75,7 +75,7 @@ public class KhachHangForm extends javax.swing.JPanel {
 
     public KhachHangForm() {
         initComponents();
-        loadData();
+        //loadData();
         jBtnCapPhatMaKH.setEnabled(true);
         jBtnThemKH.setEnabled(false);
         jBtnHuyKH.setEnabled(false);
@@ -93,7 +93,7 @@ public class KhachHangForm extends javax.swing.JPanel {
     
     public void tbModelKhachHang(DefaultTableModel model){
         Vector row;
-        for(KhachHangDTO a : khachHangBUS.getKhachHangDTOs()){
+        for(KhachHangDTO a : DashBoard.khachHangDTOs){
             row = new Vector();
             row.add(a.getMaKhachHang());
             row.add(a.getTenKhachHang());
@@ -115,7 +115,7 @@ public class KhachHangForm extends javax.swing.JPanel {
     
     public void searchKhachHangByMaKhachHang(DefaultTableModel model,String maKhachHang){
         Vector row;
-        for(KhachHangDTO a : khachHangBUS.searchKhachHangByMaKhachHang(maKhachHang)){
+        for(KhachHangDTO a : khachHangBUS.searchKhachHangByMaKhachHang(maKhachHang,DashBoard.khachHangDTOs)){
                 row = new Vector();
                 System.out.println(a);
                 row.add(a.getMaKhachHang());
@@ -137,15 +137,15 @@ public class KhachHangForm extends javax.swing.JPanel {
     }
     
     public boolean add(String maKhachHang,String tenKhachHang,String gioiTinh,String ngaySinh,String cmnd,String sdt,String mail,String diaChi,String quocTich){  
-        return khachHangBUS.addKhachHang(new KhachHangDTO(maKhachHang,tenKhachHang,gioiTinh,ngaySinh,cmnd,sdt,mail,diaChi,quocTich));
+        return khachHangBUS.addKhachHang(new KhachHangDTO(maKhachHang,tenKhachHang,gioiTinh,ngaySinh,cmnd,sdt,mail,diaChi,quocTich),DashBoard.khachHangDTOs);
     }
     
     public boolean update(String maKhachHang,String tenKhachHang,String gioiTinh,String ngaySinh,String cmnd,String sdt,String mail,String diaChi,String quocTich){
-        return khachHangBUS.updateKhachHang(new KhachHangDTO(maKhachHang,tenKhachHang,gioiTinh,ngaySinh,cmnd,sdt,mail,diaChi,quocTich));
+        return khachHangBUS.updateKhachHang(new KhachHangDTO(maKhachHang,tenKhachHang,gioiTinh,ngaySinh,cmnd,sdt,mail,diaChi,quocTich),DashBoard.khachHangDTOs);
     }
     
     public boolean delete(String maKhachHang){
-        return khachHangBUS.deleteKhachHang(maKhachHang);
+        return khachHangBUS.deleteKhachHang(maKhachHang,DashBoard.khachHangDTOs);
     }
 
     public void initThongtinNhanvien() {
