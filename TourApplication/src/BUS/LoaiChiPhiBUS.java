@@ -88,12 +88,10 @@ public class LoaiChiPhiBUS
         return false;
     }
 
-    public boolean xoaLoaiChiPhi(String maLoaiChiPhi, ArrayList<LoaiChiPhiDTO> loaiChiPhiDTOs,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs)
+    public boolean xoaLoaiChiPhi(String maLoaiChiPhi, ArrayList<LoaiChiPhiDTO> loaiChiPhiDTOs)
     {
         LoaiChiPhiDTO loaiChiPhiDTO = searchLoaiChiPhiByMaLoaiChiPhi(maLoaiChiPhi, loaiChiPhiDTOs);
-        DiaDiemThamQuanDTO diaDiemThamQuanDTO = new DiaDiemThamQuanBUS()
-                .searchDiaDiemThamQuanByMaDiaDiem(maLoaiChiPhi,diaDiemThamQuanDTOs);
-        if (loaiChiPhiDTO != null && diaDiemThamQuanDTO == null)
+        if (loaiChiPhiDTO != null)
         {
             if (loaiChiPhiDAO.deleteLoaiChiPhi(maLoaiChiPhi))
             {

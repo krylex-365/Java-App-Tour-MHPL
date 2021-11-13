@@ -363,7 +363,7 @@ public class ChiPhiForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         maLoaiChiPhi = jTextMaLCP.getText();
         if (!isNullOrEmpty(maLoaiChiPhi)) {
-            if (loaiChiPhiBUS.xoaLoaiChiPhi(maLoaiChiPhi, DashBoard.loaiChiPhiDTOs,DashBoard.diaDiemThamQuanDTOs)) {
+            if (loaiChiPhiBUS.xoaLoaiChiPhi(maLoaiChiPhi, DashBoard.loaiChiPhiDTOs)) {
                 xoaLoaiChiPhi(tbModelLoaiChiPhi, rowChiPhi);
                 JOptionPane.showMessageDialog(this, "Xóa loai chi phí thành công!");
             } else {
