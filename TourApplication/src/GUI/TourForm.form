@@ -1036,8 +1036,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Qu&#x1ea3;n L&#xfd; Lo&#x1ea1;i H&#xec;nh">
-                <Property name="tabTitle" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; Lo&#x1ea1;i H&#xec;nh"/>
+              <JTabbedPaneConstraints tabName="Qu&#x1ea3;n L&#xfd; Lo&#x1ea1;i H&#xec;nh Tour">
+                <Property name="tabTitle" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; Lo&#x1ea1;i H&#xec;nh Tour"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

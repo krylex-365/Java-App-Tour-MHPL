@@ -281,7 +281,7 @@ public class ChiPhiForm extends javax.swing.JPanel {
         });
         jPanel1.add(jBtnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 270, 40, 30));
 
-        jTabbedPane1.addTab("Quản Lý Chi Phí", jPanel1);
+        jTabbedPane1.addTab("Quản Lý Loại Chi Phí", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

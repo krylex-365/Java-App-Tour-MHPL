@@ -1095,16 +1095,13 @@ public class DoanForm extends javax.swing.JPanel {
         jBtnSuaNV.setEnabled(false);
         jBtnXoaNV.setEnabled(false);
         jBtnHuyNV.setEnabled(false);
-//        jBtnLuuDD.setEnabled(false);
+        jTextMaNV.setText("");
+        jTextTenNV.setText("");
+        jTextNhiemVu.setText("");
     }//GEN-LAST:event_jBtnHuyNVActionPerformed
 
     private void jBtnRefreshDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefreshDoanActionPerformed
     {//GEN-HEADEREND:event_jBtnRefreshDoanActionPerformed
-        //        // TODO add your handling code here:
-        //        jTextTimKiemNV.setText("");
-        //        tbnv.loadDataNV();
-        //        tbModelTour.setRowCount(0);
-        //        tbnv.bangnhanvien(tbModelTour);
         jTextTimKiemDoan.setText("");
         loadDataDoan();
     }//GEN-LAST:event_jBtnRefreshDoanActionPerformed
@@ -1266,11 +1263,18 @@ public class DoanForm extends javax.swing.JPanel {
         jBtnSuaNV.setEnabled(false);
         jBtnXoaNV.setEnabled(false);
         jBtnHuyNV.setEnabled(false);
+        jTextMaNV.setText("");
+        jTextTenNV.setText("");
+        jTextNhiemVu.setText("");
     }//GEN-LAST:event_jBtnXoaNVActionPerformed
 
     private void jBtnThemNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemNVActionPerformed
     {//GEN-HEADEREND:event_jBtnThemNVActionPerformed
         // TODO add your handling code here:
+        if (jTextNhiemVu.getText().equals("") || jTextNhiemVu.getText() == null) {
+            JOptionPane.showMessageDialog(this, "Nhiệm vụ của nhân viên không được bỏ trống!");
+            return;
+        }
         if(nhiemVuNhanVienBUS.add(jTextMaNV.getText(), maDoan, jTextNhiemVu.getText(), DashBoard.nhiemVuNhanVienDTOs)){
             themVectorNhanVien(tbModelNhanVien,jTextMaNV.getText(), maDoan, jTextNhiemVu.getText());
         }
@@ -1279,11 +1283,18 @@ public class DoanForm extends javax.swing.JPanel {
         jBtnSuaNV.setEnabled(false);
         jBtnXoaNV.setEnabled(false);
         jBtnHuyNV.setEnabled(false);
+        jTextMaNV.setText("");
+        jTextTenNV.setText("");
+        jTextNhiemVu.setText("");
     }//GEN-LAST:event_jBtnThemNVActionPerformed
 
     private void jBtnSuaNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaNVActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaNVActionPerformed
         // TODO add your handling code here:
+        if (jTextNhiemVu.getText().equals("") || jTextNhiemVu.getText() == null) {
+            JOptionPane.showMessageDialog(this, "Nhiệm vụ của nhân viên không được bỏ trống!");
+            return;
+        }
         if(nhiemVuNhanVienBUS.update(jTextMaNV.getText(), maDoan, jTextNhiemVu.getText(), DashBoard.nhiemVuNhanVienDTOs)){
             suaVectorNhanVien(tbModelNhanVien,jTextMaNV.getText(), jTextTenNV.getText(), jTextNhiemVu.getText());
         }
@@ -1292,6 +1303,9 @@ public class DoanForm extends javax.swing.JPanel {
         jBtnSuaNV.setEnabled(false);
         jBtnXoaNV.setEnabled(false);
         jBtnHuyNV.setEnabled(false);
+        jTextMaNV.setText("");
+        jTextTenNV.setText("");
+        jTextNhiemVu.setText("");
     }//GEN-LAST:event_jBtnSuaNVActionPerformed
 
     private void jTableNhanVienMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableNhanVienMouseClicked
@@ -1502,6 +1516,9 @@ public class DoanForm extends javax.swing.JPanel {
         jBtnThemKhach.setEnabled(false);
         jBtnXoaKhach.setEnabled(false);
         jBtnHuyKhach.setEnabled(false);
+        jTextMaKhach.setText("");
+        jTextTenKhach.setText("");
+        jTextSDT.setText("");
     }//GEN-LAST:event_jBtnThemKhachActionPerformed
 
     private void jBtnHuyKhachActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnHuyKhachActionPerformed
@@ -1511,6 +1528,9 @@ public class DoanForm extends javax.swing.JPanel {
         jBtnThemKhach.setEnabled(false);
         jBtnXoaKhach.setEnabled(false);
         jBtnHuyKhach.setEnabled(false);
+        jTextMaKhach.setText("");
+        jTextTenKhach.setText("");
+        jTextSDT.setText("");
     }//GEN-LAST:event_jBtnHuyKhachActionPerformed
 
     private void jBtnXoaKhachActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaKhachActionPerformed
@@ -1523,6 +1543,9 @@ public class DoanForm extends javax.swing.JPanel {
         jBtnThemKhach.setEnabled(false);
         jBtnXoaKhach.setEnabled(false);
         jBtnHuyKhach.setEnabled(false);
+        jTextMaKhach.setText("");
+        jTextTenKhach.setText("");
+        jTextSDT.setText("");
     }//GEN-LAST:event_jBtnXoaKhachActionPerformed
 
     private void jTableKhachHangMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKhachHangMouseClicked

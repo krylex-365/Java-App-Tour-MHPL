@@ -1095,7 +1095,7 @@ public class TourForm extends javax.swing.JPanel {
         jLabel7.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanelTLTour.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 180, 30));
 
-        jTabbedPane1.addTab("Quản Lý Loại Hình", jPanelTLTour);
+        jTabbedPane1.addTab("Quản Lý Loại Hình Tour", jPanelTLTour);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
