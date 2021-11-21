@@ -12,6 +12,7 @@ import DTO.NhanVienDTO;
 //import DTO.CongViecDTO;
 //import DTO.PhongBanDTO;
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -61,7 +62,7 @@ public class NhanVienForm extends javax.swing.JPanel
 //    BangPhongBanBUS tbpb = new BangPhongBanBUS();
 //    CongViecBUS tbcviec = new CongViecBUS();
 //    ChucVuBUS tbchucvu = new ChucVuBUS();
-    DefaultTableModel modelnv;
+    DefaultTableModel modelnv, modelThongKe;
 //    TaiKhoanForm tk = new TaiKhoanForm();
     public BufferedImage i = null;
     public String imgName = null;
@@ -89,22 +90,27 @@ public class NhanVienForm extends javax.swing.JPanel
         //loadData();
 //        tk.setVisible(false);
     }
-    
-    public void loadData(){
+
+    public void loadData()
+    {
         nhanVienBUS = new NhanVienBUS();
         modelnv.setRowCount(0);
         tbModelNhanVien(modelnv);
     }
-    
-    public void tbModelNhanVien(DefaultTableModel model){
+
+    public void tbModelNhanVien(DefaultTableModel model)
+    {
         Vector row;
-        for(NhanVienDTO a : DashBoard.nhanVienDTOs){
+        for (NhanVienDTO a : DashBoard.nhanVienDTOs)
+        {
             row = new Vector();
             row.add(a.getMaNhanVien());
             row.add(a.getTenNhanVien());
-            if(a.getGioiTinh().equals("1")){
+            if (a.getGioiTinh().equals("1"))
+            {
                 row.add("Nam");
-            }else{
+            } else
+            {
                 row.add("Nữ");
             }
             row.add(a.getNgaySinh());
@@ -113,37 +119,44 @@ public class NhanVienForm extends javax.swing.JPanel
             model.addRow(row);
         }
     }
-    
-    public boolean add(String maNhanVien,String tenNhanVien,String gioiTinh,String ngaySinh,String sdt,String diaChi){
-        return nhanVienBUS.add(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi),DashBoard.nhanVienDTOs);
+
+    public boolean add(String maNhanVien, String tenNhanVien, String gioiTinh, String ngaySinh, String sdt, String diaChi)
+    {
+        return nhanVienBUS.add(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi), DashBoard.nhanVienDTOs);
     }
-    
-    public boolean update(String maNhanVien,String tenNhanVien,String gioiTinh,String ngaySinh,String sdt,String diaChi){
-        return nhanVienBUS.update(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi),DashBoard.nhanVienDTOs);
+
+    public boolean update(String maNhanVien, String tenNhanVien, String gioiTinh, String ngaySinh, String sdt, String diaChi)
+    {
+        return nhanVienBUS.update(new NhanVienDTO(maNhanVien, tenNhanVien, gioiTinh, ngaySinh, sdt, diaChi), DashBoard.nhanVienDTOs);
     }
-    
-    public boolean delete(String maNhanVien){
-        return nhanVienBUS.delete(maNhanVien,DashBoard.nhanVienDTOs);
+
+    public boolean delete(String maNhanVien)
+    {
+        return nhanVienBUS.delete(maNhanVien, DashBoard.nhanVienDTOs);
     }
-    
-    public void searchNhanVienByMaNhanVien(DefaultTableModel model,String maNhanVien){
+
+    public void searchNhanVienByMaNhanVien(DefaultTableModel model, String maNhanVien)
+    {
         Vector row;
-        for(NhanVienDTO a : nhanVienBUS.searchNhanVienByMaNhanVien(maNhanVien,DashBoard.nhanVienDTOs)){
-                row = new Vector();
-                System.out.println(a);
-                row.add(a.getMaNhanVien());
-                row.add(a.getTenNhanVien());
-                if(a.getGioiTinh().equals("1")){
-                    row.add("Nam");
-                }else{
-                    row.add("Nữ");
-                }
-                row.add(a.getNgaySinh());
-                row.add(a.getSDT());
-                row.add(a.getDiaChi());
-                model.addRow(row);
-                break;
-        }  
+        for (NhanVienDTO a : nhanVienBUS.searchNhanVienByMaNhanVien(maNhanVien, DashBoard.nhanVienDTOs))
+        {
+            row = new Vector();
+            System.out.println(a);
+            row.add(a.getMaNhanVien());
+            row.add(a.getTenNhanVien());
+            if (a.getGioiTinh().equals("1"))
+            {
+                row.add("Nam");
+            } else
+            {
+                row.add("Nữ");
+            }
+            row.add(a.getNgaySinh());
+            row.add(a.getSDT());
+            row.add(a.getDiaChi());
+            model.addRow(row);
+            break;
+        }
     }
 
     /**
@@ -181,6 +194,15 @@ public class NhanVienForm extends javax.swing.JPanel
         jBtnRefresh = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableNV = new javax.swing.JTable();
+        jPanelThongkeNV = new javax.swing.JPanel();
+        jButtonThongKe = new javax.swing.JButton();
+        jBtnRefresh2 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableThongke = new javax.swing.JTable();
+        jLabel26 = new javax.swing.JLabel();
+        jDateNgayBDTK = new com.toedter.calendar.JDateChooser();
+        jLabel27 = new javax.swing.JLabel();
+        jDateNgayKTTK = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(233, 242, 249));
         setPreferredSize(new java.awt.Dimension(990, 650));
@@ -261,11 +283,18 @@ public class NhanVienForm extends javax.swing.JPanel
 
         jDateNgaySinh.setBackground(new java.awt.Color(214, 217, 223));
         jDateNgaySinh.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editor1 = (JTextFieldDateEditor) jDateNgaySinh.getDateEditor();
+        editor1.setEditable(false);
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel11.setText("<html> <body> Giới Tính <span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
 
         jCbGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
+        jCbGioiTinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCbGioiTinhActionPerformed(evt);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel17.setText("<html> <body>Địa Chỉ <span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
@@ -435,6 +464,95 @@ public class NhanVienForm extends javax.swing.JPanel
 
         jTabbedPane1.addTab("Quản Lý Nhân Viên", jPanelNV);
 
+        jPanelThongkeNV.setBackground(new java.awt.Color(233, 242, 249));
+        jPanelThongkeNV.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanelThongkeNV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButtonThongKe.setText("Thống Kê");
+        jButtonThongKe.setPreferredSize(new java.awt.Dimension(79, 30));
+        jButtonThongKe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonThongKeActionPerformed(evt);
+            }
+        });
+        jPanelThongkeNV.add(jButtonThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 30, 90, -1));
+
+        jBtnRefresh2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
+        jBtnRefresh2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRefresh2.setMaximumSize(new java.awt.Dimension(50, 50));
+        jBtnRefresh2.setMinimumSize(new java.awt.Dimension(50, 50));
+        jBtnRefresh2.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnRefresh2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRefresh2ActionPerformed(evt);
+            }
+        });
+        jPanelThongkeNV.add(jBtnRefresh2, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 40, 30));
+
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane3.setAutoscrolls(true);
+
+        jTableThongke.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jTableThongke.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableThongkeMouseClicked(evt);
+            }
+        });
+        tableColThongKe.add ("Mã Nhân Viên");
+        tableColThongKe.add ("Tên Nhân Viên");
+        tableColThongKe.add ("Số Lần Đi Tour");
+        modelThongKe = new DefaultTableModel(tableColThongKe, 20){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return false;
+            }
+        };
+        jTableThongke.setModel(modelThongKe);
+        jTableThongke.setShowGrid(true);
+        jTableThongke.setFocusable(false);
+        jTableThongke.setIntercellSpacing(new Dimension(0,0));
+        jTableThongke.setRowHeight(25);
+        jTableThongke.getTableHeader().setOpaque(false);
+        jTableThongke.setFillsViewportHeight(true);
+        jTableThongke.getTableHeader().setBackground(new Color(232,57,99));
+        jTableThongke.getTableHeader().setForeground(new Color(141, 22, 22));
+        jTableThongke.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
+        jTableThongke.setSelectionBackground(new Color(52,152,219));
+        jTableThongke.setGridColor(new java.awt.Color(83, 86, 88));
+        jScrollPane3.setViewportView(jTableThongke);
+
+        jPanelThongkeNV.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 950, 520));
+
+        jLabel26.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel26.setText("<html> <body>Ngày Băt Đầu<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
+        jPanelThongkeNV.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
+
+        jDateNgayBDTK.setBackground(new java.awt.Color(214, 217, 223));
+        jDateNgayBDTK.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editor2 = (JTextFieldDateEditor) jDateNgayBDTK.getDateEditor();
+        editor2.setEditable(false);
+        jPanelThongkeNV.add(jDateNgayBDTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 170, 30));
+
+        jLabel27.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel27.setText("<html> <body>Ngày Kết Thúc<span style=\"color:rgb(216, 74, 67);\"> *</span> </body> </html> ");
+        jPanelThongkeNV.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, 30));
+
+        jDateNgayKTTK.setBackground(new java.awt.Color(214, 217, 223));
+        jDateNgayKTTK.setDateFormatString("yyyy-MM-dd");
+        JTextFieldDateEditor editor3 = (JTextFieldDateEditor) jDateNgayKTTK.getDateEditor();
+        editor3.setEditable(false);
+        jPanelThongkeNV.add(jDateNgayKTTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 180, 30));
+
+        jTabbedPane1.addTab("Thống Kê", jPanelThongkeNV);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -482,21 +600,27 @@ public class NhanVienForm extends javax.swing.JPanel
 
     private void jTableNVMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableNVMouseClicked
     {//GEN-HEADEREND:event_jTableNVMouseClicked
-        if (evt.getSource() == jTableNV) {
+        if (evt.getSource() == jTableNV)
+        {
             selectedRow = jTableNV.getSelectedRow();
-            if (selectedRow != -1) {
+            if (selectedRow != -1)
+            {
                 jTextMaNhanVien.setText((String) modelnv.getValueAt(selectedRow, 0));
                 jTextTenNhanVien.setText((String) modelnv.getValueAt(selectedRow, 1));
-                if (modelnv.getValueAt(selectedRow, 2).equals("Nam")) {
+                if (modelnv.getValueAt(selectedRow, 2).equals("Nam"))
+                {
                     jCbGioiTinh.setSelectedIndex(0);
-                } else {
+                } else
+                {
                     jCbGioiTinh.setSelectedIndex(1);
                 }
                 Date ngaySinh;
-                try {
+                try
+                {
                     ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(modelnv.getValueAt(selectedRow, 3).toString());
                     jDateNgaySinh.setDate(ngaySinh);
-                } catch (ParseException ex) {
+                } catch (ParseException ex)
+                {
                     Logger.getLogger(KhachHangForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 jTextSDT.setText((String) modelnv.getValueAt(selectedRow, 4));
@@ -518,12 +642,15 @@ public class NhanVienForm extends javax.swing.JPanel
         String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
         String gioiTinh;
         Vector addRow = new Vector();
-        if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
+        if (jCbGioiTinh.getSelectedItem().equals("Nam"))
+        {
             gioiTinh = "1";
-        } else {
+        } else
+        {
             gioiTinh = "0";
         }
-        if(add(jTextMaNhanVien.getText(),jTextTenNhanVien.getText(),gioiTinh, ngaySinh,jTextSDT.getText(),jTextDiaChi.getText())){
+        if (add(jTextMaNhanVien.getText(), jTextTenNhanVien.getText(), gioiTinh, ngaySinh, jTextSDT.getText(), jTextDiaChi.getText()))
+        {
             addRow = new Vector();
             addRow.add(jTextMaNhanVien.getText());
             addRow.add(jTextTenNhanVien.getText());
@@ -532,8 +659,9 @@ public class NhanVienForm extends javax.swing.JPanel
             addRow.add(jTextSDT.getText());
             addRow.add(jTextDiaChi.getText());
             modelnv.addRow(addRow);
-        }else{
-            
+        } else
+        {
+
         }
         jBtnCapPhatMaNV.setEnabled(true);
         jBtnThemNV.setEnabled(false);
@@ -550,20 +678,24 @@ public class NhanVienForm extends javax.swing.JPanel
     private void jBtnSuaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaNVActionPerformed
         String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
         String gioiTinh;
-        if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
+        if (jCbGioiTinh.getSelectedItem().equals("Nam"))
+        {
             gioiTinh = "1";
-        } else {
+        } else
+        {
             gioiTinh = "0";
         }
-        if(update(jTextMaNhanVien.getText(),jTextTenNhanVien.getText(),gioiTinh, ngaySinh,jTextSDT.getText(),jTextDiaChi.getText())){
+        if (update(jTextMaNhanVien.getText(), jTextTenNhanVien.getText(), gioiTinh, ngaySinh, jTextSDT.getText(), jTextDiaChi.getText()))
+        {
             modelnv.setValueAt(jTextMaNhanVien.getText(), selectedRow, 0);
             modelnv.setValueAt(jTextTenNhanVien.getText(), selectedRow, 1);
             modelnv.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 2);
             modelnv.setValueAt(ngaySinh, selectedRow, 3);
             modelnv.setValueAt(jTextSDT.getText(), selectedRow, 4);
             modelnv.setValueAt(jTextDiaChi.getText(), selectedRow, 5);
-        }else{
-            
+        } else
+        {
+
         }
         jBtnCapPhatMaNV.setEnabled(true);
         jBtnThemNV.setEnabled(false);
@@ -578,7 +710,8 @@ public class NhanVienForm extends javax.swing.JPanel
     }//GEN-LAST:event_jBtnSuaNVActionPerformed
 
     private void jBtnXoaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaNVActionPerformed
-        if(delete(modelnv.getValueAt(selectedRow, 0).toString())){
+        if (delete(modelnv.getValueAt(selectedRow, 0).toString()))
+        {
             modelnv.removeRow(selectedRow);
         }
         jBtnCapPhatMaNV.setEnabled(true);
@@ -606,8 +739,30 @@ public class NhanVienForm extends javax.swing.JPanel
         jDateNgaySinh.setCalendar(null);
     }//GEN-LAST:event_jBtnHuy1ActionPerformed
 
+    private void jCbGioiTinhActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbGioiTinhActionPerformed
+    {//GEN-HEADEREND:event_jCbGioiTinhActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCbGioiTinhActionPerformed
+
+    private void jButtonThongKeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonThongKeActionPerformed
+    {//GEN-HEADEREND:event_jButtonThongKeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonThongKeActionPerformed
+
+    private void jBtnRefresh2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefresh2ActionPerformed
+    {//GEN-HEADEREND:event_jBtnRefresh2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnRefresh2ActionPerformed
+
+    private void jTableThongkeMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableThongkeMouseClicked
+    {//GEN-HEADEREND:event_jTableThongkeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableThongkeMouseClicked
+
 //    Vector tableRow = new Vector ();//Vector chứa các dòng dữ liệu của bảng.
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.
+    Vector tableColThongKe = new Vector();
+
     public JPanel getjPanel1()
     {
         return jPanelNV;
@@ -692,24 +847,33 @@ public class NhanVienForm extends javax.swing.JPanel
     private javax.swing.JButton jBtnCapPhatMaNV;
     private javax.swing.JButton jBtnHuy1;
     private javax.swing.JButton jBtnRefresh;
+    private javax.swing.JButton jBtnRefresh2;
     private javax.swing.JButton jBtnSuaNV;
     private javax.swing.JButton jBtnThemNV;
     private javax.swing.JButton jBtnXoaNV;
+    private javax.swing.JButton jButtonThongKe;
     private javax.swing.JButton jButtonTimKiem;
     private javax.swing.JComboBox<String> jCbGioiTinh;
+    private com.toedter.calendar.JDateChooser jDateNgayBDTK;
+    private com.toedter.calendar.JDateChooser jDateNgayKTTK;
     private com.toedter.calendar.JDateChooser jDateNgaySinh;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelNV;
+    private javax.swing.JPanel jPanelThongkeNV;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableNV;
+    private javax.swing.JTable jTableThongke;
     private javax.swing.JTextField jTextDiaChi;
     private javax.swing.JTextField jTextMaNhanVien;
     private javax.swing.JTextField jTextSDT;
