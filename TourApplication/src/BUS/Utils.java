@@ -255,6 +255,16 @@ public class Utils {
         }
         return total;
     }
+    
+    public Date stringToDate(String strDate){   
+        try{
+            SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = myFormat.parse(strDate);
+            return date;
+        }catch(ParseException e){
+            return new Date(0, 0, 0);
+        }
+    }
 
     ////////////////Tách năm
     public static String getYear(String name) {

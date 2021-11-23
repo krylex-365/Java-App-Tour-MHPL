@@ -6,7 +6,9 @@
 package GUI;
 
 import BUS.*;
+import DTO.DoanDuLichDTO;
 import DTO.NhanVienDTO;
+import DTO.NhiemVuNhanVienDTO;
 //import DAO.XuatExcel;
 //import DTO.ChucVuDTO;
 //import DTO.CongViecDTO;
@@ -46,6 +48,8 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import static jdk.jfr.internal.consumer.EventLog.start;
+import static sun.jvm.hotspot.runtime.PerfMemory.end;
 
 /**
  *
@@ -71,6 +75,7 @@ public class NhanVienForm extends javax.swing.JPanel
     private String mapb;
     //private NhanVien nhanVien = new NhanVien();
     private NhanVienBUS nhanVienBUS;
+    private DoanDuLichBUS doanDuLichBUS;
     private int selectedRow;
     private Utils ult = new Utils();
 
@@ -94,8 +99,47 @@ public class NhanVienForm extends javax.swing.JPanel
     public void loadData()
     {
         nhanVienBUS = new NhanVienBUS();
+        doanDuLichBUS = new DoanDuLichBUS();
         modelnv.setRowCount(0);
         tbModelNhanVien(modelnv);
+    }
+    
+    public void tbModelThongKeNhanVien(DefaultTableModel model,Date start,Date end){
+        //ArrayList<NhanVienDTO> arr = new ArrayList<>();
+        
+        
+        ArrayList<DoanDuLichDTO> arrDoan = doanDuLichBUS.searchDoanByDate(start, end);
+        Vector rowVector;
+//        if(jDateNgayBDTK.getDate()!=null&&jDateNgayKTTK.getDate()!=null)
+        if(arrDoan.size() >0){
+            int count = 0;        
+            
+            for(NhanVienDTO a : DashBoard.nhanVienDTOs){
+                rowVector = new Vector();
+                for(NhiemVuNhanVienDTO b : DashBoard.nhiemVuNhanVienDTOs){
+                    for(DoanDuLichDTO c : arrDoan){
+                        if((a.getMaNhanVien().equals(b.getMaNhanVien()))&&(b.getMaDoan().equals(c.getMaDoan()))){
+                           count++; 
+                        }
+                    }   
+                }
+                rowVector.add(a.getMaNhanVien());
+                rowVector.add(a.getTenNhanVien());
+                rowVector.add(count);
+                System.out.println(rowVector);
+                model.addRow(rowVector);
+                count = 0;            
+            }    
+        }
+        else{
+            for(NhanVienDTO a : DashBoard.nhanVienDTOs){
+                rowVector = new Vector();
+                rowVector.add(a.getMaNhanVien());
+                rowVector.add(a.getTenNhanVien());
+                rowVector.add(0);
+            }       
+        }
+        
     }
 
     public void tbModelNhanVien(DefaultTableModel model)
@@ -746,6 +790,11 @@ public class NhanVienForm extends javax.swing.JPanel
 
     private void jButtonThongKeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonThongKeActionPerformed
     {//GEN-HEADEREND:event_jButtonThongKeActionPerformed
+        //System.out.println(jDateNgayBDTK.getDate());
+        //System.out.println(jDateNgayKTTK.getDate());
+        modelThongKe.setRowCount(0);       
+        tbModelThongKeNhanVien(modelThongKe,jDateNgayBDTK.getDate(),jDateNgayKTTK.getDate());
+        
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonThongKeActionPerformed
 

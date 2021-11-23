@@ -6,7 +6,10 @@
 package GUI;
 
 import BUS.*;
+import DTO.DoanDuLichDTO;
 import DTO.KhachHangDTO;
+import DTO.NhanVienDTO;
+import DTO.NhiemVuNhanVienDTO;
 //import DAO.XuatExcel;
 //import DTO.ChucVuDTO;
 //import DTO.CongViecDTO;
@@ -135,6 +138,8 @@ public class KhachHangForm extends javax.swing.JPanel {
                 break;
         }  
     }
+    
+    
     
     public boolean add(String maKhachHang,String tenKhachHang,String gioiTinh,String ngaySinh,String cmnd,String sdt,String mail,String diaChi,String quocTich){  
         return khachHangBUS.addKhachHang(new KhachHangDTO(maKhachHang,tenKhachHang,gioiTinh,ngaySinh,cmnd,sdt,mail,diaChi,quocTich),DashBoard.khachHangDTOs);

@@ -8,7 +8,11 @@ package BUS;
 import DAO.DoanDuLichDAO;
 import DAO.MaDuLieuCuoiDAO;
 import DTO.DoanDuLichDTO;
+import GUI.DashBoard;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 //import org.codehaus.groovy.runtime.DefaultGroovyMethods;
 
 /**
@@ -18,17 +22,18 @@ import java.util.ArrayList;
 public class DoanDuLichBUS {
 
     private DoanDuLichDAO doanDuLichDAO;
-    private ArrayList<DoanDuLichDTO> doanDuLichDTOs;
+    //private ArrayList<DoanDuLichDTO> doanDuLichDTOs;
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
+    private Utils utl = new Utils();
 
-    public DoanDuLichBUS(DoanDuLichDAO doanDuLichDAO, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
+    public DoanDuLichBUS(DoanDuLichDAO doanDuLichDAO) {
         this.doanDuLichDAO = doanDuLichDAO;
-        this.doanDuLichDTOs = doanDuLichDTOs;
+        //this.doanDuLichDTOs = doanDuLichDTOs;
     }
 
     public DoanDuLichBUS() {
         doanDuLichDAO = new DoanDuLichDAO();
-        doanDuLichDTOs = doanDuLichDAO.getList();
+        //doanDuLichDTOs = doanDuLichDAO.getList();
     }
 
     public ArrayList<DoanDuLichDTO> getDoanDuLichDTOs() {
@@ -37,7 +42,7 @@ public class DoanDuLichBUS {
 
     public ArrayList<DoanDuLichDTO> searchDoanDuLichByMaTour(String maTour) {
         ArrayList<DoanDuLichDTO> result = new ArrayList<DoanDuLichDTO>();
-        for (DoanDuLichDTO a : doanDuLichDTOs) {
+        for (DoanDuLichDTO a : DashBoard.doanDuLichDTOs) {
             if (a.getMaTour().equals(maTour)) {
                 result.add(a);
                 System.out.println(a);
@@ -48,7 +53,7 @@ public class DoanDuLichBUS {
 
     public ArrayList<DoanDuLichDTO> searchDoanDuLichByMaDoan(String maDoan) {
         ArrayList<DoanDuLichDTO> result = new ArrayList<DoanDuLichDTO>();
-        for (DoanDuLichDTO a : doanDuLichDTOs) {
+        for (DoanDuLichDTO a : DashBoard.doanDuLichDTOs) {
             if (a.getMaDoan().equals(maDoan)) {
                 result.add(a);
             }
@@ -66,7 +71,7 @@ public class DoanDuLichBUS {
 //        return count;
 //    }
     public DoanDuLichDTO getDoanDuLichByMaTour(String maTour) {
-        for (DoanDuLichDTO doanDuLichDTO : doanDuLichDTOs) {
+        for (DoanDuLichDTO doanDuLichDTO : DashBoard.doanDuLichDTOs) {
             if (doanDuLichDTO.getMaTour().equals(maTour)) {
                 return doanDuLichDTO;
             }
@@ -76,7 +81,7 @@ public class DoanDuLichBUS {
 
     public int countDoanTrongTour(String maTour) {
         int count = 0;
-        for (DoanDuLichDTO a : doanDuLichDTOs) {
+        for (DoanDuLichDTO a : DashBoard.doanDuLichDTOs) {
             if (a.getMaTour().equals(maTour)) {
                 count++;
             }
@@ -139,6 +144,17 @@ public class DoanDuLichBUS {
         }
         System.out.println("Xóa thất bại suaDoanDuLichBUS");
         return false;
+    }
+    
+    public ArrayList<DoanDuLichDTO> searchDoanByDate(Date start,Date end){
+        ArrayList<DoanDuLichDTO> arr = new ArrayList<>();
+        for(DoanDuLichDTO a : DashBoard.doanDuLichDTOs){
+            if(utl.stringToDate(a.getNgayKetThuc()).after(start)&&utl.stringToDate(a.getNgayKetThuc()).before(end)){
+                System.out.println(a);
+                arr.add(a);
+            }            
+        }
+        return arr;
     }
 
 }

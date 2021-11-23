@@ -6,8 +6,11 @@ package BUS;
 
 import DAO.MaDuLieuCuoiDAO;
 import DAO.NhanVienDAO;
+import DTO.DoanDuLichDTO;
 import DTO.KhachHangDTO;
 import DTO.NhanVienDTO;
+import DTO.NhiemVuNhanVienDTO;
+import GUI.DashBoard;
 import java.util.ArrayList;
 
 /**
@@ -16,12 +19,14 @@ import java.util.ArrayList;
  */
 public class NhanVienBUS {
     private NhanVienDAO nhanVienDAO;
+    private DoanDuLichBUS doanDuLichBUS;
     //private ArrayList<NhanVienDTO> nhanVienDTOs;
     private MaDuLieuCuoiDAO maLast;
     
     public NhanVienBUS(){
         nhanVienDAO = new NhanVienDAO();
         maLast = new MaDuLieuCuoiDAO();
+        doanDuLichBUS = new DoanDuLichBUS();
         //nhanVienDTOs = nhanVienDAO.getList();
     }
 
@@ -77,4 +82,22 @@ public class NhanVienBUS {
         }
          return result;
     }
+    
+//    public ArrayList<NhanVienDTO> thongKeByDate(String start,String end){
+//        ArrayList<NhanVienDTO> arr = new ArrayList<>();
+//        ArrayList<DoanDuLichDTO> arrDoan = doanDuLichBUS.searchDoanByDate(start, end);
+//        int count = 0;
+//        for(NhanVienDTO a : DashBoard.nhanVienDTOs){
+//            for(NhiemVuNhanVienDTO b : DashBoard.nhiemVuNhanVienDTOs){
+//                for(DoanDuLichDTO c : arrDoan){
+//                    if((a.getMaNhanVien().equals(b.getMaNhanVien()))&&(b.getMaDoan().equals(c.getMaDoan()))){
+//                       count++; 
+//                    }
+//                }   
+//            }
+//            
+//            
+//        }
+//        return arr;
+//    }
 }
