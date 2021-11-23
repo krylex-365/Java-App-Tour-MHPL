@@ -606,8 +606,20 @@ public class KhachHangForm extends javax.swing.JPanel {
         jTableKH.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
         jTableKH.setSelectionBackground(new Color(52,152,219));
         jTableKH.setGridColor(new java.awt.Color(83, 86, 88));
+
+        jTableKH.setSelectionBackground(new Color(52,152,219));
+
+        jTableKH.getColumn (tableCol.elementAt (0)).setPreferredWidth (130);
+        jTableKH.getColumn (tableCol.elementAt (1)).setPreferredWidth (150);
+        jTableKH.getColumn (tableCol.elementAt (2)).setPreferredWidth (150);
+        jTableKH.getColumn (tableCol.elementAt (3)).setPreferredWidth (150);
+        jTableKH.getColumn (tableCol.elementAt (4)).setPreferredWidth (180);
+        jTableKH.getColumn (tableCol.elementAt (5)).setPreferredWidth (150);
+        jTableKH.getColumn (tableCol.elementAt (6)).setPreferredWidth (120);
+        jTableKH.getColumn (tableCol.elementAt (7)).setPreferredWidth (160);
+        jTableKH.getColumn (tableCol.elementAt (8)).setPreferredWidth (160);
         jScrollPane2.setViewportView(jTableKH);
-        jTableKH.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTableKH.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
 
         jPanelNV.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 560, 520));
 

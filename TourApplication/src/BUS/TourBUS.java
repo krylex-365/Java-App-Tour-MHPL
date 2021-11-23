@@ -83,8 +83,8 @@ public class TourBUS {
     }
     
     public boolean xoaTour(String maTour, ArrayList<TourDTO> tourDTOs, 
-            ArrayList<GiaTourDTO> giaTourDTOs, ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
-        DoanDuLichDTO doanDuLichDTO = new DoanDuLichBUS().getDoanDuLichByMaTour(maTour);
+            ArrayList<GiaTourDTO> giaTourDTOs, ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs, ArrayList<DoanDuLichDTO> doanDuLichDTOs){
+        DoanDuLichDTO doanDuLichDTO = new DoanDuLichBUS().getDoanDuLichByMaTour(maTour, doanDuLichDTOs);
         if(doanDuLichDTO == null) {
             if(tourDAO.deleteTour(maTour)){
                 tourDTOs.remove(indexTour(maTour, tourDTOs));

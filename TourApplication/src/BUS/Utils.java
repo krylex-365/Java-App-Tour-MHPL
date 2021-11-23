@@ -220,7 +220,7 @@ public class Utils {
         return thoigian;
     }
 
-    /////////////////Tính số ngày 
+    /////////////////Tính số ngày so với hiện tại
     public int totalDays(String thoigian) {
         SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
         String hientai = initDateNow();
@@ -330,6 +330,16 @@ public class Utils {
                 }
             default:
                 return 30;
+        }
+    }
+    
+    public Date stringToDate(String strDate){   
+        try{
+            SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = myFormat.parse(strDate);
+            return date;
+        }catch(ParseException e){
+            return new Date(0, 0, 0);
         }
     }
 

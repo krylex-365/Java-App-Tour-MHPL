@@ -114,7 +114,7 @@ public class TourForm extends javax.swing.JPanel {
     public void tbModelDoanDuLich(DefaultTableModel model, String maTour) {
         Vector row;
         //System.out.println("ChiTietTour");
-        for (DoanDuLichDTO a : doanDuLichBUS.searchDoanDuLichByMaTour(maTour)) {
+        for (DoanDuLichDTO a : doanDuLichBUS.searchDoanDuLichByMaTour(maTour, DashBoard.doanDuLichDTOs)) {
             row = new Vector();
             row.add(a.getMaDoan());
             row.add(a.getTenDoan());
@@ -130,7 +130,7 @@ public class TourForm extends javax.swing.JPanel {
 
     public void tbModelSearchDoanDuLich(DefaultTableModel model, String maDoan) {
         Vector row = new Vector();
-        for (DoanDuLichDTO a : doanDuLichBUS.searchDoanDuLichByMaDoan(maDoan)) {
+        for (DoanDuLichDTO a : doanDuLichBUS.searchDoanDuLichByMaDoan(maDoan, DashBoard.doanDuLichDTOs)) {
             row.add(a.getMaDoan());
             row.add(a.getTenDoan());
             row.add(a.getGiaTour());
@@ -1359,7 +1359,7 @@ public class TourForm extends javax.swing.JPanel {
     private void jBtnXoaTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaTourActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaTourActionPerformed
         // TODO add your handling code here:
-        if (tourBUS.xoaTour(maTour, DashBoard.tourDTOs, DashBoard.giaTourDTOs, DashBoard.diaDiemThamQuanDTOs)) {
+        if (tourBUS.xoaTour(maTour, DashBoard.tourDTOs, DashBoard.giaTourDTOs, DashBoard.diaDiemThamQuanDTOs, DashBoard.doanDuLichDTOs)) {
             xoaVectorTour(tbModelTour, rowTour);
             JOptionPane.showMessageDialog(this, "Xóa Tour thành công!");
         } else {
@@ -1733,9 +1733,9 @@ public class TourForm extends javax.swing.JPanel {
         diaDiemThamQuanTempArr = diaDiemThamQuanBUS.searchDiaDiemThamQuanByMaTour(maTourChiTiet, DashBoard.diaDiemThamQuanDTOs);
         tbModelDiaDiemThamQuan(tbModelDiadiem, maTourChiTiet);
         tbModelDoanDuLich(tbModelDoan, maTourChiTiet);
-        System.out.println(doanDuLichBUS.countDoanTrongTour(maTourChiTiet));
+        System.out.println(doanDuLichBUS.countDoanTrongTour(maTourChiTiet, DashBoard.doanDuLichDTOs));
         System.out.println(maTourChiTiet);
-        if (doanDuLichBUS.countDoanTrongTour(maTourChiTiet) == 0) { // NẾU TOUR CHƯA CÓ ĐOÀN
+        if (doanDuLichBUS.countDoanTrongTour(maTourChiTiet, DashBoard.doanDuLichDTOs) == 0) { // NẾU TOUR CHƯA CÓ ĐOÀN
             flagThemDiaDiem = 1;
             jBtnChonDiaDiem.setEnabled(true);
         } else { // NẾU CÓ ĐOÀN

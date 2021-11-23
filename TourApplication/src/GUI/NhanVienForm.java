@@ -6,7 +6,9 @@
 package GUI;
 
 import BUS.*;
+import DTO.DoanDuLichDTO;
 import DTO.NhanVienDTO;
+import DTO.NhiemVuNhanVienDTO;
 //import DAO.XuatExcel;
 //import DTO.ChucVuDTO;
 //import DTO.CongViecDTO;
@@ -16,8 +18,6 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -29,13 +29,8 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
-import javax.imageio.ImageIO;
-import javax.swing.ComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,9 +38,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -58,19 +54,11 @@ public class NhanVienForm extends javax.swing.JPanel
      * Creates new form jPanel2
      */
     static int flagtkmk = 0;
-//    BangNhanvienBUS tbnv = new BangNhanvienBUS();
-//    BangPhongBanBUS tbpb = new BangPhongBanBUS();
-//    CongViecBUS tbcviec = new CongViecBUS();
-//    ChucVuBUS tbchucvu = new ChucVuBUS();
     DefaultTableModel modelnv, modelThongKe;
-//    TaiKhoanForm tk = new TaiKhoanForm();
-    public BufferedImage i = null;
-    public String imgName = null;
     private int flagAcc;
     private String manv;
-    private String mapb;
-    //private NhanVien nhanVien = new NhanVien();
     private NhanVienBUS nhanVienBUS;
+    private DoanDuLichBUS doanDuLichBUS;
     private int selectedRow;
     private Utils ult = new Utils();
 
@@ -94,6 +82,7 @@ public class NhanVienForm extends javax.swing.JPanel
     public void loadData()
     {
         nhanVienBUS = new NhanVienBUS();
+        doanDuLichBUS = new DoanDuLichBUS();
         modelnv.setRowCount(0);
         tbModelNhanVien(modelnv);
     }
@@ -159,6 +148,42 @@ public class NhanVienForm extends javax.swing.JPanel
         }
     }
 
+    public void tbModelThongKeNhanVien(DefaultTableModel model,Date start,Date end){
+        //ArrayList<NhanVienDTO> arr = new ArrayList<>();
+        ArrayList<DoanDuLichDTO> arrDoan = doanDuLichBUS.searchDoanByDate(start, end, DashBoard.doanDuLichDTOs);
+        Vector rowVector;
+//        if(jDateNgayBDTK.getDate()!=null&&jDateNgayKTTK.getDate()!=null)
+        if(arrDoan.size() >0){
+            int count = 0;        
+
+            for(NhanVienDTO a : DashBoard.nhanVienDTOs){
+                rowVector = new Vector();
+                for(NhiemVuNhanVienDTO b : DashBoard.nhiemVuNhanVienDTOs){
+                    for(DoanDuLichDTO c : arrDoan){
+                        if((a.getMaNhanVien().equals(b.getMaNhanVien()))&&(b.getMaDoan().equals(c.getMaDoan()))){
+                           count++; 
+                        }
+                    }   
+                }
+                rowVector.add(a.getMaNhanVien());
+                rowVector.add(a.getTenNhanVien());
+                rowVector.add(count);
+//                System.out.println(rowVector);
+                model.addRow(rowVector);
+                count = 0;            
+            }    
+        }
+        else{
+            for(NhanVienDTO a : DashBoard.nhanVienDTOs){
+                rowVector = new Vector();
+                rowVector.add(a.getMaNhanVien());
+                rowVector.add(a.getTenNhanVien());
+                rowVector.add(0);
+            }       
+        }
+
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -196,7 +221,6 @@ public class NhanVienForm extends javax.swing.JPanel
         jTableNV = new javax.swing.JTable();
         jPanelThongkeNV = new javax.swing.JPanel();
         jButtonThongKe = new javax.swing.JButton();
-        jBtnRefresh2 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableThongke = new javax.swing.JTable();
         jLabel26 = new javax.swing.JLabel();
@@ -457,8 +481,15 @@ public class NhanVienForm extends javax.swing.JPanel
         jTableNV.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
         jTableNV.setSelectionBackground(new Color(52,152,219));
         jTableNV.setGridColor(new java.awt.Color(83, 86, 88));
+
+        jTableNV.getColumn (tableCol.elementAt (0)).setPreferredWidth (150);
+        jTableNV.getColumn (tableCol.elementAt (1)).setPreferredWidth (150);
+        jTableNV.getColumn (tableCol.elementAt (2)).setPreferredWidth (120);
+        jTableNV.getColumn (tableCol.elementAt (3)).setPreferredWidth (160);
+        jTableNV.getColumn (tableCol.elementAt (4)).setPreferredWidth (160);
+        jTableNV.getColumn (tableCol.elementAt (5)).setPreferredWidth (160);
         jScrollPane2.setViewportView(jTableNV);
-        jTableNV.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTableNV.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
 
         jPanelNV.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 540, 520));
 
@@ -475,19 +506,7 @@ public class NhanVienForm extends javax.swing.JPanel
                 jButtonThongKeActionPerformed(evt);
             }
         });
-        jPanelThongkeNV.add(jButtonThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 30, 90, -1));
-
-        jBtnRefresh2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
-        jBtnRefresh2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnRefresh2.setMaximumSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh2.setMinimumSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh2.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefresh2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRefresh2ActionPerformed(evt);
-            }
-        });
-        jPanelThongkeNV.add(jBtnRefresh2, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 30, 40, 30));
+        jPanelThongkeNV.add(jButtonThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, 120, -1));
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -509,13 +528,15 @@ public class NhanVienForm extends javax.swing.JPanel
         tableColThongKe.add ("Mã Nhân Viên");
         tableColThongKe.add ("Tên Nhân Viên");
         tableColThongKe.add ("Số Lần Đi Tour");
-        modelThongKe = new DefaultTableModel(tableColThongKe, 20){
+        modelThongKe = new DefaultTableModel(tableColThongKe, 0){
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex){
                 return false;
             }
         };
         jTableThongke.setModel(modelThongKe);
+        TableRowSorter<TableModel> rowSorter = new TableRowSorter<TableModel>(modelThongKe);
+        jTableThongke.setRowSorter(rowSorter);
         jTableThongke.setShowGrid(true);
         jTableThongke.setFocusable(false);
         jTableThongke.setIntercellSpacing(new Dimension(0,0));
@@ -747,12 +768,22 @@ public class NhanVienForm extends javax.swing.JPanel
     private void jButtonThongKeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonThongKeActionPerformed
     {//GEN-HEADEREND:event_jButtonThongKeActionPerformed
         // TODO add your handling code here:
+        modelThongKe.setRowCount(0);
+        if (jDateNgayBDTK.getDate() == null || jDateNgayKTTK.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ngày Bắt Đầu và Ngày Kết Thúc không được bỏ trống!");
+            return;
+        }
+        String ngayBD = (String) ((JTextField) jDateNgayBDTK.getDateEditor().getUiComponent()).getText(),
+                ngayKT = (String) ((JTextField) jDateNgayKTTK.getDateEditor().getUiComponent()).getText();
+        //Validation
+        StringBuilder message = new StringBuilder();
+        Validation.afterOrEquals(message, "Ngày kết thúc", ngayKT, "Ngày bắt đầu", ngayBD);
+        if(!message.toString().equals("")){
+            JOptionPane.showMessageDialog(this, message.toString());
+            return;
+        }
+        tbModelThongKeNhanVien(modelThongKe,jDateNgayBDTK.getDate(),jDateNgayKTTK.getDate());
     }//GEN-LAST:event_jButtonThongKeActionPerformed
-
-    private void jBtnRefresh2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefresh2ActionPerformed
-    {//GEN-HEADEREND:event_jBtnRefresh2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnRefresh2ActionPerformed
 
     private void jTableThongkeMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableThongkeMouseClicked
     {//GEN-HEADEREND:event_jTableThongkeMouseClicked
@@ -847,7 +878,6 @@ public class NhanVienForm extends javax.swing.JPanel
     private javax.swing.JButton jBtnCapPhatMaNV;
     private javax.swing.JButton jBtnHuy1;
     private javax.swing.JButton jBtnRefresh;
-    private javax.swing.JButton jBtnRefresh2;
     private javax.swing.JButton jBtnSuaNV;
     private javax.swing.JButton jBtnThemNV;
     private javax.swing.JButton jBtnXoaNV;

@@ -239,7 +239,7 @@
                           <Component id="tourPanel" alignment="0" pref="204" max="32767" attributes="0"/>
                           <Component id="diadiemPanel" alignment="0" pref="204" max="32767" attributes="0"/>
                           <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
-                          <Component id="luongPanel" max="32767" attributes="0"/>
+                          <Component id="doanhthuPanel" max="32767" attributes="0"/>
                           <Component id="chiphiPanel" pref="204" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="802" max="-2" attributes="0"/>
@@ -266,7 +266,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="chiphiPanel" min="38" pref="38" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="luongPanel" min="-2" max="-2" attributes="0"/>
+                              <Component id="doanhthuPanel" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="menuIcon" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -834,7 +834,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="luongPanel">
+            <Container class="javax.swing.JPanel" name="doanhthuPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="83" green="71" red="51" type="rgb"/>
@@ -844,17 +844,17 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="luongLabel" alignment="1" max="32767" attributes="0"/>
+                      <Component id="doanhthuLabel" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="luongLabel" alignment="0" pref="38" max="32767" attributes="0"/>
+                      <Component id="doanhthuLabel" alignment="0" pref="38" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="luongLabel">
+                <Component class="javax.swing.JLabel" name="doanhthuLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="DialogInput" size="19" style="1"/>
@@ -878,9 +878,9 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="luongLabelMouseClicked"/>
-                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="luongLabelMouseEntered"/>
-                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="luongLabelMouseExited"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="doanhthuLabelMouseClicked"/>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="doanhthuLabelMouseEntered"/>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="doanhthuLabelMouseExited"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -943,14 +943,14 @@
                           <Component id="jPanelNhanvien" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelDoan" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="650" max="32767" attributes="0"/>
+                      <EmptySpace min="650" pref="655" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanelChiPhi" max="32767" attributes="0"/>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jPanel12" alignment="0" pref="322" max="32767" attributes="0"/>
+                          <Component id="jPanel12" min="-2" pref="649" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPanel13" alignment="0" pref="322" max="32767" attributes="0"/>
+                          <Component id="jPanel13" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
@@ -1014,7 +1014,7 @@
             </Container>
             <Container class="javax.swing.JPanel" name="jPanel12">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="//jPanel12.add(luong);"/>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jPanel12.add(doanhThuForm);"/>
                 <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="jPanel12.setVisible (false);"/>
               </AuxValues>
 

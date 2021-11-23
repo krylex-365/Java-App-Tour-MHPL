@@ -9,6 +9,7 @@ import DAO.DoanDuLichDAO;
 import DAO.MaDuLieuCuoiDAO;
 import DTO.DoanDuLichDTO;
 import java.util.ArrayList;
+import java.util.Date;
 //import org.codehaus.groovy.runtime.DefaultGroovyMethods;
 
 /**
@@ -18,24 +19,19 @@ import java.util.ArrayList;
 public class DoanDuLichBUS {
 
     private DoanDuLichDAO doanDuLichDAO;
-    private ArrayList<DoanDuLichDTO> doanDuLichDTOs;
+//    private ArrayList<DoanDuLichDTO> doanDuLichDTOs;
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
+    private Utils ult = new Utils();
 
-    public DoanDuLichBUS(DoanDuLichDAO doanDuLichDAO, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
+    public DoanDuLichBUS(DoanDuLichDAO doanDuLichDAO) {
         this.doanDuLichDAO = doanDuLichDAO;
-        this.doanDuLichDTOs = doanDuLichDTOs;
     }
 
     public DoanDuLichBUS() {
         doanDuLichDAO = new DoanDuLichDAO();
-        doanDuLichDTOs = doanDuLichDAO.getList();
     }
 
-    public ArrayList<DoanDuLichDTO> getDoanDuLichDTOs() {
-        return doanDuLichDAO.getList();
-    }
-
-    public ArrayList<DoanDuLichDTO> searchDoanDuLichByMaTour(String maTour) {
+    public ArrayList<DoanDuLichDTO> searchDoanDuLichByMaTour(String maTour, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
         ArrayList<DoanDuLichDTO> result = new ArrayList<DoanDuLichDTO>();
         for (DoanDuLichDTO a : doanDuLichDTOs) {
             if (a.getMaTour().equals(maTour)) {
@@ -46,7 +42,7 @@ public class DoanDuLichBUS {
         return result;
     }
 
-    public ArrayList<DoanDuLichDTO> searchDoanDuLichByMaDoan(String maDoan) {
+    public ArrayList<DoanDuLichDTO> searchDoanDuLichByMaDoan(String maDoan, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
         ArrayList<DoanDuLichDTO> result = new ArrayList<DoanDuLichDTO>();
         for (DoanDuLichDTO a : doanDuLichDTOs) {
             if (a.getMaDoan().equals(maDoan)) {
@@ -65,7 +61,7 @@ public class DoanDuLichBUS {
 //        }
 //        return count;
 //    }
-    public DoanDuLichDTO getDoanDuLichByMaTour(String maTour) {
+    public DoanDuLichDTO getDoanDuLichByMaTour(String maTour, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
         for (DoanDuLichDTO doanDuLichDTO : doanDuLichDTOs) {
             if (doanDuLichDTO.getMaTour().equals(maTour)) {
                 return doanDuLichDTO;
@@ -74,7 +70,7 @@ public class DoanDuLichBUS {
         return null;
     }
 
-    public int countDoanTrongTour(String maTour) {
+    public int countDoanTrongTour(String maTour, ArrayList<DoanDuLichDTO> doanDuLichDTOs) {
         int count = 0;
         for (DoanDuLichDTO a : doanDuLichDTOs) {
             if (a.getMaTour().equals(maTour)) {
@@ -139,6 +135,17 @@ public class DoanDuLichBUS {
         }
         System.out.println("Xóa thất bại suaDoanDuLichBUS");
         return false;
+    }
+    
+    public ArrayList<DoanDuLichDTO> searchDoanByDate(Date start,Date end, ArrayList<DoanDuLichDTO> doanDuLichDTOs){
+        ArrayList<DoanDuLichDTO> arr = new ArrayList<>();
+        for(DoanDuLichDTO a : doanDuLichDTOs){
+            if(ult.stringToDate(a.getNgayKetThuc()).after(start)&&ult.stringToDate(a.getNgayKetThuc()).before(end)){
+                System.out.println(a);
+                arr.add(a);
+            }            
+        }
+        return arr;
     }
 
 }

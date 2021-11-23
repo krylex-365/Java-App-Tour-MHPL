@@ -438,34 +438,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="830" y="30" width="90" height="-1"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JButton" name="jBtnRefresh2">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/img/refresh_25px.png"/>
-                </Property>
-                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                  <Color id="Hand Cursor"/>
-                </Property>
-                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[50, 50]"/>
-                </Property>
-                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[50, 50]"/>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[50, 50]"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnRefresh2ActionPerformed"/>
-              </Events>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="930" y="30" width="40" height="30"/>
+                  <AbsoluteConstraints x="850" y="30" width="120" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -500,7 +473,7 @@
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="Vector tbColThongKe=new Vector();"/>
-                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tbColThongKe.add (&quot;M&#xe3; Tour&quot;);&#xa;tbColThongKe.add (&quot;T&#xea;n Tour&quot;);&#xa;tbColThongKe.add (&quot;M&#xe3; &#x110;o&#xe0;n&quot;);&#xa;tbColThongKe.add (&quot;T&#xea;n &#x110;o&#xe0;n&quot;);&#xa;tbColThongKe.add (&quot;T&#x1ed5;ng Chi Ph&#xed;&quot;);&#xa;tbModelTKCP = new DefaultTableModel(tbColThongKe, 20){&#xa;    @Override&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableThongke.setModel(tbModelTKCP);&#xa;jTableThongke.setShowGrid(true);&#xa;        jTableThongke.setFocusable(false);&#xa;        jTableThongke.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableThongke.setRowHeight(25);  &#xa;        jTableThongke.getTableHeader().setOpaque(false);&#xa;        jTableThongke.setFillsViewportHeight(true);&#xa;        jTableThongke.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableThongke.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableThongke.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableThongke.setSelectionBackground(new Color(52,152,219));&#xa;jTableThongke.setGridColor(new java.awt.Color(83, 86, 88));"/>
+                    <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tbColThongKe.add (&quot;M&#xe3; Tour&quot;);&#xa;tbColThongKe.add (&quot;T&#xea;n Tour&quot;);&#xa;tbColThongKe.add (&quot;M&#xe3; &#x110;o&#xe0;n&quot;);&#xa;tbColThongKe.add (&quot;T&#xea;n &#x110;o&#xe0;n&quot;);&#xa;tbColThongKe.add (&quot;Ng&#xe0;y &#x110;i&quot;);&#xa;tbColThongKe.add (&quot;Ng&#xe0;y V&#x1ec1;&quot;);&#xa;tbColThongKe.add (&quot;T&#x1ed5;ng Chi Ph&#xed;&quot;);&#xa;tbModelTKCP = new DefaultTableModel(tbColThongKe, 0){&#xa;    @Override&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex){&#xa;        return false;&#xa;    }&#xa;};&#xa;jTableThongke.setModel(tbModelTKCP);&#xa;TableRowSorter&lt;TableModel&gt; rowSorter = new TableRowSorter&lt;TableModel&gt;(tbModelTKCP);&#xa;        jTableThongke.setRowSorter(rowSorter);&#xa;jTableThongke.setShowGrid(true);&#xa;        jTableThongke.setFocusable(false);&#xa;        jTableThongke.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableThongke.setRowHeight(25);  &#xa;        jTableThongke.getTableHeader().setOpaque(false);&#xa;        jTableThongke.setFillsViewportHeight(true);&#xa;        jTableThongke.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableThongke.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableThongke.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableThongke.setSelectionBackground(new Color(52,152,219));&#xa;jTableThongke.setGridColor(new java.awt.Color(83, 86, 88));"/>
                   </AuxValues>
                 </Component>
               </SubComponents>
