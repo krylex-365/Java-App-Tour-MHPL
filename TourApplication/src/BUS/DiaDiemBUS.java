@@ -18,18 +18,16 @@ import java.util.ArrayList;
  */
 public class DiaDiemBUS {
     private DiaDiemDAO diaDiemDAO;
-    private ArrayList<DiaDiemDTO> diaDiemDTOs;
+//    private ArrayList<DiaDiemDTO> diaDiemDTOs;
     private Utils utl = new Utils();
     private MaDuLieuCuoiDAO maLast = new MaDuLieuCuoiDAO();
 
-    public DiaDiemBUS(DiaDiemDAO diaDiemDAO, ArrayList<DiaDiemDTO> diaDiemDTOs) {
+    public DiaDiemBUS(DiaDiemDAO diaDiemDAO) {
         this.diaDiemDAO = diaDiemDAO;
-        this.diaDiemDTOs = diaDiemDTOs;
     }
 
     public DiaDiemBUS() {
         diaDiemDAO = new DiaDiemDAO();
-        diaDiemDTOs = diaDiemDAO.getList();
     }
 
 //    public String CapPhat(String init) {
@@ -46,16 +44,8 @@ public class DiaDiemBUS {
     public void setDiaDiemDAO(DiaDiemDAO diaDiemDAO) {
         this.diaDiemDAO = diaDiemDAO;
     }
-
-    public ArrayList<DiaDiemDTO> getDiaDiemDTOs() {
-        return diaDiemDTOs;
-    }
-
-    public void setDiaDiemDTOs(ArrayList<DiaDiemDTO> diaDiemDTOs) {
-        this.diaDiemDTOs = diaDiemDTOs;
-    }
     
-    public String searchTenDiaDiemByMaDiaDiem(String maDiaDiem){
+    public String searchTenDiaDiemByMaDiaDiem(String maDiaDiem, ArrayList<DiaDiemDTO> diaDiemDTOs){
         String result="Lối !!";
         for(DiaDiemDTO a : diaDiemDTOs){
             if(maDiaDiem.equals(a.getMaDiaDiem()))result = a.getTenDiaDiem();
@@ -63,7 +53,7 @@ public class DiaDiemBUS {
         return result;
     }
     
-    public ArrayList<DiaDiemDTO> searchListDiaDiemByMaDiaDiem(String maDiaDiem){
+    public ArrayList<DiaDiemDTO> searchListDiaDiemByMaDiaDiem(String maDiaDiem, ArrayList<DiaDiemDTO> diaDiemDTOs){
         ArrayList<DiaDiemDTO> result = new ArrayList<>();
         for(DiaDiemDTO a : diaDiemDTOs){
             if(maDiaDiem.equals(a.getMaDiaDiem()))result.add(a);
@@ -71,7 +61,7 @@ public class DiaDiemBUS {
         return result;
     }
 
-    public boolean themDiaDiem(String maDiaDiem, String tenDiaDiem){
+    public boolean themDiaDiem(String maDiaDiem, String tenDiaDiem, ArrayList<DiaDiemDTO> diaDiemDTOs){
         DiaDiemDTO diaDiemDTO = new DiaDiemDTO(maDiaDiem, tenDiaDiem);
         if(diaDiemDAO.insertDiaDiem(diaDiemDTO)){
             diaDiemDTOs.add(diaDiemDTO);
@@ -83,8 +73,8 @@ public class DiaDiemBUS {
         return false;
     }
 
-    public boolean suaDiaDiem(String maDiaDiem, String tenDiaDiem){
-        DiaDiemDTO diaDiemDTO = searchDiaDiemByMaDiaDiem(maDiaDiem);
+    public boolean suaDiaDiem(String maDiaDiem, String tenDiaDiem, ArrayList<DiaDiemDTO> diaDiemDTOs){
+        DiaDiemDTO diaDiemDTO = searchDiaDiemByMaDiaDiem(maDiaDiem, diaDiemDTOs);
         if(diaDiemDTO != null){
             if(diaDiemDAO.updateMaDiaDiem(maDiaDiem, tenDiaDiem)){
                 diaDiemDTO.setTenDiaDiem(tenDiaDiem);
@@ -96,8 +86,8 @@ public class DiaDiemBUS {
         return false;
     }
 
-    public boolean xoaDiaDiem(String maDiaDiem,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs){
-        DiaDiemDTO diaDiemDTO = searchDiaDiemByMaDiaDiem(maDiaDiem);
+    public boolean xoaDiaDiem(String maDiaDiem,ArrayList<DiaDiemThamQuanDTO> diaDiemThamQuanDTOs, ArrayList<DiaDiemDTO> diaDiemDTOs){
+        DiaDiemDTO diaDiemDTO = searchDiaDiemByMaDiaDiem(maDiaDiem, diaDiemDTOs);
         DiaDiemThamQuanDTO diaDiemThamQuanDTO = new DiaDiemThamQuanBUS()
                 .searchDiaDiemThamQuanByMaDiaDiem(maDiaDiem,diaDiemThamQuanDTOs);
         if(diaDiemDTO != null && diaDiemThamQuanDTO == null){
@@ -111,7 +101,7 @@ public class DiaDiemBUS {
         return false;
     }
 
-    private DiaDiemDTO searchDiaDiemByMaDiaDiem(String maDiaDiem) {
+    private DiaDiemDTO searchDiaDiemByMaDiaDiem(String maDiaDiem, ArrayList<DiaDiemDTO> diaDiemDTOs) {
         for (DiaDiemDTO diaDiemDTO: diaDiemDTOs){
             if(diaDiemDTO.getMaDiaDiem().equals(maDiaDiem)) return diaDiemDTO;
         }

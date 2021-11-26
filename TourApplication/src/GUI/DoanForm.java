@@ -150,6 +150,33 @@ public class DoanForm extends javax.swing.JPanel {
         model.removeRow(row);
     }
     
+    public void timKiem(DefaultTableModel model, String value){
+        model.setRowCount(0);
+        for(DoanDuLichDTO doan: DashBoard.doanDuLichDTOs){
+            if(doan.getMaDoan().equals(value) || doan.getTenDoan().indexOf(value) != -1){
+                Vector row = new Vector();
+                row.add(doan.getMaDoan());
+                row.add(doan.getTenDoan());
+                for (TourDTO tour : DashBoard.tourDTOs) {
+                    if (tour.getMaTour().equals(doan.getMaTour())) {
+                        row.add(tour.getTenTour());
+                        break;
+                    }
+                }
+                for (GiaTourDTO giaTour : DashBoard.giaTourDTOs) {
+                    if (giaTour.getMaTour().equals(doan.getMaTour()) && giaTour.getHienHanh() == 1) {
+                        row.add(giaTour.getThanhTien());
+                        break;
+                    }
+                }
+                row.add(doan.getNgayKhoiHanh());
+                row.add(doan.getNgayKetThuc());
+                model.addRow(row);
+                break;
+            }
+        }
+    }
+    
     public void tableModelKhachHang(DefaultTableModel model) {
         long startTime = System.currentTimeMillis();
         Vector row;
@@ -233,8 +260,6 @@ public class DoanForm extends javax.swing.JPanel {
     public void xoaVectorNhanVien(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
-    
-    
 
     public void loadDataDoan() {
         doanDuLichBUS = new DoanDuLichBUS();
@@ -1113,6 +1138,7 @@ public class DoanForm extends javax.swing.JPanel {
         //        tbnv.searchbangnhanvien(tbModelTour, manv);
         //        jTable1.setModel(tbModelTour);
         //        System.out.println("click tim kiem");
+        timKiem(tbModelDoan, (String) jTextTimKiemDoan.getText());
     }//GEN-LAST:event_jBtnTimKiemDoanActionPerformed
 
     private void jBtnCapPhatMaDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCapPhatMaDoanActionPerformed

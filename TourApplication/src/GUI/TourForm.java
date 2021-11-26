@@ -105,7 +105,7 @@ public class TourForm extends javax.swing.JPanel {
         for (DiaDiemThamQuanDTO a : diaDiemThamQuanTempArr) {
             row = new Vector();
             row.add(a.getMaDiaDiem());
-            row.add(diaDiemBUS.searchTenDiaDiemByMaDiaDiem(a.getMaDiaDiem()));
+            row.add(diaDiemBUS.searchTenDiaDiemByMaDiaDiem(a.getMaDiaDiem(), DashBoard.diaDiemDTOs));
             row.add(a.getThuTu());
             model.addRow(row);
         }
@@ -138,26 +138,6 @@ public class TourForm extends javax.swing.JPanel {
             row.add(a.getNgayKetThuc());
 //            row.add(chiTietDoanBUS.peopleCount(a.getMaDoan()));
             row.add(chiTietDoanBUS.peopleCountByMaDoan(a.getMaDoan(),DashBoard.chiTietDoanDTOs));
-            model.addRow(row);
-        }
-    }
-
-    public void tbModelDiaDiem(DefaultTableModel model) {
-        Vector row;
-        for (DiaDiemDTO a : diaDiemBUS.getDiaDiemDTOs()) {
-            row = new Vector();
-            row.add(a.getMaDiaDiem());
-            row.add(a.getTenDiaDiem());
-            model.addRow(row);
-        }
-    }
-
-    public void tbModelSearchDiaDiemByMaDiaDiem(DefaultTableModel model, String maDiaDiem) {
-        Vector row;
-        for (DiaDiemDTO a : diaDiemBUS.searchListDiaDiemByMaDiaDiem(maDiaDiem)) {
-            row = new Vector();
-            row.add(a.getMaDiaDiem());
-            row.add(a.getTenDiaDiem());
             model.addRow(row);
         }
     }
@@ -209,6 +189,33 @@ public class TourForm extends javax.swing.JPanel {
     public void xoaVectorTour(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
+    
+    public void timKiem(DefaultTableModel model, String value){
+        model.setRowCount(0);
+        for(TourDTO tourDTO: DashBoard.tourDTOs){
+            if(tourDTO.getMaTour().equals(value) || tourDTO.getTenTour().indexOf(value) != -1){
+                Vector row = new Vector();
+                row.add(tourDTO.getMaTour());
+                row.add(tourDTO.getTenTour());
+                for (LoaiHinhTourDTO loaiHinhTour : DashBoard.loaiHinhTourDTOs) {
+                    if (loaiHinhTour.getMaLoai().equals(tourDTO.getMaLoai())) {
+                        row.add(loaiHinhTour.getTenLoai());
+                        break;
+                    }
+                }
+                for (GiaTourDTO giaTour : DashBoard.giaTourDTOs) {
+                    if (giaTour.getMaTour().equals(tourDTO.getMaTour()) && giaTour.getHienHanh() == 1) {
+                        row.add(giaTour.getThanhTien());
+                        row.add(giaTour.getTgBatDau());
+                        row.add(giaTour.getTgKetThuc());
+                        break;
+                    }
+                }
+                model.addRow(row);
+                break;
+            }
+        }
+    }
 
     public boolean isNullOrEmpty(String text) {
         if (text == null || text.equals("")) {
@@ -217,14 +224,17 @@ public class TourForm extends javax.swing.JPanel {
         return false;
     }
 
-    public void tbModelSearchLoaiHinh(DefaultTableModel model, String maLH) {
+    public void tbModelSearchLoaiHinh(DefaultTableModel model, String value) {
         Vector row = new Vector();
-        for (LoaiHinhTourDTO a : loaiHinhTourBUS.searchLoaiHinhByMaLH(maLH, DashBoard.loaiHinhTourDTOs)) {
-            System.out.println(a);
-            row.add(a.getMaLoai());
-            row.add(a.getTenLoai());
-            model.addRow(row);
-            break;
+        model.setRowCount(0);
+        for (LoaiHinhTourDTO a : DashBoard.loaiHinhTourDTOs) {
+            if (a.getMaLoai().equals(value) || a.getTenLoai().indexOf(value) != -1){
+                System.out.println(a);
+                row.add(a.getMaLoai());
+                row.add(a.getTenLoai());
+                model.addRow(row);
+                break;
+            }
         }
     }
 
@@ -1248,7 +1258,7 @@ public class TourForm extends javax.swing.JPanel {
                 //System.out.println(a);
                 rowTemp = new Vector();
                 rowTemp.add(a.getMaDiaDiem());
-                rowTemp.add(diaDiemBUS.searchTenDiaDiemByMaDiaDiem(a.getMaDiaDiem()));
+                rowTemp.add(diaDiemBUS.searchTenDiaDiemByMaDiaDiem(a.getMaDiaDiem(), DashBoard.diaDiemDTOs));
                 rowTemp.add(a.getThuTu());
                 System.out.println(a);
                 tbModelDiadiem.addRow(rowTemp);
@@ -1313,6 +1323,7 @@ public class TourForm extends javax.swing.JPanel {
         //        tbnv.searchbangnhanvien(tbModelTour, manv);
         //        jTable1.setModel(tbModelTour);
         //        System.out.println("click tim kiem");
+        timKiem(tbModelTour, (String) jTextTimKiemTour.getText());
     }//GEN-LAST:event_jBtnTimKiemTourActionPerformed
 
     private void jBtnCapPhatMaTourActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCapPhatMaTourActionPerformed
@@ -1906,7 +1917,6 @@ public class TourForm extends javax.swing.JPanel {
 
     private void jBtnTimKiemLHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemLHActionPerformed
         // TODO add your handling code here:
-        tbModelLoaiHinh.setRowCount(0);
         tbModelSearchLoaiHinh(tbModelLoaiHinh, (String) jTextTimKiemLH.getText());
 //        System.out.println(jTextMaLoaiHinh.getText().toString());
     }//GEN-LAST:event_jBtnTimKiemLHActionPerformed

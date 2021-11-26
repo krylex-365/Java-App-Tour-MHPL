@@ -318,7 +318,7 @@ public class DiadiemForm extends javax.swing.JPanel {
             return;
         }
 
-        if(diaDiemBUS.themDiaDiem(maDiaDiem, tenDiaDiem)){
+        if(diaDiemBUS.themDiaDiem(maDiaDiem, tenDiaDiem, DashBoard.diaDiemDTOs)){
             themDiaDiem(tbModelDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
             JOptionPane.showMessageDialog(this, "Thêm địa điểm thành công!");
         }else {
@@ -356,7 +356,7 @@ public class DiadiemForm extends javax.swing.JPanel {
             return;
         }
 
-        if(diaDiemBUS.suaDiaDiem(maDiaDiem, tenDiaDiem)){
+        if(diaDiemBUS.suaDiaDiem(maDiaDiem, tenDiaDiem, DashBoard.diaDiemDTOs)){
             suaDiaDiem(tbModelDiaDiem, rowDiaDiem,new DiaDiemDTO(maDiaDiem, tenDiaDiem));
             JOptionPane.showMessageDialog(this, "Sửa địa điểm thành công!");
         }else {
@@ -375,7 +375,7 @@ public class DiadiemForm extends javax.swing.JPanel {
         // TODO add your handling code here:
         maDiaDiem = jTextMaDD.getText();
         if(!isNullOrEmpty(maDiaDiem)){
-            if (diaDiemBUS.xoaDiaDiem(maDiaDiem,DashBoard.diaDiemThamQuanDTOs)){
+            if (diaDiemBUS.xoaDiaDiem(maDiaDiem,DashBoard.diaDiemThamQuanDTOs, DashBoard.diaDiemDTOs)){
                 xoaDiaDiem(tbModelDiaDiem, rowDiaDiem);
                 JOptionPane.showMessageDialog(this, "Xóa địa điểm thành công!");
             }else {
@@ -448,7 +448,7 @@ public class DiadiemForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
     public void tableModelDiaDiem(DefaultTableModel model) {
-        for (DiaDiemDTO diaDiemDTO : diaDiemBUS.getDiaDiemDTOs()) {
+        for (DiaDiemDTO diaDiemDTO : DashBoard.diaDiemDTOs) {
             Vector row = new Vector();
             row.add(diaDiemDTO.getMaDiaDiem());
             row.add(diaDiemDTO.getTenDiaDiem());
@@ -474,7 +474,7 @@ public class DiadiemForm extends javax.swing.JPanel {
 
     public void timKiem(DefaultTableModel model, JTable jTable, String value){
         model.setRowCount(0);
-        for(DiaDiemDTO diaDiemDTO: diaDiemBUS.getDiaDiemDTOs()){
+        for(DiaDiemDTO diaDiemDTO: DashBoard.diaDiemDTOs){
             if(diaDiemDTO.getMaDiaDiem().equals(value) || diaDiemDTO.getTenDiaDiem().indexOf(value) != -1){
                 Vector row = new Vector();
                 row.add(diaDiemDTO.getMaDiaDiem());

@@ -602,6 +602,8 @@ public class NhanVienForm extends javax.swing.JPanel
 //        tbnv.loadDataNV();
 //        modelnv.setRowCount(0);
 //        tbnv.bangnhanvien(modelnv);
+        jTextTimKiemNV.setText("");
+        loadData();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
     private void jBtnCapPhatMaNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCapPhatMaNVActionPerformed
