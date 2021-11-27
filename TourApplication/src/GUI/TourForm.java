@@ -291,6 +291,11 @@ public class TourForm extends javax.swing.JPanel {
     public void initTableLH() {
         loadDataLH();
     }
+    
+    public void initAllTable() {
+        loadDataTour();
+        loadDataLH();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1738,14 +1743,14 @@ public class TourForm extends javax.swing.JPanel {
         tenTourChiTiet = (String) jTableTour.getModel().getValueAt(rowTour, 1);
         jTextMaTour1.setText(maTourChiTiet);//System.out.println(maTourChiTiet);
         jTextTenTour1.setText(tenTour);
-        System.out.println(tenTour);
+//        System.out.println(tenTour);
         tbModelDoan.setRowCount(0);
         tbModelDiadiem.setRowCount(0);
         diaDiemThamQuanTempArr = diaDiemThamQuanBUS.searchDiaDiemThamQuanByMaTour(maTourChiTiet, DashBoard.diaDiemThamQuanDTOs);
         tbModelDiaDiemThamQuan(tbModelDiadiem, maTourChiTiet);
         tbModelDoanDuLich(tbModelDoan, maTourChiTiet);
-        System.out.println(doanDuLichBUS.countDoanTrongTour(maTourChiTiet, DashBoard.doanDuLichDTOs));
-        System.out.println(maTourChiTiet);
+//        System.out.println(doanDuLichBUS.countDoanTrongTour(maTourChiTiet, DashBoard.doanDuLichDTOs));
+//        System.out.println(maTourChiTiet);
         if (doanDuLichBUS.countDoanTrongTour(maTourChiTiet, DashBoard.doanDuLichDTOs) == 0) { // NẾU TOUR CHƯA CÓ ĐOÀN
             flagThemDiaDiem = 1;
             jBtnChonDiaDiem.setEnabled(true);

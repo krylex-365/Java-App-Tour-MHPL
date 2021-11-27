@@ -975,8 +975,7 @@ public class DashBoard extends javax.swing.JFrame
     }//GEN-LAST:event_tourLabelMouseEntered
 
     private void tourLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourLabelMouseClicked
-        tourForm.initTableTour();
-        tourForm.initTableLH();
+        tourForm.initAllTable();
         jPanelTour.setVisible(true);
         jPanelDiaDiem.setVisible(false);
         jPanelNhanvien.setVisible(false);

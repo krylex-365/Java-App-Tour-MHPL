@@ -94,6 +94,7 @@ public class DiaDiemThamQuanBUS {
             for(int k = 0; k < diaDiemThamQuanDTOs.size();k++){
                 if(diaDiemThamQuanDTOs.get(k).getMaTour().equals(maTour)){
                     diaDiemThamQuanDTOs.remove(k);
+                    k--;
                 }
             }
             for(DiaDiemThamQuanDTO a : newDiaDiemThamQuanDTOs){
