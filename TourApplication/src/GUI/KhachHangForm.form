@@ -413,7 +413,7 @@
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="jDateNgaySinh">
                   <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor" postCode="JTextFieldDateEditor editor1 = (JTextFieldDateEditor) jDateNgaySinh.getDateEditor();&#xa;editor1.setEditable(false);">
                       <Color blue="df" green="d9" red="d6" type="rgb"/>
                     </Property>
                     <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>

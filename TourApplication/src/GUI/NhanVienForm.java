@@ -148,42 +148,49 @@ public class NhanVienForm extends javax.swing.JPanel
         }
     }
 
-    public void tbModelThongKeNhanVien(DefaultTableModel model,Date start,Date end){
+    public void tbModelThongKeNhanVien(DefaultTableModel model, Date start, Date end)
+    {
         //ArrayList<NhanVienDTO> arr = new ArrayList<>();
         ArrayList<DoanDuLichDTO> arrDoan = doanDuLichBUS.searchDoanByDate(start, end, DashBoard.doanDuLichDTOs);
         Vector rowVector;
 //        if(jDateNgayBDTK.getDate()!=null&&jDateNgayKTTK.getDate()!=null)
-        if(arrDoan.size() >0){
-            int count = 0;        
+        if (arrDoan.size() > 0)
+        {
+            int count = 0;
 
-            for(NhanVienDTO a : DashBoard.nhanVienDTOs){
+            for (NhanVienDTO a : DashBoard.nhanVienDTOs)
+            {
                 rowVector = new Vector();
-                for(NhiemVuNhanVienDTO b : DashBoard.nhiemVuNhanVienDTOs){
-                    for(DoanDuLichDTO c : arrDoan){
-                        if((a.getMaNhanVien().equals(b.getMaNhanVien()))&&(b.getMaDoan().equals(c.getMaDoan()))){
-                           count++; 
+                for (NhiemVuNhanVienDTO b : DashBoard.nhiemVuNhanVienDTOs)
+                {
+                    for (DoanDuLichDTO c : arrDoan)
+                    {
+                        if ((a.getMaNhanVien().equals(b.getMaNhanVien())) && (b.getMaDoan().equals(c.getMaDoan())))
+                        {
+                            count++;
                         }
-                    }   
+                    }
                 }
                 rowVector.add(a.getMaNhanVien());
                 rowVector.add(a.getTenNhanVien());
                 rowVector.add(count);
 //                System.out.println(rowVector);
                 model.addRow(rowVector);
-                count = 0;            
-            }    
-        }
-        else{
-            for(NhanVienDTO a : DashBoard.nhanVienDTOs){
+                count = 0;
+            }
+        } else
+        {
+            for (NhanVienDTO a : DashBoard.nhanVienDTOs)
+            {
                 rowVector = new Vector();
                 rowVector.add(a.getMaNhanVien());
                 rowVector.add(a.getTenNhanVien());
                 rowVector.add(0);
-            }       
+            }
         }
 
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -696,6 +703,7 @@ public class NhanVienForm extends javax.swing.JPanel
         jTextSDT.setText("");
         jTextDiaChi.setText("");
         jDateNgaySinh.setCalendar(null);
+        jTableNV.clearSelection();
     }//GEN-LAST:event_jBtnThemNVActionPerformed
 
     private void jBtnSuaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaNVActionPerformed
@@ -730,6 +738,7 @@ public class NhanVienForm extends javax.swing.JPanel
         jTextSDT.setText("");
         jTextDiaChi.setText("");
         jDateNgaySinh.setCalendar(null);
+        jTableNV.clearSelection();
     }//GEN-LAST:event_jBtnSuaNVActionPerformed
 
     private void jBtnXoaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaNVActionPerformed
@@ -747,6 +756,7 @@ public class NhanVienForm extends javax.swing.JPanel
         jTextSDT.setText("");
         jTextDiaChi.setText("");
         jDateNgaySinh.setCalendar(null);
+        jTableNV.clearSelection();
     }//GEN-LAST:event_jBtnXoaNVActionPerformed
 
     private void jBtnHuy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHuy1ActionPerformed
@@ -760,6 +770,7 @@ public class NhanVienForm extends javax.swing.JPanel
         jTextSDT.setText("");
         jTextDiaChi.setText("");
         jDateNgaySinh.setCalendar(null);
+        jTableNV.clearSelection();
     }//GEN-LAST:event_jBtnHuy1ActionPerformed
 
     private void jCbGioiTinhActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCbGioiTinhActionPerformed
@@ -771,7 +782,8 @@ public class NhanVienForm extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jButtonThongKeActionPerformed
         // TODO add your handling code here:
         modelThongKe.setRowCount(0);
-        if (jDateNgayBDTK.getDate() == null || jDateNgayKTTK.getDate() == null) {
+        if (jDateNgayBDTK.getDate() == null || jDateNgayKTTK.getDate() == null)
+        {
             JOptionPane.showMessageDialog(this, "Ngày Bắt Đầu và Ngày Kết Thúc không được bỏ trống!");
             return;
         }
@@ -780,11 +792,12 @@ public class NhanVienForm extends javax.swing.JPanel
         //Validation
         StringBuilder message = new StringBuilder();
         Validation.afterOrEquals(message, "Ngày kết thúc", ngayKT, "Ngày bắt đầu", ngayBD);
-        if(!message.toString().equals("")){
+        if (!message.toString().equals(""))
+        {
             JOptionPane.showMessageDialog(this, message.toString());
             return;
         }
-        tbModelThongKeNhanVien(modelThongKe,jDateNgayBDTK.getDate(),jDateNgayKTTK.getDate());
+        tbModelThongKeNhanVien(modelThongKe, jDateNgayBDTK.getDate(), jDateNgayKTTK.getDate());
     }//GEN-LAST:event_jButtonThongKeActionPerformed
 
     private void jTableThongkeMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableThongkeMouseClicked

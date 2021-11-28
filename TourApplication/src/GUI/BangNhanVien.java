@@ -153,7 +153,7 @@ public class BangNhanVien extends javax.swing.JFrame {
 
         jBtnXacNhan.setBackground(new java.awt.Color(136, 193, 184));
         jBtnXacNhan.setFont(new java.awt.Font("Verdana", 1, 13)); // NOI18N
-        jBtnXacNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_ok_16.png"))); // NOI18N
+        jBtnXacNhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8_checked_16.png"))); // NOI18N
         jBtnXacNhan.setText("Xác nhận");
         jBtnXacNhan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnXacNhan.addActionListener(new java.awt.event.ActionListener() {

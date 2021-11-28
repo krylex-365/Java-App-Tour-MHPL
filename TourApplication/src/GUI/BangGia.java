@@ -474,6 +474,7 @@ public class BangGia extends javax.swing.JFrame {
         jBtnThoat.setEnabled(true);
 //        jTextPban.setText("");
 //        jTextCviec.setText("");
+jTableGiaTour.clearSelection();
     }//GEN-LAST:event_jBtnSuaActionPerformed
 
     private void jTextMaGiaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextMaGiaActionPerformed
@@ -563,6 +564,7 @@ public class BangGia extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(null, ktra());
 //            }
 //        }
+        jTableGiaTour.clearSelection();
     }//GEN-LAST:event_jBtnThemActionPerformed
 
     private void jTableGiaTourMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableGiaTourMouseClicked
@@ -676,6 +678,7 @@ public class BangGia extends javax.swing.JFrame {
         jBtnHuy.setEnabled(false);
         jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
+        jTableGiaTour.clearSelection();
     }//GEN-LAST:event_jBtnXoaActionPerformed
 
     private void jBtnHuyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnHuyActionPerformed
@@ -692,6 +695,7 @@ public class BangGia extends javax.swing.JFrame {
         jBtnHuy.setEnabled(false);
         jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
+        jTableGiaTour.clearSelection();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jBtnXacNhanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXacNhanActionPerformed
@@ -769,6 +773,10 @@ public class BangGia extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BangGia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

@@ -423,6 +423,7 @@ public class ChiPhiForm extends javax.swing.JPanel {
         jBtnHuy.setEnabled(false);
         jTextMaLCP.setText("");
         jTextTenLCP.setText("");
+        jTableLoaiChiPhi.clearSelection();
     }//GEN-LAST:event_jBtnThemLCPActionPerformed
 
     public void initTableLoaiChiPhi() {
@@ -434,6 +435,7 @@ public class ChiPhiForm extends javax.swing.JPanel {
         tbModelLoaiChiPhi.setRowCount(0);
         tableModelLoaiChiPhi(tbModelLoaiChiPhi);
         jTableLoaiChiPhi.setModel(tbModelLoaiChiPhi);
+        jTableLoaiChiPhi.clearSelection();
     }
 
     private void jBtnSuaLCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaLCPActionPerformed
@@ -455,6 +457,7 @@ public class ChiPhiForm extends javax.swing.JPanel {
         jBtnHuy.setEnabled(false);
         jTextMaLCP.setText("");
         jTextTenLCP.setText("");
+        jTableLoaiChiPhi.clearSelection();
     }//GEN-LAST:event_jBtnSuaLCPActionPerformed
 
     private void jBtnXoaLCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaLCPActionPerformed
@@ -475,6 +478,7 @@ public class ChiPhiForm extends javax.swing.JPanel {
         jBtnHuy.setEnabled(false);
         jTextMaLCP.setText("");
         jTextTenLCP.setText("");
+        jTableLoaiChiPhi.clearSelection();
     }//GEN-LAST:event_jBtnXoaLCPActionPerformed
 
     private boolean isNullOrEmpty(String text) {
@@ -493,6 +497,7 @@ public class ChiPhiForm extends javax.swing.JPanel {
         jBtnHuy.setEnabled(false);
         jTextMaLCP.setText("");
         jTextTenLCP.setText("");
+        jTableLoaiChiPhi.clearSelection();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jTableLoaiChiPhiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLoaiChiPhiMouseClicked

@@ -32,7 +32,8 @@ import javax.swing.table.JTableHeader;
  *
  * @author Hyung
  */
-public class DiadiemForm extends javax.swing.JPanel {
+public class DiadiemForm extends javax.swing.JPanel
+{
 
     DefaultTableModel tbModelDiaDiem;
     private Utils ult = new Utils();
@@ -45,7 +46,8 @@ public class DiadiemForm extends javax.swing.JPanel {
     /**
      * Creates new form jPanel2
      */
-    public DiadiemForm() {
+    public DiadiemForm()
+    {
         initComponents();
         diaDiemBUS = new DiaDiemBUS();
         jBtnCapPhatMaDD.setEnabled(true);
@@ -313,15 +315,18 @@ public class DiadiemForm extends javax.swing.JPanel {
         //Validation
         StringBuilder message = new StringBuilder();
         Validation.notNullOrEmpty(message, "Tên địa điểm", tenDiaDiem);
-        if(!message.toString().equals("")){
+        if (!message.toString().equals(""))
+        {
             JOptionPane.showMessageDialog(this, message.toString());
             return;
         }
 
-        if(diaDiemBUS.themDiaDiem(maDiaDiem, tenDiaDiem, DashBoard.diaDiemDTOs)){
+        if (diaDiemBUS.themDiaDiem(maDiaDiem, tenDiaDiem, DashBoard.diaDiemDTOs))
+        {
             themDiaDiem(tbModelDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
             JOptionPane.showMessageDialog(this, "Thêm địa điểm thành công!");
-        }else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "Thêm địa điểm thất bại!");
         }
         jBtnCapPhatMaDD.setEnabled(true);
@@ -331,16 +336,20 @@ public class DiadiemForm extends javax.swing.JPanel {
         jBtnHuy.setEnabled(false);
         jTextMaDD.setText("");
         jTextTenDD.setText("");
+        jTableDiaDiem.clearSelection();
     }//GEN-LAST:event_jBtnThemDDActionPerformed
 
-    public void initTableDiaDiem() {
+    public void initTableDiaDiem()
+    {
         loadDataDiaDiem();
     }
 
-    public void loadDataDiaDiem() {
+    public void loadDataDiaDiem()
+    {
         tbModelDiaDiem.setRowCount(0);
         tableModelDiaDiem(tbModelDiaDiem);
         jTableDiaDiem.setModel(tbModelDiaDiem);
+        jTableDiaDiem.clearSelection();
     }
 
     private void jBtnSuaDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaDDActionPerformed
@@ -351,15 +360,18 @@ public class DiadiemForm extends javax.swing.JPanel {
         //Validation
         StringBuilder message = new StringBuilder();
         Validation.notNullOrEmpty(message, "Tên địa điểm", tenDiaDiem);
-        if(!message.toString().equals("")){
+        if (!message.toString().equals(""))
+        {
             JOptionPane.showMessageDialog(this, message.toString());
             return;
         }
 
-        if(diaDiemBUS.suaDiaDiem(maDiaDiem, tenDiaDiem, DashBoard.diaDiemDTOs)){
-            suaDiaDiem(tbModelDiaDiem, rowDiaDiem,new DiaDiemDTO(maDiaDiem, tenDiaDiem));
+        if (diaDiemBUS.suaDiaDiem(maDiaDiem, tenDiaDiem, DashBoard.diaDiemDTOs))
+        {
+            suaDiaDiem(tbModelDiaDiem, rowDiaDiem, new DiaDiemDTO(maDiaDiem, tenDiaDiem));
             JOptionPane.showMessageDialog(this, "Sửa địa điểm thành công!");
-        }else {
+        } else
+        {
             JOptionPane.showMessageDialog(this, "Sửa địa điểm thất bại!");
         }
         jBtnCapPhatMaDD.setEnabled(true);
@@ -369,16 +381,20 @@ public class DiadiemForm extends javax.swing.JPanel {
         jBtnHuy.setEnabled(false);
         jTextMaDD.setText("");
         jTextTenDD.setText("");
+        jTableDiaDiem.clearSelection();
     }//GEN-LAST:event_jBtnSuaDDActionPerformed
 
     private void jBtnXoaDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaDDActionPerformed
         // TODO add your handling code here:
         maDiaDiem = jTextMaDD.getText();
-        if(!isNullOrEmpty(maDiaDiem)){
-            if (diaDiemBUS.xoaDiaDiem(maDiaDiem,DashBoard.diaDiemThamQuanDTOs, DashBoard.diaDiemDTOs)){
+        if (!isNullOrEmpty(maDiaDiem))
+        {
+            if (diaDiemBUS.xoaDiaDiem(maDiaDiem, DashBoard.diaDiemThamQuanDTOs, DashBoard.diaDiemDTOs))
+            {
                 xoaDiaDiem(tbModelDiaDiem, rowDiaDiem);
                 JOptionPane.showMessageDialog(this, "Xóa địa điểm thành công!");
-            }else {
+            } else
+            {
                 JOptionPane.showMessageDialog(this, "Xóa địa điểm thất bại!");
             }
         }
@@ -389,10 +405,13 @@ public class DiadiemForm extends javax.swing.JPanel {
         jBtnHuy.setEnabled(false);
         jTextMaDD.setText("");
         jTextTenDD.setText("");
+        jTableDiaDiem.clearSelection();
     }//GEN-LAST:event_jBtnXoaDDActionPerformed
 
-    private boolean isNullOrEmpty(String text){
-        if(text == null || text.equals("")){
+    private boolean isNullOrEmpty(String text)
+    {
+        if (text == null || text.equals(""))
+        {
             return true;
         }
         return false;
@@ -407,15 +426,18 @@ public class DiadiemForm extends javax.swing.JPanel {
         jBtnHuy.setEnabled(false);
         jTextMaDD.setText("");
         jTextTenDD.setText("");
+        jTableDiaDiem.clearSelection();
     }//GEN-LAST:event_jBtnHuyActionPerformed
 
     private void jTableDiaDiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDiaDiemMouseClicked
         // TODO add your handling code here:
         rowDiaDiem = jTableDiaDiem.getSelectedRow();
-        if(rowDiaDiem != -1){
+        if (rowDiaDiem != -1)
+        {
             maDiaDiem = (String) jTableDiaDiem.getModel().getValueAt(rowDiaDiem, 0);
             tenDiaDiem = (String) jTableDiaDiem.getModel().getValueAt(rowDiaDiem, 1);
-            if (!maDiaDiem.equals("null")){
+            if (!maDiaDiem.equals("null"))
+            {
                 jTextMaDD.setText(maDiaDiem);
                 jTextTenDD.setText(tenDiaDiem);
             }
@@ -447,8 +469,10 @@ public class DiadiemForm extends javax.swing.JPanel {
         loadDataDiaDiem();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
-    public void tableModelDiaDiem(DefaultTableModel model) {
-        for (DiaDiemDTO diaDiemDTO : DashBoard.diaDiemDTOs) {
+    public void tableModelDiaDiem(DefaultTableModel model)
+    {
+        for (DiaDiemDTO diaDiemDTO : DashBoard.diaDiemDTOs)
+        {
             Vector row = new Vector();
             row.add(diaDiemDTO.getMaDiaDiem());
             row.add(diaDiemDTO.getTenDiaDiem());
@@ -456,26 +480,32 @@ public class DiadiemForm extends javax.swing.JPanel {
         }
     }
 
-    public void suaDiaDiem(DefaultTableModel model, int row, DiaDiemDTO diaDiemDTO){
-        model.setValueAt(diaDiemDTO.getMaDiaDiem(),row, 0);
+    public void suaDiaDiem(DefaultTableModel model, int row, DiaDiemDTO diaDiemDTO)
+    {
+        model.setValueAt(diaDiemDTO.getMaDiaDiem(), row, 0);
         model.setValueAt(diaDiemDTO.getTenDiaDiem(), row, 1);
     }
 
-    public void themDiaDiem(DefaultTableModel model, DiaDiemDTO diaDiemDTO){
+    public void themDiaDiem(DefaultTableModel model, DiaDiemDTO diaDiemDTO)
+    {
         Vector row = new Vector();
         row.add(diaDiemDTO.getMaDiaDiem());
         row.add(diaDiemDTO.getTenDiaDiem());
         model.addRow(row);
     }
 
-    public void xoaDiaDiem(DefaultTableModel model, int row){
+    public void xoaDiaDiem(DefaultTableModel model, int row)
+    {
         model.removeRow(row);
     }
 
-    public void timKiem(DefaultTableModel model, JTable jTable, String value){
+    public void timKiem(DefaultTableModel model, JTable jTable, String value)
+    {
         model.setRowCount(0);
-        for(DiaDiemDTO diaDiemDTO: DashBoard.diaDiemDTOs){
-            if(diaDiemDTO.getMaDiaDiem().equals(value) || diaDiemDTO.getTenDiaDiem().indexOf(value) != -1){
+        for (DiaDiemDTO diaDiemDTO : DashBoard.diaDiemDTOs)
+        {
+            if (diaDiemDTO.getMaDiaDiem().equals(value) || diaDiemDTO.getTenDiaDiem().indexOf(value) != -1)
+            {
                 Vector row = new Vector();
                 row.add(diaDiemDTO.getMaDiaDiem());
                 row.add(diaDiemDTO.getTenDiaDiem());
