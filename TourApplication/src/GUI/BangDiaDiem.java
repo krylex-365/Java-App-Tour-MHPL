@@ -23,59 +23,51 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 
 /**
  *
  * @author Hyung
  */
-public class BangDiaDiem extends javax.swing.JFrame
-{
+public class BangDiaDiem extends javax.swing.JFrame {
 
     /**
      * Creates new form DSNV
      */
-//    NhanVienBUS nvBUS = new NhanVienBUS();
-//    PhongBanBUS pbBUS = new PhongBanBUS();
-//    CongViecBUS cviecBUS = new CongViecBUS();
-//    NhanVienCongViecBUS nvcviecBUS = new NhanVienCongViecBUS();
     int rowTbl;
     public TourForm tourForm;
-//    public LuongForm luongForm;
-//    public thuongphatForm thuongphatForm;
-    private boolean thuongphatAc = false;
 
-    public boolean isThuongphatAc()
-    {
-        return thuongphatAc;
-    }
-
-    public void setThuongphatAc(boolean thuongphatAc)
-    {
-        this.thuongphatAc = thuongphatAc;
-    }
-
-    public BangDiaDiem()
-    {
+    public BangDiaDiem() {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
         jBtnXacNhan.setEnabled(false);
         jBtnQuayLai.setEnabled(false);
     }
-    
-    public void loadData(){
+
+    public void initTable() {
         tbModel.setRowCount(0);
+        jTableDiaDiem.setRowSorter(null);
+        jTableDiaDiem.setAutoCreateRowSorter(true);
         tbModelDiaDiem(tbModel);
+        jTableDiaDiem.setModel(tbModel);
+        jTableDiaDiem.clearSelection();
     }
-    
-    public void tbModelDiaDiem(DefaultTableModel model){
+
+    public void tbModelDiaDiem(DefaultTableModel model) {
         Vector row;
-        for(DiaDiemDTO a : DashBoard.diaDiemDTOs){
+        for (DiaDiemDTO a : DashBoard.diaDiemDTOs) {
             row = new Vector();
             row.add(a.getMaDiaDiem());
             row.add(a.getTenDiaDiem());
             model.addRow(row);
         }
+    }
+
+    private void filter(String query) {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModel);
+        jTableDiaDiem.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
     }
 
     /**
@@ -96,9 +88,9 @@ public class BangDiaDiem extends javax.swing.JFrame
         jBtnQuayLai = new javax.swing.JButton();
         jBtnXacNhan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableLoaiHinh = new javax.swing.JTable();
-        jTextTimKiemLH = new javax.swing.JTextField();
-        jBtnTimKiemNV = new javax.swing.JButton();
+        jTableDiaDiem = new javax.swing.JTable();
+        jLbTimKiem = new javax.swing.JLabel();
+        jTextTimKiem = new javax.swing.JTextField();
         jBtnRefresh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(236, 245, 252));
@@ -165,9 +157,9 @@ public class BangDiaDiem extends javax.swing.JFrame
         });
         jPanel4.add(jBtnXacNhan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 140, 40));
 
-        jTableLoaiHinh.setAutoCreateRowSorter(true);
-        jTableLoaiHinh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTableLoaiHinh.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDiaDiem.setAutoCreateRowSorter(true);
+        jTableDiaDiem.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jTableDiaDiem.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -182,29 +174,30 @@ public class BangDiaDiem extends javax.swing.JFrame
         tbCol.add("Tên Địa Điểm");
 
         tbModel= new DefaultTableModel(tbCol,5);
-        jTableLoaiHinh.setModel (tbModel);
-        jTableLoaiHinh.setShowGrid(true);
-        jTableLoaiHinh.setFocusable(false);
-        jTableLoaiHinh.setIntercellSpacing(new Dimension(0,0));
-        jTableLoaiHinh.setRowHeight(25);
-        jTableLoaiHinh.getTableHeader().setOpaque(false);
-        jTableLoaiHinh.setFillsViewportHeight(true);
-        jTableLoaiHinh.getTableHeader().setBackground(new Color(232,57,99));
-        jTableLoaiHinh.getTableHeader().setForeground(new Color(141, 22, 22));
-        jTableLoaiHinh.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
-        jTableLoaiHinh.setSelectionBackground(new Color(52,152,219));
-        listSP();
-        jTableLoaiHinh.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableDiaDiem.setModel (tbModel);
+        jTableDiaDiem.setShowGrid(true);
+        jTableDiaDiem.setFocusable(false);
+        jTableDiaDiem.setIntercellSpacing(new Dimension(0,0));
+        jTableDiaDiem.setRowHeight(25);
+        jTableDiaDiem.getTableHeader().setOpaque(false);
+        jTableDiaDiem.setFillsViewportHeight(true);
+        jTableDiaDiem.getTableHeader().setBackground(new Color(232,57,99));
+        jTableDiaDiem.getTableHeader().setForeground(new Color(141, 22, 22));
+        jTableDiaDiem.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
+        jTableDiaDiem.setSelectionBackground(new Color(52,152,219));
+        jTableDiaDiem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableLoaiHinhMouseClicked(evt);
+                jTableDiaDiemMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableLoaiHinh);
+        jScrollPane1.setViewportView(jTableDiaDiem);
 
-        jBtnTimKiemNV.setText("Tìm kiếm");
-        jBtnTimKiemNV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemNVActionPerformed(evt);
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
             }
         });
 
@@ -226,28 +219,29 @@ public class BangDiaDiem extends javax.swing.JFrame
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                        .addGap(8, 8, 8))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextTimKiemLH, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                        .addGap(8, 8, 8))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextTimKiemLH, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
@@ -291,11 +285,9 @@ public class BangDiaDiem extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jTextMaLHActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextMaLHActionPerformed
-    public String ktra()
-    {
+    public String ktra() {
         String temp = "";
-        if (jTextMaLH.getText().equals(""))
-        {
+        if (jTextMaLH.getText().equals("")) {
             temp += "- Vui lòng chọn nhân viên!";
         }
         return temp;
@@ -306,142 +298,58 @@ public class BangDiaDiem extends javax.swing.JFrame
         tourForm.getjTextTenDiaDiem().setText(jTextTenLH.getText());
         tourForm.getjBtnThemDD().setEnabled(true);
         tourForm.getjBtnHuyDD().setEnabled(true);
-        tourForm.getjTextThuTu().setText(String.valueOf(tourForm.getDiaDiemThamQuanTempArr().size()+1));
+        tourForm.getjTextThuTu().setText(String.valueOf(tourForm.getDiaDiemThamQuanTempArr().size() + 1));
         dispose();
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
-    private void jTableLoaiHinhMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableLoaiHinhMouseClicked
-    {//GEN-HEADEREND:event_jTableLoaiHinhMouseClicked
+    private void jTableDiaDiemMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableDiaDiemMouseClicked
+    {//GEN-HEADEREND:event_jTableDiaDiemMouseClicked
         // TODO add your handling code here:
-        rowTbl = jTableLoaiHinh.getSelectedRow();
-        jTextMaLH.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 0));
-        jTextTenLH.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 1));
+        rowTbl = jTableDiaDiem.getSelectedRow();
+        jTextMaLH.setText((String) jTableDiaDiem.getValueAt(rowTbl, 0));
+        jTextTenLH.setText((String) jTableDiaDiem.getValueAt(rowTbl, 1));
 //        jTextTennv.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 2));
 //        jTextPban.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 3));
 //        jTextCviec.setText((String) jTableLoaiHinh.getValueAt(rowTbl, 4));
         jBtnXacNhan.setEnabled(true);
         jBtnQuayLai.setEnabled(true);
-    }//GEN-LAST:event_jTableLoaiHinhMouseClicked
+    }//GEN-LAST:event_jTableDiaDiemMouseClicked
 
-    private void jBtnTimKiemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemNVActionPerformed
-//        // TODO add your handling code here:
-//        String manv = jTextTimKiemNV.getText();
-//        if (manv.equals(""))
-//        {
-//            JOptionPane.showMessageDialog(this, "Má»i nháº­p mÃ£ nhÃ¢n viÃªn cáº§n tÃ¬m");
-//        }
-//        ArrayList<NhanVienDTO> temp = new ArrayList<NhanVienDTO>(nvBUS.getDsnv().getDsnv());
-//        for (int i = 0; i < temp.size(); i++)
-//        {
-//            if (!(temp.get(i).getManhanvien().equalsIgnoreCase(manv)))
-//            {
-//                temp.remove(i);
-//                i = i - 1;
-//            }
-//        }
-//        searchlistSP(temp);
-//        System.out.println("click tim kiem");
-    }//GEN-LAST:event_jBtnTimKiemNVActionPerformed
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
 
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
         // TODO add your handling code here:
-        jTextTimKiemLH.setText("");
-        listSP();
-        jBtnXacNhan.setEnabled(false);
-        jBtnRefresh.setEnabled(true);
-        jBtnQuayLai.setEnabled(false);
+        jTextTimKiem.setText("");
+        initTable();
     }//GEN-LAST:event_jBtnRefreshActionPerformed
-
-//    public void outModel(DefaultTableModel model, ArrayList<NhanVienDTO> nv) // Xuất ra Table từ ArrayList
-//    {
-//        Vector data;
-//        model.setRowCount(0);
-//        for (NhanVienDTO nvDto : nv)
-//        {
-//            data = new Vector();
-//            data.add(nvDto.getManhanvien());
-//            data.add(nvDto.getHonhanvien());
-//            data.add(nvDto.getTennhanvien());
-//            for (int i = 0; i < pbBUS.getDspb().getDspb().size(); ++i)
-//            {
-//                if (nvDto.getMaphongban().equals(pbBUS.getDspb().getDspb().get(i).getMaphongban()))
-//                {
-//                    data.add(pbBUS.getDspb().getDspb().get(i).getTenphongban());
-//                }
-//            }
-//            for (int i = 0; i < nvcviecBUS.getDsnvcviec().getDsnvcviec().size(); ++i)
-//            {
-//                if (nvDto.getManhanvien().equals(nvcviecBUS.getDsnvcviec().getDsnvcviec().get(i).getManhanvien()))
-//                {
-//                    for (int j = 0; j < cviecBUS.getDscviec().getDscviec().size(); ++j)
-//                    {
-//                        if (nvcviecBUS.getDsnvcviec().getDsnvcviec().get(i).getMacongviec().equals(cviecBUS.getDscviec().getDscviec().get(j).getMacongviec()))
-//                        {
-//                            data.add(cviecBUS.getDscviec().getDscviec().get(j).getTencongviec());
-//                        }
-//                    }
-//                }
-//            }
-//            model.addRow(data);
-//        }
-//        //jTableDsnv.setModel(model);
-//    }
-
-    public void listSP() // Chép ArrayList lên table
-    {
-////        if(nvBUS.getDsnv ().getDsnv ()== null)nvBUS.listNV();
-//        ArrayList<NhanVienDTO> nv = nvBUS.getDsnv().getDsnv();
-//        tbModel.setRowCount(0);
-//        outModel(tbModel, nv);
-    }
-
-//    public void searchlistSP(ArrayList<NhanVienDTO> nv)
-//    {
-//        tbModel.setRowCount(0);
-//        outModel(tbModel, nv);
-//    }
-
-//    public String getTextFieldContent()
-//    {
-//        return bccForm.getjTextManv().getText();
-//    }
-
-//    public String getTextFieldContentLuong()
-//    {
-//        return luongForm.getjTextManv().getText();
-//    }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(BangDiaDiem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(BangDiaDiem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(BangDiaDiem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(BangDiaDiem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -454,89 +362,52 @@ public class BangDiaDiem extends javax.swing.JFrame
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 new BangDiaDiem().setVisible(true);
             }
         });
     }
-     public JButton getjBtnQuayLai()
-    {
+
+    public JButton getjBtnQuayLai() {
         return jBtnQuayLai;
     }
 
-    public void setjBtnQuayLai(JButton jBtnQuayLai)
-    {
+    public void setjBtnQuayLai(JButton jBtnQuayLai) {
         this.jBtnQuayLai = jBtnQuayLai;
     }
 
-    public JButton getjBtnRefresh()
-    {
-        return jBtnRefresh;
-    }
-
-    public void setjBtnRefresh(JButton jBtnRefresh)
-    {
-        this.jBtnRefresh = jBtnRefresh;
-    }
-
-    public JButton getjBtnTimKiemNV()
-    {
-        return jBtnTimKiemNV;
-    }
-
-    public void setjBtnTimKiemNV(JButton jBtnTimKiemNV)
-    {
-        this.jBtnTimKiemNV = jBtnTimKiemNV;
-    }
-
-    public JButton getjBtnXacNhan()
-    {
+    public JButton getjBtnXacNhan() {
         return jBtnXacNhan;
     }
 
-    public void setjBtnXacNhan(JButton jBtnXacNhan)
-    {
+    public void setjBtnXacNhan(JButton jBtnXacNhan) {
         this.jBtnXacNhan = jBtnXacNhan;
     }
 
-    public JTable getjTableDsnv()
-    {
-        return jTableLoaiHinh;
+    public JTable getjTableDsnv() {
+        return jTableDiaDiem;
     }
 
-    public void setjTableDsnv(JTable jTableDsnv)
-    {
-        this.jTableLoaiHinh = jTableDsnv;
+    public void setjTableDsnv(JTable jTableDsnv) {
+        this.jTableDiaDiem = jTableDsnv;
     }
 
-    public JTextField getjTextTimKiemNV()
-    {
-        return jTextTimKiemLH;
-    }
-
-    public void setjTextTimKiemNV(JTextField jTextTimKiemNV)
-    {
-        this.jTextTimKiemLH = jTextTimKiemNV;
-    }
-    
     Vector tbCol = new Vector();
     DefaultTableModel tbModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnQuayLai;
     private javax.swing.JButton jBtnRefresh;
-    private javax.swing.JButton jBtnTimKiemNV;
     private javax.swing.JButton jBtnXacNhan;
     private javax.swing.JLabel jLbHonv;
     private javax.swing.JLabel jLbManv;
+    private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableLoaiHinh;
+    private javax.swing.JTable jTableDiaDiem;
     private javax.swing.JTextField jTextMaLH;
     private javax.swing.JTextField jTextTenLH;
-    private javax.swing.JTextField jTextTimKiemLH;
+    private javax.swing.JTextField jTextTimKiem;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }

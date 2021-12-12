@@ -7,7 +7,6 @@ package GUI;
 
 import BUS.*;
 import DTO.ChiPhiDTO;
-import DTO.DiaDiemDTO;
 import DTO.DoanDuLichDTO;
 import DTO.LoaiChiPhiDTO;
 import DTO.TourDTO;
@@ -28,6 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -87,8 +87,8 @@ public class ChiPhiForm extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLoaiChiPhi = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jTextTimKiemLCP = new javax.swing.JTextField();
-        jBtnTimKiemLCP = new javax.swing.JButton();
+        jLbTimKiem = new javax.swing.JLabel();
+        jTextTimKiem = new javax.swing.JTextField();
         jBtnRefresh = new javax.swing.JButton();
         jPanelThongkeCP = new javax.swing.JPanel();
         jButtonThongKe = new javax.swing.JButton();
@@ -255,6 +255,7 @@ public class ChiPhiForm extends javax.swing.JPanel {
         jTableLoaiChiPhi.getTableHeader().setForeground(new Color(141, 22, 22));
         jTableLoaiChiPhi.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
         jTableLoaiChiPhi.setSelectionBackground(new Color(52,152,219));
+        jTableLoaiChiPhi.setAutoCreateRowSorter(true);
         jTableLoaiChiPhi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTableLoaiChiPhi.setGridColor(new java.awt.Color(83, 86, 88));
         jTableLoaiChiPhi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -273,15 +274,17 @@ public class ChiPhiForm extends javax.swing.JPanel {
         jLabel6.setText("Danh Sách Loại Chi Phí");
         jLabel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         jPanelChiPhi.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 180, 30));
-        jPanelChiPhi.add(jTextTimKiemLCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 220, 30));
 
-        jBtnTimKiemLCP.setText("Tìm kiếm");
-        jBtnTimKiemLCP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemLCPActionPerformed(evt);
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+        jPanelChiPhi.add(jLbTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, -1, 30));
+
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
             }
         });
-        jPanelChiPhi.add(jBtnTimKiemLCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 270, 80, 30));
+        jPanelChiPhi.add(jTextTimKiem, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 140, 30));
 
         jBtnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
         jBtnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -427,13 +430,11 @@ public class ChiPhiForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jBtnThemLCPActionPerformed
 
     public void initTableLoaiChiPhi() {
-        loadDataLoaiChiPhi();
-    }
-
-    public void loadDataLoaiChiPhi() {
         loaiChiPhiBUS = new LoaiChiPhiBUS();
         tbModelLoaiChiPhi.setRowCount(0);
         tableModelLoaiChiPhi(tbModelLoaiChiPhi);
+        jTableLoaiChiPhi.setRowSorter(null);
+        jTableLoaiChiPhi.setAutoCreateRowSorter(true);
         jTableLoaiChiPhi.setModel(tbModelLoaiChiPhi);
         jTableLoaiChiPhi.clearSelection();
     }
@@ -518,26 +519,6 @@ public class ChiPhiForm extends javax.swing.JPanel {
         jBtnHuy.setEnabled(true);
     }//GEN-LAST:event_jTableLoaiChiPhiMouseClicked
 
-    private void jBtnTimKiemLCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemLCPActionPerformed
-        // TODO add your handling code here:
-        //Tìm kiếm = mã hoặc like tên
-        timKiem(tbModelLoaiChiPhi, jTableLoaiChiPhi, jTextTimKiemLCP.getText());
-    }//GEN-LAST:event_jBtnTimKiemLCPActionPerformed
-
-    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
-        // TODO add your handling code here:
-        jTextMaLCP.setText("");
-        jTextTenLCP.setText("");
-        jTextTimKiemLCP.setText("");
-        jBtnCapPhatMaLCP.setEnabled(true);
-        jBtnThemLCP.setEnabled(false);
-        jBtnSuaLCP.setEnabled(false);
-        jBtnXoaLCP.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        loaiChiPhiBUS = new LoaiChiPhiBUS();
-        loadDataLoaiChiPhi();
-    }//GEN-LAST:event_jBtnRefreshActionPerformed
-
     private void jButtonThongKeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonThongKeActionPerformed
     {//GEN-HEADEREND:event_jButtonThongKeActionPerformed
         // TODO add your handling code here:
@@ -596,6 +577,18 @@ public class ChiPhiForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableThongkeMouseClicked
 
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+        jTextTimKiem.setText("");
+        initTableLoaiChiPhi();
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
+
     public void tableModelLoaiChiPhi(DefaultTableModel model) {
         for (LoaiChiPhiDTO loaiChiPhiDTO : DashBoard.loaiChiPhiDTOs) {
             Vector row = new Vector();
@@ -621,16 +614,10 @@ public class ChiPhiForm extends javax.swing.JPanel {
         model.removeRow(row);
     }
 
-    public void timKiem(DefaultTableModel model, JTable jTable, String value) {
-        model.setRowCount(0);
-        for (LoaiChiPhiDTO loaiChiPhiDTO : DashBoard.loaiChiPhiDTOs) {
-            if (loaiChiPhiDTO.getMaLoaiChiPhi().equals(value) || loaiChiPhiDTO.getTenLoai().indexOf(value) != -1) {
-                Vector row = new Vector();
-                row.add(loaiChiPhiDTO.getMaLoaiChiPhi());
-                row.add(loaiChiPhiDTO.getTenLoai());
-                model.addRow(row);
-            }
-        }
+    private void filter(String query) {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelLoaiChiPhi);
+        jTableLoaiChiPhi.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -639,7 +626,6 @@ public class ChiPhiForm extends javax.swing.JPanel {
     private javax.swing.JButton jBtnRefresh;
     private javax.swing.JButton jBtnSuaLCP;
     private javax.swing.JButton jBtnThemLCP;
-    private javax.swing.JButton jBtnTimKiemLCP;
     private javax.swing.JButton jBtnXoaLCP;
     private javax.swing.JButton jButtonThongKe;
     private com.toedter.calendar.JDateChooser jDateNgayBDTK;
@@ -650,6 +636,7 @@ public class ChiPhiForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelChiPhi;
     private javax.swing.JPanel jPanelThongkeCP;
@@ -660,6 +647,6 @@ public class ChiPhiForm extends javax.swing.JPanel {
     private javax.swing.JTable jTableThongke;
     private javax.swing.JTextField jTextMaLCP;
     private javax.swing.JTextField jTextTenLCP;
-    private javax.swing.JTextField jTextTimKiemLCP;
+    private javax.swing.JTextField jTextTimKiem;
     // End of variables declaration//GEN-END:variables
 }

@@ -41,16 +41,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author Hyung
  */
-public class DoanForm extends javax.swing.JPanel
-{
+public class DoanForm extends javax.swing.JPanel {
 
     /**
      * Creates new form jPanel2
@@ -73,8 +74,7 @@ public class DoanForm extends javax.swing.JPanel
     private String ngayKetThucGia = "";
     private String ngayKhoiHanh = "";
 
-    public DoanForm()
-    {
+    public DoanForm() {
         initComponents();
         //initTableTour();
         jBtnCapPhatMaDoan.setEnabled(true);
@@ -98,29 +98,23 @@ public class DoanForm extends javax.swing.JPanel
         jBtnHuyKhach.setEnabled(false);
     }
 
-    public void tableModelDoan(DefaultTableModel model)
-    {
+    public void tableModelDoan(DefaultTableModel model) {
         long startTime = System.currentTimeMillis();
         Vector row;
-        for (DoanDuLichDTO doan : DashBoard.doanDuLichDTOs)
-        {
+        for (DoanDuLichDTO doan : DashBoard.doanDuLichDTOs) {
             row = new Vector();
             row.add(doan.getMaDoan());
             row.add(doan.getTenDoan());
 //            row.add(doanDuLichDAO.getTenTour(doan.getMaTour()));
 //            row.add(doanDuLichDAO.getGiaTour(doan.getMaTour()));
-            for (TourDTO tour : DashBoard.tourDTOs)
-            {
-                if (tour.getMaTour().equals(doan.getMaTour()))
-                {
+            for (TourDTO tour : DashBoard.tourDTOs) {
+                if (tour.getMaTour().equals(doan.getMaTour())) {
                     row.add(tour.getTenTour());
                     break;
                 }
             }
-            for (GiaTourDTO giaTour : DashBoard.giaTourDTOs)
-            {
-                if (giaTour.getMaTour().equals(doan.getMaTour()) && giaTour.getHienHanh() == 1)
-                {
+            for (GiaTourDTO giaTour : DashBoard.giaTourDTOs) {
+                if (giaTour.getMaTour().equals(doan.getMaTour()) && giaTour.getHienHanh() == 1) {
                     row.add(giaTour.getThanhTien());
                     break;
                 }
@@ -134,8 +128,7 @@ public class DoanForm extends javax.swing.JPanel
         System.out.println("- Thời gian chạy: " + totalTime + " ms");
     }
 
-    public void themVectorDoan(DefaultTableModel model, DoanDuLichDTO doanDTO, String tenTour)
-    {
+    public void themVectorDoan(DefaultTableModel model, DoanDuLichDTO doanDTO, String tenTour) {
         Vector newrow = new Vector();
         newrow.add(doanDTO.getMaDoan());
         newrow.add(doanDTO.getTenDoan());
@@ -146,8 +139,7 @@ public class DoanForm extends javax.swing.JPanel
         model.addRow(newrow);
     }
 
-    public void suaVectorDoan(DefaultTableModel model, int row, DoanDuLichDTO doanDTO, String tenTour)
-    {
+    public void suaVectorDoan(DefaultTableModel model, int row, DoanDuLichDTO doanDTO, String tenTour) {
         model.setValueAt(doanDTO.getTenDoan(), row, 1);
         model.setValueAt(tenTour, row, 2);
         model.setValueAt(doanDTO.getGiaTour(), row, 3);
@@ -155,57 +147,23 @@ public class DoanForm extends javax.swing.JPanel
         model.setValueAt(doanDTO.getNgayKetThuc(), row, 5);
     }
 
-    public void xoaVectorDoan(DefaultTableModel model, int row)
-    {
+    public void xoaVectorDoan(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
 
-    public void timKiem(DefaultTableModel model, String value)
-    {
-        model.setRowCount(0);
-        for (DoanDuLichDTO doan : DashBoard.doanDuLichDTOs)
-        {
-            if (doan.getMaDoan().equals(value) || doan.getTenDoan().indexOf(value) != -1)
-            {
-                Vector row = new Vector();
-                row.add(doan.getMaDoan());
-                row.add(doan.getTenDoan());
-                for (TourDTO tour : DashBoard.tourDTOs)
-                {
-                    if (tour.getMaTour().equals(doan.getMaTour()))
-                    {
-                        row.add(tour.getTenTour());
-                        break;
-                    }
-                }
-                for (GiaTourDTO giaTour : DashBoard.giaTourDTOs)
-                {
-                    if (giaTour.getMaTour().equals(doan.getMaTour()) && giaTour.getHienHanh() == 1)
-                    {
-                        row.add(giaTour.getThanhTien());
-                        break;
-                    }
-                }
-                row.add(doan.getNgayKhoiHanh());
-                row.add(doan.getNgayKetThuc());
-                model.addRow(row);
-                break;
-            }
-        }
+    private void filter(String query) {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelDoan);
+        jTableDoan.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
     }
 
-    public void tableModelKhachHang(DefaultTableModel model)
-    {
+    public void tableModelKhachHang(DefaultTableModel model) {
         long startTime = System.currentTimeMillis();
         Vector row;
-        for (ChiTietDoanDTO chitietdoan : DashBoard.chiTietDoanDTOs)
-        {
-            if (chitietdoan.getMaDoan().equals(maDoan))
-            {
-                for (KhachHangDTO khachhang : DashBoard.khachHangDTOs)
-                {
-                    if (khachhang.getMaKhachHang().equals(chitietdoan.getMaKhachHang()))
-                    {
+        for (ChiTietDoanDTO chitietdoan : DashBoard.chiTietDoanDTOs) {
+            if (chitietdoan.getMaDoan().equals(maDoan)) {
+                for (KhachHangDTO khachhang : DashBoard.khachHangDTOs) {
+                    if (khachhang.getMaKhachHang().equals(chitietdoan.getMaKhachHang())) {
                         row = new Vector();
                         row.add(khachhang.getMaKhachHang());
                         row.add(khachhang.getTenKhachHang());
@@ -220,8 +178,7 @@ public class DoanForm extends javax.swing.JPanel
         System.out.println("- Thời gian chạy: " + totalTime + " ms");
     }
 
-    public void themVectorKhachHang(DefaultTableModel model, String maKhachHang, String tenKhachHang, String sdt)
-    {
+    public void themVectorKhachHang(DefaultTableModel model, String maKhachHang, String tenKhachHang, String sdt) {
         Vector newrow = new Vector();
         newrow.add(maKhachHang);
         newrow.add(tenKhachHang);
@@ -229,36 +186,29 @@ public class DoanForm extends javax.swing.JPanel
         model.addRow(newrow);
     }
 
-    public void suaVectorKhachHang(DefaultTableModel model, int row, KhachHangDTO khachHangDTO, String tenKhachHang, String sdt)
-    {
+    public void suaVectorKhachHang(DefaultTableModel model, int row, KhachHangDTO khachHangDTO, String tenKhachHang, String sdt) {
         model.setValueAt(khachHangDTO.getMaKhachHang(), rowKhach, 0);
         model.setValueAt(khachHangDTO.getTenKhachHang(), rowKhach, 1);
         model.setValueAt(khachHangDTO.getSDT(), rowKhach, 2);
     }
 
-    public void xoaVectorKhachHang(DefaultTableModel model, int row)
-    {
+    public void xoaVectorKhachHang(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
 
-    public void tableModelNhanVien(DefaultTableModel model)
-    {
+    public void tableModelNhanVien(DefaultTableModel model) {
         long startTime = System.currentTimeMillis();
         Vector row;
-        for (NhiemVuNhanVienDTO nhiemvunhanvien : DashBoard.nhiemVuNhanVienDTOs)
-        {
+        for (NhiemVuNhanVienDTO nhiemvunhanvien : DashBoard.nhiemVuNhanVienDTOs) {
 //            System.out.println(nhiemvunhanvien);
 //            row = new Vector();
 //            row.add(nhiemvunhanvien.getMaNhanVien());
 //            row.add(nhiemvunhanvien.getMaDoan());
 //            row.add(nhiemvunhanvien.getTenNhiemVu());
-            if (nhiemvunhanvien.getMaDoan().equals(maDoan))
-            {
+            if (nhiemvunhanvien.getMaDoan().equals(maDoan)) {
 
-                for (NhanVienDTO nhanvien : DashBoard.nhanVienDTOs)
-                {
-                    if (nhanvien.getMaNhanVien().equals(nhiemvunhanvien.getMaNhanVien()))
-                    {
+                for (NhanVienDTO nhanvien : DashBoard.nhanVienDTOs) {
+                    if (nhanvien.getMaNhanVien().equals(nhiemvunhanvien.getMaNhanVien())) {
                         row = new Vector();
                         row.add(nhanvien.getMaNhanVien());
                         row.add(nhanvien.getTenNhanVien());
@@ -273,8 +223,7 @@ public class DoanForm extends javax.swing.JPanel
         System.out.println("- Thời gian chạy: " + totalTime + " ms");
     }
 
-    public void themVectorNhanVien(DefaultTableModel model, String maNhanVien, String tenNhanVien, String nhiemVu)
-    {
+    public void themVectorNhanVien(DefaultTableModel model, String maNhanVien, String tenNhanVien, String nhiemVu) {
         Vector newrow = new Vector();
         newrow.add(maNhanVien);
         newrow.add(tenNhanVien);
@@ -282,52 +231,42 @@ public class DoanForm extends javax.swing.JPanel
         model.addRow(newrow);
     }
 
-    public void suaVectorNhanVien(DefaultTableModel model, String maNhanVien, String tenNhanVien, String nhiemVu)
-    {
+    public void suaVectorNhanVien(DefaultTableModel model, String maNhanVien, String tenNhanVien, String nhiemVu) {
         model.setValueAt(maNhanVien, rowNV, 0);
         model.setValueAt(tenNhanVien, rowNV, 1);
         model.setValueAt(nhiemVu, rowNV, 2);
     }
 
-    public void xoaVectorNhanVien(DefaultTableModel model, int row)
-    {
+    public void xoaVectorNhanVien(DefaultTableModel model, int row) {
         model.removeRow(row);
     }
 
-    public void loadDataDoan()
-    {
+    public String getNgayBatDauGia() {
+        return ngayBatDauGia;
+    }
+
+    public void setNgayBatDauGia(String ngayBatDauGia) {
+        this.ngayBatDauGia = ngayBatDauGia;
+    }
+
+    public String getNgayKetThucGia() {
+        return ngayKetThucGia;
+    }
+
+    public void setNgayKetThucGia(String ngayKetThucGia) {
+        this.ngayKetThucGia = ngayKetThucGia;
+    }
+
+    public void initTableDoan() {
         doanDuLichBUS = new DoanDuLichBUS();
         chiTietDoanBUS = new ChiTietDoanBUS();
         nhiemVuNhanVienBUS = new NhiemVuNhanVienBUS();
         tbModelDoan.setRowCount(0);
         tableModelDoan(tbModelDoan);
+        jTableDoan.setRowSorter(null);
+        jTableDoan.setAutoCreateRowSorter(true);
         jTableDoan.setModel(tbModelDoan);
         jTableDoan.clearSelection();
-    }
-
-    public String getNgayBatDauGia()
-    {
-        return ngayBatDauGia;
-    }
-
-    public void setNgayBatDauGia(String ngayBatDauGia)
-    {
-        this.ngayBatDauGia = ngayBatDauGia;
-    }
-
-    public String getNgayKetThucGia()
-    {
-        return ngayKetThucGia;
-    }
-
-    public void setNgayKetThucGia(String ngayKetThucGia)
-    {
-        this.ngayKetThucGia = ngayKetThucGia;
-    }
-
-    public void initTableDoan()
-    {
-        loadDataDoan();
     }
 
     /**
@@ -357,7 +296,7 @@ public class DoanForm extends javax.swing.JPanel
         jLabel25 = new javax.swing.JLabel();
         jLbManv = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLbManv1 = new javax.swing.JLabel();
+        jLbTongChiPhi = new javax.swing.JLabel();
         jTextChiPhi = new javax.swing.JTextField();
         jBtnChonTour = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -365,13 +304,13 @@ public class DoanForm extends javax.swing.JPanel
         jBtnThemDoan = new javax.swing.JButton();
         jBtnXoaDoan = new javax.swing.JButton();
         jBtnSuaDoan = new javax.swing.JButton();
-        jTextTimKiemDoan = new javax.swing.JTextField();
-        jBtnTimKiemDoan = new javax.swing.JButton();
-        jBtnRefreshDoan = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableDoan = new javax.swing.JTable();
         jBtnXemDoan = new javax.swing.JButton();
         jBtnHuyDoan = new javax.swing.JButton();
+        jLbTimKiem = new javax.swing.JLabel();
+        jTextTimKiem = new javax.swing.JTextField();
+        jBtnRefresh = new javax.swing.JButton();
         jPanelChiTietDoan = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jTextMaDoanChiTiet = new javax.swing.JTextField();
@@ -503,9 +442,9 @@ public class DoanForm extends javax.swing.JPanel
         jLabel28.setText("<html> <body>Tour<span style=\"color:rgb(216, 74, 67);\">*</span> </body> </html> ");
         jPanel4.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 30));
 
-        jLbManv1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLbManv1.setText("<html> <body>Tổng Chi Phí<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
-        jPanel4.add(jLbManv1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, -1, 30));
+        jLbTongChiPhi.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTongChiPhi.setText("<html> <body>Tổng Chi Phí<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
+        jPanel4.add(jLbTongChiPhi, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, -1, 30));
 
         jTextChiPhi.setEditable(false);
         jTextChiPhi.setBackground(new java.awt.Color(214, 217, 223));
@@ -558,30 +497,13 @@ public class DoanForm extends javax.swing.JPanel
             }
         });
 
-        jBtnTimKiemDoan.setText("Tìm kiếm");
-        jBtnTimKiemDoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemDoanActionPerformed(evt);
-            }
-        });
-
-        jBtnRefreshDoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
-        jBtnRefreshDoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnRefreshDoan.setMaximumSize(new java.awt.Dimension(50, 50));
-        jBtnRefreshDoan.setMinimumSize(new java.awt.Dimension(50, 50));
-        jBtnRefreshDoan.setPreferredSize(new java.awt.Dimension(50, 50));
-        jBtnRefreshDoan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRefreshDoanActionPerformed(evt);
-            }
-        });
-
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setAutoscrolls(true);
 
+        jTableDoan.setAutoCreateRowSorter(true);
         jTableDoan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -640,34 +562,54 @@ public class DoanForm extends javax.swing.JPanel
             }
         });
 
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
+            }
+        });
+
+        jBtnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh_25px.png"))); // NOI18N
+        jBtnRefresh.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRefresh.setMaximumSize(new java.awt.Dimension(50, 50));
+        jBtnRefresh.setMinimumSize(new java.awt.Dimension(50, 50));
+        jBtnRefresh.setPreferredSize(new java.awt.Dimension(50, 50));
+        jBtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelQLDoanLayout = new javax.swing.GroupLayout(jPanelQLDoan);
         jPanelQLDoan.setLayout(jPanelQLDoanLayout);
         jPanelQLDoanLayout.setHorizontalGroup(
             jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelQLDoanLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelQLDoanLayout.createSequentialGroup()
-                        .addGap(596, 596, 596)
-                        .addComponent(jTextTimKiemDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnTimKiemDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnRefreshDoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelQLDoanLayout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jBtnXoaDoan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtnSuaDoan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jBtnThemDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jBtnXemDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtnHuyDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelQLDoanLayout.createSequentialGroup()
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jBtnXoaDoan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBtnSuaDoan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jBtnThemDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(20, 20, 20)
+                            .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jBtnXemDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBtnHuyDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanelQLDoanLayout.setVerticalGroup(
             jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -690,14 +632,14 @@ public class DoanForm extends javax.swing.JPanel
                     .addGroup(jPanelQLDoanLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBtnRefreshDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelQLDoanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextTimKiemDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jBtnTimKiemDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addGap(27, 27, 27))
         );
 
@@ -1040,8 +982,7 @@ public class DoanForm extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public String ktra()
-    {
+    public String ktra() {
         /*String temp = "";
         if (jTextMaLoaiHinh.getText().equals("")) {
             temp += "Vui lòng cấp phát mã nhân viên!\n";
@@ -1130,26 +1071,22 @@ public class DoanForm extends javax.swing.JPanel
                 "Chi tiết", doanDTO.getChiTietNoiDung());
         Validation.positiveNumbers(message, "Gia tour", doanDTO.getGiaTour());
         boolean isDate = Validation.isDate(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày kết thúc", doanDTO.getNgayKetThuc());
-        if (isDate)
-        {
+        if (isDate) {
             Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày hiện tại",
                     new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày bắt đầu của giá", ngayBatDauGia);
             Validation.afterOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày khởi hành", doanDTO.getNgayKhoiHanh());
             Validation.beforeOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày kết thúc của giá", ngayKetThucGia);
         }
-        if (!message.toString().equals(""))
-        {
+        if (!message.toString().equals("")) {
             JOptionPane.showMessageDialog(this, message.toString());
             return;
         }
 
-        if (doanDuLichBUS.themDoan(doanDTO, DashBoard.doanDuLichDTOs))
-        {
+        if (doanDuLichBUS.themDoan(doanDTO, DashBoard.doanDuLichDTOs)) {
             themVectorDoan(tbModelDoan, doanDTO, (String) jTextTour.getText());
             JOptionPane.showMessageDialog(this, "Thêm Đoàn thành công!");
-        } else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Thêm Đoàn thất bại!");
         }
         jBtnCapPhatMaDoan.setEnabled(true);
@@ -1171,6 +1108,7 @@ public class DoanForm extends javax.swing.JPanel
         jDateNgayKH.setEnabled(false);
         jDateNgayKT.setEnabled(false);
         jTableDoan.clearSelection();
+        hideCompo();
     }//GEN-LAST:event_jBtnThemDoanActionPerformed
 
     private void jBtnHuyNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnHuyNVActionPerformed
@@ -1187,22 +1125,6 @@ public class DoanForm extends javax.swing.JPanel
         jTableDoan.clearSelection();
         jTableNhanVien.clearSelection();
     }//GEN-LAST:event_jBtnHuyNVActionPerformed
-
-    private void jBtnRefreshDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnRefreshDoanActionPerformed
-    {//GEN-HEADEREND:event_jBtnRefreshDoanActionPerformed
-        jTextTimKiemDoan.setText("");
-        loadDataDoan();
-    }//GEN-LAST:event_jBtnRefreshDoanActionPerformed
-
-    private void jBtnTimKiemDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnTimKiemDoanActionPerformed
-    {//GEN-HEADEREND:event_jBtnTimKiemDoanActionPerformed
-        // TODO add your handling code here:
-        //        String manv = jTextTimKiemNV.getText();
-        //        tbnv.searchbangnhanvien(tbModelTour, manv);
-        //        jTable1.setModel(tbModelTour);
-        //        System.out.println("click tim kiem");
-        timKiem(tbModelDoan, (String) jTextTimKiemDoan.getText());
-    }//GEN-LAST:event_jBtnTimKiemDoanActionPerformed
 
     private void jBtnCapPhatMaDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCapPhatMaDoanActionPerformed
     {//GEN-HEADEREND:event_jBtnCapPhatMaDoanActionPerformed
@@ -1224,6 +1146,7 @@ public class DoanForm extends javax.swing.JPanel
         jBtnChonChiPhi.setEnabled(false);
         jDateNgayKH.setEnabled(true);
         jDateNgayKT.setEnabled(true);
+        hideCompo();
     }//GEN-LAST:event_jBtnCapPhatMaDoanActionPerformed
 
     private void jBtnChonChiPhiActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnChonChiPhiActionPerformed
@@ -1240,12 +1163,10 @@ public class DoanForm extends javax.swing.JPanel
         DoanDuLichDTO doanDuLichDTO = new DoanDuLichDTO();
         doanDuLichDTO = searchDoan(maDoan);
         System.out.println(doanDuLichDTO);
-        if (doanDuLichBUS.xoaDoan(doanDuLichDTO, DashBoard.doanDuLichDTOs))
-        {
+        if (doanDuLichBUS.xoaDoan(doanDuLichDTO, DashBoard.doanDuLichDTOs)) {
             xoaVectorDoan(tbModelDoan, rowDoan);
             JOptionPane.showMessageDialog(this, "Xóa Đoàn thành công!");
-        } else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Xóa Đoàn thất bại!");
         }
         jBtnCapPhatMaDoan.setEnabled(true);
@@ -1267,6 +1188,7 @@ public class DoanForm extends javax.swing.JPanel
         jDateNgayKH.setEnabled(false);
         jDateNgayKT.setEnabled(false);
         jTableDoan.clearSelection();
+        hideCompo();
     }//GEN-LAST:event_jBtnXoaDoanActionPerformed
 
     private void jBtnSuaDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaDoanActionPerformed
@@ -1288,25 +1210,21 @@ public class DoanForm extends javax.swing.JPanel
                 "Chi tiết", doanDTO.getChiTietNoiDung());
         Validation.positiveNumbers(message, "Gia tour", doanDTO.getGiaTour());
         boolean isDate = Validation.isDate(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày kết thúc", doanDTO.getNgayKetThuc());
-        if (isDate)
-        {
+        if (isDate) {
             Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày hiện tại", ngayKhoiHanh);
             Validation.afterOrEquals(message, "Ngày khởi hành", doanDTO.getNgayKhoiHanh(), "Ngày bắt đầu của giá", ngayBatDauGia);
             Validation.afterOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày khởi hành", doanDTO.getNgayKhoiHanh());
             Validation.beforeOrEquals(message, "Ngày kết thúc", doanDTO.getNgayKetThuc(), "Ngày kết thúc của giá", ngayKetThucGia);
         }
-        if (!message.toString().equals(""))
-        {
+        if (!message.toString().equals("")) {
             JOptionPane.showMessageDialog(this, message.toString());
             return;
         }
 
-        if (doanDuLichBUS.suaDoan(doanDTO, DashBoard.doanDuLichDTOs, maTourHienHanh))
-        {
+        if (doanDuLichBUS.suaDoan(doanDTO, DashBoard.doanDuLichDTOs, maTourHienHanh)) {
             suaVectorDoan(tbModelDoan, rowDoan, doanDTO, tenTour);
             JOptionPane.showMessageDialog(this, "Sửa Đoàn thành công!");
-        } else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Sửa Đoàn thất bại!");
         }
         jBtnCapPhatMaDoan.setEnabled(true);
@@ -1328,6 +1246,7 @@ public class DoanForm extends javax.swing.JPanel
         jDateNgayKH.setEnabled(false);
         jDateNgayKT.setEnabled(false);
         jTableDoan.clearSelection();
+        hideCompo();
     }//GEN-LAST:event_jBtnSuaDoanActionPerformed
 
     private void jTextTenDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextTenDoanActionPerformed
@@ -1352,8 +1271,7 @@ public class DoanForm extends javax.swing.JPanel
     private void jBtnXoaNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaNVActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaNVActionPerformed
         // TODO add your handling code here:
-        if (nhiemVuNhanVienBUS.delete(jTextMaNV.getText(), maDoan, DashBoard.nhiemVuNhanVienDTOs))
-        {
+        if (nhiemVuNhanVienBUS.delete(jTextMaNV.getText(), maDoan, DashBoard.nhiemVuNhanVienDTOs)) {
             xoaVectorNhanVien(tbModelNhanVien, rowNV);
         }
         jBtnChonNV.setEnabled(true);
@@ -1370,13 +1288,11 @@ public class DoanForm extends javax.swing.JPanel
     private void jBtnThemNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnThemNVActionPerformed
     {//GEN-HEADEREND:event_jBtnThemNVActionPerformed
         // TODO add your handling code here:
-        if (jTextNhiemVu.getText().equals("") || jTextNhiemVu.getText() == null)
-        {
+        if (jTextNhiemVu.getText().equals("") || jTextNhiemVu.getText() == null) {
             JOptionPane.showMessageDialog(this, "Nhiệm vụ của nhân viên không được bỏ trống!");
             return;
         }
-        if (nhiemVuNhanVienBUS.add(jTextMaNV.getText(), maDoan, jTextNhiemVu.getText(), DashBoard.nhiemVuNhanVienDTOs))
-        {
+        if (nhiemVuNhanVienBUS.add(jTextMaNV.getText(), maDoan, jTextNhiemVu.getText(), DashBoard.nhiemVuNhanVienDTOs)) {
             themVectorNhanVien(tbModelNhanVien, jTextMaNV.getText(), maDoan, jTextNhiemVu.getText());
         }
         jBtnChonNV.setEnabled(true);
@@ -1393,13 +1309,11 @@ public class DoanForm extends javax.swing.JPanel
     private void jBtnSuaNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnSuaNVActionPerformed
     {//GEN-HEADEREND:event_jBtnSuaNVActionPerformed
         // TODO add your handling code here:
-        if (jTextNhiemVu.getText().equals("") || jTextNhiemVu.getText() == null)
-        {
+        if (jTextNhiemVu.getText().equals("") || jTextNhiemVu.getText() == null) {
             JOptionPane.showMessageDialog(this, "Nhiệm vụ của nhân viên không được bỏ trống!");
             return;
         }
-        if (nhiemVuNhanVienBUS.update(jTextMaNV.getText(), maDoan, jTextNhiemVu.getText(), DashBoard.nhiemVuNhanVienDTOs))
-        {
+        if (nhiemVuNhanVienBUS.update(jTextMaNV.getText(), maDoan, jTextNhiemVu.getText(), DashBoard.nhiemVuNhanVienDTOs)) {
             suaVectorNhanVien(tbModelNhanVien, jTextMaNV.getText(), jTextTenNV.getText(), jTextNhiemVu.getText());
         }
         jBtnChonNV.setEnabled(true);
@@ -1498,6 +1412,7 @@ public class DoanForm extends javax.swing.JPanel
         jBtnXoaKhach.setEnabled(false);
         jBtnHuyKhach.setEnabled(false);
         jTableDoan.clearSelection();
+        hideCompo();
     }//GEN-LAST:event_jBtnXemDoanActionPerformed
 
     private void jBtnHuyDoanActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnHuyDoanActionPerformed
@@ -1522,67 +1437,60 @@ public class DoanForm extends javax.swing.JPanel
         jDateNgayKH.setEnabled(false);
         jDateNgayKT.setEnabled(false);
         jTableDoan.clearSelection();
+        hideCompo();
     }//GEN-LAST:event_jBtnHuyDoanActionPerformed
 
     private void jTableDoanMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableDoanMouseClicked
     {//GEN-HEADEREND:event_jTableDoanMouseClicked
         long startTime = System.currentTimeMillis();
-        if (evt.getSource() == jTableDoan)
-        {
+        if (evt.getSource() == jTableDoan) {
             rowDoan = jTableDoan.getSelectedRow();
-            if (rowDoan != -1)
-            {
+            if (rowDoan != -1) {
+                if (!jLbTongChiPhi.isVisible() && !jTextChiPhi.isVisible() && !jBtnChonChiPhi.isVisible()) {
+                    jLbTongChiPhi.setVisible(true);
+                    jTextChiPhi.setVisible(true);
+                    jBtnChonChiPhi.setVisible(true);
+                }
                 maDoan = (String) jTableDoan.getModel().getValueAt(rowDoan, 0);
                 tenDoan = (String) jTableDoan.getModel().getValueAt(rowDoan, 1);
-                if (!maDoan.equals(""))
-                {
+                if (!maDoan.equals("")) {
                     jTextMaDoan.setText(maDoan);
                     jTextTenDoan.setText(tenDoan);
                     jTextTour.setText(((String) jTableDoan.getModel().getValueAt(rowDoan, 2)));
                     jTextGiaTour.setText((String) jTableDoan.getModel().getValueAt(rowDoan, 3));
                     ngayKhoiHanh = (String) jTableDoan.getModel().getValueAt(rowDoan, 4);
-                    try
-                    {
+                    try {
                         Date dateKH = new SimpleDateFormat("yyyy-MM-dd").parse(jTableDoan.getModel().getValueAt(rowDoan, 4).toString());
                         jDateNgayKH.setDate(dateKH);
-                    } catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         JOptionPane.showMessageDialog(DoanForm.this, e);
                         System.out.println("- Load sai ngày bắt đầu!");
                     }
-                    try
-                    {
+                    try {
                         Date dateKT = new SimpleDateFormat("yyyy-MM-dd").parse(jTableDoan.getModel().getValueAt(rowDoan, 5).toString());
                         jDateNgayKT.setDate(dateKT);
-                    } catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         JOptionPane.showMessageDialog(DoanForm.this, e);
                         System.out.println("- Load sai ngày kết thúc!");
                     }
-                    for (DoanDuLichDTO doan : DashBoard.doanDuLichDTOs)
-                    {
-                        if (maDoan.equals(doan.getMaDoan()))
-                        {
+                    for (DoanDuLichDTO doan : DashBoard.doanDuLichDTOs) {
+                        if (maDoan.equals(doan.getMaDoan())) {
                             jTextChiTiet.setText(doan.getChiTietNoiDung());
                             setMaTour(doan.getMaTour());
                             setMaTourHienHanh(doan.getMaTour());
                         }
                     }
                     // lấy giá trị ngày của giá tour
-                    for (GiaTourDTO giaTourDTO : DashBoard.giaTourDTOs)
-                    {
-                        if (maTour.equals(giaTourDTO.getMaTour()))
-                        {
+                    for (GiaTourDTO giaTourDTO : DashBoard.giaTourDTOs) {
+                        if (maTour.equals(giaTourDTO.getMaTour())) {
                             ngayBatDauGia = giaTourDTO.getTgBatDau();
                             ngayKetThucGia = giaTourDTO.getTgKetThuc();
                             break;
                         }
                     }
                     long tongCP = 0;
-                    for (ChiPhiDTO chiPhi : DashBoard.chiPhiDTOs)
-                    {
-                        if (maDoan.equals(chiPhi.getMaDoan()))
-                        {
+                    for (ChiPhiDTO chiPhi : DashBoard.chiPhiDTOs) {
+                        if (maDoan.equals(chiPhi.getMaDoan())) {
                             tongCP += Long.parseLong(chiPhi.getSoTien());
                         }
                     }
@@ -1599,8 +1507,7 @@ public class DoanForm extends javax.swing.JPanel
                     jBtnChonChiPhi.setEnabled(true);
                     jDateNgayKH.setEnabled(true);
                     jDateNgayKT.setEnabled(true);
-                } else
-                {
+                } else {
                     jBtnCapPhatMaDoan.setEnabled(true);
                     jBtnThemDoan.setEnabled(false);
                     jBtnSuaDoan.setEnabled(false);
@@ -1630,8 +1537,7 @@ public class DoanForm extends javax.swing.JPanel
     {//GEN-HEADEREND:event_jBtnThemKhachActionPerformed
         // TODO add your handling code here:
 
-        if (chiTietDoanBUS.add(maDoan, jTextMaKhach.getText(), DashBoard.chiTietDoanDTOs))
-        {
+        if (chiTietDoanBUS.add(maDoan, jTextMaKhach.getText(), DashBoard.chiTietDoanDTOs)) {
             //System.out.println("error1");
             themVectorKhachHang(tbModelKhach, jTextMaKhach.getText(), jTextTenKhach.getText(), jTextSDT.getText());
 
@@ -1663,8 +1569,7 @@ public class DoanForm extends javax.swing.JPanel
     private void jBtnXoaKhachActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaKhachActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaKhachActionPerformed
         // TODO add your handling code here:
-        if (chiTietDoanBUS.delete(maDoan, jTextMaKhach.getText(), DashBoard.chiTietDoanDTOs))
-        {
+        if (chiTietDoanBUS.delete(maDoan, jTextMaKhach.getText(), DashBoard.chiTietDoanDTOs)) {
             xoaVectorDoan(tbModelKhach, rowKhach);
         }
         jBtnChonKhach.setEnabled(true);
@@ -1707,245 +1612,216 @@ public class DoanForm extends javax.swing.JPanel
 
     }//GEN-LAST:event_jButtonQuayLaiMouseClicked
 
-    public DoanDuLichDTO searchDoan(String maDoan)
-    {
-        for (DoanDuLichDTO a : DashBoard.doanDuLichDTOs)
-        {
-            if (a.getMaDoan().equals(maDoan))
-            {
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+        jTextTimKiem.setText("");
+        initTableDoan();
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
+
+    public DoanDuLichDTO searchDoan(String maDoan) {
+        for (DoanDuLichDTO a : DashBoard.doanDuLichDTOs) {
+            if (a.getMaDoan().equals(maDoan)) {
                 return a;
             }
         }
         return null;
     }
 
-    public int getRowDoan()
-    {
+    public int getRowDoan() {
         return rowDoan;
     }
 
-    public void setRowDoan(int rowDoan)
-    {
+    public void setRowDoan(int rowDoan) {
         this.rowDoan = rowDoan;
     }
 
-    public int getRowKhach()
-    {
+    public int getRowKhach() {
         return rowKhach;
     }
 
-    public void setRowKhach(int rowKhach)
-    {
+    public void setRowKhach(int rowKhach) {
         this.rowKhach = rowKhach;
     }
 
-    public int getRowNV()
-    {
+    public int getRowNV() {
         return rowNV;
     }
 
-    public void setRowNV(int rowNV)
-    {
+    public void setRowNV(int rowNV) {
         this.rowNV = rowNV;
     }
 
-    public String getMaDoan()
-    {
+    public String getMaDoan() {
         return maDoan;
     }
 
-    public void setMaDoan(String maDoan)
-    {
+    public void setMaDoan(String maDoan) {
         this.maDoan = maDoan;
     }
 
-    public String getTenDoan()
-    {
+    public String getTenDoan() {
         return tenDoan;
     }
 
-    public void setTenDoan(String tenDoan)
-    {
+    public void setTenDoan(String tenDoan) {
         this.tenDoan = tenDoan;
     }
 
-    public String getMaTour()
-    {
+    public String getMaTour() {
         return maTour;
     }
 
-    public void setMaTour(String maTour)
-    {
+    public void setMaTour(String maTour) {
         this.maTour = maTour;
     }
 
-    public String getMaTourHienHanh()
-    {
+    public String getMaTourHienHanh() {
         return maTourHienHanh;
     }
 
-    public void setMaTourHienHanh(String maTourHienHanh)
-    {
+    public void setMaTourHienHanh(String maTourHienHanh) {
         this.maTourHienHanh = maTourHienHanh;
     }
 
-    public JTextField getjTextGiaTour()
-    {
+    public JTextField getjTextGiaTour() {
         return jTextGiaTour;
     }
 
-    public void setjTextGiaTour(JTextField jTextGiaTour)
-    {
+    public void setjTextGiaTour(JTextField jTextGiaTour) {
         this.jTextGiaTour = jTextGiaTour;
     }
 
-    public JTextField getjTextTour()
-    {
+    public JTextField getjTextTour() {
         return jTextTour;
     }
 
-    public void setjTextTour(JTextField jTextTour)
-    {
+    public void setjTextTour(JTextField jTextTour) {
         this.jTextTour = jTextTour;
     }
 
-    public JTextField getjTextChiPhi()
-    {
+    public JTextField getjTextChiPhi() {
         return jTextChiPhi;
     }
 
-    public void setjTextChiPhi(JTextField jTextChiPhi)
-    {
+    public void setjTextChiPhi(JTextField jTextChiPhi) {
         this.jTextChiPhi = jTextChiPhi;
     }
 
-    public JButton getjBtnChonKhach()
-    {
+    public JButton getjBtnChonKhach() {
         return jBtnChonKhach;
     }
 
-    public void setjBtnChonKhach(JButton jBtnChonKhach)
-    {
+    public void setjBtnChonKhach(JButton jBtnChonKhach) {
         this.jBtnChonKhach = jBtnChonKhach;
     }
 
-    public JButton getjBtnChonNV()
-    {
+    public JButton getjBtnChonNV() {
         return jBtnChonNV;
     }
 
-    public void setjBtnChonNV(JButton jBtnChonNV)
-    {
+    public void setjBtnChonNV(JButton jBtnChonNV) {
         this.jBtnChonNV = jBtnChonNV;
     }
 
-    public JButton getjBtnThemKhach()
-    {
+    public JButton getjBtnThemKhach() {
         return jBtnThemKhach;
     }
 
-    public void setjBtnThemKhach(JButton jBtnThemKhach)
-    {
+    public void setjBtnThemKhach(JButton jBtnThemKhach) {
         this.jBtnThemKhach = jBtnThemKhach;
     }
 
-    public JButton getjBtnThemNV()
-    {
+    public JButton getjBtnThemNV() {
         return jBtnThemNV;
     }
 
-    public void setjBtnThemNV(JButton jBtnThemNV)
-    {
+    public void setjBtnThemNV(JButton jBtnThemNV) {
         this.jBtnThemNV = jBtnThemNV;
     }
 
-    public JButton getjBtnHuyKhach()
-    {
+    public JButton getjBtnHuyKhach() {
         return jBtnHuyKhach;
     }
 
-    public void setjBtnHuyKhach(JButton jBtnHuyKhach)
-    {
+    public void setjBtnHuyKhach(JButton jBtnHuyKhach) {
         this.jBtnHuyKhach = jBtnHuyKhach;
     }
 
-    public JButton getjBtnHuyNV()
-    {
+    public JButton getjBtnHuyNV() {
         return jBtnHuyNV;
     }
 
-    public void setjBtnHuyNV(JButton jBtnHuyNV)
-    {
+    public void setjBtnHuyNV(JButton jBtnHuyNV) {
         this.jBtnHuyNV = jBtnHuyNV;
     }
 
-    public JTextField getjTextMaKhach()
-    {
+    public JTextField getjTextMaKhach() {
         return jTextMaKhach;
     }
 
-    public void setjTextMaKhach(JTextField jTextMaKhach)
-    {
+    public void setjTextMaKhach(JTextField jTextMaKhach) {
         this.jTextMaKhach = jTextMaKhach;
     }
 
-    public JTextField getjTextMaNV()
-    {
+    public JTextField getjTextMaNV() {
         return jTextMaNV;
     }
 
-    public void setjTextMaNV(JTextField jTextMaNV)
-    {
+    public void setjTextMaNV(JTextField jTextMaNV) {
         this.jTextMaNV = jTextMaNV;
     }
 
-    public JTextField getjTextNhiemVu()
-    {
+    public JTextField getjTextNhiemVu() {
         return jTextNhiemVu;
     }
 
-    public void setjTextNhiemVu(JTextField jTextNhiemVu)
-    {
+    public void setjTextNhiemVu(JTextField jTextNhiemVu) {
         this.jTextNhiemVu = jTextNhiemVu;
     }
 
-    public JTextField getjTextSDT()
-    {
+    public JTextField getjTextSDT() {
         return jTextSDT;
     }
 
-    public void setjTextSDT(JTextField jTextSDT)
-    {
+    public void setjTextSDT(JTextField jTextSDT) {
         this.jTextSDT = jTextSDT;
     }
 
-    public JTextField getjTextTenKhach()
-    {
+    public JTextField getjTextTenKhach() {
         return jTextTenKhach;
     }
 
-    public void setjTextTenKhach(JTextField jTextTenKhach)
-    {
+    public void setjTextTenKhach(JTextField jTextTenKhach) {
         this.jTextTenKhach = jTextTenKhach;
     }
 
-    public JTextField getjTextTenNV()
-    {
+    public JTextField getjTextTenNV() {
         return jTextTenNV;
     }
 
-    public void setjTextTenNV(JTextField jTextTenNV)
-    {
+    public void setjTextTenNV(JTextField jTextTenNV) {
         this.jTextTenNV = jTextTenNV;
     }
 
-    public JTabbedPane getJTabbedPane1()
-    {
+    public JTabbedPane getJTabbedPane1() {
         return jTabbedPane1;
     }
 
-    public void resetAll()
-    {
+    public void hideCompo() {
+        if (jLbTongChiPhi.isVisible() && jTextChiPhi.isVisible() && jBtnChonChiPhi.isVisible()) {
+            jLbTongChiPhi.setVisible(false);
+            jTextChiPhi.setVisible(false);
+            jBtnChonChiPhi.setVisible(false);
+        }
+    }
+
+    public void resetAll() {
         System.out.println("Reset ALL!!");
         jTextMaDoan.setText("");
         jTextTenDoan.setText("");
@@ -1963,6 +1839,7 @@ public class DoanForm extends javax.swing.JPanel
         jBtnCapPhatMaDoan.setEnabled(true);
         jBtnChonTour.setEnabled(false);
         jBtnChonChiPhi.setEnabled(false);
+        hideCompo();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1974,13 +1851,12 @@ public class DoanForm extends javax.swing.JPanel
     private javax.swing.JButton jBtnHuyDoan;
     private javax.swing.JButton jBtnHuyKhach;
     private javax.swing.JButton jBtnHuyNV;
-    private javax.swing.JButton jBtnRefreshDoan;
+    private javax.swing.JButton jBtnRefresh;
     private javax.swing.JButton jBtnSuaDoan;
     private javax.swing.JButton jBtnSuaNV;
     private javax.swing.JButton jBtnThemDoan;
     private javax.swing.JButton jBtnThemKhach;
     private javax.swing.JButton jBtnThemNV;
-    private javax.swing.JButton jBtnTimKiemDoan;
     private javax.swing.JButton jBtnXemDoan;
     private javax.swing.JButton jBtnXoaDoan;
     private javax.swing.JButton jBtnXoaKhach;
@@ -1999,11 +1875,12 @@ public class DoanForm extends javax.swing.JPanel
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLbMaNV;
     private javax.swing.JLabel jLbManv;
-    private javax.swing.JLabel jLbManv1;
     private javax.swing.JLabel jLbNhiemVu;
     private javax.swing.JLabel jLbSDT;
     private javax.swing.JLabel jLbTenKhach;
     private javax.swing.JLabel jLbTenNV;
+    private javax.swing.JLabel jLbTimKiem;
+    private javax.swing.JLabel jLbTongChiPhi;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelChiTietDoan;
     private javax.swing.JPanel jPanelKhachHang;
@@ -2030,7 +1907,7 @@ public class DoanForm extends javax.swing.JPanel
     private javax.swing.JTextField jTextTenDoanChiTiet;
     private javax.swing.JTextField jTextTenKhach;
     private javax.swing.JTextField jTextTenNV;
-    private javax.swing.JTextField jTextTimKiemDoan;
+    private javax.swing.JTextField jTextTimKiem;
     private javax.swing.JTextField jTextTour;
     // End of variables declaration//GEN-END:variables
 }

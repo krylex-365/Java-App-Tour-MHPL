@@ -28,6 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 
 /**
  *
@@ -54,7 +55,7 @@ public class BangGia extends javax.swing.JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
     }
-    
+
     public BangGia(String maTour, String maGiaHH) {
         initComponents();
         setVisible(true);
@@ -76,15 +77,14 @@ public class BangGia extends javax.swing.JFrame {
         jBtnThoat.setEnabled(true);
     }
 
-    public void reloadData() {
-        giaTourBUS = new GiaTourBUS();
-    }
-
     public void initTable() {
-        reloadData();
+        giaTourBUS = new GiaTourBUS();
         tbModel.setRowCount(0);
         tableModel(tbModel);
+        jTableGiaTour.setRowSorter(null);
+        jTableGiaTour.setAutoCreateRowSorter(true);
         jTableGiaTour.setModel(tbModel);
+        jTableGiaTour.clearSelection();
     }
 
     public void tableModel(DefaultTableModel model) {
@@ -95,7 +95,7 @@ public class BangGia extends javax.swing.JFrame {
                 row.add(giaTour.getThanhTien());
                 row.add(giaTour.getTgBatDau());
                 row.add(giaTour.getTgKetThuc());
-                if (giaTour.getHienHanh()==1){
+                if (giaTour.getHienHanh() == 1) {
                     row.add("X");
                     giaTourHH = new GiaTourDTO(giaTour.getMaGia(),
                             giaTour.getMaTour(),
@@ -103,13 +103,18 @@ public class BangGia extends javax.swing.JFrame {
                             giaTour.getTgBatDau(),
                             giaTour.getTgKetThuc(),
                             giaTour.getHienHanh());
-                }
-                else {
+                } else {
                     row.add("");
                 }
                 model.addRow(row);
             }
         }
+    }
+    
+    private void filter(String query) {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModel);
+        jTableGiaTour.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
     }
 
     /**
@@ -145,8 +150,8 @@ public class BangGia extends javax.swing.JFrame {
         jBtnCapPhatMaGia = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableGiaTour = new javax.swing.JTable();
-        jTextTimKiemGia = new javax.swing.JTextField();
-        jBtnTimKiemGia = new javax.swing.JButton();
+        jLbTimKiem = new javax.swing.JLabel();
+        jTextTimKiem = new javax.swing.JTextField();
         jBtnRefresh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(236, 245, 252));
@@ -353,10 +358,12 @@ public class BangGia extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableGiaTour);
 
-        jBtnTimKiemGia.setText("Tìm kiếm");
-        jBtnTimKiemGia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemGiaActionPerformed(evt);
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
             }
         });
 
@@ -380,32 +387,32 @@ public class BangGia extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jTextTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
+            .addGroup(kGradientPanel1Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtnTimKiemGia, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))))
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -433,25 +440,25 @@ public class BangGia extends javax.swing.JFrame {
         StringBuilder message = new StringBuilder();
         Validation.positiveNumbers(message, "Giá tour", giaTour);
         boolean isDate = Validation.isDate(message, "Ngày bắt đầu", ngayBD, "Ngày kết thúc", ngayKT);
-        if(isDate){
-            Validation.afterOrEquals(message, "Ngày bắt đầu", ngayBD, "Ngày bắt đầu trước",ngayBatDau);
+        if (isDate) {
+            Validation.afterOrEquals(message, "Ngày bắt đầu", ngayBD, "Ngày bắt đầu trước", ngayBatDau);
             Validation.afterOrEquals(message, "Ngày kết thúc", ngayKT, "Ngày bắt đầu", ngayBD);
         }
-        if(!message.toString().equals("")){
+        if (!message.toString().equals("")) {
             JOptionPane.showMessageDialog(this, message.toString());
             return;
         }
 
-        if (giaTourBUS.suaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh, DashBoard.giaTourDTOs)){
-            if (maGia.equals(maGiaHH)){
+        if (giaTourBUS.suaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh, DashBoard.giaTourDTOs)) {
+            if (maGia.equals(maGiaHH)) {
                 tourForm.getjTextGiaTour().setText(giaTour);
                 tourForm.getjDateNgayBD().setCalendar(jDateBatDau.getCalendar());
                 tourForm.getjDateNgayKT().setCalendar(jDateKetThuc.getCalendar());
-                tourForm.getTbModelTour().setValueAt(giaTour,tourForm.getRowTour(),3);
-                tourForm.getTbModelTour().setValueAt(ngayBD,tourForm.getRowTour(),4);
-                tourForm.getTbModelTour().setValueAt(ngayKT,tourForm.getRowTour(),5);
+                tourForm.getTbModelTour().setValueAt(giaTour, tourForm.getRowTour(), 3);
+                tourForm.getTbModelTour().setValueAt(ngayBD, tourForm.getRowTour(), 4);
+                tourForm.getTbModelTour().setValueAt(ngayKT, tourForm.getRowTour(), 5);
             }
-            if (maGia.equals(tourForm.getMaGia())){
+            if (maGia.equals(tourForm.getMaGia())) {
                 tourForm.getjTextGiaTour().setText(giaTour);
                 tourForm.getjDateNgayBD().setCalendar(jDateBatDau.getCalendar());
                 tourForm.getjDateNgayKT().setCalendar(jDateKetThuc.getCalendar());
@@ -472,9 +479,7 @@ public class BangGia extends javax.swing.JFrame {
         jBtnHuy.setEnabled(false);
         jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
-//        jTextPban.setText("");
-//        jTextCviec.setText("");
-jTableGiaTour.clearSelection();
+        jTableGiaTour.clearSelection();
     }//GEN-LAST:event_jBtnSuaActionPerformed
 
     private void jTextMaGiaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextMaGiaActionPerformed
@@ -505,12 +510,12 @@ jTableGiaTour.clearSelection();
         StringBuilder message = new StringBuilder();
         Validation.positiveNumbers(message, "Giá tour", giaTour);
         boolean isDate = Validation.isDate(message, "Ngày bắt đầu", ngayBD, "Ngày kết thúc", ngayKT);
-        if(isDate){
+        if (isDate) {
             Validation.afterOrEquals(message, "Ngày bắt đầu", ngayBD, "Ngày hiện tại",
                     new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
             Validation.afterOrEquals(message, "Ngày kết thúc", ngayKT, "Ngày bắt đầu", ngayBD);
         }
-        if(!message.toString().equals("")){
+        if (!message.toString().equals("")) {
             JOptionPane.showMessageDialog(this, message.toString());
             return;
         }
@@ -532,38 +537,6 @@ jTableGiaTour.clearSelection();
         jBtnHuy.setEnabled(false);
         jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
-//        if (!jBtnXacNhan.isEnabled())
-//        {
-//            System.out.println("Disabled");
-//        } else
-//        {
-//            if (ktra().equals(""))
-//            {
-//                String manv = jTextManv.getText();
-//                if (bccForm != null)
-//                {
-//                    bccForm.getjTextManv().setText(manv);
-//                }
-//                if (luongForm != null)
-//                {
-//                    luongForm.getjTextManv().setText(manv);
-//                }
-//                if (thuongphatForm != null && thuongphatAc)
-//                {
-//                    thuongphatForm.getjTextManv().setText(manv);
-//                    thuongphatForm.getjBtnThemTp().setEnabled(true);
-//                    thuongphatForm.getjBtnSuaTp().setEnabled(false);
-//                    thuongphatForm.getjBtnXoaTp().setEnabled(false);
-//                    thuongphatForm.getjBtnHuy().setEnabled(true);
-//                    thuongphatAc = false;
-//                }
-//                setVisible(false);
-//                JOptionPane.showMessageDialog(null, "Chọn thành công!");
-//            } else
-//            {
-//                JOptionPane.showMessageDialog(null, ktra());
-//            }
-//        }
         jTableGiaTour.clearSelection();
     }//GEN-LAST:event_jBtnThemActionPerformed
 
@@ -590,13 +563,12 @@ jTableGiaTour.clearSelection();
                     JOptionPane.showMessageDialog(BangGia.this, e);
                     System.out.println("- Load sai ngày kết thúc!");
                 }
-                if (jTableGiaTour.getValueAt(rowTbl, 4).equals("X")){
+                if (jTableGiaTour.getValueAt(rowTbl, 4).equals("X")) {
                     System.out.println("Hiện hành");
                     hienHanh = 1;
                     jBtnXoa.setEnabled(false);
                     jBtnXacNhan.setEnabled(false);
-                }
-                else {
+                } else {
                     hienHanh = 0;
                     jBtnXoa.setEnabled(true);
                     jBtnXacNhan.setEnabled(true);
@@ -610,43 +582,14 @@ jTableGiaTour.clearSelection();
         }
     }//GEN-LAST:event_jTableGiaTourMouseClicked
 
-    private void jBtnTimKiemGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemGiaActionPerformed
-//        // TODO add your handling code here:
-//        String manv = jTextTimKiemNV.getText();
-//        if (manv.equals(""))
-//        {
-//            JOptionPane.showMessageDialog(this, "Má»i nháº­p mÃ£ nhÃ¢n viÃªn cáº§n tÃ¬m");
-//        }
-//        ArrayList<NhanVienDTO> temp = new ArrayList<NhanVienDTO>(nvBUS.getDsnv().getDsnv());
-//        for (int i = 0; i < temp.size(); i++)
-//        {
-//            if (!(temp.get(i).getManhanvien().equalsIgnoreCase(manv)))
-//            {
-//                temp.remove(i);
-//                i = i - 1;
-//            }
-//        }
-//        searchlistSP(temp);
-//        System.out.println("click tim kiem");
-    }//GEN-LAST:event_jBtnTimKiemGiaActionPerformed
-
-    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
-        // TODO add your handling code here:
-//        jTextTimKiemNV.setText("");
-//        listSP();
-//        jBtnXacNhan.setEnabled(false);
-//        jBtnRefresh.setEnabled(true);
-//        jBtnQuayLai.setEnabled(false);
-    }//GEN-LAST:event_jBtnRefreshActionPerformed
-
     private void jBtnXoaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnXoaActionPerformed
     {//GEN-HEADEREND:event_jBtnXoaActionPerformed
         // TODO add your handling code here:
-        String maGia = (String) jTextMaGia.getText(), 
+        String maGia = (String) jTextMaGia.getText(),
                 giaTour = (String) jTextGiaTour.getText(),
                 ngayBD = (String) ((JTextField) jDateBatDau.getDateEditor().getUiComponent()).getText(),
                 ngayKT = (String) ((JTextField) jDateKetThuc.getDateEditor().getUiComponent()).getText();
-        if (giaTourBUS.xoaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh, DashBoard.giaTourDTOs)){
+        if (giaTourBUS.xoaGiaTour(tourForm.getMaTour(), maGia, giaTour, ngayBD, ngayKT, hienHanh, DashBoard.giaTourDTOs)) {
             if (maGia.equals(tourForm.getMaGia())) {
                 tourForm.getjTextGiaTour().setText(giaTourHH.getThanhTien());
                 try {
@@ -720,7 +663,6 @@ jTableGiaTour.clearSelection();
 
     private void jBtnCapPhatMaGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCapPhatMaGiaActionPerformed
         // TODO add your handling code here:
-        reloadData();
         String init = null;
         init = giaTourBUS.CapPhat(init);
         jTextMaGia.setText(init);
@@ -731,23 +673,21 @@ jTableGiaTour.clearSelection();
         jBtnHuy.setEnabled(true);
         jBtnXacNhan.setEnabled(false);
         jBtnThoat.setEnabled(true);
+        jTableGiaTour.clearSelection();
     }//GEN-LAST:event_jBtnCapPhatMaGiaActionPerformed
 
-//    public void searchlistSP(ArrayList<NhanVienDTO> nv)
-//    {
-//        tbModel.setRowCount(0);
-//        outModel(tbModel, nv);
-//    }
-//
-//    public String getTextFieldContent()
-//    {
-//        return bccForm.getjTextManv().getText();
-//    }
-//
-//    public String getTextFieldContentLuong()
-//    {
-//        return luongForm.getjTextManv().getText();
-//    }
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+        jTextTimKiem.setText("");
+        initTable();
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -813,7 +753,6 @@ jTableGiaTour.clearSelection();
     private javax.swing.JButton jBtnSua;
     private javax.swing.JButton jBtnThem;
     private javax.swing.JButton jBtnThoat;
-    private javax.swing.JButton jBtnTimKiemGia;
     private javax.swing.JButton jBtnXacNhan;
     private javax.swing.JButton jBtnXoa;
     private com.toedter.calendar.JDateChooser jDateBatDau;
@@ -824,6 +763,7 @@ jTableGiaTour.clearSelection();
     private javax.swing.JLabel jLbMaTour;
     private javax.swing.JLabel jLbNgayBD;
     private javax.swing.JLabel jLbNgayKT;
+    private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -832,7 +772,7 @@ jTableGiaTour.clearSelection();
     private javax.swing.JTextField jTextMaGia;
     private javax.swing.JTextField jTextMaGiaHienHanh;
     private javax.swing.JTextField jTextMaTour;
-    private javax.swing.JTextField jTextTimKiemGia;
+    private javax.swing.JTextField jTextTimKiem;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }

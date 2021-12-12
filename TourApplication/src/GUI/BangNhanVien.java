@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 
 /**
  *
@@ -58,7 +59,9 @@ public class BangNhanVien extends javax.swing.JFrame {
         reloadData();
         tbModel.setRowCount(0);
         tableModel(tbModel);
-        jTableKhach.setModel(tbModel);
+        jTable.setRowSorter(null);
+        jTable.setAutoCreateRowSorter(true);
+        jTable.setModel(tbModel);
         jBtnXacNhan.setEnabled(false);
         jBtnQuayLai.setEnabled(true);
     }
@@ -72,6 +75,12 @@ public class BangNhanVien extends javax.swing.JFrame {
             row.add(nhanvien.getSDT());
             model.addRow(row);
         }
+    }
+    
+    private void filter(String query){
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModel);
+        jTable.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
     }
 
     /**
@@ -94,9 +103,9 @@ public class BangNhanVien extends javax.swing.JFrame {
         jLbHonv1 = new javax.swing.JLabel();
         jTextSDTNV = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableKhach = new javax.swing.JTable();
-        jTextTimKiemNV = new javax.swing.JTextField();
-        jBtnTimKiemNV = new javax.swing.JButton();
+        jTable = new javax.swing.JTable();
+        jLbTimKiem = new javax.swing.JLabel();
+        jTextTimKiem = new javax.swing.JTextField();
         jBtnRefresh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(236, 245, 252));
@@ -165,7 +174,7 @@ public class BangNhanVien extends javax.swing.JFrame {
 
         jLbHonv1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLbHonv1.setText("<html><body>SÐT<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
-        jPanel4.add(jLbHonv1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 60, 30));
+        jPanel4.add(jLbHonv1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 60, 30));
 
         jTextSDTNV.setEditable(false);
         jTextSDTNV.setForeground(new java.awt.Color(51, 51, 51));
@@ -176,9 +185,9 @@ public class BangNhanVien extends javax.swing.JFrame {
         });
         jPanel4.add(jTextSDTNV, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 204, 30));
 
-        jTableKhach.setAutoCreateRowSorter(true);
-        jTableKhach.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTableKhach.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setAutoCreateRowSorter(true);
+        jTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -193,28 +202,30 @@ public class BangNhanVien extends javax.swing.JFrame {
         tbCol.add("Tên Nhân Viên");
         tbCol.add("SÐT");
         tbModel= new DefaultTableModel(tbCol,5);
-        jTableKhach.setModel (tbModel);
-        jTableKhach.setShowGrid(true);
-        jTableKhach.setFocusable(false);
-        jTableKhach.setIntercellSpacing(new Dimension(0,0));
-        jTableKhach.setRowHeight(25);
-        jTableKhach.getTableHeader().setOpaque(false);
-        jTableKhach.setFillsViewportHeight(true);
-        jTableKhach.getTableHeader().setBackground(new Color(232,57,99));
-        jTableKhach.getTableHeader().setForeground(new Color(141, 22, 22));
-        jTableKhach.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
-        jTableKhach.setSelectionBackground(new Color(52,152,219));
-        jTableKhach.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable.setModel (tbModel);
+        jTable.setShowGrid(true);
+        jTable.setFocusable(false);
+        jTable.setIntercellSpacing(new Dimension(0,0));
+        jTable.setRowHeight(25);
+        jTable.getTableHeader().setOpaque(false);
+        jTable.setFillsViewportHeight(true);
+        jTable.getTableHeader().setBackground(new Color(232,57,99));
+        jTable.getTableHeader().setForeground(new Color(141, 22, 22));
+        jTable.getTableHeader().setFont (new Font("Dialog", Font.BOLD, 13));
+        jTable.setSelectionBackground(new Color(52,152,219));
+        jTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableKhachMouseClicked(evt);
+                jTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableKhach);
+        jScrollPane1.setViewportView(jTable);
 
-        jBtnTimKiemNV.setText("Tìm kiếm");
-        jBtnTimKiemNV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemNVActionPerformed(evt);
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
             }
         });
 
@@ -239,12 +250,12 @@ public class BangNhanVien extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
                         .addGap(8, 8, 8))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -252,12 +263,13 @@ public class BangNhanVien extends javax.swing.JFrame {
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
@@ -324,62 +336,45 @@ public class BangNhanVien extends javax.swing.JFrame {
 //                JOptionPane.showMessageDialog(null, ktra());
 //            }
 //        }
-        doanForm.getjTextMaNV().setText((String) jTableKhach.getValueAt(rowTbl, 0));
-        doanForm.getjTextTenNV().setText((String) jTableKhach.getValueAt(rowTbl, 1));
+        doanForm.getjTextMaNV().setText((String) jTable.getValueAt(rowTbl, 0));
+        doanForm.getjTextTenNV().setText((String) jTable.getValueAt(rowTbl, 1));
         doanForm.getjBtnChonNV().setEnabled(false);
         doanForm.getjBtnThemNV().setEnabled(true);
         doanForm.getjBtnHuyNV().setEnabled(true);
         dispose();
     }//GEN-LAST:event_jBtnXacNhanActionPerformed
 
-    private void jTableKhachMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKhachMouseClicked
-    {//GEN-HEADEREND:event_jTableKhachMouseClicked
+    private void jTableMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableMouseClicked
+    {//GEN-HEADEREND:event_jTableMouseClicked
         // TODO add your handling code here:
-        if (evt.getSource() == jTableKhach) {
-            rowTbl = jTableKhach.getSelectedRow();
+        if (evt.getSource() == jTable) {
+            rowTbl = jTable.getSelectedRow();
             if (rowTbl != -1) {
-                jTextMaNV.setText((String) jTableKhach.getValueAt(rowTbl, 0));
-                jTextTenNV.setText((String) jTableKhach.getValueAt(rowTbl, 1));
-                jTextSDTNV.setText((String) jTableKhach.getValueAt(rowTbl, 2));
+                jTextMaNV.setText((String) jTable.getValueAt(rowTbl, 0));
+                jTextTenNV.setText((String) jTable.getValueAt(rowTbl, 1));
+                jTextSDTNV.setText((String) jTable.getValueAt(rowTbl, 2));
                 jBtnXacNhan.setEnabled(true);
                 jBtnQuayLai.setEnabled(true);
             }
         }
-    }//GEN-LAST:event_jTableKhachMouseClicked
-
-    private void jBtnTimKiemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemNVActionPerformed
-//        // TODO add your handling code here:
-//        String manv = jTextTimKiemNV.getText();
-//        if (manv.equals(""))
-//        {
-//            JOptionPane.showMessageDialog(this, "Má»i nháº­p mÃ£ nhÃ¢n viÃªn cáº§n tÃ¬m");
-//        }
-//        ArrayList<NhanVienDTO> temp = new ArrayList<NhanVienDTO>(nvBUS.getDsnv().getDsnv());
-//        for (int i = 0; i < temp.size(); i++)
-//        {
-//            if (!(temp.get(i).getManhanvien().equalsIgnoreCase(manv)))
-//            {
-//                temp.remove(i);
-//                i = i - 1;
-//            }
-//        }
-//        searchlistSP(temp);
-//        System.out.println("click tim kiem");
-    }//GEN-LAST:event_jBtnTimKiemNVActionPerformed
-
-    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
-        // TODO add your handling code here:
-        jTextTimKiemNV.setText("");
-        initTable();
-        jBtnXacNhan.setEnabled(false);
-        jBtnRefresh.setEnabled(true);
-        jBtnQuayLai.setEnabled(false);
-    }//GEN-LAST:event_jBtnRefreshActionPerformed
+    }//GEN-LAST:event_jTableMouseClicked
 
     private void jTextSDTNVActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextSDTNVActionPerformed
     {//GEN-HEADEREND:event_jTextSDTNVActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextSDTNVActionPerformed
+
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+        jTextTimKiem.setText("");
+        initTable();
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
 
 //    public void searchlistSP(ArrayList<NhanVienDTO> nv)
 //    {
@@ -508,14 +503,6 @@ public class BangNhanVien extends javax.swing.JFrame {
         this.jBtnRefresh = jBtnRefresh;
     }
 
-    public JButton getjBtnTimKiemNV() {
-        return jBtnTimKiemNV;
-    }
-
-    public void setjBtnTimKiemNV(JButton jBtnTimKiemNV) {
-        this.jBtnTimKiemNV = jBtnTimKiemNV;
-    }
-
     public JButton getjBtnXacNhan() {
         return jBtnXacNhan;
     }
@@ -525,36 +512,28 @@ public class BangNhanVien extends javax.swing.JFrame {
     }
 
     public JTable getjTableDsnv() {
-        return jTableKhach;
+        return jTable;
     }
 
     public void setjTableDsnv(JTable jTableDsnv) {
-        this.jTableKhach = jTableDsnv;
-    }
-
-    public JTextField getjTextTimKiemNV() {
-        return jTextTimKiemNV;
-    }
-
-    public void setjTextTimKiemNV(JTextField jTextTimKiemNV) {
-        this.jTextTimKiemNV = jTextTimKiemNV;
+        this.jTable = jTableDsnv;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnQuayLai;
     private javax.swing.JButton jBtnRefresh;
-    private javax.swing.JButton jBtnTimKiemNV;
     private javax.swing.JButton jBtnXacNhan;
     private javax.swing.JLabel jLbHonv;
     private javax.swing.JLabel jLbHonv1;
     private javax.swing.JLabel jLbManv;
+    private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableKhach;
+    private javax.swing.JTable jTable;
     private javax.swing.JTextField jTextMaNV;
     private javax.swing.JTextField jTextSDTNV;
     private javax.swing.JTextField jTextTenNV;
-    private javax.swing.JTextField jTextTimKiemNV;
+    private javax.swing.JTextField jTextTimKiem;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }

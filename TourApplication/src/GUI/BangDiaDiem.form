@@ -63,19 +63,20 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel4" min="-2" pref="360" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jScrollPane1" pref="614" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" pref="608" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="jTextTimKiemLH" min="-2" pref="152" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jBtnTimKiemNV" min="-2" pref="80" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jBtnRefresh" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLbTimKiem" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                          <Component id="jTextTimKiem" min="-2" pref="140" max="-2" attributes="0"/>
+                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                          <Component id="jBtnRefresh" min="-2" pref="40" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -84,13 +85,13 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jTextTimKiemLH" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jBtnTimKiemNV" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="jBtnRefresh" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLbTimKiem" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jTextTimKiem" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jBtnRefresh" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="399" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               </Group>
@@ -240,7 +241,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTableLoaiHinh">
+            <Component class="javax.swing.JTable" name="jTableDiaDiem">
               <Properties>
                 <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -248,7 +249,7 @@
                     <LineBorder roundedCorners="true"/>
                   </Border>
                 </Property>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="tbCol.add(&quot;M&#x103; &#x110;&#x1ecb;a &#x110;i&#x1ec3;m&quot;);&#xa;tbCol.add(&quot;T&#xea;n &#x110;&#x1ecb;a &#x110;i&#x1ec3;m&quot;);&#xa;&#xa;tbModel= new DefaultTableModel(tbCol,5);&#xa;jTableLoaiHinh.setModel (tbModel);&#xa;jTableLoaiHinh.setShowGrid(true);&#xa;        jTableLoaiHinh.setFocusable(false);&#xa;        jTableLoaiHinh.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableLoaiHinh.setRowHeight(25);  &#xa;        jTableLoaiHinh.getTableHeader().setOpaque(false);&#xa;        jTableLoaiHinh.setFillsViewportHeight(true);&#xa;        jTableLoaiHinh.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableLoaiHinh.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableLoaiHinh.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableLoaiHinh.setSelectionBackground(new Color(52,152,219));&#xa;listSP();">
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="tbCol.add(&quot;M&#x103; &#x110;&#x1ecb;a &#x110;i&#x1ec3;m&quot;);&#xa;tbCol.add(&quot;T&#xea;n &#x110;&#x1ecb;a &#x110;i&#x1ec3;m&quot;);&#xa;&#xa;tbModel= new DefaultTableModel(tbCol,5);&#xa;jTableDiaDiem.setModel (tbModel);&#xa;jTableDiaDiem.setShowGrid(true);&#xa;        jTableDiaDiem.setFocusable(false);&#xa;        jTableDiaDiem.setIntercellSpacing(new Dimension(0,0));     &#xa;        jTableDiaDiem.setRowHeight(25);  &#xa;        jTableDiaDiem.getTableHeader().setOpaque(false);&#xa;        jTableDiaDiem.setFillsViewportHeight(true);&#xa;        jTableDiaDiem.getTableHeader().setBackground(new Color(232,57,99));&#xa;        jTableDiaDiem.getTableHeader().setForeground(new Color(141, 22, 22));&#xa;        jTableDiaDiem.getTableHeader().setFont (new Font(&quot;Dialog&quot;, Font.BOLD, 13));&#xa;        jTableDiaDiem.setSelectionBackground(new Color(52,152,219));">
                   <Table columnCount="0" rowCount="4"/>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -259,19 +260,22 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableLoaiHinhMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableDiaDiemMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="jTextTimKiemLH">
-        </Component>
-        <Component class="javax.swing.JButton" name="jBtnTimKiemNV">
+        <Component class="javax.swing.JLabel" name="jLbTimKiem">
           <Properties>
-            <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;body&gt;T&#xec;m Ki&#x1ebf;m&lt;span style=&quot;color:rgb(234, 21, 21)&quot;&gt; *&lt;/span&gt; &lt;/body&gt;&lt;/html&gt;"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jTextTimKiem">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnTimKiemNVActionPerformed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextTimKiemKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBtnRefresh">

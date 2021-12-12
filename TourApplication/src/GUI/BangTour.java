@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 
 /**
  *
@@ -47,6 +48,8 @@ public class BangTour extends javax.swing.JFrame {
     public void initTable() {
         tbModel.setRowCount(0);
         tableModel(tbModel);
+        jTableTour.setRowSorter(null);
+        jTableTour.setAutoCreateRowSorter(true);
         jTableTour.setModel(tbModel);
         jBtnXacNhan.setEnabled(false);
         jBtnQuayLai.setEnabled(true);
@@ -67,6 +70,12 @@ public class BangTour extends javax.swing.JFrame {
             }
             model.addRow(row);
         }
+    }
+    
+    private void filter(String query) {
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModel);
+        jTableTour.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
     }
 
     /**
@@ -90,8 +99,8 @@ public class BangTour extends javax.swing.JFrame {
         jTextDacDiem = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTour = new javax.swing.JTable();
-        jTextTimKiemTour = new javax.swing.JTextField();
-        jBtnTimKiemTour = new javax.swing.JButton();
+        jLbTimKiem = new javax.swing.JLabel();
+        jTextTimKiem = new javax.swing.JTextField();
         jBtnRefresh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(236, 245, 252));
@@ -208,10 +217,12 @@ public class BangTour extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableTour);
 
-        jBtnTimKiemTour.setText("Tìm kiếm");
-        jBtnTimKiemTour.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemTourActionPerformed(evt);
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
             }
         });
 
@@ -235,26 +246,25 @@ public class BangTour extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
-                        .addGap(8, 8, 8))
-                    .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextTimKiemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnTimKiemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(8, 8, 8))
         );
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextTimKiemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnTimKiemTour, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
@@ -354,53 +364,23 @@ public class BangTour extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableTourMouseClicked
 
-    private void jBtnTimKiemTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemTourActionPerformed
-//        // TODO add your handling code here:
-//        String manv = jTextTimKiemNV.getText();
-//        if (manv.equals(""))
-//        {
-//            JOptionPane.showMessageDialog(this, "Má»i nháº­p mÃ£ nhÃ¢n viÃªn cáº§n tÃ¬m");
-//        }
-//        ArrayList<NhanVienDTO> temp = new ArrayList<NhanVienDTO>(nvBUS.getDsnv().getDsnv());
-//        for (int i = 0; i < temp.size(); i++)
-//        {
-//            if (!(temp.get(i).getManhanvien().equalsIgnoreCase(manv)))
-//            {
-//                temp.remove(i);
-//                i = i - 1;
-//            }
-//        }
-//        searchlistSP(temp);
-//        System.out.println("click tim kiem");
-    }//GEN-LAST:event_jBtnTimKiemTourActionPerformed
-
-    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
-        // TODO add your handling code here:
-        jTextTimKiemTour.setText("");
-        initTable();
-        jBtnXacNhan.setEnabled(false);
-        jBtnRefresh.setEnabled(true);
-        jBtnQuayLai.setEnabled(true);
-    }//GEN-LAST:event_jBtnRefreshActionPerformed
-
     private void jTextDacDiemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextDacDiemActionPerformed
     {//GEN-HEADEREND:event_jTextDacDiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextDacDiemActionPerformed
 
-//    public void searchlistSP(ArrayList<NhanVienDTO> nv)
-//    {
-//        tbModel.setRowCount(0);
-//        outModel(tbModel, nv);
-//    }
-//    public String getTextFieldContent()
-//    {
-//        return bccForm.getjTextManv().getText();
-//    }
-//    public String getTextFieldContentLuong()
-//    {
-//        return luongForm.getjTextManv().getText();
-//    }
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
+
+    private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
+        // TODO add your handling code here:
+        jTextTimKiem.setText("");
+        initTable();
+    }//GEN-LAST:event_jBtnRefreshActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -467,14 +447,6 @@ public class BangTour extends javax.swing.JFrame {
         this.jBtnRefresh = jBtnRefresh;
     }
 
-    public JButton getjBtnTimKiemNV() {
-        return jBtnTimKiemTour;
-    }
-
-    public void setjBtnTimKiemNV(JButton jBtnTimKiemNV) {
-        this.jBtnTimKiemTour = jBtnTimKiemNV;
-    }
-
     public JButton getjBtnXacNhan() {
         return jBtnXacNhan;
     }
@@ -491,29 +463,21 @@ public class BangTour extends javax.swing.JFrame {
         this.jTableTour = jTableDsnv;
     }
 
-    public JTextField getjTextTimKiemNV() {
-        return jTextTimKiemTour;
-    }
-
-    public void setjTextTimKiemNV(JTextField jTextTimKiemNV) {
-        this.jTextTimKiemTour = jTextTimKiemNV;
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnQuayLai;
     private javax.swing.JButton jBtnRefresh;
-    private javax.swing.JButton jBtnTimKiemTour;
     private javax.swing.JButton jBtnXacNhan;
     private javax.swing.JLabel jLbHonv;
     private javax.swing.JLabel jLbHonv1;
     private javax.swing.JLabel jLbManv;
+    private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTour;
     private javax.swing.JTextField jTextDacDiem;
     private javax.swing.JTextField jTextMaTour;
     private javax.swing.JTextField jTextTenTour;
-    private javax.swing.JTextField jTextTimKiemTour;
+    private javax.swing.JTextField jTextTimKiem;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }

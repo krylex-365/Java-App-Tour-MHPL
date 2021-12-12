@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 
 /**
  *
@@ -56,6 +57,8 @@ public class BangKhach extends javax.swing.JFrame {
         reloadData();
         tbModel.setRowCount(0);
         tableModel(tbModel);
+        jTableKhach.setRowSorter(null);
+        jTableKhach.setAutoCreateRowSorter(true);
         jTableKhach.setModel(tbModel);
         jBtnXacNhan.setEnabled(false);
         jBtnQuayLai.setEnabled(true);
@@ -71,7 +74,6 @@ public class BangKhach extends javax.swing.JFrame {
             row.add(khachhang.getMail());
             model.addRow(row);
         }
-
         // Đổi thành KhachHangDTOs
 //        for (LoaiHinhTourDTO loaiHinh : loaiHinhTourBUS.getLoaiHinhTourDTOs()) {
 //            Vector row = new Vector();
@@ -79,9 +81,13 @@ public class BangKhach extends javax.swing.JFrame {
 //            row.add(loaiHinh.getTenLoai());
 //            model.addRow(row);
 //        }
-
     }
 
+    private void filter(String query){
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModel);
+        jTableKhach.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -105,9 +111,9 @@ public class BangKhach extends javax.swing.JFrame {
         jTextMail = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableKhach = new javax.swing.JTable();
-        jTextTimKiemKhach = new javax.swing.JTextField();
-        jBtnTimKiemNV = new javax.swing.JButton();
+        jTextTimKiem = new javax.swing.JTextField();
         jBtnRefresh = new javax.swing.JButton();
+        jLbTimKiem = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(236, 245, 252));
         setMinimumSize(new java.awt.Dimension(1000, 500));
@@ -138,7 +144,7 @@ public class BangKhach extends javax.swing.JFrame {
 
         jLbHonv.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLbHonv.setText("<html><body>Tên Khách<span style=\"color:rgb(234, 21, 21)\"> *</span> </body> </html>");
-        jPanel4.add(jLbHonv, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 90, 30));
+        jPanel4.add(jLbHonv, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 90, 30));
 
         jTextTenKhach.setEditable(false);
         jTextTenKhach.setForeground(new java.awt.Color(51, 51, 51));
@@ -216,7 +222,12 @@ public class BangKhach extends javax.swing.JFrame {
         tbCol.add("Tên Khách");
         tbCol.add("SÐT");
         tbCol.add("Email");
-        tbModel= new DefaultTableModel(tbCol,5);
+        tbModel= new DefaultTableModel(tbCol,5){
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex){
+                return false;
+            }
+        };
         jTableKhach.setModel (tbModel);
         jTableKhach.setShowGrid(true);
         jTableKhach.setFocusable(false);
@@ -235,10 +246,9 @@ public class BangKhach extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableKhach);
 
-        jBtnTimKiemNV.setText("Tìm kiếm");
-        jBtnTimKiemNV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnTimKiemNVActionPerformed(evt);
+        jTextTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextTimKiemKeyReleased(evt);
             }
         });
 
@@ -253,6 +263,9 @@ public class BangKhach extends javax.swing.JFrame {
             }
         });
 
+        jLbTimKiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLbTimKiem.setText("<html><body>Tìm Kiếm<span style=\"color:rgb(234, 21, 21)\"> *</span> </body></html>");
+
         javax.swing.GroupLayout kGradientPanel1Layout = new javax.swing.GroupLayout(kGradientPanel1);
         kGradientPanel1.setLayout(kGradientPanel1Layout);
         kGradientPanel1Layout.setHorizontalGroup(
@@ -263,12 +276,12 @@ public class BangKhach extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
                         .addGap(8, 8, 8))
                     .addGroup(kGradientPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextTimKiemKhach, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -276,12 +289,13 @@ public class BangKhach extends javax.swing.JFrame {
         kGradientPanel1Layout.setVerticalGroup(
             kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextTimKiemKhach, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnTimKiemNV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLbTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
             .addGroup(kGradientPanel1Layout.createSequentialGroup()
@@ -374,33 +388,10 @@ public class BangKhach extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableKhachMouseClicked
 
-    private void jBtnTimKiemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTimKiemNVActionPerformed
-//        // TODO add your handling code here:
-//        String manv = jTextTimKiemNV.getText();
-//        if (manv.equals(""))
-//        {
-//            JOptionPane.showMessageDialog(this, "Má»i nháº­p mÃ£ nhÃ¢n viÃªn cáº§n tÃ¬m");
-//        }
-//        ArrayList<NhanVienDTO> temp = new ArrayList<NhanVienDTO>(nvBUS.getDsnv().getDsnv());
-//        for (int i = 0; i < temp.size(); i++)
-//        {
-//            if (!(temp.get(i).getManhanvien().equalsIgnoreCase(manv)))
-//            {
-//                temp.remove(i);
-//                i = i - 1;
-//            }
-//        }
-//        searchlistSP(temp);
-//        System.out.println("click tim kiem");
-    }//GEN-LAST:event_jBtnTimKiemNVActionPerformed
-
     private void jBtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRefreshActionPerformed
         // TODO add your handling code here:
-        jTextTimKiemKhach.setText("");
+        jTextTimKiem.setText("");
         initTable();
-        jBtnXacNhan.setEnabled(false);
-        jBtnRefresh.setEnabled(true);
-        jBtnQuayLai.setEnabled(false);
     }//GEN-LAST:event_jBtnRefreshActionPerformed
 
     private void jTextSDTActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextSDTActionPerformed
@@ -412,6 +403,12 @@ public class BangKhach extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_jTextMailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextMailActionPerformed
+
+    private void jTextTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTimKiemKeyReleased
+        // TODO add your handling code here:
+        String query = (String) jTextTimKiem.getText();
+        filter(query);
+    }//GEN-LAST:event_jTextTimKiemKeyReleased
 
 //    public void searchlistSP(ArrayList<NhanVienDTO> nv)
 //    {
@@ -508,14 +505,6 @@ public class BangKhach extends javax.swing.JFrame {
         this.jBtnRefresh = jBtnRefresh;
     }
 
-    public JButton getjBtnTimKiemNV() {
-        return jBtnTimKiemNV;
-    }
-
-    public void setjBtnTimKiemNV(JButton jBtnTimKiemNV) {
-        this.jBtnTimKiemNV = jBtnTimKiemNV;
-    }
-
     public JButton getjBtnXacNhan() {
         return jBtnXacNhan;
     }
@@ -533,22 +522,22 @@ public class BangKhach extends javax.swing.JFrame {
     }
 
     public JTextField getjTextTimKiemNV() {
-        return jTextTimKiemKhach;
+        return jTextTimKiem;
     }
 
     public void setjTextTimKiemNV(JTextField jTextTimKiemNV) {
-        this.jTextTimKiemKhach = jTextTimKiemNV;
+        this.jTextTimKiem = jTextTimKiemNV;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnQuayLai;
     private javax.swing.JButton jBtnRefresh;
-    private javax.swing.JButton jBtnTimKiemNV;
     private javax.swing.JButton jBtnXacNhan;
     private javax.swing.JLabel jLbHonv;
     private javax.swing.JLabel jLbHonv1;
     private javax.swing.JLabel jLbHonv2;
     private javax.swing.JLabel jLbManv;
+    private javax.swing.JLabel jLbTimKiem;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableKhach;
@@ -556,7 +545,7 @@ public class BangKhach extends javax.swing.JFrame {
     private javax.swing.JTextField jTextMail;
     private javax.swing.JTextField jTextSDT;
     private javax.swing.JTextField jTextTenKhach;
-    private javax.swing.JTextField jTextTimKiemKhach;
+    private javax.swing.JTextField jTextTimKiem;
     private keeptoo.KGradientPanel kGradientPanel1;
     // End of variables declaration//GEN-END:variables
 }

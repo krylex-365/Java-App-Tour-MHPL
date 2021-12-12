@@ -952,7 +952,7 @@ public class DashBoard extends javax.swing.JFrame
 
     private void khachLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_khachLabelMouseClicked
     {//GEN-HEADEREND:event_khachLabelMouseClicked
-        khachhangForm.loadData();
+        khachhangForm.initTableKH();
         jPanelTour.setVisible(false);
         jPanelDiaDiem.setVisible(false);
         jPanelNhanvien.setVisible(false);
@@ -975,7 +975,7 @@ public class DashBoard extends javax.swing.JFrame
 
     private void nhanvienLabelMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_nhanvienLabelMouseClicked
     {//GEN-HEADEREND:event_nhanvienLabelMouseClicked
-        nhanvienForm.loadData();
+        nhanvienForm.initTableNV();
         jPanelTour.setVisible(false);
         jPanelDiaDiem.setVisible(false);
         jPanelNhanvien.setVisible(true);
