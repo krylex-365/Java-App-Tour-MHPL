@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -153,7 +154,31 @@ public class NhanVienForm extends javax.swing.JPanel {
                 rowVector.add(0);
             }
         }
+    }
+    
+    public String validation() {
+        String validate = "";
+        String ngaysinh = ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
+        if (jTextMaNhanVien.getText().equals("") || jTextTenNhanVien.getText().equals("") 
+                || ngaysinh.equals("") || jTextSDT.getText().equals("") || jTextDiaChi.getText().equals("")) {
+            validate += "Các trường thông tin không được bỏ trống!\n";
+            return validate;
+        } else {
+            String hotenPattern = "^[^-\\s][a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
+            String sdtPattern = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+            String diachi = "^[(AÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ|a-z|A-Z|\\s|/-|0-9]{3,100}$";
 
+            if (!Pattern.matches(hotenPattern, jTextTenNhanVien.getText())) {
+                validate += "Họ tên không hợp lệ!\n";
+            }
+            if (!Pattern.matches(sdtPattern, jTextSDT.getText())) {
+                validate += "Số điện thoại không hợp lệ!\n";
+            }
+            if (!Pattern.matches(diachi, jTextDiaChi.getText())) {
+                validate += "Địa chỉ không hợp lệ!\n";
+            }
+        }
+        return validate;
     }
 
     /**
@@ -596,69 +621,80 @@ public class NhanVienForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jTableNVMouseClicked
 
     private void jBtnThemNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemNVActionPerformed
-        String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
-        String gioiTinh;
-        Vector addRow = new Vector();
-        if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
-            gioiTinh = "1";
+        String check = validation();
+        if (check.equals("")){
+            String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
+            String gioiTinh;
+            Vector addRow = new Vector();
+            if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
+                gioiTinh = "1";
+            } else {
+                gioiTinh = "0";
+            }
+            if (add(jTextMaNhanVien.getText(), jTextTenNhanVien.getText(), gioiTinh, ngaySinh, jTextSDT.getText(), jTextDiaChi.getText())) {
+                addRow = new Vector();
+                addRow.add(jTextMaNhanVien.getText());
+                addRow.add(jTextTenNhanVien.getText());
+                addRow.add(jCbGioiTinh.getSelectedItem());
+                addRow.add(ngaySinh);
+                addRow.add(jTextSDT.getText());
+                addRow.add(jTextDiaChi.getText());
+                modelnv.addRow(addRow);
+                JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm nhân viên thất bại!");
+            }
+            jBtnCapPhatMaNV.setEnabled(true);
+            jBtnThemNV.setEnabled(false);
+            jBtnSuaNV.setEnabled(false);
+            jBtnXoaNV.setEnabled(false);
+            jBtnHuy1.setEnabled(false);
+            jTextMaNhanVien.setText("");
+            jTextTenNhanVien.setText("");
+            jTextSDT.setText("");
+            jTextDiaChi.setText("");
+            jDateNgaySinh.setCalendar(null);
+            jTableNV.clearSelection();
         } else {
-            gioiTinh = "0";
+            JOptionPane.showMessageDialog(this, check);
         }
-        if (add(jTextMaNhanVien.getText(), jTextTenNhanVien.getText(), gioiTinh, ngaySinh, jTextSDT.getText(), jTextDiaChi.getText())) {
-            addRow = new Vector();
-            addRow.add(jTextMaNhanVien.getText());
-            addRow.add(jTextTenNhanVien.getText());
-            addRow.add(jCbGioiTinh.getSelectedItem());
-            addRow.add(ngaySinh);
-            addRow.add(jTextSDT.getText());
-            addRow.add(jTextDiaChi.getText());
-            modelnv.addRow(addRow);
-        } else {
-
-        }
-        jBtnCapPhatMaNV.setEnabled(true);
-        jBtnThemNV.setEnabled(false);
-        jBtnSuaNV.setEnabled(false);
-        jBtnXoaNV.setEnabled(false);
-        jBtnHuy1.setEnabled(false);
-        jTextMaNhanVien.setText("");
-        jTextTenNhanVien.setText("");
-        jTextSDT.setText("");
-        jTextDiaChi.setText("");
-        jDateNgaySinh.setCalendar(null);
-        jTableNV.clearSelection();
     }//GEN-LAST:event_jBtnThemNVActionPerformed
 
     private void jBtnSuaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaNVActionPerformed
-        String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
-        String gioiTinh;
-        if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
-            gioiTinh = "1";
+        String check = validation();
+        if (check.equals("")){
+            String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
+            String gioiTinh;
+            if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
+                gioiTinh = "1";
+            } else {
+                gioiTinh = "0";
+            }
+            if (update(jTextMaNhanVien.getText(), jTextTenNhanVien.getText(), gioiTinh, ngaySinh, jTextSDT.getText(), jTextDiaChi.getText())) {
+                modelnv.setValueAt(jTextMaNhanVien.getText(), selectedRow, 0);
+                modelnv.setValueAt(jTextTenNhanVien.getText(), selectedRow, 1);
+                modelnv.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 2);
+                modelnv.setValueAt(ngaySinh, selectedRow, 3);
+                modelnv.setValueAt(jTextSDT.getText(), selectedRow, 4);
+                modelnv.setValueAt(jTextDiaChi.getText(), selectedRow, 5);
+                JOptionPane.showMessageDialog(this, "Sửa nhân viên thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa nhân viên thất bại!");
+            }
+            jBtnCapPhatMaNV.setEnabled(true);
+            jBtnThemNV.setEnabled(false);
+            jBtnSuaNV.setEnabled(false);
+            jBtnXoaNV.setEnabled(false);
+            jBtnHuy1.setEnabled(false);
+            jTextMaNhanVien.setText("");
+            jTextTenNhanVien.setText("");
+            jTextSDT.setText("");
+            jTextDiaChi.setText("");
+            jDateNgaySinh.setCalendar(null);
+            jTableNV.clearSelection();
         } else {
-            gioiTinh = "0";
+            JOptionPane.showMessageDialog(this, check);
         }
-        if (update(jTextMaNhanVien.getText(), jTextTenNhanVien.getText(), gioiTinh, ngaySinh, jTextSDT.getText(), jTextDiaChi.getText())) {
-            modelnv.setValueAt(jTextMaNhanVien.getText(), selectedRow, 0);
-            modelnv.setValueAt(jTextTenNhanVien.getText(), selectedRow, 1);
-            modelnv.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 2);
-            modelnv.setValueAt(ngaySinh, selectedRow, 3);
-            modelnv.setValueAt(jTextSDT.getText(), selectedRow, 4);
-            modelnv.setValueAt(jTextDiaChi.getText(), selectedRow, 5);
-            JOptionPane.showMessageDialog(this, "Sửa nhân viên thành công!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Sửa nhân viên thất bại!");
-        }
-        jBtnCapPhatMaNV.setEnabled(true);
-        jBtnThemNV.setEnabled(false);
-        jBtnSuaNV.setEnabled(false);
-        jBtnXoaNV.setEnabled(false);
-        jBtnHuy1.setEnabled(false);
-        jTextMaNhanVien.setText("");
-        jTextTenNhanVien.setText("");
-        jTextSDT.setText("");
-        jTextDiaChi.setText("");
-        jDateNgaySinh.setCalendar(null);
-        jTableNV.clearSelection();
     }//GEN-LAST:event_jBtnSuaNVActionPerformed
 
     private void jBtnXoaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaNVActionPerformed

@@ -418,15 +418,17 @@ public class ChiPhiForm extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm loai chi phí thất bại!");
             }
+            jBtnCapPhatMaLCP.setEnabled(true);
+            jBtnThemLCP.setEnabled(false);
+            jBtnSuaLCP.setEnabled(false);
+            jBtnXoaLCP.setEnabled(false);
+            jBtnHuy.setEnabled(false);
+            jTextMaLCP.setText("");
+            jTextTenLCP.setText("");
+            jTableLoaiChiPhi.clearSelection();
+        } else {
+            JOptionPane.showMessageDialog(this, "Tên loại chi phí không được bỏ trống!");
         }
-        jBtnCapPhatMaLCP.setEnabled(true);
-        jBtnThemLCP.setEnabled(false);
-        jBtnSuaLCP.setEnabled(false);
-        jBtnXoaLCP.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaLCP.setText("");
-        jTextTenLCP.setText("");
-        jTableLoaiChiPhi.clearSelection();
     }//GEN-LAST:event_jBtnThemLCPActionPerformed
 
     public void initTableLoaiChiPhi() {
@@ -450,15 +452,17 @@ public class ChiPhiForm extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Sửa loai chi phí thất bại!");
             }
+            jBtnCapPhatMaLCP.setEnabled(true);
+            jBtnThemLCP.setEnabled(false);
+            jBtnSuaLCP.setEnabled(false);
+            jBtnXoaLCP.setEnabled(false);
+            jBtnHuy.setEnabled(false);
+            jTextMaLCP.setText("");
+            jTextTenLCP.setText("");
+            jTableLoaiChiPhi.clearSelection();
+        } else {
+            JOptionPane.showMessageDialog(this, "Tên loại chi phí không được bỏ trống!");
         }
-        jBtnCapPhatMaLCP.setEnabled(true);
-        jBtnThemLCP.setEnabled(false);
-        jBtnSuaLCP.setEnabled(false);
-        jBtnXoaLCP.setEnabled(false);
-        jBtnHuy.setEnabled(false);
-        jTextMaLCP.setText("");
-        jTextTenLCP.setText("");
-        jTableLoaiChiPhi.clearSelection();
     }//GEN-LAST:event_jBtnSuaLCPActionPerformed
 
     private void jBtnXoaLCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaLCPActionPerformed

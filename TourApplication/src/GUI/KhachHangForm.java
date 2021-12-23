@@ -53,8 +53,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Hyung
  */
-public class KhachHangForm extends javax.swing.JPanel
-{
+public class KhachHangForm extends javax.swing.JPanel {
 
     /**
      * Creates new form jPanel2
@@ -71,8 +70,7 @@ public class KhachHangForm extends javax.swing.JPanel
     private Utils ult = new Utils();
     private KhachHangBUS khachHangBUS;
 
-    public KhachHangForm()
-    {
+    public KhachHangForm() {
         initComponents();
         jBtnCapPhatMaKH.setEnabled(true);
         jBtnThemKH.setEnabled(false);
@@ -81,8 +79,7 @@ public class KhachHangForm extends javax.swing.JPanel
         jBtnXoaKH.setEnabled(false);
     }
 
-    public void initTableKH()
-    {
+    public void initTableKH() {
         khachHangBUS = new KhachHangBUS();
         tbModelKH.setRowCount(0);
         tbModelKhachHang(tbModelKH);
@@ -92,11 +89,9 @@ public class KhachHangForm extends javax.swing.JPanel
         jTableKH.clearSelection();
     }
 
-    public void tbModelKhachHang(DefaultTableModel model)
-    {
+    public void tbModelKhachHang(DefaultTableModel model) {
         Vector row;
-        for (KhachHangDTO a : DashBoard.khachHangDTOs)
-        {
+        for (KhachHangDTO a : DashBoard.khachHangDTOs) {
             row = new Vector();
             row.add(a.getMaKhachHang());
             row.add(a.getTenKhachHang());
@@ -104,11 +99,9 @@ public class KhachHangForm extends javax.swing.JPanel
             row.add(a.getSDT());
             row.add(a.getMail());
             row.add(a.getCMND());
-            if (a.getGioiTinh().equals("1"))
-            {
+            if (a.getGioiTinh().equals("1")) {
                 row.add("Nam");
-            } else
-            {
+            } else {
                 row.add("Nữ");
             }
 
@@ -118,18 +111,15 @@ public class KhachHangForm extends javax.swing.JPanel
         }
     }
 
-    public boolean add(String maKhachHang, String tenKhachHang, String gioiTinh, String ngaySinh, String cmnd, String sdt, String mail, String diaChi, String quocTich)
-    {
+    public boolean add(String maKhachHang, String tenKhachHang, String gioiTinh, String ngaySinh, String cmnd, String sdt, String mail, String diaChi, String quocTich) {
         return khachHangBUS.addKhachHang(new KhachHangDTO(maKhachHang, tenKhachHang, gioiTinh, ngaySinh, cmnd, sdt, mail, diaChi, quocTich), DashBoard.khachHangDTOs);
     }
 
-    public boolean update(String maKhachHang, String tenKhachHang, String gioiTinh, String ngaySinh, String cmnd, String sdt, String mail, String diaChi, String quocTich)
-    {
+    public boolean update(String maKhachHang, String tenKhachHang, String gioiTinh, String ngaySinh, String cmnd, String sdt, String mail, String diaChi, String quocTich) {
         return khachHangBUS.updateKhachHang(new KhachHangDTO(maKhachHang, tenKhachHang, gioiTinh, ngaySinh, cmnd, sdt, mail, diaChi, quocTich), DashBoard.khachHangDTOs);
     }
 
-    public boolean delete(String maKhachHang)
-    {
+    public boolean delete(String maKhachHang) {
         return khachHangBUS.deleteKhachHang(maKhachHang, DashBoard.khachHangDTOs);
     }
 
@@ -137,6 +127,41 @@ public class KhachHangForm extends javax.swing.JPanel
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(tbModelKH);
         jTableKH.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(query));
+    }
+
+    public String validation() {
+        String validate = "";
+        String ngaysinh = ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
+        if (jTextMaKhachHang.getText().equals("") || jTextTen.getText().equals("")
+                || ngaysinh.equals("") || jTextCmnd.getText().equals("")
+                || jTextSDT.getText().equals("") || jTextMail.getText().equals("")
+                || jTextDiaChi.getText().equals("") || jTextQuocTich.getText().equals("")) {
+            validate += "Các trường thông tin không được bỏ trống!\n";
+            return validate;
+        } else {
+            String hotenPattern = "^[^-\\s][a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$";
+            String sdtPattern = "(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+            String diachi = "^[(AÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ|a-z|A-Z|\\s|/-|0-9]{3,100}$";
+
+            if (!Pattern.matches(hotenPattern, jTextTen.getText())) {
+                validate += "Họ tên không hợp lệ!\n";
+            }
+            String cmnd = "^\\d{12}$|^\\d{9}$";
+            if (!Pattern.matches(cmnd, jTextCmnd.getText())) {
+                validate += "CMND không hợp lệ!\n";
+            }
+            if (!Pattern.matches(sdtPattern, jTextSDT.getText())) {
+                validate += "Số điện thoại không hợp lệ!\n";
+            }
+            String gmail = "^[a-zA-z]+[a-zA-z0-9]+@+[azA-z0-9]+.+com$";
+            if (!Pattern.matches(gmail, jTextMail.getText())) {
+                validate += "Email không hợp lệ!\n";
+            }
+            if (!Pattern.matches(diachi, jTextDiaChi.getText())) {
+                validate += "Địa chỉ không hợp lệ!\n";
+            }
+        }
+        return validate;
     }
 
     /**
@@ -499,46 +524,6 @@ public class KhachHangForm extends javax.swing.JPanel
             .addComponent(jTabbedPane1)
         );
     }// </editor-fold>//GEN-END:initComponents
-    public void saveIMG()
-    {
-        try
-        {
-            if (i != null)
-            {
-                File save = new File("src/img/" + imgName);//Tạo file
-                ImageIO.write(i, "jpg", save); // Lưu hình i vào đường dẫn file save
-
-                i = null; //Xóa hình trong bộ nhớ 
-            }
-        } catch (IOException ex)
-        {
-            java.util.logging.Logger.getLogger(KhachHangForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }
-
-    public boolean DeleteAnh(String anh)
-    {
-        boolean t = true;
-        try
-        {
-
-            File file = new File("src/img/" + anh);
-            if (file.delete())
-            {
-                t = true;
-            } else
-            {
-                t = false;
-            }
-            Thread.sleep(2000);
-            saveIMG();
-        } catch (Exception e)
-        {
-            t = false;
-            e.printStackTrace();
-        }
-        return t;
-    }
 
     private void jBtnCapPhatMaKHActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCapPhatMaKHActionPerformed
     {//GEN-HEADEREND:event_jBtnCapPhatMaKHActionPerformed
@@ -562,27 +547,21 @@ public class KhachHangForm extends javax.swing.JPanel
     private void jTableKHMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableKHMouseClicked
     {//GEN-HEADEREND:event_jTableKHMouseClicked
         // TODO add your handling code here:
-        if (evt.getSource() == jTableKH)
-        {
+        if (evt.getSource() == jTableKH) {
             selectedRow = jTableKH.getSelectedRow();
-            if (selectedRow != -1)
-            {
+            if (selectedRow != -1) {
                 jTextMaKhachHang.setText((String) tbModelKH.getValueAt(selectedRow, 0));
                 jTextTen.setText((String) tbModelKH.getValueAt(selectedRow, 1));
-                if (tbModelKH.getValueAt(selectedRow, 6).equals("Nam"))
-                {
+                if (tbModelKH.getValueAt(selectedRow, 6).equals("Nam")) {
                     jCbGioiTinh.setSelectedIndex(0);
-                } else
-                {
+                } else {
                     jCbGioiTinh.setSelectedIndex(1);
                 }
                 Date ngaySinh;
-                try
-                {
+                try {
                     ngaySinh = new SimpleDateFormat("yyyy-MM-dd").parse(tbModelKH.getValueAt(selectedRow, 2).toString());
                     jDateNgaySinh.setDate(ngaySinh);
-                } catch (ParseException ex)
-                {
+                } catch (ParseException ex) {
                     Logger.getLogger(KhachHangForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 jTextCmnd.setText((String) tbModelKH.getValueAt(selectedRow, 5));
@@ -602,105 +581,117 @@ public class KhachHangForm extends javax.swing.JPanel
     private void jBtnThemKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnThemKHActionPerformed
         // TODO add your handling code here:
         //System.out.println((String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText());
-        String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
-        String gioiTinh;
-        if (jCbGioiTinh.getSelectedItem().equals("Nam"))
-        {
-            gioiTinh = "1";
-        } else
-        {
-            gioiTinh = "0";
+        String check = validation();
+        if (check.equals("")) {
+            String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
+            String gioiTinh;
+            if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
+                gioiTinh = "1";
+            } else {
+                gioiTinh = "0";
+            }
+            if (add(
+                    jTextMaKhachHang.getText(),
+                    jTextTen.getText(),
+                    gioiTinh,
+                    ngaySinh,
+                    jTextCmnd.getText(),
+                    jTextSDT.getText(),
+                    jTextMail.getText(),
+                    jTextDiaChi.getText(),
+                    jTextQuocTich.getText())) {
+                addRow = new Vector();
+                addRow.add(jTextMaKhachHang.getText());
+                addRow.add(jTextTen.getText());
+                addRow.add(ngaySinh);
+                addRow.add(jTextSDT.getText());
+                addRow.add(jTextMail.getText());
+                addRow.add(jTextCmnd.getText());
+                addRow.add(gioiTinh);
+                addRow.add(jTextDiaChi.getText());
+                addRow.add(jTextQuocTich.getText());
+                tbModelKH.addRow(addRow);
+                JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm khách hàng thất bại!");
+            }
+            jBtnCapPhatMaKH.setEnabled(true);
+            jBtnThemKH.setEnabled(false);
+            jBtnHuyKH.setEnabled(false);
+            jBtnSuaKH.setEnabled(false);
+            jBtnXoaKH.setEnabled(false);
+            jTextMaKhachHang.setText("");
+            jTextTen.setText("");
+            jTextCmnd.setText("");
+            jTextSDT.setText("");
+            jTextMail.setText("");
+            jTextDiaChi.setText("");
+            jTextQuocTich.setText("");
+            jDateNgaySinh.setCalendar(null);
+            jTableKH.clearSelection();
+        } else {
+            JOptionPane.showMessageDialog(this, check);
         }
-        if (add(
-                jTextMaKhachHang.getText(),
-                jTextTen.getText(),
-                gioiTinh,
-                ngaySinh,
-                jTextCmnd.getText(),
-                jTextSDT.getText(),
-                jTextMail.getText(),
-                jTextDiaChi.getText(),
-                jTextQuocTich.getText()))
-        {
-
-            addRow = new Vector();
-            addRow.add(jTextMaKhachHang.getText());
-            addRow.add(jTextTen.getText());
-            addRow.add(ngaySinh);
-            addRow.add(jTextSDT.getText());
-            addRow.add(jTextMail.getText());
-            addRow.add(jTextCmnd.getText());
-            addRow.add(gioiTinh);
-            addRow.add(jTextDiaChi.getText());
-            addRow.add(jTextQuocTich.getText());
-            tbModelKH.addRow(addRow);
-
-        } else
-        {
-
-        }
-        jTableKH.clearSelection();
     }//GEN-LAST:event_jBtnThemKHActionPerformed
 
     private void jBtnSuaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSuaKHActionPerformed
         // TODO add your handling code here:
-        String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
-        String gioiTinh;
-        if (jCbGioiTinh.getSelectedItem().equals("Nam"))
-        {
-            gioiTinh = "1";
-        } else
-        {
-            gioiTinh = "0";
+        String check = validation();
+        if (check.equals("")) {
+            String ngaySinh = (String) ((JTextField) jDateNgaySinh.getDateEditor().getUiComponent()).getText();
+            String gioiTinh;
+            if (jCbGioiTinh.getSelectedItem().equals("Nam")) {
+                gioiTinh = "1";
+            } else {
+                gioiTinh = "0";
+            }
+            if (update(
+                    jTextMaKhachHang.getText(),
+                    jTextTen.getText(),
+                    gioiTinh,
+                    ngaySinh,
+                    jTextCmnd.getText(),
+                    jTextSDT.getText(),
+                    jTextMail.getText(),
+                    jTextDiaChi.getText(),
+                    jTextQuocTich.getText())) {
+                tbModelKH.setValueAt(jTextMaKhachHang.getText(), selectedRow, 0);
+                tbModelKH.setValueAt(jTextTen.getText(), selectedRow, 1);
+                tbModelKH.setValueAt(ngaySinh, selectedRow, 2);
+                tbModelKH.setValueAt(jTextSDT.getText(), selectedRow, 3);
+                tbModelKH.setValueAt(jTextMail.getText(), selectedRow, 4);
+                tbModelKH.setValueAt(jTextCmnd.getText(), selectedRow, 5);
+                tbModelKH.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 6);
+                tbModelKH.setValueAt(jTextDiaChi.getText(), selectedRow, 7);
+                tbModelKH.setValueAt(jTextQuocTich.getText(), selectedRow, 8);
+                JOptionPane.showMessageDialog(this, "Sửa khách hàng thành công!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa khách hàng thất bại!");
+            }
+            jBtnCapPhatMaKH.setEnabled(true);
+            jBtnThemKH.setEnabled(false);
+            jBtnHuyKH.setEnabled(false);
+            jBtnSuaKH.setEnabled(false);
+            jBtnXoaKH.setEnabled(false);
+            jTextMaKhachHang.setText("");
+            jTextTen.setText("");
+            jTextCmnd.setText("");
+            jTextSDT.setText("");
+            jTextMail.setText("");
+            jTextDiaChi.setText("");
+            jTextQuocTich.setText("");
+            jDateNgaySinh.setCalendar(null);
+            jTableKH.clearSelection();
+        } else {
+            JOptionPane.showMessageDialog(this, check);
         }
-        if (update(
-                jTextMaKhachHang.getText(),
-                jTextTen.getText(),
-                gioiTinh,
-                ngaySinh,
-                jTextCmnd.getText(),
-                jTextSDT.getText(),
-                jTextMail.getText(),
-                jTextDiaChi.getText(),
-                jTextQuocTich.getText()))
-        {
-            tbModelKH.setValueAt(jTextMaKhachHang.getText(), selectedRow, 0);
-            tbModelKH.setValueAt(jTextTen.getText(), selectedRow, 1);
-            tbModelKH.setValueAt(ngaySinh, selectedRow, 2);
-            tbModelKH.setValueAt(jTextSDT.getText(), selectedRow, 3);
-            tbModelKH.setValueAt(jTextMail.getText(), selectedRow, 4);
-            tbModelKH.setValueAt(jTextCmnd.getText(), selectedRow, 5);
-            tbModelKH.setValueAt(jCbGioiTinh.getSelectedItem(), selectedRow, 6);
-            tbModelKH.setValueAt(jTextDiaChi.getText(), selectedRow, 7);
-            tbModelKH.setValueAt(jTextQuocTich.getText(), selectedRow, 8);
-            JOptionPane.showMessageDialog(this, "Sửa khách hàng thành công!");
-        } else
-        {
-            JOptionPane.showMessageDialog(this, "Sửa khách hàng thất bại!");
-        }
-        jBtnCapPhatMaKH.setEnabled(true);
-        jBtnThemKH.setEnabled(false);
-        jBtnHuyKH.setEnabled(false);
-        jBtnSuaKH.setEnabled(false);
-        jBtnXoaKH.setEnabled(false);
-        jTextMaKhachHang.setText("");
-        jTextTen.setText("");
-        jTextCmnd.setText("");
-        jTextSDT.setText("");
-        jTextMail.setText("");
-        jTextDiaChi.setText("");
-        jTextQuocTich.setText("");
-        jDateNgaySinh.setCalendar(null);
-        jTableKH.clearSelection();
     }//GEN-LAST:event_jBtnSuaKHActionPerformed
 
     private void jBtnXoaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnXoaKHActionPerformed
-        if (delete(tbModelKH.getValueAt(selectedRow, 0).toString()))
-        {
+        if (delete(tbModelKH.getValueAt(selectedRow, 0).toString())) {
             tbModelKH.removeRow(selectedRow);
             JOptionPane.showMessageDialog(this, "Xóa khách hàng thành công!");
-        } else
-        {
+        } else {
             JOptionPane.showMessageDialog(this, "Xóa khách hàng thất bại!");
         }
         jBtnCapPhatMaKH.setEnabled(true);
@@ -755,11 +746,9 @@ public class KhachHangForm extends javax.swing.JPanel
 
 //    Vector tableRow = new Vector ();//Vector chứa các dòng dữ liệu của bảng.
     Vector tableCol = new Vector();//Vector chứa các tiêu đề của bảng.
-    
-    public void addCombo(JComboBox cmb, ArrayList list)
-    {
-        for (Object a : list)
-        {
+
+    public void addCombo(JComboBox cmb, ArrayList list) {
+        for (Object a : list) {
             cmb.addItem(a);
         }
     }
@@ -768,77 +757,63 @@ public class KhachHangForm extends javax.swing.JPanel
 //    {
 //        return jCbPhongBan;
 //    }
-    public JPanel getjPanel1()
-    {
+    public JPanel getjPanel1() {
         return jPanelNV;
     }
-    public JTextField getjTextHonv()
-    {
+
+    public JTextField getjTextHonv() {
         return jTextTen;
     }
 
-    public JTextField getjTextManv()
-    {
+    public JTextField getjTextManv() {
         return jTextMaKhachHang;
     }
 
-    public DefaultTableModel getModelnv()
-    {
+    public DefaultTableModel getModelnv() {
         return tbModelKH;
     }
 
-    public JButton getjBtnCapPhatMaNV()
-    {
+    public JButton getjBtnCapPhatMaNV() {
         return jBtnCapPhatMaKH;
     }
 
-    public int getFlagAcc()
-    {
+    public int getFlagAcc() {
         return flagAcc;
     }
 
-    public void setFlagAcc(int flagAcc)
-    {
+    public void setFlagAcc(int flagAcc) {
         this.flagAcc = flagAcc;
     }
 
-    public String getManv()
-    {
+    public String getManv() {
         return manv;
     }
 
-    public void setManv(String manv)
-    {
+    public void setManv(String manv) {
         this.manv = manv;
     }
 
-    public String getMapb()
-    {
+    public String getMapb() {
         return mapb;
     }
 
-    public void setMapb(String mapb)
-    {
+    public void setMapb(String mapb) {
         this.mapb = mapb;
     }
 
-    public JButton getjBtnRefresh()
-    {
+    public JButton getjBtnRefresh() {
         return jBtnRefresh;
     }
 
-    public void setjBtnRefresh(JButton jBtnRefresh)
-    {
+    public void setjBtnRefresh(JButton jBtnRefresh) {
         this.jBtnRefresh = jBtnRefresh;
     }
 
-    public JTabbedPane getjTabbedPane1()
-    {
+    public JTabbedPane getjTabbedPane1() {
         return jTabbedPane1;
     }
 
-    public void setjTabbedPane1(JTabbedPane jTabbedPane1)
-    {
+    public void setjTabbedPane1(JTabbedPane jTabbedPane1) {
         this.jTabbedPane1 = jTabbedPane1;
     }
 

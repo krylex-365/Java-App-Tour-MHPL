@@ -347,11 +347,21 @@ public class Utils {
 
 class main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         Utils ut = new Utils();
-        System.out.println(ut.totalDays("2020-06-02"));
-
-        DiaDiemBUS diaDiemBUS = new DiaDiemBUS();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date tgBD = simpleDateFormat.parse("12/17/2021");
+        Date tgKT = simpleDateFormat1.parse("2021-12-14");
+        if (tgBD.before(tgKT))
+        {
+            System.out.println("dsds");
+        } else
+        {
+            System.out.println("No");
+        }
+//        System.out.println(ut.totalDays("2020-06-02"));
+//        DiaDiemBUS diaDiemBUS = new DiaDiemBUS();
 //        String maDD = diaDiemBUS.CapPhat(new MaDuLieuCuoiDAO().getMaDiaDiemLast());
 //        diaDiemBUS.themDiaDiem(maDD, "dsfsdgfds");
         //diaDiemBUS.xoaDiaDiem("DD000002");
